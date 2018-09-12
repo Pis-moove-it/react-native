@@ -59,4 +59,3 @@ buck-out/
 *.jsbundle
 
 android/gradlew
-package-lock.json
