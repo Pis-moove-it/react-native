@@ -5,16 +5,16 @@ import storage from 'redux-persist/lib/storage';
 import rootReducer from './RootReducer';
 
 const persistConfig = {
-  key: 'root',
-  storage,
-  blacklist: ['loading', 'error'],
+	key: 'root',
+	storage,
+	blacklist: ['loading', 'error'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const rootStore = createStore(
-  persistedReducer,
-  applyMiddleware(thunk),
+	persistedReducer,
+	applyMiddleware(thunk),
 );
 
 export const store = rootStore;

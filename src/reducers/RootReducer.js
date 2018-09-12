@@ -4,9 +4,9 @@ import error from './ErrorReducer';
 import user from './UserReducer';
 
 const rootReducer = combineReducers({
-  loading,
-  error,
-  user,
+	loading,
+	error,
+	user,
 });
 
 export default rootReducer;
