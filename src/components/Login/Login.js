@@ -13,10 +13,11 @@ import ShadowStyles from '../../helpers/ShadowStyles';
 import TextStyles from '../../helpers/TextStyles';
 import strings from '../../localization';
 import { login, actionTypes } from '../../actions/UserActions';
-import getUser from '../../selectors/UserSelectors';
+import getUser from '../../selectors/UserSelector';
 import loadingSelector from '../../selectors/LoadingSelector';
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import styles from './styles';
+//import { Screens, registerScreens } from '../Navigation';
 
 class Login extends Component {
   static navigatorStyle = {
@@ -25,7 +26,7 @@ class Login extends Component {
 
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.user !== null) {
-      Application.startLoggedInApp();
+      Application.selectRole();
     }
     return null;
   }
