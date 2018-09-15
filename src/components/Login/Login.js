@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
+import { View, Text, Image, Picker } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Application from '../../Application';
@@ -18,85 +16,107 @@ import loadingSelector from '../../selectors/LoadingSelector';
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import styles from './styles';
 
+import responseJson from './users.json';
+
 class Login extends Component {
-  static navigatorStyle = {
-    navBarHidden: true,
-  };
+	static navigatorStyle = {
+		navBarHidden: true,
+	};
 
-  static getDerivedStateFromProps(nextProps) {
-    if (nextProps.user !== null) {
-      Application.startLoggedInApp();
-    }
-    return null;
-  }
+	static getDerivedStateFromProps(nextProps) {
+		if (nextProps.user !== null) {
+			Application.startLoggedInApp();
+		}
+		return null;
+	}
 
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
+	constructor() {
+		super();
+		this.state = {
+			username: null,
+			usersArray: null,
+		};
+	}
 
-  passwordChanged = value => this.setState({ password: value });
+	usernameChanged = value => this.setState({ username: value });
 
-  emailChanged = value => this.setState({ email: value });
+	login = () => this.props.login(this.state.username);
 
-  login = () => this.props.login(this.state.email, this.state.password);
+	getUsers() {
+		return fetch('https://facebook.github.io/react-native/movies.json')
+		.then((response) => response.json())
+		.then((responseJson) => {
+			const usersArray = [];
+			usersArray.push(
+				<Picker.Item key={999} label={strings.user} value={null} />
+			)
+			responseJson.movies.map((user, i) => {
+				usersArray.push(
+					<Picker.Item key={i} label={user.title} value={user.title} />
+				)
+			})
+			this.setState({usersArray: usersArray});
+		})
+		.catch((error) => {
+			console.error(error);
+		});
+	}
 
-  render() {
-    const { isLoading, errors } = this.props;
-    return (
-      <View style={styles.container}>
-        <View style={[styles.formContainer, ShadowStyles.shadow]}>
-          <Text style={TextStyles.fieldTitle}>
-            {strings.email}
-          </Text>
-          <TextField
-            placeholder={strings.email}
-            onChangeText={this.emailChanged}
-            value={this.state.email}
-          />
-          <Text style={TextStyles.fieldTitle}>
-            {strings.password}
-          </Text>
-          <TextField
-            placeholder={strings.password}
-            value={this.state.password}
-            onChangeText={this.passwordChanged}
-            secureTextEntry
-          />
-          <ErrorView errors={errors} />
-          <Button
-            onPress={this.login}
-            title={isLoading ? strings.loading : strings.login}
-          />
-        </View>
-      </View>
-    );
-  }
+	componentDidMount() {
+		this.getUsers();
+	}
+
+	render() {
+		console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
+		const { isLoading, errors } = this.props;
+		return (
+			<View style={styles.container}>
+				<Image source={require('./../../assets/images/Logo03.png')} style={styles.logo} />
+				<View style={[styles.formContainer, ShadowStyles.shadow]}>
+					<View style={styles.pickerContainer}>
+						<Image source={require('./../../assets/ic_user/ic_user128.png')} style={styles.icon} />
+						<Picker
+							selectedValue={this.state.username}
+							style={styles.picker}
+							mode='dropdown'
+							onValueChange={this.usernameChanged}
+						>
+							{this.state.usersArray}
+						</Picker>
+					</View>
+					<ErrorView errors={errors} />
+					<Button
+						style={styles.button}
+						textStyle={styles.textButton}
+						onPress={this.login}
+						title={isLoading ? strings.loading : strings.login}
+					/>
+				</View>
+			</View>
+		);
+	}
 }
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  user: PropTypes.object,
-  isLoading: PropTypes.bool.isRequired,
-  errors: PropTypes.array,
+	login: PropTypes.func.isRequired,
+	user: PropTypes.object,
+	isLoading: PropTypes.bool.isRequired,
+	errors: PropTypes.array,
 };
 
 Login.defaultProps = {
-  user: null,
-  errors: [],
+	user: null,
+	errors: [],
 };
 
 const mapStateToProps = state => ({
-  user: getUser(state),
-  isLoading: loadingSelector([actionTypes.LOGIN])(state),
-  errors: errorsSelector([actionTypes.LOGIN])(state),
+	user: getUser(state),
+	isLoading: loadingSelector([actionTypes.LOGIN])(state),
+	errors: errorsSelector([actionTypes.LOGIN])(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: (email, password) => dispatch(login(email, password)),
+	login: (username) => dispatch(login(username)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -3,6 +3,7 @@ export default {
 	loading: 'Loading',
 	password: 'Password',
 	email: 'Email',
+	user: 'User',
 	home: 'Home',
 	homeMessage: 'Welcome',
 	profile: 'Profile',
