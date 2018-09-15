@@ -1,6 +1,9 @@
 import configureStore from 'redux-mock-store' //ES6 modules
 import * as userActions from '../../actions/UserActions'
 import thunk from 'redux-thunk';
+import renderer from 'react-test-renderer';
+
+
 
 const middlewares = [thunk]
 const mockStore = configureStore(middlewares)
@@ -24,7 +27,7 @@ describe('UserActions', () => {
 		// Dispatch the action
 		store.dispatch(userActions.login(credentials.email, credentials.password))
 
-		// Test if your store dispatched the expected actions
+		// Test if the store dispatched the expected actions
 		const actions = store.getActions()
 		expect(actions).toEqual([expectedAction])
 	})
@@ -37,7 +40,7 @@ describe('UserActions', () => {
 		// Dispatch the action
 		store.dispatch(userActions.logout())
 
-		// Test if your store dispatched the expected actions
+		// Test if the store dispatched the expected actions
 		const actions = store.getActions()
 		expect(actions).toEqual([expectedAction])
 	})
