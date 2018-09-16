@@ -1,7 +1,7 @@
 # OSX
 #
 .DS_Store
-
+.env
 # Xcode
 #
 build/
@@ -54,6 +54,11 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+
+#signed key for release
+signed-release-key.keystore
+
+*.env
 
 # Bundle artifact
 *.jsbundle

@@ -2,7 +2,7 @@ export default {
 	login: 'Login',
 	loading: 'Loading',
 	password: 'Password',
-	email: 'Email',
+	email: 'Email23',
 	home: 'Home',
 	homeMessage: 'Welcome',
 	profile: 'Profile',

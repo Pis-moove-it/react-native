@@ -9,10 +9,11 @@ import java.util.List;
 
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
+import android.os.Bundle;
 
 public class MainApplication extends NavigationApplication {
 
-    @Override
+   @Override
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
