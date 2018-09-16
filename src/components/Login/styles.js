@@ -4,18 +4,21 @@ import Colors from '../../helpers/Colors';
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
 		backgroundColor: Colors.white,
 	},
 	formContainer: {
-		alignSelf: 'stretch',
-		justifyContent: 'center',
-		alignItems: 'flex-start',
-		marginHorizontal: 50,
-		padding: 25,
+		alignSelf: 'center',
+		margin: 15,
+	},
+	logo: {
+		alignSelf: 'center',
+		height: 150,
+		width: 150,
+		margin: 75,
+		zIndex: 1,
 	},
 	pickerContainer: {
-		alignSelf: 'stretch',
+		alignSelf: 'center',
 		alignItems:'center',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
@@ -25,19 +28,13 @@ const styles = StyleSheet.create({
 		borderColor: Colors.gray,
 	},
 	icon: {
-		height: 50,
-		width: 50,
+		height: 30,
+		width: 30,
 		margin: 15,
 	},
 	picker: {
 		width: 150,
-		margin: 20,
-	},
-	logo: {
-		alignSelf: 'center',
-		height: 250,
-		width: 250,
-		zIndex: 1,
+		margin: 15,
 	},
 	button: {
 		backgroundColor: Colors.primary,
