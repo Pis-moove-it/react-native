@@ -8,7 +8,7 @@ import renderer from 'react-test-renderer';
 const middlewares = [thunk]
 const mockStore = configureStore(middlewares)
 
-const user = { name: 'Jorge' };
+const user = { name: 'Joaquin' };
 const credentials = {
 		email: 'user@test.com',
 		password: 'password',
