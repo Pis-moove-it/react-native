@@ -14,4 +14,7 @@ export default {
 	baleAction: 'Enfardar',
 	changeRole: 'Cambiar Rol',
 	roleSelectionTitle: 'Seleccione una actividad:',
+	gatherTitle: 'Recolectar',
+	weighTitle: 'Pesar',
+	baleTitle: 'Enfardar',
 };

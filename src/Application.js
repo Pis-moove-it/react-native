@@ -13,11 +13,11 @@ class Application {
 		this.provider = provider;
 	}
 
-	startLoggedInApp = () => {
+	startLoggedInApp = activity => {
 		Navigation.startTabBasedApp({
 			tabs: [
 				{
-					screen: Screens.Home,
+					screen: activity === 'Gather' ? Screens.Gather : (activity === 'Weigh' ? Screens.Weigh : Screens.Bale),
 					icon: homeIcon,
 					label: strings.home,
 				},

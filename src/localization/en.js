@@ -14,4 +14,7 @@ export default {
 	baleAction: 'Bale',
 	changeRole: 'Change Role',
 	roleSelectionTitle: 'Select an activity:',
+	gatherTitle: 'Gather',
+	weighTitle: 'Weigh',
+	baleTitle: 'Bale',
 };
