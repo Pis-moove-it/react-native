@@ -3,12 +3,14 @@ import loading from './LoadingReducer';
 import error from './ErrorReducer';
 import user from './UserReducer';
 import role from './RoleReducer';
+import data from './APIReducer'
 
 const rootReducer = combineReducers({
 	loading,
 	error,
 	user,
-	role
+	role,
+	data
 });
 
 export default rootReducer;
