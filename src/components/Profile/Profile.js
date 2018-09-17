@@ -34,7 +34,10 @@ class Profile extends Component {
 
   state = {};
 
-  logout = () => this.props.logout();
+  logout = () => {
+		this.props.logout();
+		this.props.changeRole();
+	}
 
   changeRole = () => this.props.changeRole();
 
