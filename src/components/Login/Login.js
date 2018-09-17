@@ -9,7 +9,7 @@ import ShadowStyles from '../../helpers/ShadowStyles';
 import TextStyles from '../../helpers/TextStyles';
 import strings from '../../localization';
 import { login, actionTypes } from '../../actions/UserActions';
-import getUser from '../../selectors/UserSelectors';
+import getUser from '../../selectors/UserSelector';
 import loadingSelector from '../../selectors/LoadingSelector';
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import styles from './styles';
@@ -20,12 +20,12 @@ class Login extends Component {
 		navBarHidden: true,
 	};
 
-	static getDerivedStateFromProps(nextProps) {
-		if (nextProps.user !== null) {
-			Application.startLoggedInApp();
-		}
-		return null;
-	}
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.user !== null) {
+      Application.selectRole();
+    }
+    return null;
+  }
 
 	constructor() {
 		super();

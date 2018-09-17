@@ -9,4 +9,9 @@ export default {
 	profile: 'Profile',
 	profileMessage: 'And this one has a nav, but with a different color than the login.',
 	logout: 'Logout',
+	gatherAction: 'Gather',
+	weighAction: 'Weigh',
+	baleAction: 'Bale',
+	changeRole: 'Change Role',
+	roleSelectionTitle: 'Select an activity:',
 };

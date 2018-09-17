@@ -10,7 +10,9 @@ import TextStyles from '../../helpers/TextStyles';
 import Colors from '../../helpers/Colors';
 import Button from '../common/Button';
 import { logout } from '../../actions/UserActions';
-import getUser from '../../selectors/UserSelectors';
+import { changeRole } from '../../actions/RoleActions';
+import getUser from '../../selectors/UserSelector';
+import getRole from '../../selectors/RoleSelector';
 import Application from '../../Application';
 import styles from './styles';
 
@@ -24,13 +26,20 @@ class Profile extends Component {
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.user === null) {
       Application.startLoggedOutApp();
+    } else if (nextProps.role === null) {
+      Application.selectRole();
     }
     return null;
   }
 
   state = {};
 
-  logout = () => this.props.logout();
+  logout = () => {
+		this.props.logout();
+		this.props.changeRole();
+	}
+
+  changeRole = () => this.props.changeRole();
 
   render() {
     return (
@@ -43,6 +52,10 @@ class Profile extends Component {
           title={strings.logout}
           onPress={this.logout}
         />
+        <Button
+          title={strings.changeRole}
+          onPress={this.changeRole}
+        />
       </View>
     );
   }
@@ -51,18 +64,23 @@ class Profile extends Component {
 Profile.propTypes = {
   user: PropTypes.object,
   logout: PropTypes.func.isRequired,
+  role: PropTypes.string,
+  changeRole: PropTypes.func.isRequired,
 };
 
 Profile.defaultProps = {
   user: null,
+  role: null,
 };
 
 const mapStateToProps = state => ({
   user: getUser(state),
+  role: getRole(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
+  changeRole: () => dispatch(changeRole()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

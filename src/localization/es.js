@@ -9,4 +9,9 @@ export default {
 	profile: 'Perfil',
 	profileMessage: 'Mensaje genérico',
 	logout: 'Cerrar Sesión',
+	gatherAction: 'Recolectar',
+	weighAction: 'Pesar',
+	baleAction: 'Enfardar',
+	changeRole: 'Cambiar Rol',
+	roleSelectionTitle: 'Seleccione una actividad:',
 };

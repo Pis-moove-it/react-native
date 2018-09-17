@@ -51,6 +51,15 @@ class Application {
 			this.startLoggedOutApp();
 		});
 	}
+
+	selectRole = () => {
+		Navigation.startSingleScreenApp({
+			screen: {
+				screen: Screens.Roles,
+			},
+			animationType: 'fade',
+		});
+	}
 }
 
 export default new Application(store, Provider);
