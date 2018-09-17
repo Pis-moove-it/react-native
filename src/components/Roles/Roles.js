@@ -21,7 +21,7 @@ class Roles extends Component {
 	// We use it to detect if the role has changed to make the transition to the next screen. 
 	static getDerivedStateFromProps(nextProps) {
 		if (nextProps.role !== null) {
-			Application.startLoggedInApp();
+			Application.startLoggedInApp(nextProps.role);
 		}
 		return null;
 	}

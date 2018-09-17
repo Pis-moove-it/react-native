@@ -6,12 +6,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.white,
-    padding: 40,
+    backgroundColor: Colors.primary,
   },
-  containerWrapper: {
-    flex: 1,
-  }
 });
 
 export default styles;

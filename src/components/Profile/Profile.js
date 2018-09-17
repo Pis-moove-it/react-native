@@ -15,12 +15,11 @@ import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import Application from '../../Application';
 import styles from './styles';
+import Head from '../common/Head';
 
 class Profile extends Component {
   static navigatorStyle = {
-    title: 'Profile',
-    navBarTextColor: Colors.white,
-    navBarBackgroundColor: Colors.primary,
+    navBarHidden: true,
   };
 
   static getDerivedStateFromProps(nextProps) {
@@ -43,19 +42,22 @@ class Profile extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={TextStyles.fieldTitle}> {strings.profile} </Text>
-        <Text>
-          {strings.profileMessage}
-        </Text>
-        <Button
-          title={strings.logout}
-          onPress={this.logout}
-        />
-        <Button
-          title={strings.changeRole}
-          onPress={this.changeRole}
-        />
+      <View style={styles.containerWrapper}>
+        <Head title={this.props.user !== null ? this.props.user : 'user'}/>
+        <View style={styles.container}>
+          <Text style={TextStyles.fieldTitle}> {strings.profile} </Text>
+          <Text>
+            {strings.profileMessage}
+          </Text>
+          <Button
+            title={strings.logout}
+            onPress={this.logout}
+          />
+          <Button
+            title={strings.changeRole}
+            onPress={this.changeRole}
+          />
+        </View>
       </View>
     );
   }
