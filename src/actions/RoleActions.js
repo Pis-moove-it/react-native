@@ -1,8 +1,8 @@
 //import UserController from '../controllers/UserController';
 
 export const actionTypes = {
-  ROLE_SELECTION: 'ROLE_SELECTION',
-  ROLE_LOGOUT: 'ROLE_LOGOUT',
+	ROLE_SELECTION: 'ROLE_SELECTION',
+	ROLE_LOGOUT: 'ROLE_LOGOUT',
 };
 
 const roleSelected = role => ({
@@ -10,8 +10,8 @@ const roleSelected = role => ({
 	role,
 })
 
-export const selectRole = () => (dispatch) => {
-	dispatch(roleSelected("Recolector"));
+export const selectRole = selectedRole => (dispatch) => {
+	dispatch(roleSelected(selectedRole));
 	/*dispatch(loginRequest());
 	try {
 		const user = await UserController.login(email, password);

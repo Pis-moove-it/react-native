@@ -50,7 +50,7 @@ class Profile extends Component {
           onPress={this.logout}
         />
         <Button
-          title='Cambiar Rol'
+          title={strings.changeRole}
           onPress={this.changeRole}
         />
       </View>

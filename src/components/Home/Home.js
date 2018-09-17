@@ -23,7 +23,9 @@ class Home extends Component {
         </Text>
         <Text>
           {`${strings.homeMessage} ${user && user.name}\n`}
-          {`${user && user.name} is working as a ${role}`}
+        </Text>
+        <Text style={TextStyles.lightTitle}>
+          {`${role}`}
         </Text>
       </View>
     );
