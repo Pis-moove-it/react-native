@@ -22,7 +22,7 @@ class Home extends Component {
           {strings.home}
         </Text>
         <Text>
-          {`${strings.homeMessage} ${user && user.name}\n`}
+          {`${strings.homeMessage} ${user && user.name}`}
         </Text>
         <Text style={TextStyles.lightTitle}>
           {`${role}`}

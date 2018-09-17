@@ -13,5 +13,5 @@ export default {
 	weighAction: 'Weigh',
 	baleAction: 'Bale',
 	changeRole: 'Change Role',
-	roleSelectionTitle: 'Select an activity:'
+	roleSelectionTitle: 'Select an activity:',
 };

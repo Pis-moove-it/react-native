@@ -16,5 +16,5 @@ export const registerScreens = (store, provider) => {
 	Navigation.registerComponent(Screens.Login, () => Login, store, provider);
 	Navigation.registerComponent(Screens.Roles, () => Roles, store, provider);
 	Navigation.registerComponent(Screens.Home, () => Home, store, provider);
-	Navigation.registerComponent(Screens.Profile, () => Profile, store, provider);	
+	Navigation.registerComponent(Screens.Profile, () => Profile, store, provider);
 };
