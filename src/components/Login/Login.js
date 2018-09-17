@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Picker } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Alert, View, Image, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Application from '../../Application';
 import Button from '../common/Button';
-import TextField from '../common/TextField';
 import ErrorView from '../common/ErrorView';
 import ShadowStyles from '../../helpers/ShadowStyles';
 import TextStyles from '../../helpers/TextStyles';
@@ -32,25 +30,22 @@ class Login extends Component {
 	constructor() {
 		super();
 		this.state = {
-			id: null,
+			identifier: null,
 			username: null,
-			usersArray: null,
 		};
 	}
 
-	usernameChanged = (value, index) => this.setState({ id: index, username: value});
+	usernameChanged = (itemValue, itemIndex) => this.setState({identifier: itemIndex, username: itemValue});
 
-	login = () => this.props.login(this.state.username);
+	login = () => this.props.login(this.state.identifier, this.state.username);
 
 	getUsers() {
-		const {users} = this.props;
-		return usersData = users.data.map((user, id) => {
-			return <Picker.Item 
-				key={id}
-				label={`${user.name} ${user.surname}`}
-				value={`${user.name} ${user.surname}`}
-			/>
+		var usersData = [];
+		usersData.push(<Picker.Item key={999} label={strings.user} value={null} />)
+		this.props.users.data.map((user, identifier) => {
+			usersData.push( <Picker.Item key={identifier} label={`${user.name} ${user.surname}`} value={`${user.name} ${user.surname}`} />)
 		})
+		return usersData;
 	}
 
 	componentDidMount() {
@@ -59,7 +54,7 @@ class Login extends Component {
 
 	render() {
 		console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
-		const { isLoading, errors } = this.props;
+		const {isLoading, errors} = this.props;
 		return (
 			<View style={styles.container}>
 				<Image source={require('./../../assets/images/Logo03.png')} style={styles.logo} />
@@ -67,9 +62,9 @@ class Login extends Component {
 					<View style={styles.pickerContainer}>
 						<Image source={require('./../../assets/ic_user/ic_user128.png')} style={styles.icon} />
 						<Picker
-							selectedValue={this.state.id}
+							selectedValue={this.state.username}
 							style={styles.picker}
-							mode='dropdown'
+							mode='dialog'
 							onValueChange={this.usernameChanged}
 						>
 							{this.getUsers()}
@@ -79,7 +74,7 @@ class Login extends Component {
 					<Button
 						style={styles.button}
 						textStyle={styles.textButton}
-						onPress={this.login}
+						onPress={this.state.username !== null ? this.login : null}
 						title={isLoading ? strings.loading : strings.login}
 					/>
 				</View>
@@ -108,7 +103,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	login: (username) => dispatch(login(username)),
+	login: (identifier, username) => dispatch(login(identifier, username)),
 	fetchData: () => dispatch(fetchData()),
 });
 
