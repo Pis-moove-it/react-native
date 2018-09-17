@@ -17,7 +17,7 @@ class Application {
 		Navigation.startTabBasedApp({
 			tabs: [
 				{
-					screen: activity === 'Gather' ? Screens.Gather : (activity === 'Weigh' ? Screens.Weigh : Screens.Bale),
+					screen: activity === strings.gatherAction ? Screens.Gather : (activity === strings.weighAction ? Screens.Weigh : Screens.Bale),
 					icon: homeIcon,
 					label: strings.home,
 				},
