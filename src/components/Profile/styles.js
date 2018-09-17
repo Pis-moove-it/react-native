@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     padding: 40,
   },
+  containerWrapper: {
+    flex: 1,
+  }
 });
 
 export default styles;
