@@ -26,10 +26,10 @@ const logoutRequest = () => ({
 	type: actionTypes.LOGOUT,
 });
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (identifier, username) => async (dispatch) => {
 	dispatch(loginRequest());
 	try {
-		const user = await UserController.login(email, password);
+		const user = await UserController.login(identifier, username);
 		dispatch(loginSuccess(user));
 	} catch (error) {
 		dispatch(loginError(error.message));
