@@ -11,18 +11,13 @@ const styles = StyleSheet.create({
 	titleContainer: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		//marginTop: 50,
 		height: '30%',
 		marginTop: '5%',
-		//marginBottom: '10%',
-		//borderColor: Colors.black,
-		//borderWidth: 1,
 	},
 	title: {
 		fontSize: 30,
 		fontWeight: 'bold',
 		color: Colors.primary,
-		//marginTop: '20%',
 	},
 	buttonContainer: {
 		justifyContent: 'space-evenly',
@@ -30,9 +25,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		marginHorizontal: 0, 
-		//borderColor: Colors.black,
-		//borderWidth: 1,
+		marginHorizontal: 0,
 	},
 	portraitButton: {
 		backgroundColor: Colors.primary,
