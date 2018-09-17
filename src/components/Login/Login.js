@@ -57,8 +57,10 @@ class Login extends Component {
 		const {isLoading, errors} = this.props;
 		return (
 			<View style={styles.container}>
-				<Image source={require('./../../assets/images/Logo03.png')} style={styles.logo} />
-				<View style={[styles.formContainer, ShadowStyles.shadow]}>
+				<View style={styles.topContainer}>
+					<Image source={require('./../../assets/images/Logo03.png')} style={styles.logo} />
+				</View>
+				<View style={[styles.bottomContainer, ShadowStyles.shadow]}>
 					<View style={styles.pickerContainer}>
 						<Image source={require('./../../assets/ic_user/ic_user128.png')} style={styles.icon} />
 						<Picker
