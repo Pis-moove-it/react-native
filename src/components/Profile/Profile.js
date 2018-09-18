@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import strings from '../../localization';
 import TextStyles from '../../helpers/TextStyles';
-import Colors from '../../helpers/Colors';
 import Button from '../common/Button';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
@@ -22,6 +21,8 @@ class Profile extends Component {
     navBarHidden: true,
   };
 
+  state = {};
+
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.user === null) {
       Application.startLoggedOutApp();
@@ -30,8 +31,6 @@ class Profile extends Component {
     }
     return null;
   }
-
-  state = {};
 
   logout = () => {
 		this.props.logout();

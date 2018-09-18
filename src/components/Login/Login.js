@@ -1,32 +1,22 @@
 import React, { Component } from 'react';
-import { Alert, View, Image, Picker } from 'react-native';
-import { connect } from 'react-redux';
+import { View, Image, Picker } from 'react-native';
 import PropTypes from 'prop-types';
 import Application from '../../Application';
 import Button from '../common/Button';
 import ErrorView from '../common/ErrorView';
 import ShadowStyles from '../../helpers/ShadowStyles';
-import TextStyles from '../../helpers/TextStyles';
 import strings from '../../localization';
 import { login, actionTypes } from '../../actions/UserActions';
 import getUser from '../../selectors/UserSelector';
 import loadingSelector from '../../selectors/LoadingSelector';
-import { errorsSelector } from '../../selectors/ErrorSelector';
 import styles from './styles';
 import { fetchData } from '../../actions/APIActions'
+import { errorsSelector } from '../../selectors/ErrorSelector';
+import { connect } from 'react-redux';
+
 
 class Login extends Component {
-	static navigatorStyle = {
-		navBarHidden: true,
-	};
-
-  static getDerivedStateFromProps(nextProps) {
-    if (nextProps.user !== null) {
-      Application.selectRole();
-    }
-    return null;
-  }
-
+	
 	constructor() {
 		super();
 		this.state = {
@@ -34,6 +24,21 @@ class Login extends Component {
 			username: null,
 		};
 	}
+
+	static navigatorStyle = {
+		navBarHidden: true,
+	};
+
+	componentDidMount() {
+		this.props.fetchData();
+	}
+
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.user !== null) {
+      Application.selectRole();
+    }
+    return null;
+  }
 
 	usernameChanged = (itemValue, itemIndex) => this.setState({identifier: itemIndex, username: itemValue});
 
@@ -46,10 +51,6 @@ class Login extends Component {
 			usersData.push( <Picker.Item key={identifier} label={`${user.name} ${user.surname}`} value={`${user.name} ${user.surname}`} />)
 		})
 		return usersData;
-	}
-
-	componentDidMount() {
-		this.props.fetchData();
 	}
 
 	render() {

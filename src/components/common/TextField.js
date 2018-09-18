@@ -4,23 +4,6 @@ import { View, TextInput, StyleSheet } from 'react-native';
 import TextStyles from '../../helpers/TextStyles';
 import Colors from '../../helpers/Colors';
 
-const styles = StyleSheet.create({
-	container: {
-		alignSelf: 'stretch',
-		marginVertical: 10,
-	},
-	line: {
-		backgroundColor: Colors.gray,
-		marginTop: 2,
-		height: 1,
-		flexDirection: 'column',
-		alignSelf: 'stretch',
-	},
-	field: {
-		alignSelf: 'stretch',
-	},
-});
-
 const TextField = props => (
 	<View style={styles.container}>
 		<TextInput
@@ -39,5 +22,22 @@ TextField.propTypes = {
 TextField.defaultProps = {
 	style: null,
 };
+
+const styles = StyleSheet.create({
+	container: {
+		alignSelf: 'stretch',
+		marginVertical: 10,
+	},
+	line: {
+		backgroundColor: Colors.gray,
+		marginTop: 2,
+		height: 1,
+		flexDirection: 'column',
+		alignSelf: 'stretch',
+	},
+	field: {
+		alignSelf: 'stretch',
+	},
+});
 
 export default TextField;
