@@ -43,6 +43,9 @@ const styles = StyleSheet.create({
 		width: 150,
 		margin: '5%',
 	},
+	activityIndicator: {
+		margin: '2%',
+	},
 	button: {
 		alignSelf: 'center',
 		width: '60%',
