@@ -46,6 +46,7 @@ class Application {
 	}
 
 	startApp = () => {
+		console.disableYellowBox = true;
 		registerScreens(this.store, this.provider);
 		persist(() => {
 			this.startLoggedOutApp();

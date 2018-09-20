@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, Image, Picker } from 'react-native';
+import { View, Image, Picker, ActivityIndicator } from 'react-native';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Application from '../../Application';
 import Button from '../common/Button';
 import ErrorView from '../common/ErrorView';
+import Colors from '../../helpers/Colors';
 import ShadowStyles from '../../helpers/ShadowStyles';
 import strings from '../../localization';
 import { login, actionTypes } from '../../actions/UserActions';
@@ -12,7 +14,6 @@ import loadingSelector from '../../selectors/LoadingSelector';
 import styles from './styles';
 import { fetchData } from '../../actions/APIActions'
 import { errorsSelector } from '../../selectors/ErrorSelector';
-import { connect } from 'react-redux';
 
 
 class Login extends Component {
@@ -42,20 +43,23 @@ class Login extends Component {
 
 	usernameChanged = (itemValue, itemIndex) => this.setState({identifier: itemIndex, username: itemValue});
 
-	login = () => this.props.login(this.state.identifier, this.state.username);
+	login = () => {
+		this.setState({loading: true});
+		this.props.login(this.state.identifier, this.state.username);
+	};
 
 	getUsers() {
 		var usersData = [];
-		usersData.push(<Picker.Item key={999} label={strings.user} value={null} />)
+		usersData.push(<Picker.Item key={999} label={strings.user} value={null} />);
 		this.props.users.data.map((user, identifier) => {
 			usersData.push( <Picker.Item key={identifier} label={`${user.name} ${user.surname}`} value={`${user.name} ${user.surname}`} />)
-		})
+		});
 		return usersData;
 	}
 
 	render() {
-		console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
 		const {isLoading, errors} = this.props;
+		let loading = this.state.loading;
 		return (
 			<View style={styles.container}>
 				<View style={styles.topContainer}>
@@ -74,12 +78,18 @@ class Login extends Component {
 						</Picker>
 					</View>
 					<ErrorView errors={errors} />
-					<Button
-						style={styles.button}
-						textStyle={styles.textButton}
-						onPress={this.state.username !== null ? this.login : null}
-						title={isLoading ? strings.loading : strings.login}
-					/>
+					{loading && errors.length < 1 ?
+						<View style={styles.activityIndicator}>
+							<ActivityIndicator size="large" color={Colors.primary} />
+						</View>
+					:
+						<Button
+							style={styles.button}
+							textStyle={styles.textButton}
+							onPress={this.state.username !== null ? this.login : null}
+							title={strings.login}
+						/>
+					}
 				</View>
 			</View>
 		);
