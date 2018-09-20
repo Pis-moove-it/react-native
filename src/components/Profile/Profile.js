@@ -34,30 +34,30 @@ class Profile extends Component {
   state = {};
 
   logout = () => {
-		this.props.logout();
-		this.props.changeRole();
-	}
+    this.props.logout();
+    this.props.changeRole();
+  }
 
   changeRole = () => this.props.changeRole();
 
   render() {
     return (
       <View style={styles.containerWrapper}>
-        <Head title={this.props.user !== null ? this.props.user : 'user'}/>
+        <Head title={this.props.user !== null ? this.props.user : 'user'} />
         <View style={styles.container}>
           <Text style={TextStyles.fieldTitle}> {strings.profile} </Text>
           <Text>
             {strings.profileMessage}
           </Text>
-					<Button
-						style={styles.button}
-						textStyle={styles.text}
-						title={strings.changeRole}
-						onPress={this.changeRole}
-					/>
           <Button
-						style={styles.button}
-						textStyle={styles.text}
+            style={styles.button}
+            textStyle={styles.text}
+            title={strings.changeRole}
+            onPress={this.changeRole}
+          />
+          <Button
+            style={styles.button}
+            textStyle={styles.text}
             title={strings.logout}
             onPress={this.logout}
           />
