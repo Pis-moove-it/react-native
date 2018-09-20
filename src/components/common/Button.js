@@ -4,18 +4,6 @@ import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import TextStyles from '../../helpers/TextStyles';
 import Colors from '../../helpers/Colors';
 
-const styles = StyleSheet.create({
-	button: {
-		alignSelf: 'stretch',
-		alignItems: 'center',
-		borderColor: Colors.primary,
-		borderWidth: 1,
-		marginTop: 10,
-		padding: 5,
-		borderRadius: 5,
-	},
-});
-
 const Button = props => (
 	<TouchableOpacity
 		{...props}
@@ -40,5 +28,17 @@ Button.defaultProps = {
 	textStyle: null,
 	title: '',
 };
+
+const styles = StyleSheet.create({
+	button: {
+		alignSelf: 'stretch',
+		alignItems: 'center',
+		borderColor: Colors.primary,
+		borderWidth: 1,
+		marginTop: 10,
+		padding: 5,
+		borderRadius: 5,
+	},
+});
 
 export default Button;
