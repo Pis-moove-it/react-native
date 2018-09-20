@@ -11,7 +11,14 @@ const styles = StyleSheet.create({
   },
   containerWrapper: {
     flex: 1,
-  }
+	},
+	button: {
+		justifyContent: 'center',
+		height: 50,
+	},
+	textButton: {
+		fontSize: 20,
+	}
 });
 
 export default styles;

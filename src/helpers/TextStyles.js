@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 		fontWeight: 'normal',
 	},
 	fieldTitle: {
-		fontSize: 16,
+		fontSize: 22,
 		fontWeight: '700',
 		color: Colors.primary,
 	},

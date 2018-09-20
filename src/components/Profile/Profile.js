@@ -49,13 +49,17 @@ class Profile extends Component {
           <Text>
             {strings.profileMessage}
           </Text>
+					<Button
+						style={styles.button}
+						textStyle={styles.text}
+						title={strings.changeRole}
+						onPress={this.changeRole}
+					/>
           <Button
+						style={styles.button}
+						textStyle={styles.text}
             title={strings.logout}
             onPress={this.logout}
-          />
-          <Button
-            title={strings.changeRole}
-            onPress={this.changeRole}
           />
         </View>
       </View>
