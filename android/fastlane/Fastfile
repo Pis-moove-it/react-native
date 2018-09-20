@@ -10,8 +10,8 @@ desc "Submit a new Beta Build to Crashlytics Beta"
     crashlytics(
       api_token: ENV['CRASHLYTICS_API_TOKEN'],
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
-      #groups: 'main',
-      #notifications: 'true',
-      #notes: 'Release 424'
+      groups: 'algunos',
+      notifications: 'true',
+      notes: 'Release 0.1 -> probando deploy'
     )  
   end
