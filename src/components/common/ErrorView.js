@@ -3,13 +3,6 @@ import { Text, View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import TextStyles from '../../helpers/TextStyles';
 
-const styles = StyleSheet.create({
-	container: {
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-});
-
 const ErrorView = (props) => {
 	if (props.errors.length === 0) {
 		return null;
@@ -29,5 +22,12 @@ const ErrorView = (props) => {
 ErrorView.propTypes = {
 	errors: PropTypes.array.isRequired,
 };
+
+const styles = StyleSheet.create({
+	container: {
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+});
 
 export default ErrorView;

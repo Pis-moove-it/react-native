@@ -13,11 +13,11 @@ class Application {
 		this.provider = provider;
 	}
 
-	startLoggedInApp = () => {
+	startLoggedInApp = activity => {
 		Navigation.startTabBasedApp({
 			tabs: [
 				{
-					screen: Screens.Home,
+					screen: activity === strings.gatherAction ? Screens.Gather : (activity === strings.weighAction ? Screens.Weigh : Screens.Bale),
 					icon: homeIcon,
 					label: strings.home,
 				},
@@ -46,9 +46,19 @@ class Application {
 	}
 
 	startApp = () => {
+		console.disableYellowBox = true;
 		registerScreens(this.store, this.provider);
 		persist(() => {
 			this.startLoggedOutApp();
+		});
+	}
+
+	selectRole = () => {
+		Navigation.startSingleScreenApp({
+			screen: {
+				screen: Screens.Roles,
+			},
+			animationType: 'fade',
 		});
 	}
 }

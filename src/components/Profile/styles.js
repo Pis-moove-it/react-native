@@ -9,6 +9,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     padding: 40,
   },
+  containerWrapper: {
+    flex: 1,
+  },
+  button: {
+    justifyContent: 'center',
+    height: 50,
+  },
+  textButton: {
+    fontSize: 20,
+  }
 });
 
 export default styles;
