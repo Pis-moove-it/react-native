@@ -11,12 +11,25 @@ import strings from '../../localization';
 import { login, actionTypes } from '../../actions/UserActions';
 import getUser from '../../selectors/UserSelector';
 import loadingSelector from '../../selectors/LoadingSelector';
-import styles from './styles';
-import { fetchData } from '../../actions/APIActions'
+import { fetchData } from '../../actions/APIActions';
 import { errorsSelector } from '../../selectors/ErrorSelector';
+import styles from './styles';
+import reciclandoLogo from './../../assets/images/Logo03.png';
+import avatar from './../../assets/ic_user/ic_user128.png';
 
 
 class Login extends Component {
+  static navigatorStyle = {
+    navBarHidden: true,
+  };
+
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.user !== null) {
+      Application.selectRole();
+    }
+    return null;
+  }
+
   constructor() {
     super();
     this.state = {
@@ -26,48 +39,41 @@ class Login extends Component {
     };
   }
 
-  static navigatorStyle = {
-    navBarHidden: true,
-  };
 
   componentDidMount() {
     this.props.fetchData();
   }
 
-  static getDerivedStateFromProps(nextProps) {
-    if (nextProps.user !== null) {
-      Application.selectRole();
-    }
-    return null;
-  }
-
-  usernameChanged = (itemValue, itemIndex) => this.setState({identifier: itemIndex, username: itemValue});
-
-  login = () => {
-    this.setState({loading: true});
-    this.props.login(this.state.identifier, this.state.username);
-  };
-
   getUsers() {
-    var usersData = [];
+    const usersData = [];
     usersData.push(<Picker.Item key={999} label={strings.user} value={null} />);
     this.props.users.data.map((user, identifier) => {
-      usersData.push( <Picker.Item key={identifier} label={`${user.name} ${user.surname}`} value={`${user.name} ${user.surname}`} />)
+      return usersData.push(<Picker.Item key={identifier} label={`${user.name} ${user.surname}`} value={`${user.name} ${user.surname}`} />);
     });
     return usersData;
   }
 
+
+  login = () => {
+    this.setState({ loading: true });
+    this.props.login(this.state.identifier, this.state.username);
+  };
+
+  usernameChanged = (itemValue, itemIndex) => {
+    this.setState({ identifier: itemIndex, username: itemValue });
+  }
+
   render() {
-    const {isLoading, errors} = this.props;
-    let loading = this.state.loading;
+    const { errors } = this.props;
+    const { loading } = this.state.loading;
     return (
       <View style={styles.container}>
         <View style={styles.topContainer}>
-          <Image source={require('./../../assets/images/Logo03.png')} style={styles.logo} />
+          <Image source={reciclandoLogo} style={styles.logo} />
         </View>
         <View style={[styles.bottomContainer, ShadowStyles.shadow]}>
           <View style={styles.pickerContainer}>
-            <Image source={require('./../../assets/ic_user/ic_user128.png')} style={styles.icon} />
+            <Image source={avatar} style={styles.icon} />
             <Picker
               selectedValue={this.state.username}
               style={styles.picker}
@@ -98,14 +104,15 @@ class Login extends Component {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  user: PropTypes.object,
-  isLoading: PropTypes.bool.isRequired,
   errors: PropTypes.array,
+  fetchData: PropTypes.func,
+  users: PropTypes.object,
 };
 
 Login.defaultProps = {
-  user: null,
   errors: [],
+  fetchData: null,
+  users: null,
 };
 
 const mapStateToProps = state => ({

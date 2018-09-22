@@ -64,13 +64,11 @@ class Profile extends Component {
 Profile.propTypes = {
   user: PropTypes.object,
   logout: PropTypes.func.isRequired,
-  role: PropTypes.string,
   changeRole: PropTypes.func.isRequired,
 };
 
 Profile.defaultProps = {
   user: null,
-  role: null,
 };
 
 const mapStateToProps = state => ({
