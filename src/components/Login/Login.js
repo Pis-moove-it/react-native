@@ -65,7 +65,7 @@ class Login extends Component {
 
   render() {
     const { errors } = this.props;
-    let { loading } = this.state.loading;
+    let loading = this.state.loading;
     return (
       <View style={styles.container}>
         <View style={styles.topContainer}>
