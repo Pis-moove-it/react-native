@@ -6,8 +6,7 @@ const initialState = {
 	error: false
 };
 
-
-export default data = (state = initialState, action) => {
+const apiReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.API_REQUEST:
 			return {
@@ -32,3 +31,5 @@ export default data = (state = initialState, action) => {
 			return state;
 	}
 };
+
+export default apiReducer;

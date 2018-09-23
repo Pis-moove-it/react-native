@@ -10,10 +10,12 @@ import ShadowStyles from '../../helpers/ShadowStyles';
 import strings from '../../localization';
 import { login, actionTypes } from '../../actions/UserActions';
 import getUser from '../../selectors/UserSelector';
+import getData from '../../selectors/APISelector';
 import loadingSelector from '../../selectors/LoadingSelector';
 import styles from './styles';
 import { fetchData } from '../../actions/APIActions'
 import { errorsSelector } from '../../selectors/ErrorSelector';
+import axios from 'axios';
 
 
 class Login extends Component {
@@ -48,12 +50,15 @@ class Login extends Component {
     this.props.login(this.state.identifier, this.state.username);
   };
 
+  fetchData = () => this.props.fetchData();
+
   getUsers() {
     var usersData = [];
     usersData.push(<Picker.Item key={999} label={strings.user} value={null} />);
-    this.props.users.data.map((user, identifier) => {
+    this.props.dataFetch.map((user, identifier) => {
       usersData.push( <Picker.Item key={identifier} label={`${user.name} ${user.surname}`} value={`${user.name} ${user.surname}`} />)
     });
+
     return usersData;
   }
 
@@ -101,6 +106,7 @@ Login.propTypes = {
   user: PropTypes.object,
   isLoading: PropTypes.bool.isRequired,
   errors: PropTypes.array,
+  fetchData: PropTypes.func.isRequired,
 };
 
 Login.defaultProps = {
@@ -112,7 +118,7 @@ const mapStateToProps = state => ({
   user: getUser(state),
   isLoading: loadingSelector([actionTypes.LOGIN])(state),
   errors: errorsSelector([actionTypes.LOGIN])(state),
-  users: state.data,
+  dataFetch: getData(state),
 });
 
 const mapDispatchToProps = dispatch => ({
