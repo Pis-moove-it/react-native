@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
+import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import strings from '../../localization';
@@ -13,15 +10,13 @@ import { changeRole } from '../../actions/RoleActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import Application from '../../Application';
-import styles from './styles';
 import Head from '../common/Head';
+import styles from './styles';
 
 class Profile extends Component {
   static navigatorStyle = {
     navBarHidden: true,
   };
-
-  state = {};
 
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.user === null) {
@@ -32,10 +27,12 @@ class Profile extends Component {
     return null;
   }
 
+  state = {};
+
   logout = () => {
     this.props.logout();
     this.props.changeRole();
-  }
+  };
 
   changeRole = () => this.props.changeRole();
 
@@ -45,9 +42,7 @@ class Profile extends Component {
         <Head title={this.props.user !== null ? this.props.user : 'user'} />
         <View style={styles.container}>
           <Text style={TextStyles.fieldTitle}> {strings.profile} </Text>
-          <Text>
-            {strings.profileMessage}
-          </Text>
+          <Text>{strings.profileMessage}</Text>
           <Button
             style={styles.button}
             textStyle={styles.text}
@@ -69,13 +64,11 @@ class Profile extends Component {
 Profile.propTypes = {
   user: PropTypes.object,
   logout: PropTypes.func.isRequired,
-  role: PropTypes.string,
   changeRole: PropTypes.func.isRequired,
 };
 
 Profile.defaultProps = {
   user: null,
-  role: null,
 };
 
 const mapStateToProps = state => ({
@@ -88,4 +81,7 @@ const mapDispatchToProps = dispatch => ({
   changeRole: () => dispatch(changeRole()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Profile);
