@@ -18,15 +18,9 @@ class Home extends Component {
     const { role } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={TextStyles.lightTitle}>
-          {strings.home}
-        </Text>
-        <Text>
-          {`${strings.homeMessage} ${user && user.name}`}
-        </Text>
-        <Text style={TextStyles.lightTitle}>
-          {`${role}`}
-        </Text>
+        <Text style={TextStyles.lightTitle}>{strings.home}</Text>
+        <Text>{`${strings.homeMessage} ${user && user.name}`}</Text>
+        <Text style={TextStyles.lightTitle}>{`${role}`}</Text>
       </View>
     );
   }
@@ -49,4 +43,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = () => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Home);
