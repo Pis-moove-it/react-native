@@ -18,7 +18,6 @@ import styles from './styles';
 import reciclandoLogo from './../../assets/images/Logo03.png';
 import avatar from './../../assets/ic_user/ic_user128.png';
 
-
 class Login extends Component {
   static navigatorStyle = {
     navBarHidden: true,
@@ -39,7 +38,6 @@ class Login extends Component {
       loading: false,
     };
   }
-
 
   componentDidMount() {
     this.props.fetchData();
