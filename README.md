@@ -8,6 +8,18 @@ Then open another console on the directory project and run:
 
 2. npm start
 
+## Deploy
+
+1. To make a deploy you need to create a .env file on Android directory with dotenv and then add the credentials for fabric:
+
+require 'dotenv/load'
+CRASHLYTICS_API_TOKEN=
+CRASHLYTICS_BUILD_SECRET=
+
+2. Then run the command:
+
+cd android && bundle exec fastlane beta
+
 ## Folder sturcture
 
 This template follows a very simple project structure:
