@@ -102,7 +102,7 @@ android {
     defaultConfig {
         applicationId "com.reactnativetemplate"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         ndk {
@@ -142,6 +142,7 @@ dependencies {
     compile project(':react-native-localization')
     compile project(':react-native-config')
     compile project(':react-native-navigation')
+    compile project(':mapbox-react-native-mapbox-gl')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:26.1.0"
     compile "com.facebook.react:react-native:+"  // From node_modules
