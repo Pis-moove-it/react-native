@@ -10,10 +10,11 @@ import { changeRole } from '../../actions/RoleActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import Application from '../../Application';
-import Head from '../common/Head';
 import user128 from '../../assets/ic_user/ic_user128.png';
 import Logo01 from '../../assets/images/Logo01.png';
+import sideMenuIcon from '../../assets/ic_common/ic_hamburgerCircular.png';
 import Colors from '../../helpers/Colors';
+import Platform from '../../helpers/Platform';
 import styles from './styles';
 
 class Profile extends Component {
@@ -23,7 +24,13 @@ class Profile extends Component {
   };
 
   static navigatorButtons = {
-    leftButtons: [],
+    leftButtons: [
+      {
+        icon: Logo01,
+        id: 'logo',
+        buttonColor: Colors.white,
+      },
+    ],
     rightButtons: [],
   };
 
@@ -40,12 +47,13 @@ class Profile extends Component {
     super(props);
     this.state = {
       user: props.user,
+      isTablet: Platform.isTablet,
     };
   }
 
   state = {};
 
-  setButtons = (h) => {
+  setButtonsTablet = (name) => {
     this.props.navigator.setButtons({
       rightButtons: [
         {
@@ -53,18 +61,23 @@ class Profile extends Component {
           id: 'userIcon',
         },
         {
-          title: h.toString(),
+          title: name.toString(),
           id: 'username',
           buttonColor: Colors.white,
           buttonFontSize: 14,
           buttonFontWeight: '600',
         },
       ],
-      leftButtons: [
+      animated: false,
+    });
+  };
+
+  setButtonsPhone = () => {
+    this.props.navigator.setButtons({
+      rightButtons: [
         {
-          icon: Logo01,
-          id: 'logo',
-          buttonColor: Colors.white,
+          icon: sideMenuIcon,
+          id: 'sideMenuIcon',
         },
       ],
       animated: false,
@@ -80,11 +93,16 @@ class Profile extends Component {
 
   render() {
     const { name } = this.state.user;
-    this.setButtons(name);
+    const { isTablet } = this.state.isTablet;
+
+    if (isTablet) {
+      this.setButtonsTablet(name);
+    } else {
+      this.setButtonsPhone();
+    }
 
     return (
       <View style={styles.containerWrapper}>
-        <Head title={this.props.user !== null ? this.props.user : 'user'} />
         <View style={styles.container}>
           <Text style={TextStyles.fieldTitle}> {strings.profile} </Text>
           <Text>{strings.profileMessage}</Text>
