@@ -3,8 +3,6 @@ import { FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { List } from 'react-native-elements';
-import getUser from '../../selectors/UserSelector';
-import getRole from '../../selectors/RoleSelector';
 import PhoneBale from './PhoneBale';
 
 const list = [
