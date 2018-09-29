@@ -8,18 +8,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.primary,
   },
+  baleContainer: {},
   editBaleButton: {
     width: '40%',
+    height: '55%',
     backgroundColor: Colors.primary,
-    marginTop: 0,
+    padding: 0,
+    textAlign: 'center',
+    marginTop: 13,
   },
   textButton: {
+    flex: 1,
     color: Colors.white,
     fontSize: 13,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5,
   },
   baleImageStyle: {
-    width: 100,
-    borderRadius: 100,
+    width: 50,
+    height: 60,
+    marginRight: 5,
   },
 });
 
