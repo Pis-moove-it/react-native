@@ -1,5 +1,5 @@
-import getDataApi from '../api';
 import axios from 'axios';
+import getDataApi from '../api';
 
 export const actionTypes = {
   API_REQUEST: 'API_REQUEST',
@@ -22,13 +22,11 @@ const getDataSuccess = data => ({
 });
 
 
-export const fetchData = () => {
-  return (dispatch) => {
-    dispatch(getData());
-    getDataApi()
-      .then((response) => {
-        dispatch(getDataSuccess(response.data))
-      })
-      .catch((err) => console.log("Error"))
-  }
+export const fetchData = () => (dispatch) => {
+  dispatch(getData());
+  getDataApi()
+    .then((response) => {
+      dispatch(getDataSuccess(response.data));
+    })
+    .catch(err => console.log('Error: ', err));
 };

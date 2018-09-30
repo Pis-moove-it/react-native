@@ -11,6 +11,7 @@ import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import Application from '../../Application';
 import Head from '../common/Head';
+import { Screens } from '../Navigation';
 import styles from './styles';
 
 class Profile extends Component {
@@ -18,16 +19,17 @@ class Profile extends Component {
     navBarHidden: true,
   };
 
-  static getDerivedStateFromProps(nextProps) {
-    if (nextProps.user === null) {
-      Application.startLoggedOutApp();
-    } else if (nextProps.role === null) {
-      Application.selectRole();
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.user) {
+      Application.startLoggedInApp();
+    } else if (!nextProps.role) {
+      this.props.navigator.push({
+        screen: Screens.Roles,
+        animationType: 'fade',
+      });
     }
     return null;
   }
-
-  state = {};
 
   logout = () => {
     this.props.logout();
@@ -65,6 +67,7 @@ Profile.propTypes = {
   user: PropTypes.object,
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
+  navigator: PropTypes.object.isRequired,
 };
 
 Profile.defaultProps = {
