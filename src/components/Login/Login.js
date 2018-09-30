@@ -61,16 +61,16 @@ class Login extends Component {
             secureTextEntry
           />
           <ErrorView errors={errors} />
-          {this.props.isLoading && errors.length < 1 ?
+          {this.props.isLoading && errors.length < 1 ? (
             <View style={styles.activityIndicator}>
               <ActivityIndicator size="large" color={Colors.primary} />
             </View>
-          :
+          ) : (
             <Button
               onPress={this.state.organization ? this.login : null}
               title={strings.login}
             />
-          }
+          )}
         </View>
       </View>
     );
@@ -101,4 +101,7 @@ const mapDispatchToProps = dispatch => ({
   login: (organization, password) => dispatch(login(organization, password)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);

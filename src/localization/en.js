@@ -1,5 +1,6 @@
 export default {
   login: 'Login',
+  selectUser: 'Select User',
   loading: 'Loading',
   password: 'Password',
   email: 'Email',
@@ -18,4 +19,9 @@ export default {
   gatherTitle: 'Gather',
   weighTitle: 'Weigh',
   baleTitle: 'Bale',
+  baleComponentBale: 'Bale',
+  baleComponentType: 'Type',
+  baleComponentWeight: 'Weight',
+  baleButtonText: 'Edit bale',
+  bale: 'Bale',
 };

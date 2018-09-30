@@ -8,7 +8,7 @@ import Colors from '../../helpers/Colors';
 import ShadowStyles from '../../helpers/ShadowStyles';
 import strings from '../../localization';
 import { login, actionTypes } from '../../actions/UserActions';
-import { fetchData } from '../../actions/APIActions';
+import { fetchUsers } from '../../actions/UsersAPIActions';
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import { Screens } from '../Navigation';
 import styles from './styles';
@@ -43,12 +43,13 @@ class User extends Component {
 
   getUsers() {
     const usersData = [];
-    usersData.push(<Picker.Item key={999} label={strings.user} value={null} />);
-    if (this.props.dataFetch) {
-      this.props.dataFetch.map((user, identifier) => {
-        usersData.push(<Picker.Item key={identifier} label={`${user.name} ${user.surname}`} value={`${user.name} ${user.surname}`} />);
-      });
-    }
+    this.props.dataFetch.map((user, identifier) => {
+      usersData.push(<Picker.Item
+          key={identifier}
+          label={`${user.name} ${user.surname}`}
+          value={`${user.name} ${user.surname}`}
+        />,);
+    });
     return usersData;
   }
 
@@ -56,10 +57,9 @@ class User extends Component {
 
   usernameChanged = (itemValue, itemIndex) => {
     this.setState({ identifier: itemIndex, username: itemValue });
-  }
+  };
 
   render() {
-    // console.log('props: ', this.props);
     const { errors } = this.props;
     return (
       <View style={styles.container}>
@@ -79,18 +79,18 @@ class User extends Component {
             </Picker>
           </View>
           <ErrorView errors={errors} />
-          {this.props.isLoading && errors.length < 1 ?
+          {this.props.isLoading && errors.length < 1 ? (
             <View style={styles.activityIndicator}>
               <ActivityIndicator size="large" color={Colors.primary} />
             </View>
-          :
+          ) : (
             <Button
               style={styles.button}
               textStyle={styles.textButton}
               onPress={this.state.username ? this.login : null}
-              title={strings.login}
+              title={strings.selectUser}
             />
-          }
+          )}
         </View>
       </View>
     );
@@ -114,15 +114,18 @@ User.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  dataFetch: state.data.data,
-  errors: errorsSelector([actionTypes.LOGIN])(state),
+  dataFetch: state.users.users,
+  errors: errorsSelector([actionTypes.USER_LOGIN])(state),
   isLoading: state.user.isLoading,
   user: state.user.user,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: () => dispatch(fetchData()),
+  fetchData: () => dispatch(fetchUsers()),
   login: (identifier, username) => dispatch(login(identifier, username)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(User);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(User);

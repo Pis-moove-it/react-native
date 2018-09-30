@@ -20,13 +20,18 @@ class Application {
       },
       animationType: 'fade',
     });
-  }
+  };
 
   startRole = (activity) => {
     Navigation.startTabBasedApp({
       tabs: [
         {
-          screen: activity === strings.gatherAction ? Screens.Gather : (activity === strings.weighAction ? Screens.Weigh : Screens.Bale),
+          screen:
+            activity === strings.gatherAction
+              ? Screens.Gather
+              : activity === strings.weighAction
+                ? Screens.Weigh
+                : Screens.Bale,
           icon: homeIcon,
           label: strings.home,
         },
@@ -43,7 +48,7 @@ class Application {
       },
       animationType: 'fade',
     });
-  }
+  };
 
   startLoggedOutApp = () => {
     Navigation.startSingleScreenApp({
@@ -52,7 +57,7 @@ class Application {
       },
       animationType: 'fade',
     });
-  }
+  };
 
   startApp = () => {
     console.disableYellowBox = true;
@@ -60,7 +65,7 @@ class Application {
     persist(() => {
       this.startLoggedOutApp();
     });
-  }
+  };
 }
 
 export default new Application(store, Provider);

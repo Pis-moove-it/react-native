@@ -4,7 +4,7 @@ import error from './ErrorReducer';
 import user from './UserReducer';
 import login from './LoginReducer';
 import role from './RoleReducer';
-import data from './APIReducer';
+import users from './UsersAPIReducer';
 
 const rootReducer = combineReducers({
   loading,
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   user,
   login,
   role,
-  data,
+  users,
 });
 
 export default rootReducer;
