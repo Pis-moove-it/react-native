@@ -1,45 +1,49 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import TextStyles from '../../helpers/TextStyles';
-import strings from '../../localization';
-import getUser from '../../selectors/UserSelector';
-import getRole from '../../selectors/RoleSelector';
-import styles from './styles';
+import { List } from 'react-native-elements';
+import PhoneBale from './PhoneBale';
 
+const list = [
+  {
+    id: '15488',
+  },
+  {
+    id: '6848878',
+  },
+  {
+    id: '15488',
+  },
+  {
+    id: '6848878',
+  },
+  {
+    id: '15488',
+  },
+  {
+    id: '6848878',
+  },
+];
 class Bale extends Component {
   static navigatorStyle = {
     navBarHidden: true,
   };
 
   render() {
-    const { user } = this.props;
-    const { role } = this.props;
     return (
-      <View style={styles.container}>
-        <Text style={TextStyles.lightTitle}>{strings.baleTitle}</Text>
-        <Text>{`${strings.homeMessage} ${user && user.name}`}</Text>
-        <Text style={TextStyles.lightTitle}>{`${role}`}</Text>
-      </View>
+      <List containerStyle={{ marginBottom: 0 }}>
+        <FlatList data={list} renderItem={({ item }) => <PhoneBale id={item.id} />} />
+      </List>
     );
   }
 }
 
-Bale.propTypes = {
-  user: PropTypes.object,
-  role: PropTypes.string,
-};
+Bale.propTypes = {};
 
-Bale.defaultProps = {
-  user: null,
-  role: null,
-};
+Bale.defaultProps = {};
 
-const mapStateToProps = state => ({
-  user: getUser(state),
-  role: getRole(state),
-});
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = () => ({});
 
