@@ -33,7 +33,6 @@ class Bale extends Component {
   };
 
   render() {
-    console.log('render bales');
     return (
       <List containerStyle={{ marginBottom: 0 }}>
         <TabletBale id="015456" type="Plástico" weight="120" />

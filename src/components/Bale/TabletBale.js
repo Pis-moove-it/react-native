@@ -4,7 +4,6 @@ import { View, Image } from 'react-native';
 import { Text, ListItem } from 'react-native-elements';
 import FardoIcon from '../../assets/images/FardoIcon.png';
 import Button from '../common/Button';
-import Colors from '../../helpers/Colors';
 import strings from '../../localization';
 import styles from './styles';
 

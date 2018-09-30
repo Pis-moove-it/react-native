@@ -44,7 +44,6 @@ class Login extends Component {
   }
 
   getUsers() {
-    console.log('fetchData');
     const usersData = [];
 
     this.props.dataFetch.map((user, identifier) => {
