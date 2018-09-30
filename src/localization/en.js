@@ -17,6 +17,9 @@ export default {
   gatherTitle: 'Gather',
   weighTitle: 'Weigh',
   baleTitle: 'Bale',
+  baleComponentBale: 'Bale',
+  baleComponentType: 'Type',
+  baleComponentWeight: 'Weight',
   baleButtonText: 'Edit bale',
   bale: 'Bale',
 };

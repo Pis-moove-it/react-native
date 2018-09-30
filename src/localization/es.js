@@ -17,6 +17,9 @@ export default {
   gatherTitle: 'Recolectar',
   weighTitle: 'Pesar',
   baleTitle: 'Enfardar',
+  baleComponentBale: 'Fardo',
+  baleComponentType: 'Tipo',
+  baleComponentWeight: 'Peso',
   baleButtonText: 'Modificar fardo',
   bale: 'Fardo',
 };

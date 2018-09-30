@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { List } from 'react-native-elements';
 import PhoneBale from './PhoneBale';
+import TabletBale from './TabletBale';
+import styles from './styles';
 
 const list = [
   {
@@ -31,8 +33,11 @@ class Bale extends Component {
   };
 
   render() {
+    console.log('render bales');
     return (
       <List containerStyle={{ marginBottom: 0 }}>
+        <TabletBale id="015456" type="Plástico" weight="120" />
+        <TabletBale id="056356" type="Vidrio" weight="90" />
         <FlatList data={list} renderItem={({ item }) => <PhoneBale id={item.id} />} />
       </List>
     );

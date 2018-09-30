@@ -8,7 +8,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.primary,
   },
-  baleContainer: {},
+  baleComponentTitlesTablet: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    fontWeight: 'bold',
+    paddingLeft: '8%',
+  },
+  baleComponentSubtitlesTablet: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    paddingLeft: '8%',
+  },
+  baleComponentTitle: {
+    fontWeight: 'bold',
+  },
+  baleComponentElement: {
+    width: '30%',
+  },
   editBaleButton: {
     width: '40%',
     height: '55%',
