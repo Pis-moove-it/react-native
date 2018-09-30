@@ -43,15 +43,7 @@ class Login extends Component {
     this.props.fetchData();
   }
 
-  login = () => {
-    this.setState({ loading: true });
-    this.props.login(this.state.identifier, this.state.username);
-  };
-
-  fetchData = () => this.props.fetchData();
-
   getUsers() {
-    console.log('fetchData');
     const usersData = [];
 
     this.props.dataFetch.map((user, identifier) => {
@@ -65,14 +57,20 @@ class Login extends Component {
     return usersData;
   }
 
+  fetchData = () => this.props.fetchData();
+
+  login = () => {
+    this.setState({ loading: true });
+    this.props.login(this.state.identifier, this.state.username);
+  };
+
   usernameChanged = (itemValue, itemIndex) => {
     this.setState({ identifier: itemIndex, username: itemValue });
   };
 
   render() {
     const { errors } = this.props;
-    const loading = this.state.loading;
-    console.log('fetchData');
+    const { loading } = this.state.loading;
     return (
       <View style={styles.container}>
         <View style={styles.topContainer}>
@@ -100,7 +98,7 @@ class Login extends Component {
               style={styles.button}
               textStyle={styles.textButton}
               onPress={this.state.username !== null ? this.login : null}
-              title={strings.login}
+              title={strings.selectUser}
             />
           )}
         </View>
@@ -113,13 +111,11 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
   errors: PropTypes.array,
   fetchData: PropTypes.func.isRequired,
-  users: PropTypes.object,
+  dataFetch: PropTypes.object.isRequired,
 };
 
 Login.defaultProps = {
   errors: [],
-  fetchData: null,
-  users: null,
 };
 
 const mapStateToProps = state => ({

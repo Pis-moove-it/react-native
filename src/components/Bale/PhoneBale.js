@@ -9,7 +9,6 @@ import styles from './styles';
 
 const PhoneBale = ({ id }) => (
   <ListItem
-    containerStyle={styles.baleContainer}
     key={id}
     title={`${strings.bale} #${id}`}
     leftIcon={<Image source={FardoIcon} style={styles.baleImageStyle} />}
