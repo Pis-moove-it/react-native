@@ -86,7 +86,6 @@ class Login extends Component {
               style={styles.picker}
               mode="dialog"
               onValueChange={this.usernameChanged}
-              prompt="holis"
             >
               {this.getUsers()}
             </Picker>
