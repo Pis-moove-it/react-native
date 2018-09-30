@@ -3,8 +3,8 @@ import en from './en';
 import es from './es';
 
 const strings = new LocalizedStrings({
-	en,
-	es,
+  en,
+  es,
 });
 
 export default strings;

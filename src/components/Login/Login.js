@@ -10,14 +10,13 @@ import ShadowStyles from '../../helpers/ShadowStyles';
 import strings from '../../localization';
 import { login, actionTypes } from '../../actions/UserActions';
 import getUser from '../../selectors/UserSelector';
-import getData from '../../selectors/APISelector';
+import getUsers from '../../selectors/UsersAPISelector';
 import loadingSelector from '../../selectors/LoadingSelector';
-import { fetchData } from '../../actions/APIActions';
+import { fetchUsers } from '../../actions/UsersAPIActions';
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import styles from './styles';
 import reciclandoLogo from './../../assets/images/Logo03.png';
 import avatar from './../../assets/ic_user/ic_user128.png';
-
 
 class Login extends Component {
   static navigatorStyle = {
@@ -40,20 +39,9 @@ class Login extends Component {
     };
   }
 
-
   componentDidMount() {
     this.props.fetchData();
   }
-
-  getUsers() {
-    const usersData = [];
-    usersData.push(<Picker.Item key={999} label={strings.user} value={null} />);
-    this.props.users.data.map((user, identifier) => {
-      return usersData.push(<Picker.Item key={identifier} label={`${user.name} ${user.surname}`} value={`${user.name} ${user.surname}`} />);
-    });
-    return usersData;
-  }
-
 
   login = () => {
     this.setState({ loading: true });
@@ -63,10 +51,15 @@ class Login extends Component {
   fetchData = () => this.props.fetchData();
 
   getUsers() {
-    var usersData = [];
-    usersData.push(<Picker.Item key={999} label={strings.user} value={null} />);
+    console.log('fetchData');
+    const usersData = [];
+
     this.props.dataFetch.map((user, identifier) => {
-      usersData.push( <Picker.Item key={identifier} label={`${user.name} ${user.surname}`} value={`${user.name} ${user.surname}`} />)
+      usersData.push(<Picker.Item
+        key={identifier}
+        label={`${user.name} ${user.surname}`}
+        value={`${user.name} ${user.surname}`}
+      />);
     });
 
     return usersData;
@@ -74,11 +67,12 @@ class Login extends Component {
 
   usernameChanged = (itemValue, itemIndex) => {
     this.setState({ identifier: itemIndex, username: itemValue });
-  }
+  };
 
   render() {
     const { errors } = this.props;
-    let loading = this.state.loading;
+    const loading = this.state.loading;
+    console.log('fetchData');
     return (
       <View style={styles.container}>
         <View style={styles.topContainer}>
@@ -90,25 +84,26 @@ class Login extends Component {
             <Picker
               selectedValue={this.state.username}
               style={styles.picker}
-              mode='dialog'
+              mode="dialog"
               onValueChange={this.usernameChanged}
+              prompt="holis"
             >
               {this.getUsers()}
             </Picker>
           </View>
           <ErrorView errors={errors} />
-          {loading && errors.length < 1 ?
+          {loading && errors.length < 1 ? (
             <View style={styles.activityIndicator}>
               <ActivityIndicator size="large" color={Colors.primary} />
             </View>
-          :
+          ) : (
             <Button
               style={styles.button}
               textStyle={styles.textButton}
               onPress={this.state.username !== null ? this.login : null}
               title={strings.login}
             />
-          }
+          )}
         </View>
       </View>
     );
@@ -132,12 +127,15 @@ const mapStateToProps = state => ({
   user: getUser(state),
   isLoading: loadingSelector([actionTypes.LOGIN])(state),
   errors: errorsSelector([actionTypes.LOGIN])(state),
-  dataFetch: getData(state),
+  dataFetch: getUsers(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   login: (identifier, username) => dispatch(login(identifier, username)),
-  fetchData: () => dispatch(fetchData()),
+  fetchData: () => dispatch(fetchUsers()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);
