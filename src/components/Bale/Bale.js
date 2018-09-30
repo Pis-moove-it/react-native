@@ -8,6 +8,7 @@ import strings from '../../localization';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import PhoneBale from './PhoneBale';
+import TabletBale from './TabletBale';
 import styles from './styles';
 
 const list = [
@@ -29,10 +30,11 @@ class Bale extends Component {
   };
 
   render() {
-    const { user } = this.props;
-    const { role } = this.props;
+    console.log('render bales');
     return (
       <List containerStyle={{ marginBottom: 20 }}>
+        <TabletBale id="015456" type="Plástico" weight="120" />
+        <TabletBale id="056356" type="Vidrio" weight="90" />
         <PhoneBale id="04518" />
         <PhoneBale id="078999" />
         <PhoneBale id="0458789" />
