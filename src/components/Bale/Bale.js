@@ -12,14 +12,8 @@ class Bale extends Component {
   }
 }
 
-Bale.propTypes = {
-  user: PropTypes.object,
-  role: PropTypes.string,
-};
+Bale.propTypes = {};
 
-Bale.defaultProps = {
-  user: null,
-  role: null,
-};
+Bale.defaultProps = {};
 
 export default connect()(Bale);
