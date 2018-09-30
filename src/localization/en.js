@@ -20,4 +20,6 @@ export default {
   baleComponentBale: 'Bale',
   baleComponentType: 'Type',
   baleComponentWeight: 'Weight',
+  baleButtonText: 'Edit bale',
+  bale: 'Bale',
 };

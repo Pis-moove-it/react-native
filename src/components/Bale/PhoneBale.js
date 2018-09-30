@@ -1,25 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem, Avatar, Image } from 'react-native-elements';
+import { Image } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import FardoIcon from '../../assets/images/FardoIcon.png';
 import Button from '../common/Button';
-import Colors from '../../helpers/Colors';
+import strings from '../../localization';
+import styles from './styles';
 
 const PhoneBale = ({ id }) => (
   <ListItem
     key={id}
-    title={`Fardo #${id}`}
-    avatar={<Avatar size="medium" rounded noBorder source={FardoIcon} />}
-    avatarStyle={{ size: 'medium', borderBottomWidth: 0 }}
+    title={`${strings.bale} #${id}`}
+    leftIcon={<Image source={FardoIcon} style={styles.baleImageStyle} />}
     rightIcon={
       <Button
-        title="Modificar fardo"
-        style={{
-          alignSelf: 'center',
-          width: '40%',
-          backgroundColor: Colors.primary,
-        }}
-        textStyle={{ color: Colors.white, fontSize: 13 }}
+        title={strings.baleButtonText}
+        style={styles.editBaleButton}
+        textStyle={styles.textButton}
       />
     }
   />

@@ -20,4 +20,6 @@ export default {
   baleComponentBale: 'Fardo',
   baleComponentType: 'Tipo',
   baleComponentWeight: 'Peso',
+  baleButtonText: 'Modificar fardo',
+  bale: 'Fardo',
 };

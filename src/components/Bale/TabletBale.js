@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
-import { Text, ListItem, Avatar } from 'react-native-elements';
+import { View, Image } from 'react-native';
+import { Text, ListItem } from 'react-native-elements';
 import FardoIcon from '../../assets/images/FardoIcon.png';
 import Button from '../common/Button';
 import Colors from '../../helpers/Colors';
@@ -37,8 +37,7 @@ const TabletBale = ({ id, type, weight }) => (
         </View>
       </View>
     }
-    avatar={<Avatar size="large" rounded noBorder source={FardoIcon} />}
-    avatarStyle={{ size: 'large', borderBottomWidth: 0 }}
+    leftIcon={<Image source={FardoIcon} style={styles.baleImageStyle} />}
     rightIcon={
       <Button
         title="Modificar fardo"
