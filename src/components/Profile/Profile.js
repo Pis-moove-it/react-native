@@ -15,7 +15,6 @@ import user128 from '../../assets/ic_user/ic_user128.png';
 import Logo01 from '../../assets/images/Logo01.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import Colors from '../../helpers/Colors';
-import Platform from '../../helpers/Platform';
 import styles from './styles';
 
 class Profile extends Component {
@@ -48,7 +47,6 @@ class Profile extends Component {
     super(props);
     this.state = {
       user: props.user,
-      isTablet: Platform.isTablet(),
     };
   }
 
@@ -95,8 +93,6 @@ class Profile extends Component {
 
   render() {
     const { name } = this.state.user;
-    const { t } = this.state.isTablet;
-    // const Device = require('react-native-device-detection');
 
     if (isTablet) {
       this.setButtonsTablet(name);
