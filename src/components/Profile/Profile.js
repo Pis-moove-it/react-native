@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { isTablet } from 'react-native-device-detection';
 import strings from '../../localization';
 import TextStyles from '../../helpers/TextStyles';
 import Button from '../common/Button';
@@ -12,7 +13,7 @@ import getRole from '../../selectors/RoleSelector';
 import Application from '../../Application';
 import user128 from '../../assets/ic_user/ic_user128.png';
 import Logo01 from '../../assets/images/Logo01.png';
-import sideMenuIcon from '../../assets/ic_common/ic_hamburgerCircular.png';
+import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import Colors from '../../helpers/Colors';
 import Platform from '../../helpers/Platform';
 import styles from './styles';
@@ -47,7 +48,7 @@ class Profile extends Component {
     super(props);
     this.state = {
       user: props.user,
-      isTablet: Platform.isTablet,
+      isTablet: Platform.isTablet(),
     };
   }
 
@@ -78,6 +79,7 @@ class Profile extends Component {
         {
           icon: sideMenuIcon,
           id: 'sideMenuIcon',
+          buttonColor: Colors.white,
         },
       ],
       animated: false,
@@ -93,7 +95,8 @@ class Profile extends Component {
 
   render() {
     const { name } = this.state.user;
-    const { isTablet } = this.state.isTablet;
+    const { t } = this.state.isTablet;
+    // const Device = require('react-native-device-detection');
 
     if (isTablet) {
       this.setButtonsTablet(name);

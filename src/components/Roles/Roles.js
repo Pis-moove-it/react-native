@@ -12,6 +12,19 @@ import Platform from '../../helpers/Platform';
 import styles from './styles';
 
 class Roles extends Component {
+  static navigatorStyle = {
+    navBarHidden: true,
+  };
+
+  // This method is invoked right before calling the render method, both on the initial mount and on subsequent updates.
+  // We use it to detect if the role has changed to make the transition to the next screen.
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.role !== null) {
+      Application.startLoggedInApp(nextProps.role);
+    }
+    return null;
+  }
+
   constructor() {
     super();
 
@@ -27,19 +40,6 @@ class Roles extends Component {
         portrait: Platform.isPortrait(),
       });
     });
-  }
-
-  static navigatorStyle = {
-    navBarHidden: true,
-  };
-
-  // This method is invoked right before calling the render method, both on the initial mount and on subsequent updates.
-  // We use it to detect if the role has changed to make the transition to the next screen.
-  static getDerivedStateFromProps(nextProps) {
-    if (nextProps.role !== null) {
-      Application.startLoggedInApp(nextProps.role);
-    }
-    return null;
   }
 
   selectRole = selectedRole => this.props.selectRole(selectedRole);
