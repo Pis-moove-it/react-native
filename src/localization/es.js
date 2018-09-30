@@ -1,5 +1,6 @@
 export default {
   login: 'Iniciar Sesión',
+  selectUser: 'Seleccionar Usuario',
   loading: 'Cargando',
   password: 'Contraseña',
   email: 'Correo',

@@ -40,13 +40,9 @@ const TabletBale = ({ id, type, weight }) => (
     leftIcon={<Image source={FardoIcon} style={styles.baleImageStyle} />}
     rightIcon={
       <Button
-        title="Modificar fardo"
-        style={{
-          alignSelf: 'center',
-          width: '40%',
-          backgroundColor: Colors.primary,
-        }}
-        textStyle={{ color: Colors.white, fontSize: 13 }}
+        title={strings.baleButtonText}
+        style={styles.editBaleButton}
+        textStyle={styles.textButton}
       />
     }
   />

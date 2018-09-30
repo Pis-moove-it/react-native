@@ -10,9 +10,9 @@ import ShadowStyles from '../../helpers/ShadowStyles';
 import strings from '../../localization';
 import { login, actionTypes } from '../../actions/UserActions';
 import getUser from '../../selectors/UserSelector';
-import getData from '../../selectors/APISelector';
+import getUsers from '../../selectors/UsersAPISelector';
 import loadingSelector from '../../selectors/LoadingSelector';
-import { fetchData } from '../../actions/APIActions';
+import { fetchUsers } from '../../actions/UsersAPIActions';
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import styles from './styles';
 import reciclandoLogo from './../../assets/images/Logo03.png';
@@ -44,8 +44,9 @@ class Login extends Component {
   }
 
   getUsers() {
+    console.log('fetchData');
     const usersData = [];
-    usersData.push(<Picker.Item key={999} label={strings.user} value={null} />);
+
     this.props.dataFetch.map((user, identifier) => {
       usersData.push(<Picker.Item
         key={identifier}
@@ -57,12 +58,12 @@ class Login extends Component {
     return usersData;
   }
 
+  fetchData = () => this.props.fetchData();
+
   login = () => {
     this.setState({ loading: true });
     this.props.login(this.state.identifier, this.state.username);
   };
-
-  fetchData = () => this.props.fetchData();
 
   usernameChanged = (itemValue, itemIndex) => {
     this.setState({ identifier: itemIndex, username: itemValue });
@@ -70,7 +71,7 @@ class Login extends Component {
 
   render() {
     const { errors } = this.props;
-    const loading = this.state.loading;
+    const { loading } = this.state.loading;
     return (
       <View style={styles.container}>
         <View style={styles.topContainer}>
@@ -98,7 +99,7 @@ class Login extends Component {
               style={styles.button}
               textStyle={styles.textButton}
               onPress={this.state.username !== null ? this.login : null}
-              title={strings.login}
+              title={strings.selectUser}
             />
           )}
         </View>
@@ -111,25 +112,23 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
   errors: PropTypes.array,
   fetchData: PropTypes.func.isRequired,
-  users: PropTypes.object,
+  dataFetch: PropTypes.object.isRequired,
 };
 
 Login.defaultProps = {
   errors: [],
-  fetchData: null,
-  users: null,
 };
 
 const mapStateToProps = state => ({
   user: getUser(state),
   isLoading: loadingSelector([actionTypes.LOGIN])(state),
   errors: errorsSelector([actionTypes.LOGIN])(state),
-  dataFetch: getData(state),
+  dataFetch: getUsers(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   login: (identifier, username) => dispatch(login(identifier, username)),
-  fetchData: () => dispatch(fetchData()),
+  fetchData: () => dispatch(fetchUsers()),
 });
 
 export default connect(
