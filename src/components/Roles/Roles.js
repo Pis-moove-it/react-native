@@ -120,4 +120,7 @@ const mapDispatchToProps = dispatch => ({
   selectRole: selectedRole => dispatch(selectRole(selectedRole)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Roles);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Roles);
