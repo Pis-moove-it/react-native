@@ -15,6 +15,7 @@ export default {
   weighAction: 'Pesar',
   baleAction: 'Enfardar',
   changeRole: 'Cambiar Rol',
+  changeUser: 'Cambiar Usuario',
   roleSelectionTitle: 'Seleccione una actividad:',
   gatherTitle: 'Recolectar',
   weighTitle: 'Pesar',
