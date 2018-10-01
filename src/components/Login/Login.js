@@ -1,104 +1,74 @@
 import React, { Component } from 'react';
-import { View, Image, Picker, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Application from '../../Application';
 import Button from '../common/Button';
+import TextField from '../common/TextField';
 import ErrorView from '../common/ErrorView';
 import Colors from '../../helpers/Colors';
 import ShadowStyles from '../../helpers/ShadowStyles';
+import TextStyles from '../../helpers/TextStyles';
 import strings from '../../localization';
-import { login, actionTypes } from '../../actions/UserActions';
-import getUser from '../../selectors/UserSelector';
-import getUsers from '../../selectors/UsersAPISelector';
-import loadingSelector from '../../selectors/LoadingSelector';
-import { fetchUsers } from '../../actions/UsersAPIActions';
+import { login, actionTypes } from '../../actions/LoginActions';
 import { errorsSelector } from '../../selectors/ErrorSelector';
+import { Screens } from '../Navigation';
 import styles from './styles';
-import reciclandoLogo from './../../assets/images/Logo03.png';
-import avatar from './../../assets/ic_user/ic_user128.png';
 
 class Login extends Component {
   static navigatorStyle = {
     navBarHidden: true,
   };
 
-  static getDerivedStateFromProps(nextProps) {
-    if (nextProps.user !== null) {
-      Application.selectRole();
-    }
-    return null;
-  }
-
   constructor() {
     super();
     this.state = {
-      identifier: null,
-      username: null,
-      loading: false,
+      organization: false,
+      password: false,
     };
   }
 
-  componentDidMount() {
-    this.props.fetchData();
+  componentWillReceiveProps(nextProps) {
+    if (this.props.isLoading && nextProps.organization) {
+      this.props.navigator.push({
+        screen: Screens.User,
+        animationType: 'fade',
+      });
+    }
   }
 
-  getUsers() {
-    const usersData = [];
+  passwordChanged = passwordValue => this.setState({ password: passwordValue });
 
-    this.props.dataFetch.map((user, identifier) => {
-      usersData.push(<Picker.Item
-        key={identifier}
-        label={`${user.name} ${user.surname}`}
-        value={`${user.name} ${user.surname}`}
-      />);
-    });
+  organizationChanged = organizationValue => this.setState({ organization: organizationValue });
 
-    return usersData;
-  }
-
-  fetchData = () => this.props.fetchData();
-
-  login = () => {
-    this.setState({ loading: true });
-    this.props.login(this.state.identifier, this.state.username);
-  };
-
-  usernameChanged = (itemValue, itemIndex) => {
-    this.setState({ identifier: itemIndex, username: itemValue });
-  };
+  login = () => this.props.login(this.state.organization, this.state.password);
 
   render() {
     const { errors } = this.props;
-    const { loading } = this.state.loading;
     return (
       <View style={styles.container}>
-        <View style={styles.topContainer}>
-          <Image source={reciclandoLogo} style={styles.logo} />
-        </View>
-        <View style={[styles.bottomContainer, ShadowStyles.shadow]}>
-          <View style={styles.pickerContainer}>
-            <Image source={avatar} style={styles.icon} />
-            <Picker
-              selectedValue={this.state.username}
-              style={styles.picker}
-              mode="dialog"
-              onValueChange={this.usernameChanged}
-            >
-              {this.getUsers()}
-            </Picker>
-          </View>
+        <View style={[styles.formContainer, ShadowStyles.shadow]}>
+          <Text style={TextStyles.fieldTitle}>{strings.organization}</Text>
+          <TextField
+            placeholder={strings.organization}
+            onChangeText={this.organizationChanged}
+            value={this.state.organization}
+          />
+          <Text style={TextStyles.fieldTitle}>{strings.password}</Text>
+          <TextField
+            placeholder={strings.password}
+            value={this.state.password}
+            onChangeText={this.passwordChanged}
+            secureTextEntry
+          />
           <ErrorView errors={errors} />
-          {loading && errors.length < 1 ? (
+          {this.props.isLoading && errors.length < 1 ? (
             <View style={styles.activityIndicator}>
               <ActivityIndicator size="large" color={Colors.primary} />
             </View>
           ) : (
             <Button
-              style={styles.button}
-              textStyle={styles.textButton}
-              onPress={this.state.username !== null ? this.login : null}
-              title={strings.selectUser}
+              onPress={this.state.organization ? this.login : null}
+              title={strings.login}
             />
           )}
         </View>
@@ -109,25 +79,26 @@ class Login extends Component {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
+  navigator: PropTypes.object.isRequired,
+  organization: PropTypes.object,
   errors: PropTypes.array,
-  fetchData: PropTypes.func.isRequired,
-  dataFetch: PropTypes.object.isRequired,
 };
 
 Login.defaultProps = {
+  organization: false,
+  isLoading: false,
   errors: [],
 };
 
 const mapStateToProps = state => ({
-  user: getUser(state),
-  isLoading: loadingSelector([actionTypes.LOGIN])(state),
+  isLoading: state.login.isLoading,
+  organization: state.login.organization,
   errors: errorsSelector([actionTypes.LOGIN])(state),
-  dataFetch: getUsers(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: (identifier, username) => dispatch(login(identifier, username)),
-  fetchData: () => dispatch(fetchUsers()),
+  login: (organization, password) => dispatch(login(organization, password)),
 });
 
 export default connect(

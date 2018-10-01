@@ -13,7 +13,16 @@ class Application {
     this.provider = provider;
   }
 
-  startLoggedInApp = (activity) => {
+  startLoggedInApp = () => {
+    Navigation.startSingleScreenApp({
+      screen: {
+        screen: Screens.User,
+      },
+      animationType: 'fade',
+    });
+  };
+
+  startRole = (activity) => {
     Navigation.startTabBasedApp({
       tabs: [
         {
@@ -55,15 +64,6 @@ class Application {
     registerScreens(this.store, this.provider);
     persist(() => {
       this.startLoggedOutApp();
-    });
-  };
-
-  selectRole = () => {
-    Navigation.startSingleScreenApp({
-      screen: {
-        screen: Screens.Roles,
-      },
-      animationType: 'fade',
     });
   };
 }

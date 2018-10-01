@@ -8,7 +8,10 @@ class UserController {
       if (identifier !== null && username !== null) {
         setTimeout(() => resolve({ name: username }), 1000);
       } else {
-        setTimeout(() => reject(new Error('Invalid identifier/username')), 1000);
+        setTimeout(
+          () => reject(new Error('Invalid identifier/username')),
+          1000,
+        );
       }
     });
 
