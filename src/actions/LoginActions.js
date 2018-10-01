@@ -26,11 +26,14 @@ const logoutRequest = () => ({
   type: actionTypes.LOGOUT,
 });
 
-export const login = (organizationn, password) => async (dispatch) => {
+export const login = (organization, password) => async (dispatch) => {
   dispatch(loginRequest());
   try {
-    const organization = await LoginController.login(organizationn, password);
-    dispatch(loginSuccess(organization));
+    const logedOrganization = await LoginController.login(
+      organization,
+      password,
+    );
+    dispatch(loginSuccess(logedOrganization));
   } catch (error) {
     dispatch(loginError(error.message));
   }

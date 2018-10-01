@@ -36,9 +36,9 @@ class Login extends Component {
     }
   }
 
-  passwordChanged = value => this.setState({ password: value });
+  passwordChanged = passwordValue => this.setState({ password: passwordValue });
 
-  organizationChanged = value => this.setState({ organization: value });
+  organizationChanged = organizationValue => this.setState({ organization: organizationValue });
 
   login = () => this.props.login(this.state.organization, this.state.password);
 

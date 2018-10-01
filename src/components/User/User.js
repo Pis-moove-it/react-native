@@ -44,11 +44,13 @@ class User extends Component {
   getUsers() {
     const usersData = [];
     this.props.dataFetch.map((user, identifier) => {
-      usersData.push(<Picker.Item
+      usersData.push(
+        <Picker.Item
           key={identifier}
           label={`${user.name} ${user.surname}`}
           value={`${user.name} ${user.surname}`}
-        />,);
+        />,
+      );
     });
     return usersData;
   }
