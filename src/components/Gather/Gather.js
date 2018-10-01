@@ -7,7 +7,7 @@ import GatherOverlay from './GatherOverlay';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
-export default class App extends Component {
+export default class Gather extends Component {
   constructor(props) {
     super(props);
     this.props = props;
