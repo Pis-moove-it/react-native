@@ -60,7 +60,7 @@ BaleList.propTypes = {};
 
 BaleList.defaultProps = {};
 
-const mapStateToProps = state => ({});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = () => ({});
 
