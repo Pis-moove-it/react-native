@@ -1,7 +1,7 @@
-import { actionTypes } from "../actions/RoleActions";
+import { actionTypes } from '../actions/RoleActions';
 
 const initialState = {
-  role: false
+  role: false,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.ROLE_SELECTION:
       return {
         ...state,
-        role: action.role
+        role: action.role,
       };
     case actionTypes.ROLE_LOGOUT:
       return initialState;
