@@ -20,7 +20,7 @@ class Application {
           screen: Screens.Drawer,
           passProps: {},
           disableOpenGesture: false,
-          fixedWidth: 500,
+          fixedWidth: '20%',
         },
         disableOpenGesture: false,
       },
@@ -33,6 +33,15 @@ class Application {
         screen: Screens.Login,
       },
       animationType: 'fade',
+      drawer: {
+        right: {
+          screen: Screens.Drawer,
+          passProps: {},
+          disableOpenGesture: false,
+          fixedWidth: '20%',
+        },
+        disableOpenGesture: false,
+      },
     });
   };
 

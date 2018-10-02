@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Navigation } from 'react-native-navigation';
 import { View, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -37,20 +36,9 @@ class Roles extends Component {
     if (nextProps.role) {
       switch (nextProps.role) {
         case strings.gatherAction:
-          Navigation.startSingleScreenApp({
-            screen: {
-              screen: Screens.Gather,
-            },
+          this.props.navigator.push({
+            screen: Screens.Gather,
             animationType: 'fade',
-            drawer: {
-              right: {
-                screen: Screens.Drawer,
-                passProps: {},
-                disableOpenGesture: false,
-                fixedWidth: 500,
-              },
-              disableOpenGesture: false,
-            },
           });
           break;
         case strings.weighAction:
@@ -83,23 +71,37 @@ class Roles extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{strings.roleSelectionTitle.toUpperCase()}</Text>
+          <Text style={styles.title}>
+            {strings.roleSelectionTitle.toUpperCase()}
+          </Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
+            style={
+              this.state.portrait
+                ? styles.portraitButton
+                : styles.landscapeButton
+            }
             textStyle={styles.textButton}
             onPress={this.selectGather}
             title={strings.gatherAction.toUpperCase()}
           />
           <Button
-            style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
+            style={
+              this.state.portrait
+                ? styles.portraitButton
+                : styles.landscapeButton
+            }
             textStyle={styles.textButton}
             onPress={this.selectWeigh}
             title={strings.weighAction.toUpperCase()}
           />
           <Button
-            style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
+            style={
+              this.state.portrait
+                ? styles.portraitButton
+                : styles.landscapeButton
+            }
             textStyle={styles.textButton}
             onPress={this.selectBale}
             title={strings.baleAction.toUpperCase()}
