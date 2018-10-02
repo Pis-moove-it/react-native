@@ -1,10 +1,6 @@
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 import { Screens, registerScreens } from './components/Navigation';
-import homeIcon from './assets/ic_home/ic_home.png';
-import profileIcon from './assets/ic_settings/ic_settings.png';
-import strings from './localization';
-import Colors from './helpers/Colors';
 import { store, persist } from './reducers';
 
 class Application {
@@ -19,34 +15,15 @@ class Application {
         screen: Screens.User,
       },
       animationType: 'fade',
-    });
-  };
-
-  startRole = (activity) => {
-    Navigation.startTabBasedApp({
-      tabs: [
-        {
-          screen:
-            activity === strings.gatherAction
-              ? Screens.Gather
-              : activity === strings.weighAction
-                ? Screens.Weigh
-                : Screens.Bale,
-          icon: homeIcon,
-          label: strings.home,
+      drawer: {
+        right: {
+          screen: Screens.Drawer,
+          passProps: {},
+          disableOpenGesture: false,
+          fixedWidth: 500,
         },
-        {
-          screen: Screens.Profile,
-          icon: profileIcon,
-          label: strings.profile,
-        },
-      ],
-      tabsStyle: {
-        tabBarSelectedButtonColor: Colors.primary,
-        tabBarButtonColor: Colors.gray,
-        initialTabIndex: 0,
+        disableOpenGesture: false,
       },
-      animationType: 'fade',
     });
   };
 

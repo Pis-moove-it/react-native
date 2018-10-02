@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Navigation } from 'react-native-navigation';
 import { View, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,7 +9,6 @@ import { selectRole } from '../../actions/RoleActions';
 import strings from '../../localization';
 import Platform from '../../helpers/Platform';
 import { Screens } from '../Navigation';
-import Application from '../../Application';
 import styles from './styles';
 
 class Roles extends Component {
@@ -37,25 +37,33 @@ class Roles extends Component {
     if (nextProps.role) {
       switch (nextProps.role) {
         case strings.gatherAction:
-          // this.props.navigator.push({
-          //  screen: Screens.Gather,
-          //  animationType: 'fade',
-          // });
-          Application.startRole(nextProps.role);
+          Navigation.startSingleScreenApp({
+            screen: {
+              screen: Screens.Gather,
+            },
+            animationType: 'fade',
+            drawer: {
+              right: {
+                screen: Screens.Drawer,
+                passProps: {},
+                disableOpenGesture: false,
+                fixedWidth: 500,
+              },
+              disableOpenGesture: false,
+            },
+          });
           break;
         case strings.weighAction:
-          // this.props.navigator.push({
-          //  screen: Screens.Weigh,
-          //  animationType: 'fade',
-          // });
-          Application.startRole(nextProps.role);
+          this.props.navigator.push({
+            screen: Screens.Weigh,
+            animationType: 'fade',
+          });
           break;
         case strings.baleAction:
-          // this.props.navigator.push({
-          //  screen: Screens.Bale,
-          //  animationType: 'fade',
-          // });
-          Application.startRole(nextProps.role);
+          this.props.navigator.push({
+            screen: Screens.Bale,
+            animationType: 'fade',
+          });
           break;
         default:
           break;
