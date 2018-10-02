@@ -1,8 +1,10 @@
 export default {
   login: 'Iniciar Sesión',
+  selectUser: 'Seleccionar Usuario',
   loading: 'Cargando',
   password: 'Contraseña',
   email: 'Correo',
+  organization: 'Organización',
   user: 'Usuario',
   home: 'Inicio',
   homeMessage: 'Bienvenido',
@@ -13,6 +15,7 @@ export default {
   weighAction: 'Pesar',
   baleAction: 'Enfardar',
   changeRole: 'Cambiar Rol',
+  changeUser: 'Cambiar Usuario',
   roleSelectionTitle: 'Seleccione una actividad:',
   gatherTitle: 'Recolectar',
   weighTitle: 'Pesar',
@@ -37,4 +40,9 @@ export default {
   day5: 'Viernes',
   day6: 'Sábado',
   startTravel: 'Empezar recorrida',
+  baleComponentBale: 'Fardo',
+  baleComponentType: 'Tipo',
+  baleComponentWeight: 'Peso',
+  baleButtonText: 'Modificar fardo',
+  bale: 'Fardo',
 };
