@@ -12,6 +12,8 @@ import strings from '../../localization';
 import { login, actionTypes } from '../../actions/LoginActions';
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import { Screens } from '../Navigation';
+import CustomButton from '../common/CustomButton';
+import HistorialIcon from '../../assets/images/HistorialIcon.png';
 import styles from './styles';
 
 class Login extends Component {
@@ -47,6 +49,7 @@ class Login extends Component {
     return (
       <View style={styles.container}>
         <View style={[styles.formContainer, ShadowStyles.shadow]}>
+          <CustomButton text="ajshd" icon={HistorialIcon} />
           <Text style={TextStyles.fieldTitle}>{strings.organization}</Text>
           <TextField
             placeholder={strings.organization}
@@ -66,10 +69,7 @@ class Login extends Component {
               <ActivityIndicator size="large" color={Colors.primary} />
             </View>
           ) : (
-            <Button
-              onPress={this.state.organization ? this.login : null}
-              title={strings.login}
-            />
+            <Button onPress={this.state.organization ? this.login : null} title={strings.login} />
           )}
         </View>
       </View>

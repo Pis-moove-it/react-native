@@ -42,6 +42,7 @@ class Profile extends Component {
       user: props.user,
       landscape: Platform.isLandscape(),
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
@@ -63,6 +64,20 @@ class Profile extends Component {
       });
     }
     return null;
+  }
+
+  onNavigatorEvent(event) {
+    switch (event.id) {
+      case 'sideMenuIcon':
+        this.props.navigator.toggleDrawer({
+          side: 'right',
+          animated: true,
+          to: 'open',
+        });
+        break;
+      default:
+        break;
+    }
   }
 
   setButtonsTablet = (name) => {

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, Image, View } from 'react-native';
+import PropTypes from 'prop-types';
 import Colors from '../../helpers/Colors';
-import HistorialIcon from '../../assets/images/HistorialIcon.png';
-import strings from '../../localization/Localization';
 
 const styles = StyleSheet.create({
   touchable: {
@@ -19,17 +18,22 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: '400',
-    color: Colors.white,
+    color: Colors.black,
   },
 });
 
-const HistoryButton = () => (
+const HistoryButton = ({ text, icon }) => (
   <TouchableOpacity>
     <View style={styles.touchable}>
-      <Image style={styles.icon} source={HistorialIcon} />
-      <Text style={styles.text}>{strings.history}</Text>
+      <Image style={styles.icon} source={icon} />
+      <Text style={styles.text}>{text}</Text>
     </View>
   </TouchableOpacity>
 );
+
+HistoryButton.propTypes = {
+  text: PropTypes.string.isRequired,
+  icon: PropTypes.isRequired,
+};
 
 export default HistoryButton;

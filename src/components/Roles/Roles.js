@@ -8,7 +8,6 @@ import { selectRole } from '../../actions/RoleActions';
 import strings from '../../localization';
 import Platform from '../../helpers/Platform';
 import { Screens } from '../Navigation';
-import Application from '../../Application';
 import styles from './styles';
 
 class Roles extends Component {
@@ -37,25 +36,22 @@ class Roles extends Component {
     if (nextProps.role) {
       switch (nextProps.role) {
         case strings.gatherAction:
-          // this.props.navigator.push({
-          //  screen: Screens.Gather,
-          //  animationType: 'fade',
-          // });
-          Application.startRole(nextProps.role);
+          this.props.navigator.push({
+            screen: Screens.Gather,
+            animationType: 'fade',
+          });
           break;
         case strings.weighAction:
-          // this.props.navigator.push({
-          //  screen: Screens.Weigh,
-          //  animationType: 'fade',
-          // });
-          Application.startRole(nextProps.role);
+          this.props.navigator.push({
+            screen: Screens.Weigh,
+            animationType: 'fade',
+          });
           break;
         case strings.baleAction:
-          // this.props.navigator.push({
-          //  screen: Screens.Bale,
-          //  animationType: 'fade',
-          // });
-          Application.startRole(nextProps.role);
+          this.props.navigator.push({
+            screen: Screens.Bale,
+            animationType: 'fade',
+          });
           break;
         default:
           break;
@@ -75,23 +71,37 @@ class Roles extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{strings.roleSelectionTitle.toUpperCase()}</Text>
+          <Text style={styles.title}>
+            {strings.roleSelectionTitle.toUpperCase()}
+          </Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
+            style={
+              this.state.portrait
+                ? styles.portraitButton
+                : styles.landscapeButton
+            }
             textStyle={styles.textButton}
             onPress={this.selectGather}
             title={strings.gatherAction.toUpperCase()}
           />
           <Button
-            style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
+            style={
+              this.state.portrait
+                ? styles.portraitButton
+                : styles.landscapeButton
+            }
             textStyle={styles.textButton}
             onPress={this.selectWeigh}
             title={strings.weighAction.toUpperCase()}
           />
           <Button
-            style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
+            style={
+              this.state.portrait
+                ? styles.portraitButton
+                : styles.landscapeButton
+            }
             textStyle={styles.textButton}
             onPress={this.selectBale}
             title={strings.baleAction.toUpperCase()}
