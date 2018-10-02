@@ -2,7 +2,12 @@ package com.reactnativetemplate;
 
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import com.facebook.react.ReactPackage;
+import com.facebook.react.ReactApplication;
+import com.facebook.react.ReactNativeHost;
+import com.facebook.react.shell.MainReactPackage;
+import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.NavigationApplication;
+import com.mapbox.rctmgl.RCTMGLPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,8 +21,24 @@ public class MainApplication extends NavigationApplication {
    @Override
     public void onCreate() {
         super.onCreate();
+        SoLoader.init(this, /* native exopackage */ false);
         Fabric.with(this, new Crashlytics());
     }
+
+    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+        return BuildConfig.DEBUG;
+        }
+
+        @Override
+        protected List<ReactPackage> getPackages() {
+        return Arrays.<ReactPackage>asList(
+            new MainReactPackage(),
+            new RCTMGLPackage()
+        );
+        }
+    };
 
     @Override
     public boolean isDebug() {
@@ -29,7 +50,8 @@ public class MainApplication extends NavigationApplication {
         // Add additional packages you require here
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
-                new ReactNativeLocalizationPackage()
+                new ReactNativeLocalizationPackage(),
+                new RCTMGLPackage()
         );
     }
 
@@ -44,7 +66,18 @@ public class MainApplication extends NavigationApplication {
     }
 
     @Override
+    public ReactNativeHost getReactNativeHost() {
+        return mReactNativeHost;
+    }
+
+    @Override
     public boolean clearHostOnActivityDestroy() {
         return false;
     }
+
+   /*  @Override
+    public void onCreate() {
+        super.onCreate();
+        SoLoader.init(this, native exopackage false);
+    } */
 }
