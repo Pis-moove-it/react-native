@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Colors from '../../helpers/Colors';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import strings from '../../localization';
 import TextStyles from '../../helpers/TextStyles';
+import getUser from '../../selectors/UserSelector';
 import Button from './Button';
+import styles from './styles';
 
 class Drawer extends Component {
   static navigatorStyle = {
@@ -22,56 +23,85 @@ class Drawer extends Component {
   changeRole = () => {
     this.props.changeRole();
     this.props.navigator.toggleDrawer({
-      side: 'right', // the side of the drawer since you can have two, 'left' / 'right'
-      animated: true, // does the toggle have transition animation or does it happen immediately (optional)
+      side: 'right',
+      animated: true,
       to: 'close',
     });
   };
 
   render() {
+    const { user } = this.props;
+    const { role } = this.props;
     return (
-      <View style={styles.container}>
-        <Button
-          style={styles.button}
-          // textStyle={styles.text}
-          title={strings.changeRole}
-          onPress={this.changeRole}
-        />
-        <Button
-          style={styles.button}
-          // textStyle={styles.text}
-          title={strings.changeUser}
-          onPress={this.logout}
-        />
+      <View style={styles.containerWrapper}>
+        <View style={styles.topHalf}>
+          <Text style={TextStyles.fieldTitle}> {`${user.name}`} </Text>
+          <Text style={TextStyles.fieldTitle}> {`${role}`} </Text>
+          {
+            {
+              gather: (
+                <Button
+                  style={styles.button}
+                  // textStyle={styles.text}
+                  title="Historial"
+                  onPress={this.changeRole}
+                />
+              ),
+              weigh: (
+                <Button
+                  style={styles.button}
+                  // textStyle={styles.text}
+                  title="weigh button"
+                  // onPress={this.changeRole}
+                />
+              ),
+              bale: (
+                <Button
+                  style={styles.button}
+                  // textStyle={styles.text}
+                  title="bale button"
+                  // onPress={this.changeRole}
+                />
+              ),
+            }[role]
+          }
+        </View>
+        <View style={styles.bottomHalf}>
+          <Button
+            style={styles.button}
+            // textStyle={styles.text}
+            title={strings.changeRole}
+            onPress={this.changeRole}
+          />
+          <Button
+            style={styles.button}
+            // textStyle={styles.text}
+            title={strings.changeUser}
+            onPress={this.logout}
+          />
+        </View>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.white,
-  },
-  containerWrapper: {
-    flex: 1,
-  },
-  button: {
-    justifyContent: 'center',
-    height: 50,
-  },
-  textButton: {
-    fontSize: 20,
-  },
+Drawer.propTypes = {
+  user: PropTypes.string,
+  role: PropTypes.string,
+  logout: PropTypes.func.isRequired,
+  changeRole: PropTypes.func.isRequired,
+  navigator: PropTypes.object.isRequired,
+};
+
+Drawer.defaultProps = {
+  user: 'not assigned',
+  role: 'not assigned',
+};
+
+const mapStateToProps = state => ({
+  user: getUser(state),
+  role: getUser(state),
 });
-
-Drawer.propTypes = {};
-
-Drawer.defaultProps = {};
-
-const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
