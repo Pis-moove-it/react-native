@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Text, TouchableOpacity, StyleSheet, Image, View } from 'react-native';
 import Colors from '../../helpers/Colors';
 import HistorialIcon from '../../assets/images/HistorialIcon.png';
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: '400',
-    color: Colors.primary,
+    color: Colors.white,
   },
 });
 
