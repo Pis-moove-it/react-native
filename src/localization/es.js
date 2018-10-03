@@ -25,4 +25,5 @@ export default {
   baleComponentWeight: 'Peso',
   baleButtonText: 'Modificar fardo',
   bale: 'Fardo',
+  history: 'HISTORIAL',
 };
