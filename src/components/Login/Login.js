@@ -49,7 +49,6 @@ class Login extends Component {
     return (
       <View style={styles.container}>
         <View style={[styles.formContainer, ShadowStyles.shadow]}>
-          <CustomButton text="ajshd" icon={HistorialIcon} />
           <Text style={TextStyles.fieldTitle}>{strings.organization}</Text>
           <TextField
             placeholder={strings.organization}
