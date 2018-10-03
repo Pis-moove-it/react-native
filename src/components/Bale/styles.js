@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import Colors from '../../helpers/Colors';
 
 const styles = StyleSheet.create({
+  // Phone styles
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -16,19 +17,6 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 5,
     paddingTop: 5,
-  },
-  baleComponentTitlesTablet: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    fontWeight: 'bold',
-    paddingLeft: '8%',
-  },
-  baleComponentSubtitlesTablet: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    paddingLeft: '8%',
   },
   baleComponentTitle: {
     fontWeight: 'bold',
@@ -52,10 +40,49 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  baleImageStyle: {
+  baleImageStylePhone: {
     height: 60,
     width: 50,
     borderRadius: 20,
+  },
+
+  // Tablet syles
+  containerTabletBale: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingRight: 10,
+    paddingBottom: 5,
+    paddingTop: 5,
+  },
+  tabletButton: {
+    backgroundColor: Colors.primary,
+    textAlign: 'center',
+  },
+  baleImageStyleTablet: {
+    height: 100,
+    width: 100,
+  },
+  textGrayTablet: {
+    fontSize: 14,
+    color: 'gray',
+  },
+  textBlackTablet: {
+    fontSize: 14,
+    color: 'black',
+  },
+  containerItemTablet: {
+    flex: 1,
+    paddingLeft: 10,
+  },
+  containerButtonTablet: {
+    flex: 2,
+    paddingLeft: 10,
+  },
+  tabletButtonText: {
+    color: Colors.white,
+    fontSize: 17,
   },
 });
 

@@ -75,9 +75,4 @@ public class MainApplication extends NavigationApplication {
         return false;
     }
 
-   /*  @Override
-    public void onCreate() {
-        super.onCreate();
-        SoLoader.init(this, native exopackage false);
-    } */
 }

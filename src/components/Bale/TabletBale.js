@@ -1,71 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Image, StyleSheet, Text } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import FardoIcon from '../../assets/images/FardoIcon.png';
 import Button from '../common/Button';
 import strings from '../../localization';
-import Colors from '../../helpers/Colors';
-
-const stylesTabletItem = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingRight: 10,
-    paddingBottom: 5,
-    paddingTop: 5,
-  },
-  tabletButton: {
-    backgroundColor: Colors.primary,
-    textAlign: 'center',
-  },
-  image: {
-    height: 100,
-    width: 100,
-  },
-  textGray: {
-    fontSize: 14,
-    color: 'gray',
-  },
-  textBlack: {
-    fontSize: 14,
-    color: 'black',
-  },
-  containerItem: {
-    flex: 1,
-    paddingLeft: 10,
-  },
-  containerButton: {
-    flex: 2,
-    paddingLeft: 10,
-  },
-  tabletButtonText: {
-    color: Colors.white,
-    fontSize: 17,
-  },
-});
+import styles from './styles';
 
 const TabletBale = ({ id, type, weight }) => (
-  <View style={stylesTabletItem.container}>
-    <Image source={FardoIcon} style={stylesTabletItem.image} />
-    <View style={stylesTabletItem.containerItem}>
-      <Text style={stylesTabletItem.textBlack}>Fardo:</Text>
-      <Text style={stylesTabletItem.textGray}>{`#${id}`}</Text>
+  <View style={styles.containerTabletBale}>
+    <Image source={FardoIcon} style={styles.baleImageStyleTablet} />
+    <View style={styles.containerItemTablet}>
+      <Text style={styles.textBlackTablet}>Fardo:</Text>
+      <Text style={styles.textGrayTablet}>{`#${id}`}</Text>
     </View>
-    <View style={stylesTabletItem.containerItem}>
-      <Text style={stylesTabletItem.textBlack}>Tipo:</Text>
-      <Text style={stylesTabletItem.textGray}>{`${type}`}</Text>
+    <View style={styles.containerItemTablet}>
+      <Text style={styles.textBlackTablet}>Tipo:</Text>
+      <Text style={styles.textGrayTablet}>{`${type}`}</Text>
     </View>
-    <View style={stylesTabletItem.containerItem}>
-      <Text style={stylesTabletItem.textBlack}>Peso:</Text>
-      <Text style={stylesTabletItem.textGray}>{`${weight} kg`}</Text>
+    <View style={styles.containerItemTablet}>
+      <Text style={styles.textBlackTablet}>Peso:</Text>
+      <Text style={styles.textGrayTablet}>{`${weight} kg`}</Text>
     </View>
-    <View style={stylesTabletItem.containerButton}>
+    <View style={styles.containerButtonTablet}>
       <Button
-        style={stylesTabletItem.tabletButton}
+        style={styles.tabletButton}
         title={strings.baleButtonText}
-        textStyle={stylesTabletItem.tabletButtonText}
+        textStyle={styles.tabletButtonText}
       />
     </View>
   </View>

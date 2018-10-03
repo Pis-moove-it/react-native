@@ -8,7 +8,7 @@ import styles from './styles';
 
 const PhoneBale = ({ id }) => (
   <View style={styles.containerPhoneBale}>
-    <Image source={FardoIcon} style={styles.baleImageStyle} />
+    <Image source={FardoIcon} style={styles.baleImageStylePhone} />
     <Text style={styles.text}>{`${strings.bale} #${id}`}</Text>
     <Button
       title={strings.baleButtonText}
