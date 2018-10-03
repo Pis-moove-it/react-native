@@ -1,16 +1,10 @@
 export default {
   login: 'Login',
-<<<<<<< HEAD
-  loading: 'Loading',
-  password: 'Password',
-  email: 'Email',
-=======
   selectUser: 'Select User',
   loading: 'Loading',
   password: 'Password',
   email: 'Email',
   organization: 'Organization',
->>>>>>> master
   user: 'User',
   home: 'Home',
   homeMessage: 'Welcome',
