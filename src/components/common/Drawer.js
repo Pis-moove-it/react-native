@@ -7,6 +7,7 @@ import { changeRole } from '../../actions/RoleActions';
 import strings from '../../localization';
 import TextStyles from '../../helpers/TextStyles';
 import getUser from '../../selectors/UserSelector';
+import getRole from '../../selectors/RoleSelector';
 import Button from './Button';
 import styles from './styles';
 
@@ -39,7 +40,7 @@ class Drawer extends Component {
           <Text style={TextStyles.fieldTitle}> {`${role}`} </Text>
           {
             {
-              gather: (
+              Gather: (
                 <Button
                   style={styles.button}
                   // textStyle={styles.text}
@@ -47,7 +48,7 @@ class Drawer extends Component {
                   onPress={this.changeRole}
                 />
               ),
-              weigh: (
+              Weigh: (
                 <Button
                   style={styles.button}
                   // textStyle={styles.text}
@@ -55,7 +56,7 @@ class Drawer extends Component {
                   // onPress={this.changeRole}
                 />
               ),
-              bale: (
+              Bale: (
                 <Button
                   style={styles.button}
                   // textStyle={styles.text}
@@ -100,7 +101,7 @@ Drawer.defaultProps = {
 
 const mapStateToProps = state => ({
   user: getUser(state),
-  role: getUser(state),
+  role: getRole(state),
 });
 
 const mapDispatchToProps = dispatch => ({
