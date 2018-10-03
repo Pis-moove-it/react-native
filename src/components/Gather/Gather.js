@@ -21,7 +21,7 @@ import GatherOverlay from './GatherOverlay';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
-export default class Gather extends Component {
+class Gather extends Component {
   static navigatorStyle = {
     navBarHidden: false,
     navBarBackgroundColor: Colors.primary,
