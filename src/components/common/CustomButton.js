@@ -1,39 +1,31 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet, Image, View } from 'react-native';
-import PropTypes from 'prop-types';
+import { Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Colors from '../../helpers/Colors';
 
 const styles = StyleSheet.create({
-  touchable: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    alignItems: 'center',
+  button: {
+    width: 100,
+    height: 48,
     flexDirection: 'row',
-  },
-  icon: {
-    width: 50,
-    height: 50,
-    margin: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
-    fontSize: 16,
-    fontWeight: '400',
-    color: Colors.black,
+    fontSize: 14,
+    fontWeight: '500',
+    color: Colors.white,
+  },
+  icon: {
+    width: 30,
+    height: 30,
   },
 });
 
-const HistoryButton = ({ text, icon }) => (
-  <TouchableOpacity>
-    <View style={styles.touchable}>
-      <Image style={styles.icon} source={icon} />
-      <Text style={styles.text}>{text}</Text>
-    </View>
+const CustomButton = ({ text, icon }) => (
+  <TouchableOpacity style={styles.button}>
+    <Image style={styles.icon} source={icon} />
+    <Text style={styles.text}>{text}</Text>
   </TouchableOpacity>
 );
 
-HistoryButton.propTypes = {
-  text: PropTypes.string.isRequired,
-  icon: PropTypes.isRequired,
-};
-
-export default HistoryButton;
+export default CustomButton;

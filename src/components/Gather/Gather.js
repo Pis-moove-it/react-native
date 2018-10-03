@@ -15,7 +15,7 @@ import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
-import HistorialIcon from '../../assets/images/HistorialIcon.png';
+import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import stylesGather from './styles';
 
@@ -97,13 +97,13 @@ class Gather extends Component {
           buttonFontWeight: '600',
         },
         {
-          component: 'HistoryButton',
+          id: 'custom-button',
+          component: 'CustomButton',
           passProps: {
             text: strings.history,
-            icon: HistorialIcon,
+            icon: HistoryIconWhite,
           },
           buttonColor: Colors.white,
-          id: 'history',
         },
       ],
       animated: false,

@@ -8,6 +8,7 @@ import Gather from './Gather';
 import Weigh from './Weigh';
 import Bale from './Bale';
 import Drawer from './common/Drawer';
+import CustomButton from './common/CustomButton';
 
 export const Screens = {
   Login: 'Login',
@@ -32,4 +33,5 @@ export const registerScreens = (store, provider) => {
   Navigation.registerComponent(Screens.Weigh, () => Weigh, store, provider);
   Navigation.registerComponent(Screens.Bale, () => Bale, store, provider);
   Navigation.registerComponent(Screens.Drawer, () => Drawer, store, provider);
+  Navigation.registerComponent('CustomButton', () => CustomButton);
 };
