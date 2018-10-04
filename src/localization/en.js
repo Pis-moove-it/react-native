@@ -45,4 +45,5 @@ export default {
   baleComponentWeight: 'Weight',
   baleButtonText: 'Edit bale',
   bale: 'Bale',
+  history: 'HISTORY',
 };

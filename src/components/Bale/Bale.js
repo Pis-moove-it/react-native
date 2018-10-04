@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
-import BaleList from '../common/BaleList';
+import BaleList from '../Bale/BaleList';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import getUser from '../../selectors/UserSelector';

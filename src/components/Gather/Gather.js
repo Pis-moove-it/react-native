@@ -15,6 +15,8 @@ import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
+import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
+import strings from '../../localization';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
 
@@ -40,7 +42,6 @@ class Gather extends Component {
 
   constructor(props) {
     super(props);
-    this.props = props;
     this.state = {
       user: props.user,
       landscape: Platform.isLandscape(),
@@ -102,6 +103,15 @@ class Gather extends Component {
           buttonColor: Colors.white,
           buttonFontSize: 14,
           buttonFontWeight: '600',
+        },
+        {
+          id: 'custom-button',
+          component: 'CustomButton',
+          passProps: {
+            text: strings.history,
+            icon: HistoryIconWhite,
+          },
+          buttonColor: Colors.white,
         },
       ],
       animated: false,
