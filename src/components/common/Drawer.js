@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Colors from '../../helpers/Colors';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import strings from '../../localization';
-import TextStyles from '../../helpers/TextStyles';
 import Button from './Button';
 
 class Drawer extends Component {
@@ -20,6 +18,7 @@ class Drawer extends Component {
   };
 
   changeRole = () => {
+    this.props.navigator.pop();
     this.props.changeRole();
     this.props.navigator.toggleDrawer({
       side: 'right', // the side of the drawer since you can have two, 'left' / 'right'
