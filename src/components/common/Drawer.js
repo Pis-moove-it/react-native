@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/UserActions';
@@ -16,6 +16,7 @@ import UserIcon from '../../assets/ic_user/ic_user128.png';
 import Colors from '../../helpers/Colors';
 import styles from './styles';
 import CustomButton from './CustomButton';
+import Application from '../../Application';
 
 class Drawer extends Component {
   static navigatorStyle = {
@@ -25,6 +26,7 @@ class Drawer extends Component {
   logout = () => {
     this.props.logout();
     this.props.changeRole();
+    Application.startLoggedInApp();
   };
 
   changeRole = () => {
@@ -34,6 +36,7 @@ class Drawer extends Component {
       animated: true,
       to: 'close',
     });
+    this.props.navigator.pop();
   };
 
   render() {

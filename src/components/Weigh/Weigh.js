@@ -12,8 +12,6 @@ import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
-import Application from '../../Application';
-import { Screens } from '../Navigation';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import styles from './styles';
@@ -50,17 +48,6 @@ class Weigh extends Component {
       this.setButtonsTablet(name);
     } else {
       this.setButtonsPhone();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.user) {
-      Application.startLoggedInApp();
-    } else if (!nextProps.role) {
-      this.props.navigator.push({
-        screen: Screens.Roles,
-        animationType: 'fade',
-      });
     }
   }
 

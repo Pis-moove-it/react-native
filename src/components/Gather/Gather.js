@@ -8,8 +8,6 @@ import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
-import Application from '../../Application';
-import { Screens } from '../Navigation';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
@@ -54,18 +52,6 @@ class Gather extends Component {
     } else {
       this.setButtonsPhone();
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.user) {
-      Application.startLoggedInApp();
-    } else if (!nextProps.role) {
-      this.props.navigator.push({
-        screen: Screens.Roles,
-        animationType: 'fade',
-      });
-    }
-    return null;
   }
 
   onNavigatorEvent(event) {
