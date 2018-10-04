@@ -1,4 +1,4 @@
-package com.reactnativetemplate;
+package com.reciclando;
 
 import com.reactnativenavigation.controllers.SplashActivity;
 
