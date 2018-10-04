@@ -1,25 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { Image, View, Text } from 'react-native';
 import FardoIcon from '../../assets/images/BaleIcon.png';
 import Button from '../common/Button';
 import strings from '../../localization';
 import styles from './styles';
 
 const PhoneBale = ({ id }) => (
-  <ListItem
-    key={id}
-    title={`${strings.bale} #${id}`}
-    leftIcon={<Image source={FardoIcon} style={styles.baleImageStyle} />}
-    rightIcon={
-      <Button
-        title={strings.baleButtonText}
-        style={styles.editBaleButton}
-        textStyle={styles.textButton}
-      />
-    }
-  />
+  <View style={styles.containerPhoneBale}>
+    <Image source={FardoIcon} style={styles.baleImageStylePhone} />
+    <Text style={styles.text}>{`${strings.bale} #${id}`}</Text>
+    <Button
+      title={strings.baleButtonText}
+      style={styles.editBaleButton}
+      textStyle={styles.textButton}
+    />
+  </View>
 );
 
 PhoneBale.propTypes = {
