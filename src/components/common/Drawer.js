@@ -8,8 +8,14 @@ import strings from '../../localization';
 import TextStyles from '../../helpers/TextStyles';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
-import Button from './Button';
+import ChangeRoleIcon from '../../assets/ic_common/ic_refresh.png';
+import HistoryIcon from '../../assets/images/HistoryIcon.png';
+import BaleIcon from '../../assets/images/BaleIcon.png';
+import PocketIcon from '../../assets/images/PocketIcon.png';
+import UserIcon from '../../assets/ic_user/ic_user128.png';
+import Colors from '../../helpers/Colors';
 import styles from './styles';
+import CustomButton from './CustomButton';
 
 class Drawer extends Component {
   static navigatorStyle = {
@@ -37,47 +43,49 @@ class Drawer extends Component {
       <View style={styles.containerWrapper}>
         <View style={styles.topHalf}>
           <Text style={TextStyles.fieldTitle}> {`${user.name}`} </Text>
-          <Text style={TextStyles.fieldTitle}> {`${role}`} </Text>
           {
             {
               Gather: (
-                <Button
-                  style={styles.button}
-                  // textStyle={styles.text}
-                  title="Historial"
+                <CustomButton
+                  icon={HistoryIcon}
+                  title={strings.history}
+                  textStyle={{ color: Colors.black }}
                   onPress={this.changeRole}
                 />
               ),
               Weigh: (
-                <Button
-                  style={styles.button}
-                  // textStyle={styles.text}
+                <CustomButton
+                  icon={PocketIcon}
                   title="weigh button"
-                  // onPress={this.changeRole}
+                  textStyle={{ color: Colors.black }}
+                  style={{ width: 120 }}
+                  onPress={this.changeRole}
                 />
               ),
               Bale: (
-                <Button
-                  style={styles.button}
-                  // textStyle={styles.text}
+                <CustomButton
+                  icon={BaleIcon}
                   title="bale button"
-                  // onPress={this.changeRole}
+                  textStyle={{ color: Colors.black }}
+                  onPress={this.changeRole}
                 />
               ),
             }[role]
           }
         </View>
         <View style={styles.bottomHalf}>
-          <Button
-            style={styles.button}
-            // textStyle={styles.text}
+          <CustomButton
             title={strings.changeRole}
+            icon={ChangeRoleIcon}
+            textStyle={{ margin: 10, color: Colors.black }}
+            style={{ width: 130 }}
             onPress={this.changeRole}
           />
-          <Button
-            style={styles.button}
-            // textStyle={styles.text}
+          <CustomButton
             title={strings.changeUser}
+            icon={UserIcon}
+            textStyle={{ margin: 10, color: Colors.black }}
+            style={{ width: 130 }}
             onPress={this.logout}
           />
         </View>

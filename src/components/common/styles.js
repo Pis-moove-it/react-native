@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   bottomHalf: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     backgroundColor: Colors.white,
     padding: 40,
   },

@@ -14,7 +14,7 @@ import Application from '../../Application';
 import { Screens } from '../Navigation';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
-import Logo01 from '../../assets/images/Logo0128.png';
+import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import styles from './styles';

@@ -12,7 +12,7 @@ import Application from '../../Application';
 import { Screens } from '../Navigation';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
-import Logo01 from '../../assets/images/Logo0128.png';
+import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
@@ -86,24 +86,23 @@ class Gather extends Component {
     this.props.navigator.setButtons({
       rightButtons: [
         {
-          icon: user128,
-          id: 'userIcon',
-        },
-        {
-          title: name.toString(),
-          id: 'username',
-          buttonColor: Colors.white,
-          buttonFontSize: 14,
-          buttonFontWeight: '600',
-        },
-        {
-          id: 'custom-button',
+          id: 'profile',
           component: 'CustomButton',
           passProps: {
-            text: strings.history,
-            icon: HistoryIconWhite,
+            title: name.toString(),
+            icon: user128,
+            style: { color: Colors.white, width: 150 },
+            textStyle: { margin: 10 },
           },
-          buttonColor: Colors.white,
+        },
+        {
+          id: 'history',
+          component: 'CustomButton',
+          passProps: {
+            title: strings.history,
+            icon: HistoryIconWhite,
+            style: { color: Colors.white },
+          },
         },
       ],
       animated: false,
