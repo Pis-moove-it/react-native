@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import Application from '../../Application';
 import Colors from '../../helpers/Colors';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
@@ -15,16 +16,17 @@ class Drawer extends Component {
   logout = () => {
     this.props.logout();
     this.props.changeRole();
+    Application.startLoggedInApp();
   };
 
   changeRole = () => {
-    this.props.navigator.pop();
     this.props.changeRole();
     this.props.navigator.toggleDrawer({
       side: 'right', // the side of the drawer since you can have two, 'left' / 'right'
       animated: true, // does the toggle have transition animation or does it happen immediately (optional)
       to: 'close',
     });
+    this.props.navigator.pop();
   };
 
   render() {
