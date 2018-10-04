@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import { List } from 'react-native-elements';
 import { isPhone } from 'react-native-device-detection';
 import PhoneBale from '../Bale/PhoneBale';
 import TabletBale from '../Bale/TabletBale';
@@ -41,17 +40,15 @@ class BaleList extends Component {
 
   render() {
     return (
-      <List containerStyle={{ marginBottom: 0 }}>
-        <FlatList
-          data={balesList}
-          renderItem={({ item }) => {
-            if (isPhone) {
-              return <PhoneBale id={item.id} />;
-            }
-            return <TabletBale id={item.id} type={item.type} weight={item.weight} />;
-          }}
-        />
-      </List>
+      <FlatList
+        data={balesList}
+        renderItem={({ item }) => {
+          if (isPhone) {
+            return <PhoneBale id={item.id} />;
+          }
+          return <TabletBale id={item.id} type={item.type} weight={item.weight} />;
+        }}
+      />
     );
   }
 }

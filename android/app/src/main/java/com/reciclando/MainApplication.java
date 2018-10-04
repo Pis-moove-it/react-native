@@ -12,8 +12,18 @@ import com.mapbox.rctmgl.RCTMGLPackage;
 import java.util.Arrays;
 import java.util.List;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
+import android.os.Bundle;
+
 public class MainApplication extends NavigationApplication {
 
+   @Override
+    public void onCreate() {
+        super.onCreate();
+        SoLoader.init(this, /* native exopackage */ false);
+        Fabric.with(this, new Crashlytics());
+    }
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         @Override
@@ -65,9 +75,4 @@ public class MainApplication extends NavigationApplication {
         return false;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        SoLoader.init(this, /* native exopackage */ false);
-    }
 }
