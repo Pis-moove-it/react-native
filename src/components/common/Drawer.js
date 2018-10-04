@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import Application from '../../Application';
 import Colors from '../../helpers/Colors';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import strings from '../../localization';
-import TextStyles from '../../helpers/TextStyles';
 import Button from './Button';
 
 class Drawer extends Component {
@@ -17,6 +16,7 @@ class Drawer extends Component {
   logout = () => {
     this.props.logout();
     this.props.changeRole();
+    Application.startLoggedInApp();
   };
 
   changeRole = () => {
@@ -26,6 +26,7 @@ class Drawer extends Component {
       animated: true, // does the toggle have transition animation or does it happen immediately (optional)
       to: 'close',
     });
+    this.props.navigator.pop();
   };
 
   render() {
