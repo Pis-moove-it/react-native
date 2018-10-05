@@ -63,7 +63,6 @@ class Drawer extends Component {
                   icon={HistoryIcon}
                   title={strings.history}
                   textStyle={TextStyles.drawerButtons}
-                  onPress={this.changeRole}
                 />
               ),
               Weigh: (
@@ -72,7 +71,6 @@ class Drawer extends Component {
                   title="weigh button"
                   textStyle={TextStyles.drawerButtons}
                   style={{ width: 140 }}
-                  onPress={this.changeRole}
                 />
               ),
               Bale: (
@@ -81,7 +79,6 @@ class Drawer extends Component {
                   title="bale button"
                   textStyle={TextStyles.drawerButtons}
                   style={{ width: 140 }}
-                  onPress={this.changeRole}
                 />
               ),
             }[role]
