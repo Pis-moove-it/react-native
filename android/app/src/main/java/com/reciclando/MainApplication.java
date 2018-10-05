@@ -1,4 +1,4 @@
-package com.reactnativetemplate;
+package com.reciclando;
 
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import com.facebook.react.ReactPackage;
