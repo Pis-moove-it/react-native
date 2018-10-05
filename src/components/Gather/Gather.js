@@ -16,6 +16,8 @@ import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import stylesGather from './styles';
+import GatherOverlay from './GatherOverlay';
+
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
@@ -44,6 +46,12 @@ class Gather extends Component {
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
+  state = {
+    isModalVisible: false,
+  };
+
+  toggleModal = () =>
+    this.setState({ isModalVisible: !this.state.isModalVisible });
 
   componentDidMount() {
     const { name } = this.state.user;
@@ -119,6 +127,7 @@ class Gather extends Component {
   render() {
     return (
       <View style={stylesGather.mapContainer}>
+        <GatherOverlay />
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}
           zoomLevel={15}
