@@ -19,10 +19,10 @@ class Application {
         right: {
           screen: Screens.Drawer,
           passProps: {},
-          disableOpenGesture: false,
-          fixedWidth: '20%',
+          disableOpenGesture: true,
+          fixedWidth: 600,
         },
-        disableOpenGesture: false,
+        disableOpenGesture: true,
       },
     });
   };
@@ -37,10 +37,10 @@ class Application {
         right: {
           screen: Screens.Drawer,
           passProps: {},
-          disableOpenGesture: false,
-          fixedWidth: '20%',
+          disableOpenGesture: true,
+          fixedWidth: 600,
         },
-        disableOpenGesture: false,
+        disableOpenGesture: true,
       },
     });
   };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image, View, Text } from 'react-native';
-import FardoIcon from '../../assets/images/FardoIcon.png';
+import FardoIcon from '../../assets/images/BaleIcon.png';
 import Button from '../common/Button';
 import strings from '../../localization';
 import styles from './styles';

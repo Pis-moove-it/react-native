@@ -18,7 +18,6 @@ import strings from '../../localization';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
 
-
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
 class Gather extends Component {
@@ -50,9 +49,6 @@ class Gather extends Component {
     isModalVisible: false,
   };
 
-  toggleModal = () =>
-    this.setState({ isModalVisible: !this.state.isModalVisible });
-
   componentDidMount() {
     const { name } = this.state.user;
     if (isTablet || this.state.landscape) {
@@ -80,24 +76,23 @@ class Gather extends Component {
     this.props.navigator.setButtons({
       rightButtons: [
         {
-          icon: user128,
-          id: 'userIcon',
-        },
-        {
-          title: name.toString(),
-          id: 'username',
-          buttonColor: Colors.white,
-          buttonFontSize: 14,
-          buttonFontWeight: '600',
-        },
-        {
-          id: 'custom-button',
+          id: 'profile',
           component: 'CustomButton',
           passProps: {
-            text: strings.history,
-            icon: HistoryIconWhite,
+            title: name.toString(),
+            icon: user128,
+            style: { color: Colors.white, width: 170 },
+            textStyle: { margin: 10 },
           },
-          buttonColor: Colors.white,
+        },
+        {
+          id: 'history',
+          component: 'CustomButton',
+          passProps: {
+            title: strings.history,
+            icon: HistoryIconWhite,
+            style: { color: Colors.white },
+          },
         },
       ],
       animated: false,
@@ -116,6 +111,8 @@ class Gather extends Component {
       animated: false,
     });
   };
+
+  toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
 
   logout = () => {
     this.props.logout();
