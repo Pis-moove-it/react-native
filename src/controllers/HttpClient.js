@@ -11,7 +11,7 @@ const client = axios.create({
 	timeout: 100000,
 	headers: { 'content-type': 'application/json' },
 });
-
+// A comment just to see if it is working
 // Custom middleware for requests (this one just logs the error).
 client.interceptors.request.use(config => config, (error) => {
 	console.log('Failed to make request with error:');

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     fontSize: 20,
-  }
+  },
 });
 
 export default styles;

@@ -1,0 +1,18 @@
+desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    # need to use `react-native bundle` instead of bundleReleaseJsAndAssets from grdale
+    # because it causes 134 error (out of memory) on Circle CI
+    #sh "cd ../.. && react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/"
+    sh "cd ../.. && react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res"
+
+    gradle(
+      task: "assembleRelease",
+      flags: "-x bundleReleaseJsAndAssets"
+    )
+    crashlytics(
+      api_token: ENV['CRASHLYTICS_API_TOKEN'],
+      build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
+      notifications: 'true',
+      notes: 'Release 0.1 -> probando deploy'
+    )  
+  end

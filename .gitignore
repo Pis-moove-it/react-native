@@ -1,7 +1,7 @@
 # OSX
 #
 .DS_Store
-
+.env
 # Xcode
 #
 build/
@@ -29,6 +29,16 @@ build/
 .gradle
 local.properties
 *.iml
+android/gradlew
+
+#Deploy files
+android/app/src/main/assets/index.android.bundle
+android/app/src/main/assets/index.android.bundle.meta
+
+android/app/src/main/res/drawable-mdpi
+android/app/src/main/res/drawable-xhdpi
+android/app/src/main/res/drawable-xxhdpi
+
 
 # node.js
 #
@@ -55,7 +65,14 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
+#signed key for release
+signed-release-key.keystore
+
+*.env
+
 # Bundle artifact
 *.jsbundle
 
-android/gradlew
+#vsCode
+.vscode/
+
