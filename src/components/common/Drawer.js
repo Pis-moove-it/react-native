@@ -12,7 +12,7 @@ import ChangeRoleIcon from '../../assets/ic_common/ic_refresh.png';
 import HistoryIcon from '../../assets/images/HistoryIcon.png';
 import BaleIcon from '../../assets/images/BaleIcon.png';
 import PocketIcon from '../../assets/images/PocketIcon.png';
-import UserIcon from '../../assets/ic_user/ic_user128.png';
+import UserIcon from '../../assets/ic_user/ic_user128_green.png';
 import Colors from '../../helpers/Colors';
 import Application from '../../Application';
 import styles from './styles';
@@ -45,14 +45,24 @@ class Drawer extends Component {
     return (
       <View style={styles.containerWrapper}>
         <View style={styles.topHalf}>
-          <Text style={TextStyles.fieldTitle}> {`${user.name}`} </Text>
+          <Text
+            style={{
+              fontSize: 22,
+              fontWeight: '700',
+              color: Colors.primary,
+              adjustsFontSizeToFit: true,
+              textAlign: 'center',
+            }}
+          >
+            {`${user.name}`}
+          </Text>
           {
             {
               Gather: (
                 <CustomButton
                   icon={HistoryIcon}
                   title={strings.history}
-                  textStyle={{ color: Colors.black }}
+                  textStyle={TextStyles.drawerButtons}
                   onPress={this.changeRole}
                 />
               ),
@@ -60,8 +70,8 @@ class Drawer extends Component {
                 <CustomButton
                   icon={PocketIcon}
                   title="weigh button"
-                  textStyle={{ color: Colors.black }}
-                  style={{ width: 120 }}
+                  textStyle={TextStyles.drawerButtons}
+                  style={{ width: 140 }}
                   onPress={this.changeRole}
                 />
               ),
@@ -69,7 +79,8 @@ class Drawer extends Component {
                 <CustomButton
                   icon={BaleIcon}
                   title="bale button"
-                  textStyle={{ color: Colors.black }}
+                  textStyle={TextStyles.drawerButtons}
+                  style={{ width: 140 }}
                   onPress={this.changeRole}
                 />
               ),
@@ -80,15 +91,15 @@ class Drawer extends Component {
           <CustomButton
             title={strings.changeRole}
             icon={ChangeRoleIcon}
-            textStyle={{ margin: 10, color: Colors.black }}
-            style={{ width: 130 }}
+            textStyle={TextStyles.drawerLowerButtons}
+            style={{ width: 170 }}
             onPress={this.changeRole}
           />
           <CustomButton
             title={strings.changeUser}
             icon={UserIcon}
-            textStyle={{ margin: 10, color: Colors.black }}
-            style={{ width: 130 }}
+            textStyle={TextStyles.drawerLowerButtons}
+            style={{ width: 170 }}
             onPress={this.logout}
           />
         </View>
@@ -98,16 +109,11 @@ class Drawer extends Component {
 }
 
 Drawer.propTypes = {
-  user: PropTypes.string,
-  role: PropTypes.string,
+  user: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
-};
-
-Drawer.defaultProps = {
-  user: 'not assigned',
-  role: 'not assigned',
 };
 
 const mapStateToProps = state => ({

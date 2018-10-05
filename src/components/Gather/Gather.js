@@ -18,7 +18,6 @@ import strings from '../../localization';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
 
-
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
 class Gather extends Component {
@@ -49,9 +48,6 @@ class Gather extends Component {
   state = {
     isModalVisible: false,
   };
-
-  toggleModal = () =>
-    this.setState({ isModalVisible: !this.state.isModalVisible });
 
   componentDidMount() {
     const { name } = this.state.user;
@@ -85,7 +81,7 @@ class Gather extends Component {
           passProps: {
             title: name.toString(),
             icon: user128,
-            style: { color: Colors.white, width: 150 },
+            style: { color: Colors.white, width: 170 },
             textStyle: { margin: 10 },
           },
         },
@@ -115,6 +111,8 @@ class Gather extends Component {
       animated: false,
     });
   };
+
+  toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
 
   logout = () => {
     this.props.logout();

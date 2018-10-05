@@ -66,15 +66,14 @@ class Bale extends Component {
     this.props.navigator.setButtons({
       rightButtons: [
         {
-          icon: user128,
-          id: 'userIcon',
-        },
-        {
-          title: name.toString(),
-          id: 'username',
-          buttonColor: Colors.white,
-          buttonFontSize: 14,
-          buttonFontWeight: '600',
+          id: 'profile',
+          component: 'CustomButton',
+          passProps: {
+            title: name.toString(),
+            icon: user128,
+            style: { color: Colors.white, width: 170 },
+            textStyle: { margin: 10 },
+          },
         },
       ],
       animated: false,

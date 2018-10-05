@@ -12,16 +12,16 @@ const styles = StyleSheet.create({
   topHalf: {
     flex: 1,
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     backgroundColor: Colors.white,
-    padding: 40,
+    padding: 20,
   },
   bottomHalf: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: Colors.white,
-    padding: 40,
+    padding: 10,
   },
   containerWrapper: {
     flex: 1,
