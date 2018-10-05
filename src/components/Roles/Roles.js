@@ -32,76 +32,53 @@ class Roles extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.role) {
-      switch (nextProps.role) {
-        case strings.gatherAction:
-          this.props.navigator.push({
-            screen: Screens.Gather,
-            animationType: 'fade',
-          });
-          break;
-        case strings.weighAction:
-          this.props.navigator.push({
-            screen: Screens.Weigh,
-            animationType: 'fade',
-          });
-          break;
-        case strings.baleAction:
-          this.props.navigator.push({
-            screen: Screens.Bale,
-            animationType: 'fade',
-          });
-          break;
-        default:
-          break;
-      }
-    }
-  }
-
   selectRole = selectedRole => this.props.selectRole(selectedRole);
 
-  selectGather = () => this.props.selectRole(strings.gatherAction);
+  selectGather = () => {
+    this.props.selectRole(strings.gatherAction);
+    this.props.navigator.push({
+      screen: Screens.Gather,
+      animationType: 'fade',
+    });
+  };
 
-  selectWeigh = () => this.props.selectRole(strings.weighAction);
+  selectWeigh = () => {
+    this.props.selectRole(strings.weighAction);
+    this.props.navigator.push({
+      screen: Screens.Weigh,
+      animationType: 'fade',
+    });
+  };
 
-  selectBale = () => this.props.selectRole(strings.baleAction);
+  selectBale = () => {
+    this.props.selectRole(strings.baleAction);
+    this.props.navigator.push({
+      screen: Screens.Bale,
+      animationType: 'fade',
+    });
+  };
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>
-            {strings.roleSelectionTitle.toUpperCase()}
-          </Text>
+          <Text style={styles.title}>{strings.roleSelectionTitle.toUpperCase()}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            style={
-              this.state.portrait
-                ? styles.portraitButton
-                : styles.landscapeButton
-            }
+            style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
             textStyle={styles.textButton}
             onPress={this.selectGather}
             title={strings.gatherAction.toUpperCase()}
           />
           <Button
-            style={
-              this.state.portrait
-                ? styles.portraitButton
-                : styles.landscapeButton
-            }
+            style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
             textStyle={styles.textButton}
             onPress={this.selectWeigh}
             title={strings.weighAction.toUpperCase()}
           />
           <Button
-            style={
-              this.state.portrait
-                ? styles.portraitButton
-                : styles.landscapeButton
-            }
+            style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
             textStyle={styles.textButton}
             onPress={this.selectBale}
             title={strings.baleAction.toUpperCase()}
@@ -114,7 +91,7 @@ class Roles extends Component {
 
 Roles.propTypes = {
   selectRole: PropTypes.func.isRequired,
-  role: PropTypes.string,
+  role: PropTypes.string.isRequired,
   navigator: PropTypes.object.isRequired,
 };
 

@@ -14,6 +14,7 @@ import BaleIcon from '../../assets/images/BaleIcon.png';
 import PocketIcon from '../../assets/images/PocketIcon.png';
 import UserIcon from '../../assets/ic_user/ic_user128.png';
 import Colors from '../../helpers/Colors';
+import Application from '../../Application';
 import styles from './styles';
 import CustomButton from './CustomButton';
 
@@ -25,6 +26,7 @@ class Drawer extends Component {
   logout = () => {
     this.props.logout();
     this.props.changeRole();
+    Application.startLoggedInApp();
   };
 
   changeRole = () => {
@@ -34,6 +36,7 @@ class Drawer extends Component {
       animated: true,
       to: 'close',
     });
+    this.props.navigator.pop();
   };
 
   render() {
