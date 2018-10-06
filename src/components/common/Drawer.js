@@ -63,6 +63,7 @@ class Drawer extends Component {
                   icon={HistoryIcon}
                   title={strings.history}
                   textStyle={TextStyles.drawerButtons}
+                  style={{ width: 140 }}
                 />
               ),
               Weigh: (
@@ -70,7 +71,7 @@ class Drawer extends Component {
                   icon={PocketIcon}
                   title="weigh button"
                   textStyle={TextStyles.drawerButtons}
-                  style={{ width: 140 }}
+                  style={{ width: 200 }}
                 />
               ),
               Bale: (
@@ -78,7 +79,7 @@ class Drawer extends Component {
                   icon={BaleIcon}
                   title="bale button"
                   textStyle={TextStyles.drawerButtons}
-                  style={{ width: 140 }}
+                  style={{ width: 200 }}
                 />
               ),
             }[role]
