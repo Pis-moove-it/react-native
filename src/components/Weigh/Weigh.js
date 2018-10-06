@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
-import TextStyles from '../../helpers/TextStyles';
-import strings from '../../localization';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import Platform from '../../helpers/Platform';
@@ -69,15 +67,14 @@ class Weigh extends Component {
     this.props.navigator.setButtons({
       rightButtons: [
         {
-          icon: user128,
-          id: 'userIcon',
-        },
-        {
-          title: name.toString(),
-          id: 'username',
-          buttonColor: Colors.white,
-          buttonFontSize: 14,
-          buttonFontWeight: '600',
+          id: 'profile',
+          component: 'CustomButton',
+          passProps: {
+            title: name.toString(),
+            icon: user128,
+            style: { color: Colors.white, width: 170 },
+            textStyle: { margin: 10 },
+          },
         },
       ],
       animated: false,
@@ -105,15 +102,7 @@ class Weigh extends Component {
   changeRole = () => this.props.changeRole();
 
   render() {
-    const { user } = this.props;
-    const { role } = this.props;
-    return (
-      <View style={styles.container}>
-        <Text style={TextStyles.lightTitle}>{strings.weighTitle}</Text>
-        <Text>{`${strings.homeMessage} ${user && user.name}`}</Text>
-        <Text style={TextStyles.lightTitle}>{`${role}`}</Text>
-      </View>
-    );
+    return <View style={styles.container} />;
   }
 }
 
@@ -122,7 +111,6 @@ Weigh.propTypes = {
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
-  role: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({

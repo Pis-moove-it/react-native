@@ -1,6 +1,7 @@
 export default {
   login: 'Login',
-  selectUser: 'Select User',
+  selectUser: 'Select user',
+  enter: 'Enter',
   loading: 'Loading',
   password: 'Password',
   email: 'Email',
@@ -45,5 +46,5 @@ export default {
   baleComponentWeight: 'Weight',
   baleButtonText: 'Edit bale',
   bale: 'Bale',
-  history: 'HISTORY',
+  history: 'History',
 };

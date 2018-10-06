@@ -20,6 +20,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.red,
   },
+  drawerButtons: {
+    color: Colors.black,
+    fontSize: 18,
+  },
+  drawerLowerButtons: {
+    color: Colors.black,
+    fontSize: 18,
+    margin: 10,
+    flexShrink: 1,
+  },
 });
 
 export default styles;

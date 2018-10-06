@@ -70,7 +70,6 @@ public class MainApplication extends NavigationApplication {
         return mReactNativeHost;
     }
 
-    @Override
     public boolean clearHostOnActivityDestroy() {
         return false;
     }

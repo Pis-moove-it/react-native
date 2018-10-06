@@ -43,6 +43,13 @@ class User extends Component {
 
   getUsers() {
     const usersData = [];
+    usersData.push(
+      <Picker.Item
+        key={999}
+        label={strings.selectUser}
+        value={false}
+      />,
+    );
     this.props.dataFetch.map((user, identifier) => {
       usersData.push(
         <Picker.Item
@@ -90,7 +97,7 @@ class User extends Component {
               style={styles.button}
               textStyle={styles.textButton}
               onPress={this.state.username ? this.login : null}
-              title={strings.selectUser}
+              title={strings.enter}
             />
           )}
         </View>

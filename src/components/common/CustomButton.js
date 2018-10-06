@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Colors from '../../helpers/Colors';
 
@@ -21,11 +22,24 @@ const styles = StyleSheet.create({
   },
 });
 
-const CustomButton = ({ text, icon }) => (
-  <TouchableOpacity style={styles.button}>
-    <Image style={styles.icon} source={icon} />
-    <Text style={styles.text}>{text}</Text>
+const CustomButton = props => (
+  <TouchableOpacity {...props} style={[styles.button, props.style]}>
+    <Image style={styles.icon} source={props.icon} />
+    <Text style={[styles.text, props.textStyle]}>{props.title}</Text>
   </TouchableOpacity>
 );
+
+CustomButton.propTypes = {
+  style: PropTypes.object,
+  textStyle: PropTypes.object,
+  title: PropTypes.string,
+  icon: PropTypes.string.isRequired,
+};
+
+CustomButton.defaultProps = {
+  style: null,
+  textStyle: null,
+  title: '',
+};
 
 export default CustomButton;
