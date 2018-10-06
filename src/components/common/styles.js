@@ -19,12 +19,14 @@ const styles = StyleSheet.create({
   bottomHalf: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    // alignItems: 'center',
+    flexDirection: 'column',
     backgroundColor: Colors.white,
     padding: 10,
   },
   containerWrapper: {
     flex: 1,
+    marginLeft: '20%',
   },
   button: {
     justifyContent: 'center',
@@ -32,6 +34,10 @@ const styles = StyleSheet.create({
   },
   textButton: {
     fontSize: 20,
+  },
+  userOptionsButton: {
+    width: 150,
+    marginLeft: '5%',
   },
 });
 
