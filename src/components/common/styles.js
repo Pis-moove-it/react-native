@@ -12,21 +12,20 @@ const styles = StyleSheet.create({
   topHalf: {
     flex: 1,
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    flexDirection: 'column',
     backgroundColor: Colors.white,
-    padding: 20,
+    padding: 10,
   },
   bottomHalf: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center',
     flexDirection: 'column',
     backgroundColor: Colors.white,
     padding: 10,
   },
   containerWrapper: {
     flex: 1,
-    marginLeft: '20%',
+    marginLeft: '10%',
   },
   button: {
     justifyContent: 'center',
@@ -38,6 +37,10 @@ const styles = StyleSheet.create({
   userOptionsButton: {
     width: 170,
     marginLeft: '5%',
+  },
+  userOptionsButtonForRole: {
+    width: 150,
+    marginLeft: 0,
   },
 });
 
