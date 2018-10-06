@@ -89,14 +89,14 @@ class Drawer extends Component {
             title={strings.changeRole}
             icon={ChangeRoleIcon}
             textStyle={TextStyles.drawerLowerButtons}
-            style={{ width: 170 }}
+            style={styles.userOptionsButton}
             onPress={this.changeRole}
           />
           <CustomButton
             title={strings.changeUser}
             icon={UserIcon}
             textStyle={TextStyles.drawerLowerButtons}
-            style={{ width: 170 }}
+            style={styles.userOptionsButton}
             onPress={this.logout}
           />
         </View>
