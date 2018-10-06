@@ -12,8 +12,8 @@ Then open another console on the directory project and run:
 
 1. To make a deploy you need to create a .env file on Android directory with dotenv and then add the credentials for fabric:
 
-`require 'dotenv/load'`
-`CRASHLYTICS_API_TOKEN=`
+`require 'dotenv/load'`  
+`CRASHLYTICS_API_TOKEN=`  
 `CRASHLYTICS_BUILD_SECRET=`
 
 2. Then run the command:
