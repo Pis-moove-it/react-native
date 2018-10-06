@@ -90,7 +90,7 @@ class User extends Component {
               style={styles.button}
               textStyle={styles.textButton}
               onPress={this.state.username ? this.login : null}
-              title={strings.selectUser}
+              title={strings.enter}
             />
           )}
         </View>

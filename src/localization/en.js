@@ -1,6 +1,6 @@
 export default {
   login: 'Login',
-  selectUser: 'Select User',
+  enter: 'Enter',
   loading: 'Loading',
   password: 'Password',
   email: 'Email',
