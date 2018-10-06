@@ -141,7 +141,6 @@ Gather.propTypes = {
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
-  role: PropTypes.string.isRequired,
 };
 
 Gather.defaultProps = {};

@@ -63,22 +63,23 @@ class Drawer extends Component {
                   icon={HistoryIcon}
                   title={strings.history}
                   textStyle={TextStyles.drawerButtons}
+                  style={styles.userOptionsButtonForRole}
                 />
               ),
               Weigh: (
                 <CustomButton
                   icon={PocketIcon}
-                  title="weigh button"
+                  title="Weigh button"
                   textStyle={TextStyles.drawerButtons}
-                  style={{ width: 140 }}
+                  style={styles.userOptionsButtonForRole}
                 />
               ),
               Bale: (
                 <CustomButton
                   icon={BaleIcon}
-                  title="bale button"
+                  title="Bale button"
                   textStyle={TextStyles.drawerButtons}
-                  style={{ width: 140 }}
+                  style={styles.userOptionsButtonForRole}
                 />
               ),
             }[role]

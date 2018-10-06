@@ -110,7 +110,6 @@ Bale.propTypes = {
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
-  role: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
