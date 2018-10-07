@@ -33,7 +33,7 @@ CustomButton.propTypes = {
   style: PropTypes.object,
   textStyle: PropTypes.object,
   title: PropTypes.string,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.object.isRequired,
 };
 
 CustomButton.defaultProps = {
