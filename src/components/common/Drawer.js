@@ -42,6 +42,18 @@ class Drawer extends Component {
   render() {
     const { user } = this.props;
     const { role } = this.props;
+    let iconRole;
+    let iconText;
+    if (role === 'Gather' || role === 'Recolectar') {
+      iconRole = HistoryIcon;
+      iconText = strings.history;
+    } else if (role === 'Weigh' || role === 'Pesar') {
+      iconRole = PocketIcon;
+      iconText = strings.filterByRole;
+    } else {
+      iconRole = BaleIcon;
+      iconText = strings.filterByRole;
+    }
     return (
       <View style={styles.containerWrapper}>
         <View style={styles.topHalf}>
@@ -56,34 +68,12 @@ class Drawer extends Component {
           >
             {`${user.name}`}
           </Text>
-          {
-            {
-              Gather: (
-                <CustomButton
-                  icon={HistoryIcon}
-                  title={strings.history}
-                  textStyle={TextStyles.drawerButtons}
-                  style={styles.userOptionsButtonForRole}
-                />
-              ),
-              Weigh: (
-                <CustomButton
-                  icon={PocketIcon}
-                  title="Weigh button"
-                  textStyle={TextStyles.drawerButtons}
-                  style={styles.userOptionsButtonForRole}
-                />
-              ),
-              Bale: (
-                <CustomButton
-                  icon={BaleIcon}
-                  title="Bale button"
-                  textStyle={TextStyles.drawerButtons}
-                  style={styles.userOptionsButtonForRole}
-                />
-              ),
-            }[role]
-          }
+          <CustomButton
+            icon={iconRole}
+            title={iconText}
+            textStyle={TextStyles.drawerButtons}
+            style={styles.userOptionsButtonForRole}
+          />
         </View>
         <View style={styles.bottomHalf}>
           <CustomButton

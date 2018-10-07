@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
   },
   containerWrapper: {
     flex: 1,
-    marginLeft: '10%',
+    marginLeft: '30%',
+    flexDirection: 'column',
   },
   button: {
     justifyContent: 'center',
@@ -35,11 +36,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   userOptionsButton: {
-    width: 170,
+    // flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
     marginLeft: '5%',
   },
   userOptionsButtonForRole: {
-    width: 150,
+    // flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
     marginLeft: 0,
   },
 });

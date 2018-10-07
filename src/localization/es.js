@@ -47,4 +47,5 @@ export default {
   baleButtonText: 'Modificar fardo',
   bale: 'Fardo',
   history: 'Historial',
+  filterByRole: 'Filtrar',
 };

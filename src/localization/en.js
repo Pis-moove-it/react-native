@@ -47,4 +47,5 @@ export default {
   baleButtonText: 'Edit bale',
   bale: 'Bale',
   history: 'History',
+  filterByRole: 'Filter',
 };
