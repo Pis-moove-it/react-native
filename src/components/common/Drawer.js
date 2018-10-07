@@ -13,7 +13,6 @@ import HistoryIcon from '../../assets/images/HistoryIcon.png';
 import BaleIcon from '../../assets/images/BaleIcon.png';
 import PocketIcon from '../../assets/images/PocketIcon.png';
 import UserIcon from '../../assets/ic_user/ic_user128_green.png';
-import Colors from '../../helpers/Colors';
 import Application from '../../Application';
 import styles from './styles';
 import CustomButton from './CustomButton';
@@ -44,10 +43,10 @@ class Drawer extends Component {
     const { role } = this.props;
     let iconRole;
     let iconText;
-    if (role === 'Gather' || role === 'Recolectar') {
+    if (role === strings.gatherAction) {
       iconRole = HistoryIcon;
       iconText = strings.history;
-    } else if (role === 'Weigh' || role === 'Pesar') {
+    } else if (role === strings.weighAction) {
       iconRole = PocketIcon;
       iconText = strings.filterByRole;
     } else {
@@ -57,17 +56,7 @@ class Drawer extends Component {
     return (
       <View style={styles.containerWrapper}>
         <View style={styles.topHalf}>
-          <Text
-            style={{
-              fontSize: 22,
-              fontWeight: '700',
-              color: Colors.primary,
-              adjustsFontSizeToFit: true,
-              textAlign: 'center',
-            }}
-          >
-            {`${user.name}`}
-          </Text>
+          <Text style={styles.textTitleStyle}>{`${user.name}`}</Text>
           <CustomButton
             icon={iconRole}
             title={iconText}

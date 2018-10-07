@@ -36,18 +36,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   userOptionsButton: {
-    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     width: '100%',
     marginLeft: '5%',
   },
   userOptionsButtonForRole: {
-    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     width: '100%',
     marginLeft: 0,
+  },
+  textTitleStyle: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: Colors.primary,
+    textAlign: 'center',
   },
 });
 
