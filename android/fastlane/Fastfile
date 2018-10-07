@@ -13,6 +13,6 @@ desc "Submit a new Beta Build to Crashlytics Beta"
       api_token: ENV['CRASHLYTICS_API_TOKEN'],
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
       notifications: 'true',
-      notes: 'Release 0.1 -> probando deploy'
+      notes: 'Release 1.99 -> Fix drawer issues in some devices'
     )  
   end

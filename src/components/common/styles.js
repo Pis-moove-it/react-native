@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
   },
   containerWrapper: {
     flex: 1,
-    marginLeft: '10%',
+    marginLeft: '30%',
+    flexDirection: 'column',
   },
   button: {
     justifyContent: 'center',
@@ -35,12 +36,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   userOptionsButton: {
-    width: 170,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
     marginLeft: '5%',
   },
   userOptionsButtonForRole: {
-    width: 150,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
     marginLeft: 0,
+  },
+  textTitleStyle: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: Colors.primary,
+    textAlign: 'center',
   },
 });
 
