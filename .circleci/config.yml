@@ -9,7 +9,7 @@ jobs:
       - run:
           name: Install dependencies
           command: yarn
-      - run: yarn run test:ci
+      - run: yarn run test
       - deploy:
           name: Build and Deploy Master to Android Crashlytics
           command: |
