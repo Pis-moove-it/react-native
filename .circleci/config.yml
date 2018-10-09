@@ -10,14 +10,11 @@ jobs:
           name: Install dependencies
           command: yarn
       - run: yarn run test
-      #- run: yarn run lint
       - deploy:
           name: Build and Deploy Master to Android Crashlytics
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               mkdir -p ~/.gradle && cp config/gradle.properties ~/.gradle/gradle.properties
-              #echo "API_URL=$API_URL" >> .env
-              #echo "APP_NAME=$APP_NAME" >> .env
               bundle install
               cd android && bundle exec fastlane android beta
             fi
