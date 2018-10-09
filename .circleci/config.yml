@@ -16,5 +16,5 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "circleci-integration" ]; then
               mkdir -p ~/.gradle && cp android/gradle.properties ~/.gradle/gradle.properties
               cd android && bundle install
-              bundle exec fastlane android beta
+              bundle exec fastlane beta
             fi
