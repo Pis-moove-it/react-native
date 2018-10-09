@@ -1,5 +1,4 @@
-import axios from 'axios';
-import getUsersApi from '../api';
+import { getUsersApi } from '../api';
 
 export const actionTypes = {
   USERS_API_REQUEST: 'USERS_API_REQUEST',
@@ -23,7 +22,7 @@ const getUsersSuccess = users => ({
 
 export const fetchUsers = () => (dispatch) => {
   dispatch(getUsers());
-  getUsersApi()
+  getUsersApi(1)
     .then((response) => {
       dispatch(getUsersSuccess(response.data));
     })
