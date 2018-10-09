@@ -5,6 +5,7 @@ import user from './UserReducer';
 import login from './LoginReducer';
 import role from './RoleReducer';
 import users from './UsersAPIReducer';
+import bales from './BalesReducer';
 
 const rootReducer = combineReducers({
   loading,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   login,
   role,
   users,
+  bales,
 });
 
 export default rootReducer;
