@@ -9,12 +9,12 @@ jobs:
       - run:
           name: Install dependencies
           command: yarn
-      - run: yarn run test
+      - run: yarn run test:ci
       - deploy:
           name: Build and Deploy Master to Android Crashlytics
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              mkdir -p ~/.gradle && cp config/gradle.properties ~/.gradle/gradle.properties
+            if [ "${CIRCLE_BRANCH}" == "circleci-integration" ]; then
+              mkdir -p ~/.gradle && cp android/gradle.properties ~/.gradle/gradle.properties
               bundle install
               cd android && bundle exec fastlane android beta
             fi
