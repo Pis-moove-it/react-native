@@ -8,8 +8,8 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: yarn
-      - run: yarn run test:ci
+          command: npm
+      - run: npm run test
       #- run: yarn run lint
       - deploy:
           name: Build and Deploy Master to Android Crashlytics
