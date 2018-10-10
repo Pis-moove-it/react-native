@@ -2,22 +2,21 @@ version: 2
 jobs:
   android:
     working_directory: ~/project
+
     docker:
       - image: circleci/android:api-27-node8-alpha
-     steps:
+
+    steps:
       - checkout:
           path: ~/project
       - attach_workspace:
           at: ~/project
-     - run:
-          name: Install dependencies
-          command: yarn
-      - run: yarn run test
-       - deploy:
-          name: Build and Deploy Master to Android Crashlytics
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "circleci-integration" ]; then
-              mkdir -p ~/.gradle && cp android/gradle.properties ~/.gradle/gradle.properties
-              cd android && bundle install
-              bundle exec fastlane beta
-            fi
+      - run:
+          name: Set Ruby Version
+          command: echo "ruby-2.4" > ~/.ruby-version
+      - run: cd android && bundle install
+      - run: cd android && bundle exec fastlane beta
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - node_modules
