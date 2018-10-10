@@ -9,3 +9,13 @@ RUN echo y | apt-get install g++
 
 # Install react native
 RUN npm install -g react-native-cli@2.0.1
+
+
+RUN sdkmanager \
+"build-tools;25.0.0" \
+"build-tools;25.0.1" \
+"build-tools;25.0.2" \
+"build-tools;25.0.3" \
+"build-tools;26.0.1"
+
+RUN sdkmanager "platforms;android-API_LEVEL"
