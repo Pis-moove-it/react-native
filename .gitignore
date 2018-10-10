@@ -52,7 +52,7 @@ ios/Pods/
 # BUCK
 buck-out/
 \.buckd/
-*.keystore
+
 
 # fastlane
 #
