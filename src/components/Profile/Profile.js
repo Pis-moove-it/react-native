@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { isTablet } from 'react-native-device-detection';
 import strings from '../../localization';
 import TextStyles from '../../helpers/TextStyles';
 import Button from '../common/Button';
@@ -15,8 +14,6 @@ import { Screens } from '../Navigation';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
-import user128 from '../../assets/ic_user/ic_user128.png';
-import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import styles from './styles';
 
 class Profile extends Component {
@@ -33,7 +30,13 @@ class Profile extends Component {
         buttonColor: Colors.white,
       },
     ],
-    rightButtons: [],
+    rightButtons: [
+      {
+        title: 'Volver',
+        id: 'back',
+        buttonColor: Colors.white,
+      },
+    ],
   };
 
   constructor(props) {
@@ -43,15 +46,6 @@ class Profile extends Component {
       landscape: Platform.isLandscape(),
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
-  componentDidMount() {
-    const { name } = this.state.user;
-    if (isTablet || this.state.landscape) {
-      this.setButtonsTablet(name);
-    } else {
-      this.setButtonsPhone();
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -68,49 +62,16 @@ class Profile extends Component {
 
   onNavigatorEvent(event) {
     switch (event.id) {
-      case 'sideMenuIcon':
-        this.props.navigator.toggleDrawer({
-          side: 'right',
+      case 'back':
+        this.props.navigator.pop({
           animated: true,
-          to: 'open',
+          animationType: 'fade',
         });
         break;
       default:
         break;
     }
   }
-
-  setButtonsTablet = (name) => {
-    this.props.navigator.setButtons({
-      rightButtons: [
-        {
-          icon: user128,
-          id: 'userIcon',
-        },
-        {
-          title: name.toString(),
-          id: 'username',
-          buttonColor: Colors.white,
-          buttonFontSize: 14,
-          buttonFontWeight: '600',
-        },
-      ],
-      animated: false,
-    });
-  };
-
-  setButtonsPhone = () => {
-    this.props.navigator.setButtons({
-      rightButtons: [
-        {
-          icon: sideMenuIcon,
-          id: 'sideMenuIcon',
-          buttonColor: Colors.white,
-        },
-      ],
-      animated: false,
-    });
-  };
 
   logout = () => {
     this.props.logout();

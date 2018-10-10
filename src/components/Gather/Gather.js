@@ -15,6 +15,7 @@ import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
+import { Screens } from '../Navigation';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
 
@@ -83,6 +84,11 @@ class Gather extends Component {
             icon: user128,
             style: { color: Colors.white, width: 170 },
             textStyle: { margin: 10 },
+            onPress: () =>
+              this.props.navigator.push({
+                screen: Screens.Profile,
+                animationType: 'fade',
+              }),
           },
         },
         {
