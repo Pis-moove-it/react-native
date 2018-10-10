@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /opt/workspace
     docker:
-      - image: jetthoughts/android-react-native:1.0
+      - image: circleci/android:api-27-node8-alpha #jetthoughts/android-react-native:1.0
     steps:
       - checkout
       - run:
