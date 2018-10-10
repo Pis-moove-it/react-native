@@ -2,11 +2,9 @@ version: 2
 jobs:
   android:
     working_directory: ~/project
- 
     docker:
       - image: circleci/android:api-27-node8-alpha
- 
-    steps:
+     steps:
       - checkout:
           path: ~/project
       - attach_workspace:
