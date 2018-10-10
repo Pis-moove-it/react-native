@@ -13,7 +13,7 @@ jobs:
       - deploy:
           name: Build and Deploy Master to Android Crashlytics
           command: |
-            if [ "${CIRCLE_BRANCH}" == "circleci-integration" ]; then
+            if [ "${CIRCLE_BRANCH}" == "prod" ]; then
               mkdir -p ~/.gradle && cp android/gradle.properties ~/.gradle/gradle.properties
               cp -r licenses/. $ANDROID_HOME/licenses
               cd android && bundle install
