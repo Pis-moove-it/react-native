@@ -6,7 +6,12 @@ import Button from '../common/Button';
 import strings from '../../localization';
 import styles from './styles';
 
-const TabletBale = ({ id, type, weight }) => (
+const TabletBale = ({
+  id,
+  type,
+  weight,
+  onPressAction,
+}) => (
   <View style={styles.containerTabletBale}>
     <Image source={FardoIcon} style={styles.baleImageStyleTablet} />
     <View style={styles.containerItemTablet}>
@@ -26,6 +31,7 @@ const TabletBale = ({ id, type, weight }) => (
         style={styles.tabletButton}
         title={strings.baleButtonText}
         textStyle={styles.tabletButtonText}
+        onPress={onPressAction}
       />
     </View>
   </View>
@@ -35,12 +41,14 @@ TabletBale.propTypes = {
   id: PropTypes.string,
   type: PropTypes.string,
   weight: PropTypes.string,
+  onPressAction: PropTypes.func,
 };
 
 TabletBale.defaultProps = {
   id: '',
   type: '',
   weight: 0,
+  onPressAction: () => ({}),
 };
 
 export default TabletBale;

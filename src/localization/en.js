@@ -21,6 +21,8 @@ export default {
   gatherTitle: 'Gather',
   weighTitle: 'Weigh',
   baleTitle: 'Bale',
+
+  // Gather Modal
   month0: 'January',
   month1: 'February',
   month2: 'March',
@@ -41,11 +43,25 @@ export default {
   day5: 'Friday',
   day6: 'Saturday',
   startTravel: 'Start travelling',
+
+  // Bale Component
   baleComponentBale: 'Bale',
   baleComponentType: 'Type',
   baleComponentWeight: 'Weight',
   baleButtonText: 'Edit bale',
   bale: 'Bale',
+
+  // Bale Edit Modal
+  editBale: 'Edit bale',
+  acceptEditBale: 'Accept',
+  editBalePlaceholder: 'Weight',
+  selectMaterial: 'Select a new material',
+
+  // Constants
+  plastic: 'Plastic',
+  glass: 'Glass',
+
+  // Drawer Buttons
   history: 'History',
   filterByRole: 'Filter',
 };

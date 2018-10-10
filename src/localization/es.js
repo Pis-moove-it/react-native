@@ -21,6 +21,8 @@ export default {
   gatherTitle: 'Recolectar',
   weighTitle: 'Pesar',
   baleTitle: 'Enfardar',
+
+  // Gather Modal
   month0: 'Enero',
   month1: 'Febrero',
   month2: 'Marzo',
@@ -41,11 +43,25 @@ export default {
   day5: 'Viernes',
   day6: 'Sábado',
   startTravel: 'Empezar recorrida',
+
+  // Bale Component
   baleComponentBale: 'Fardo',
   baleComponentType: 'Tipo',
   baleComponentWeight: 'Peso',
   baleButtonText: 'Modificar fardo',
   bale: 'Fardo',
+
+  // Bale Edit Modal
+  editBale: 'Modificar fardo',
+  acceptEditBale: 'Aceptar',
+  editBalePlaceholder: 'Peso',
+  selectMaterial: 'Elige un nuevo material',
+
+  // Constants
+  plastic: 'Plástico',
+  glass: 'Vidrio',
+
+  // Drawer Buttons
   history: 'Historial',
   filterByRole: 'Filtrar',
 };
