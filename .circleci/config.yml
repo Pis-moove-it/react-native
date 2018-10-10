@@ -1,22 +1,22 @@
 version: 2
 jobs:
   android:
-    working_directory: ~/project
+    working_directory: ~/reciclando-mobile
 
     docker:
       - image: circleci/android:api-27-node8-alpha
 
     steps:
       - checkout:
-          path: ~/project
+          path: ~/reciclando-mobile
       - attach_workspace:
-          at: ~/project
+          at: ~/reciclando-mobile
       - run:
           name: Set Ruby Version
           command: echo "ruby-2.4" > ~/.ruby-version
       - run: cd android && bundle install
       - run: cd android && bundle exec fastlane beta
       - persist_to_workspace:
-          root: ~/project
+          root: ~/reciclando-mobile
           paths:
             - node_modules
