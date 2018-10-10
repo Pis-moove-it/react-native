@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import strings from '../../localization';
 import TextStyles from '../../helpers/TextStyles';
-import Button from '../common/Button';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import getUser from '../../selectors/UserSelector';
@@ -14,6 +13,10 @@ import { Screens } from '../Navigation';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
+import ChangeRoleIcon from '../../assets/ic_common/ic_refresh.png';
+import UserIcon from '../../assets/ic_user/ic_user128_green.png';
+import CustomButton from '../common/CustomButton';
+import commonStyles from '../common/styles';
 import styles from './styles';
 
 class Profile extends Component {
@@ -41,10 +44,6 @@ class Profile extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      user: props.user,
-      landscape: Platform.isLandscape(),
-    };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -81,23 +80,33 @@ class Profile extends Component {
   changeRole = () => this.props.changeRole();
 
   render() {
+    const { user } = this.props;
     return (
-      <View style={styles.containerWrapper}>
-        <View style={styles.container}>
-          <Text style={TextStyles.fieldTitle}> {strings.profile} </Text>
-          <Text>{strings.profileMessage}</Text>
-          <Button
-            style={styles.button}
-            textStyle={styles.text}
-            title={strings.changeRole}
-            onPress={this.changeRole}
-          />
-          <Button
-            style={styles.button}
-            textStyle={styles.text}
-            title={strings.changeUser}
-            onPress={this.logout}
-          />
+      <View style={styles.container}>
+        <Text style={TextStyles.fieldTitle}> {strings.profile} </Text>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.leftColumn}>
+            <Text style={TextStyles.drawerLowerButtons}>{`${strings.user}: ${user.name}`}</Text>
+            <Text style={TextStyles.drawerLowerButtons}>
+              {`${strings.role}: ${this.props.role}`}
+            </Text>
+          </View>
+          <View style={styles.rightColumn}>
+            <CustomButton
+              title={strings.changeUser}
+              icon={UserIcon}
+              textStyle={TextStyles.drawerLowerButtons}
+              style={styles.userOptionsButton}
+              onPress={this.logout}
+            />
+            <CustomButton
+              title={strings.changeRole}
+              icon={ChangeRoleIcon}
+              textStyle={TextStyles.drawerLowerButtons}
+              style={styles.userOptionsButton}
+              onPress={this.changeRole}
+            />
+          </View>
         </View>
       </View>
     );

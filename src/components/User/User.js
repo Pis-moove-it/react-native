@@ -43,21 +43,13 @@ class User extends Component {
 
   getUsers() {
     const usersData = [];
-    usersData.push(
-      <Picker.Item
-        key={999}
-        label={strings.selectUser}
-        value={false}
-      />,
-    );
+    usersData.push(<Picker.Item key={999} label={strings.selectUser} value={false} />);
     this.props.dataFetch.map((user, identifier) => {
-      usersData.push(
-        <Picker.Item
-          key={identifier}
-          label={`${user.name} ${user.surname}`}
-          value={`${user.name} ${user.surname}`}
-        />,
-      );
+      usersData.push(<Picker.Item
+        key={identifier}
+        label={`${user.name} ${user.surname}`}
+        value={`${user.name} ${user.surname}`}
+      />);
     });
     return usersData;
   }

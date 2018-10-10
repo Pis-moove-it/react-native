@@ -18,6 +18,7 @@ export default {
   changeRole: 'Cambiar Rol',
   changeUser: 'Cambiar Usuario',
   roleSelectionTitle: 'Seleccione una actividad:',
+  role: 'Rol',
   gatherTitle: 'Recolectar',
   weighTitle: 'Pesar',
   baleTitle: 'Enfardar',
