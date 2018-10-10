@@ -5,9 +5,7 @@ jobs:
     docker:
       - image: jetthoughts/android-react-native:1.0
     steps:
-      - checkout:
-          post:
-            - cp -r licenses/. $ANDROID_HOME/licenses
+      - checkout
       - run:
           name: Install dependencies
           command: yarn
@@ -17,6 +15,7 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "circleci-integration" ]; then
               mkdir -p ~/.gradle && cp android/gradle.properties ~/.gradle/gradle.properties
+              cp -r licenses/. $ANDROID_HOME/licenses
               cd android && bundle install
               touch ~/.android/repositories.cfg
               bundle exec fastlane beta
