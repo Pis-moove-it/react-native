@@ -9,3 +9,4 @@ RUN echo y | apt-get install g++
 
 # Install react native
 RUN npm install -g react-native-cli@2.0.1
+
