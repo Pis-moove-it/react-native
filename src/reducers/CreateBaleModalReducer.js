@@ -1,7 +1,7 @@
 import { actionTypes } from '../actions/CreateBaleModalActions';
 
 const INITIAL_STATE = {
-  createBaleModalIsOpen: false,
+  createBaleModalIsOpen: true,
 };
 
 const createBaleModalReducer = (state = INITIAL_STATE, action) => {

@@ -3,7 +3,7 @@ import { View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
-import getIsModalVisible from '../../selectors/RoleSelector';
+import getIsModalVisible from '../../selectors/CreateBaleModalSelector';
 import { closeCreateBaleModal } from '../../actions/CreateBaleModalActions';
 import strings from '../../localization';
 import Button from './Button';
@@ -48,7 +48,7 @@ class CreateBaleModal extends Component {
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>
             <Text style={styles.modalTitle}>
-              {strings.editBale}
+              {strings.createBale}
             </Text>
           </View>
           <View>
@@ -67,8 +67,8 @@ class CreateBaleModal extends Component {
             <Button
               style={styles.buttonModal}
               textStyle={styles.text}
-              title={strings.acceptEditBale}
-              onPress={this.props.openCreateBaleModal}
+              title={strings.acceptModal}
+              onPress={this.props.closeCreateBaleModal}
             />
           </View>
         </View>
@@ -78,7 +78,7 @@ class CreateBaleModal extends Component {
 }
 
 CreateBaleModal.propTypes = {
-  openCreateBaleModal: PropTypes.func.isRequired,
+  closeCreateBaleModal: PropTypes.func.isRequired,
   isModalVisible: PropTypes.bool.isRequired,
 };
 

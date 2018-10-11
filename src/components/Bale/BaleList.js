@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { FlatList, View, Text, Picker } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
-import Modal from 'react-native-modal';
+import PropTypes from 'prop-types';
+import { openEditBaleModal } from '../../actions/EditBaleModalActions';
 import PhoneBale from '../Bale/PhoneBale';
 import TabletBale from '../Bale/TabletBale';
-import Button from '../common/Button';
-import TextField from '../common/TextField';
 import CreateBaleModal from '../common/CreateBaleModal';
-import strings from '../../localization/';
+import EditBaleModal from '../common/EditBaleModal';
 import recyclabeleMaterials from '../common/Constants';
-import styles from './styles';
 
 const balesList = [
   {
@@ -50,81 +48,23 @@ class BaleList extends Component {
     this.materials = recyclabeleMaterials;
   }
 
-  state = {
-    isModalVisible: false,
-    selectedMaterial: null,
-  };
-
-  getMaterials() {
-    const pickerMaterial = [];
-    pickerMaterial.push(
-      <Picker.Item
-        key={999}
-        label={strings.selectMaterial}
-        value={false}
-      />,
-    );
-    this.materials.map((material) => {
-      pickerMaterial.push(<Picker.Item
-        key={material.id}
-        label={material.name}
-        value={material.name}
-      />);
-    });
-    return pickerMaterial;
-  }
-
-  toggleModal = () =>
-    this.setState({ isModalVisible: !this.state.isModalVisible });
-
   render() {
     return (
       <View>
         <CreateBaleModal />
-        <Modal
-          isVisible={this.state.isModalVisible}
-          onBackdropPress={() => this.setState({ isModalVisible: false })}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalTitleContainer}>
-              <Text style={styles.modalTitle}>
-                {strings.editBale}
-              </Text>
-            </View>
-            <View>
-              <TextField
-                placeholder={strings.editBalePlaceholder}
-                keyboardType="numeric"
-              />
-              <Picker
-                selectedValue={this.state.selectedMaterial}
-                mode="dropdown"
-                onValueChange={value =>
-                  (this.setState({ selectedMaterial: value }))}
-              >
-                {this.getMaterials()}
-              </Picker>
-              <Button
-                style={styles.button}
-                textStyle={styles.text}
-                title={strings.acceptEditBale}
-                onPress={this.toggleModal}
-              />
-            </View>
-          </View>
-        </Modal>
+        <EditBaleModal />
         <FlatList
           data={balesList}
           renderItem={({ item }) => {
             if (isPhone) {
-              return <PhoneBale id={item.id} onPressAction={this.toggleModal} />;
+              return <PhoneBale id={item.id} onPressAction={this.props.openEditBaleModal} />;
             }
             return (
               <TabletBale
                 id={item.id}
                 type={item.type}
                 weight={item.weight}
-                onPressAction={this.toggleModal}
+                onPressAction={this.props.openEditBaleModal}
               />
             );
           }}
@@ -134,13 +74,17 @@ class BaleList extends Component {
   }
 }
 
-BaleList.propTypes = {};
+BaleList.propTypes = {
+  openEditBaleModal: PropTypes.func.isRequired,
+};
 
 BaleList.defaultProps = {};
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+  openEditBaleModal: () => dispatch(openEditBaleModal()),
+});
 
 export default connect(
   mapStateToProps,

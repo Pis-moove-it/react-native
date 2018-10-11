@@ -9,11 +9,12 @@ const openCreateBaleModalType = () => ({
 });
 
 export const openCreateBaleModal = () => (dispatch) => {
+  console.log('modal open');
   dispatch(openCreateBaleModalType());
 };
 
 const closeCreateBaleModalType = () => ({
-  type: actionTypes.CLOSE_CREATE_BALE_MODALT,
+  type: actionTypes.CLOSE_CREATE_BALE_MODAL,
   isVisible: false,
 });
 

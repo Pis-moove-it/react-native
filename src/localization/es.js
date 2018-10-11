@@ -51,11 +51,16 @@ export default {
   baleButtonText: 'Modificar fardo',
   bale: 'Fardo',
 
+  // Common Modal
+  acceptModal: 'Aceptar',
+  weighPlaceholderModal: 'Peso',
+  selectMaterial: 'Seleccione un nuevo material',
+
   // Bale Edit Modal
-  editBale: 'Modificar fardo',
-  acceptEditBale: 'Aceptar',
-  editBalePlaceholder: 'Peso',
-  selectMaterial: 'Elige un nuevo material',
+  editBale: 'Editar Fardo',
+
+  // Bale Create Modal
+  createBale: 'Nuevo fardo',
 
   // Constants
   plastic: 'Plástico',

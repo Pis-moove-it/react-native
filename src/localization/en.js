@@ -51,11 +51,16 @@ export default {
   baleButtonText: 'Edit bale',
   bale: 'Bale',
 
+  // Common Modal
+  acceptModal: 'Accept',
+  weighPlaceholderModal: 'Weight',
+  selectMaterial: 'Select a new material',
+
   // Bale Edit Modal
   editBale: 'Edit bale',
-  acceptEditBale: 'Accept',
-  editBalePlaceholder: 'Weight',
-  selectMaterial: 'Select a new material',
+
+  // Bale Create Modal
+  createBale: 'New bale',
 
   // Constants
   plastic: 'Plastic',

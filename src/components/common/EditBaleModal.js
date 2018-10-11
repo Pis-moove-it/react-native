@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
+import PropTypes from 'prop-types';
 import strings from '../../localization';
+import getIsModalVisible from '../../selectors/EditBaleModalSelector';
+import { closeEditBaleModal } from '../../actions/EditBaleModalActions';
 import Button from './Button';
 import TextField from './TextField';
 import recyclabeleMaterials from './Constants';
 import styles from './styles';
 
-class EditModal extends Component {
+class EditBaleModal extends Component {
   constructor(props) {
     super(props);
     this.materials = recyclabeleMaterials;
@@ -40,7 +43,7 @@ class EditModal extends Component {
   render() {
     return (
       <Modal
-        isVisible={this.state.isModalVisible}
+        isVisible={this.props.isModalVisible}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>
@@ -50,7 +53,7 @@ class EditModal extends Component {
           </View>
           <View>
             <TextField
-              placeholder={strings.editBalePlaceholder}
+              placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
             />
             <Picker
@@ -64,8 +67,8 @@ class EditModal extends Component {
             <Button
               style={styles.buttonModal}
               textStyle={styles.text}
-              title={strings.acceptEditBale}
-              onPress={this.props.closeEditModal()}
+              title={strings.acceptModal}
+              onPress={this.props.closeEditModal}
             />
           </View>
         </View>
@@ -74,17 +77,22 @@ class EditModal extends Component {
   }
 }
 
-EditModal.propTypes = {};
+EditBaleModal.propTypes = {
+  isModalVisible: PropTypes.bool.isRequired,
+  closeEditModal: PropTypes.func.isRequired,
+};
 
-EditModal.defaultProps = {};
+EditBaleModal.defaultProps = {};
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  isModalVisible: getIsModalVisible(state),
+});
 
-const mapDispatchToProps = () => ({
-  closeEditModal: () => ({}),
+const mapDispatchToProps = dispatch => ({
+  closeEditModal: () => dispatch(closeEditBaleModal()),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(EditModal);
+)(EditBaleModal);

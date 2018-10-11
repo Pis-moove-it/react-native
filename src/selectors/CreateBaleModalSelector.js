@@ -1,1 +1,1 @@
-export default state => state.createBaleModal.editBaleModalIsOpen;
+export default state => state.createBaleModal.createBaleModalIsOpen;
