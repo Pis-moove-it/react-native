@@ -7,6 +7,7 @@ import PhoneBale from '../Bale/PhoneBale';
 import TabletBale from '../Bale/TabletBale';
 import Button from '../common/Button';
 import TextField from '../common/TextField';
+import CreateBaleModal from '../common/CreateBaleModal';
 import strings from '../../localization/';
 import recyclabeleMaterials from '../common/Constants';
 import styles from './styles';
@@ -79,6 +80,7 @@ class BaleList extends Component {
   render() {
     return (
       <View>
+        <CreateBaleModal />
         <Modal
           isVisible={this.state.isModalVisible}
           onBackdropPress={() => this.setState({ isModalVisible: false })}

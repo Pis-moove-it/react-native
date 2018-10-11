@@ -17,5 +17,6 @@ const roleLogout = () => ({
 });
 
 export const changeRole = () => (dispatch) => {
+  console.log('role should change');
   dispatch(roleLogout());
 };
