@@ -1,10 +1,10 @@
 import { actionTypes } from '../actions/CreateBaleModalActions';
 
-const INITIAL_STATE = {
+export const initialState = {
   createBaleModalIsOpen: true,
 };
 
-const createBaleModalReducer = (state = INITIAL_STATE, action) => {
+const createBaleModalReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.OPEN_CREATE_BALE_MODAL:
       return {

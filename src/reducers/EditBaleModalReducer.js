@@ -1,10 +1,10 @@
 import { actionTypes } from '../actions/EditBaleModalActions';
 
-const INITIAL_STATE = {
+export const initialState = {
   editBaleModalIsOpen: false,
 };
 
-const editBaleModalReducer = (state = INITIAL_STATE, action) => {
+const editBaleModalReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.OPEN_EDIT_BALE_MODAL:
       return {
