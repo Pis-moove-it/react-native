@@ -42,6 +42,7 @@ export default {
   day5: 'Friday',
   day6: 'Saturday',
   startTravel: 'Start travelling',
+  back: 'Return',
   baleComponentBale: 'Bale',
   baleComponentType: 'Type',
   baleComponentWeight: 'Weight',

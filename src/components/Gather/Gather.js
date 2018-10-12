@@ -46,6 +46,7 @@ class Gather extends Component {
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
+
   state = {
     isModalVisible: false,
   };
@@ -88,6 +89,7 @@ class Gather extends Component {
               this.props.navigator.push({
                 screen: Screens.Profile,
                 animationType: 'fade',
+                title: strings.profile,
               }),
           },
         },
@@ -97,7 +99,7 @@ class Gather extends Component {
           passProps: {
             title: strings.history,
             icon: HistoryIconWhite,
-            style: { color: Colors.white },
+            style: { color: Colors.white, width: 100 },
           },
         },
       ],

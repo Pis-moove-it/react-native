@@ -42,6 +42,7 @@ export default {
   day5: 'Viernes',
   day6: 'Sábado',
   startTravel: 'Empezar recorrida',
+  back: 'Volver',
   baleComponentBale: 'Fardo',
   baleComponentType: 'Tipo',
   baleComponentWeight: 'Peso',

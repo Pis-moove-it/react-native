@@ -13,6 +13,7 @@ import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import { Screens } from '../Navigation';
+import strings from '../../localization';
 
 class Bale extends Component {
   static navigatorStyle = {
@@ -78,6 +79,7 @@ class Bale extends Component {
               this.props.navigator.push({
                 screen: Screens.Profile,
                 animationType: 'fade',
+                title: strings.profile,
               }),
           },
         },
