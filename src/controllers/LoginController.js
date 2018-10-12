@@ -1,19 +1,34 @@
+import axios from 'axios';
+import strings from '../localization';
+
 class LoginController {
   constructor() {
-    this.basePath = '/users';
+    this.basePath = 'http://34.213.11.120';
   }
 
-  login = async (organization, password) =>
-    // This is a mocked example to simulate api behavior
+  login = async (organization, password, path) =>
     new Promise((resolve, reject) => {
-      if (organization !== null && password !== null) {
-        setTimeout(() => resolve({ name: organization }), 1000);
-      } else {
-        setTimeout(
-          () => reject(new Error('Invalid identifier/username')),
-          1000,
-        );
-      }
+      axios
+        .post(
+          `${this.basePath}${path}`,
+          {
+            name: `${organization}`,
+            password: `${password}`,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              DeviceTypeHeader: 'android',
+              DeviceIdHeader: 'a587refvs251fw8wgw12r8njytio8pqn1vhf93eej',
+            },
+          },
+        )
+        .then((response) => {
+          resolve({ token: response.headers.apikey, logedOrganization: response.data.name });
+        })
+        .catch((error) => {
+          reject(new Error(strings.loginError));
+        });
     });
 
   logout = () => null;

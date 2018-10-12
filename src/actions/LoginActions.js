@@ -17,8 +17,9 @@ const loginError = error => ({
   error,
 });
 
-const loginSuccess = organization => ({
+const loginSuccess = (token, organization) => ({
   type: actionTypes.LOGIN_SUCCESS,
+  token,
   organization,
 });
 
@@ -26,20 +27,22 @@ const logoutRequest = () => ({
   type: actionTypes.LOGOUT,
 });
 
-export const login = (organization, password) => async (dispatch) => {
-  dispatch(loginRequest());
-  try {
-    const logedOrganization = await LoginController.login(
-      organization,
-      password,
-    );
-    dispatch(loginSuccess(logedOrganization));
-  } catch (error) {
-    dispatch(loginError(error.message));
-  }
-};
-
 export const logout = () => (dispatch) => {
   LoginController.logout();
   dispatch(logoutRequest());
+};
+
+export const login = (organization, password) => async (dispatch) => {
+  dispatch(logout());
+  dispatch(loginRequest());
+  try {
+    const { token, logedOrganization } = await LoginController.login(
+      organization,
+      password,
+      '/organizations/login',
+    );
+    dispatch(loginSuccess(token, logedOrganization));
+  } catch (error) {
+    dispatch(loginError(error.message));
+  }
 };

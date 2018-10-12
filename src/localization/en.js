@@ -48,4 +48,5 @@ export default {
   bale: 'Bale',
   history: 'History',
   filterByRole: 'Filter',
+  loginError: 'Invalid username or password',
 };
