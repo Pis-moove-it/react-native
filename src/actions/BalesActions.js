@@ -26,5 +26,7 @@ export const fetchBales = () => (dispatch) => {
     .then((response) => {
       dispatch(getBalesSuccess(response.data));
     })
-    .catch(err => console.log('Error'));
+    .catch((error) => {
+      dispatch(getBalesError(error));
+    });
 };
