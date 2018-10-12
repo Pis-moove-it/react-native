@@ -69,4 +69,5 @@ export default {
   // Drawer Buttons
   history: 'History',
   filterByRole: 'Filter',
+  createBaleDrawer: 'Create Bale',
 };

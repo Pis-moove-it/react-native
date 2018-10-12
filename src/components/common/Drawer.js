@@ -64,7 +64,7 @@ class Drawer extends Component {
       action = () => ({});
     } else {
       iconRole = BaleIcon;
-      iconText = strings.filterByRole;
+      iconText = strings.createBaleDrawer;
       action = this.toggleModal;
     }
     return (

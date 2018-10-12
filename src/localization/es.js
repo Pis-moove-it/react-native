@@ -69,4 +69,5 @@ export default {
   // Drawer Buttons
   history: 'Historial',
   filterByRole: 'Filtrar',
+  createBaleDrawer: 'Crear Fardo',
 };
