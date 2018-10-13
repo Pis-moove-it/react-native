@@ -49,6 +49,6 @@ export default {
   history: 'Historial',
   filterByRole: 'Filtrar',
   arrivedAt: 'Hora de llegada',
-  pocketButtonWeightText: 'Pesar bolsón',
+  pocketButtonWeightText: 'Pesar',
   pocketButtonEditWeightText: 'Modificar peso',
 };

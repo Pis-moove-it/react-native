@@ -49,6 +49,6 @@ export default {
   history: 'History',
   filterByRole: 'Filter',
   arrivedAt: 'Arrived at',
-  pocketButtonWeightText: 'Weight pocket',
-  pocketButtonEditWeightText: 'Edit wegiht',
+  pocketButtonWeightText: 'Weight',
+  pocketButtonEditWeightText: 'Edit weight',
 };
