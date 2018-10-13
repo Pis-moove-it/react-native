@@ -1,34 +1,38 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { isPhone } from 'react-native-device-detection';
 import PhoneBale from '../Bale/PhoneBale';
 import TabletBale from '../Bale/TabletBale';
+import TabletPocket from '../Pocket/TabletPocket';
+import { fetchBales, actionTypes } from '../../actions/BalesActions';
+import { errorsSelector } from '../../selectors/ErrorSelector';
 
 const balesList = [
   {
     id: '15488',
-    type: 'Vidrio',
+    time: '20:08',
     weight: '23',
   },
   {
     id: '6848878',
-    type: 'Plástico',
+    time: '09:08',
     weight: '10',
   },
   {
     id: '15488',
-    type: 'Papel',
+    time: '00:08',
     weight: '6',
   },
   {
     id: '6848878',
-    type: 'Vidrio',
+    time: '20:08',
     weight: '15',
   },
   {
     id: '15488',
-    type: 'Papel',
+    time: '20:08',
     weight: '2',
   },
 ];
@@ -38,28 +42,42 @@ class BaleList extends Component {
     navBarHidden: true,
   };
 
+  componentDidMount() {
+    this.props.fetchData();
+  }
+
   render() {
     return (
       <FlatList
-        data={balesList}
+        data={balesList} // {this.props.dataFetch}
         renderItem={({ item }) => {
           if (isPhone) {
-            return <PhoneBale id={item.id} />;
+            return <TabletPocket id={item.id} time={item.id} weight={item.id} />;
           }
-          return <TabletBale id={item.id} type={item.type} weight={item.weight} />;
+          return <TabletPocket id="id1" time="20:30" weight="24" />;
         }}
       />
     );
   }
 }
 
-BaleList.propTypes = {};
+BaleList.propTypes = {
+  // dataFetch: PropTypes.array.isRequired,
+  // errors: PropTypes.array,
+  fetchData: PropTypes.func.isRequired,
+};
 
 BaleList.defaultProps = {};
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  dataFetch: state.bales.bales,
+  errors: errorsSelector([actionTypes.BALES_REQUEST])(state),
+  isLoading: state.user.isLoading,
+});
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+  fetchData: () => dispatch(fetchBales()),
+});
 
 export default connect(
   mapStateToProps,
