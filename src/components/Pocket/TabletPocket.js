@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Image, Text } from 'react-native';
 import PocketIcon from '../../assets/images/PocketIcon.png';
 import Button from '../common/Button';
-import strings from '../../localization';
+import strings from '../../localization/index';
 import styles from './styles';
 
 const TabletPocket = ({ id, time, weight }) => (
@@ -36,15 +36,9 @@ const TabletPocket = ({ id, time, weight }) => (
 );
 
 TabletPocket.propTypes = {
-  id: PropTypes.string,
-  time: PropTypes.string,
-  weight: PropTypes.string,
-};
-
-TabletPocket.defaultProps = {
-  id: '',
-  time: '',
-  weight: 0,
+  id: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
+  weight: PropTypes.string.isRequired,
 };
 
 export default TabletPocket;
