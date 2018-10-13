@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     height: '55%',
     marginTop: 20,
     backgroundColor: Colors.primary,
-    textAlign: 'center',
     position: 'absolute',
     right: 20,
   },
@@ -38,7 +37,6 @@ const styles = StyleSheet.create({
     height: '55%',
     marginTop: 20,
     backgroundColor: Colors.gray,
-    textAlign: 'center',
     position: 'absolute',
     right: 20,
   },
@@ -67,11 +65,9 @@ const styles = StyleSheet.create({
   },
   tabletButton: {
     backgroundColor: Colors.primary,
-    textAlign: 'center',
   },
   tabletGrayButton: {
     backgroundColor: Colors.gray,
-    textAlign: 'center',
     borderWidth: 0,
   },
   pocketImageStyleTablet: {
