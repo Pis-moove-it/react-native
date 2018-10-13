@@ -69,6 +69,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     textAlign: 'center',
   },
+  tabletGrayButton: {
+    backgroundColor: Colors.gray,
+    textAlign: 'center',
+    borderWidth: 0,
+  },
   pocketImageStyleTablet: {
     height: 100,
     width: 100,
