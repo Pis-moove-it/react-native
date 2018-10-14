@@ -29,7 +29,7 @@ class User extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData();
+    this.props.fetchData(this.props.organization);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,21 +43,13 @@ class User extends Component {
 
   getUsers() {
     const usersData = [];
-    usersData.push(
-      <Picker.Item
-        key={999}
-        label={strings.selectUser}
-        value={false}
-      />,
-    );
+    usersData.push(<Picker.Item key={999} label={strings.selectUser} value={false} />);
     this.props.dataFetch.map((user, identifier) => {
-      usersData.push(
-        <Picker.Item
-          key={identifier}
-          label={`${user.name} ${user.surname}`}
-          value={`${user.name} ${user.surname}`}
-        />,
-      );
+      usersData.push(<Picker.Item
+        key={identifier}
+        label={`${user.name} ${user.surname}`}
+        value={`${user.name} ${user.surname}`}
+      />);
     });
     return usersData;
   }
@@ -113,12 +105,14 @@ User.propTypes = {
   isLoading: PropTypes.bool,
   login: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
+  organization: PropTypes.string,
   user: PropTypes.string,
 };
 
 User.defaultProps = {
   errors: [],
   isLoading: false,
+  organization: false,
   user: false,
 };
 
@@ -126,11 +120,12 @@ const mapStateToProps = state => ({
   dataFetch: state.users.users,
   errors: errorsSelector([actionTypes.USER_LOGIN])(state),
   isLoading: state.user.isLoading,
+  organization: state.login.identifier,
   user: state.user.user,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: () => dispatch(fetchUsers()),
+  fetchData: organization => dispatch(fetchUsers(organization)),
   login: (identifier, username) => dispatch(login(identifier, username)),
 });
 

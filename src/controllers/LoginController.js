@@ -24,7 +24,11 @@ class LoginController {
           },
         )
         .then((response) => {
-          resolve({ token: response.headers.apikey, logedOrganization: response.data.name });
+          resolve({
+            token: response.headers.apikey,
+            name: response.data.name,
+            identifier: '1', // response.data.identifier,
+          });
         })
         .catch((error) => {
           reject(new Error(strings.loginError));

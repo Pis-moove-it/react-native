@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-const URL = 'http://34.213.11.120/organizations/1/users'; // Change 1 for {UserOrganization} with new Login
+const URL = 'http://34.213.11.120/organizations/{organization}/users';
 
-export default () => axios.get(URL);
+export default organization => axios.get(URL.replace('{organization}', organization));

@@ -17,10 +17,11 @@ const loginError = error => ({
   error,
 });
 
-const loginSuccess = (token, organization) => ({
+const loginSuccess = (token, organization, identifier) => ({
   type: actionTypes.LOGIN_SUCCESS,
   token,
   organization,
+  identifier,
 });
 
 const logoutRequest = () => ({
@@ -36,12 +37,12 @@ export const login = (organization, password) => async (dispatch) => {
   dispatch(logout());
   dispatch(loginRequest());
   try {
-    const { token, logedOrganization } = await LoginController.login(
+    const { token, name, identifier } = await LoginController.login(
       organization,
       password,
       '/organizations/login',
     );
-    dispatch(loginSuccess(token, logedOrganization));
+    dispatch(loginSuccess(token, name, identifier));
   } catch (error) {
     dispatch(loginError(error.message));
   }

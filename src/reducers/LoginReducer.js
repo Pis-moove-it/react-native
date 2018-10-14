@@ -3,6 +3,7 @@ import { actionTypes } from '../actions/LoginActions';
 const initialState = {
   token: false,
   organization: false,
+  identifier: false,
   isLoading: false,
 };
 
@@ -23,6 +24,7 @@ const loginReducer = (state = initialState, action) => {
         ...state,
         token: action.token,
         organization: action.organization,
+        identifier: action.identifier,
         isLoading: false,
       };
     case actionTypes.LOGOUT:
