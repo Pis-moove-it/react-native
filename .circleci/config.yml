@@ -13,8 +13,10 @@ jobs:
       - deploy:
           name: Build and Deploy Master to Android Crashlytics
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              mkdir -p ~/.gradle && cp config/gradle.properties ~/.gradle/gradle.properties
-              bundle install
-              cd android && bundle exec fastlane android beta
+            if [ "${CIRCLE_BRANCH}" == "prod" ]; then
+              mkdir -p ~/.gradle && cp android/gradle.properties ~/.gradle/gradle.properties
+              cp -r licenses/. $ANDROID_HOME/licenses
+              cd android && bundle install
+              touch ~/.android/repositories.cfg
+              bundle exec fastlane beta
             fi
