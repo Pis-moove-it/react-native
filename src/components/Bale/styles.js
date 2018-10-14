@@ -19,26 +19,29 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   baleComponentTitle: {
-    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'black',
   },
   baleComponentElement: {
     width: '30%',
   },
   editBaleButton: {
-    width: '30%',
-    height: '55%',
+    width: '35%',
+    height: '60%',
     marginTop: 20,
     backgroundColor: Colors.primary,
     textAlign: 'center',
     position: 'absolute',
+    alignItems: 'center',
     right: 20,
   },
   textButton: {
     flex: 1,
     color: Colors.white,
-    fontSize: 13,
+    fontSize: 14,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
   },
   baleImageStylePhone: {
     height: 60,
@@ -48,6 +51,39 @@ const styles = StyleSheet.create({
   touchableStyle: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+
+  // Phone information
+  containerBaleInfo: {
+    justifyContent: 'flex-start',
+    backgroundColor: Colors.primary,
+    paddingBottom: '2%',
+  },
+  informationTitle: {
+    marginLeft: '3%',
+    fontSize: 18,
+    color: 'white',
+  },
+  containterTypeAndWeightInfo: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginHorizontal: '2%',
+  },
+  subContainerTypeAndWeigthInfo: {
+    padding: '1%',
+    width: '50%',
+    backgroundColor: 'white',
+  },
+  titleTypeAndWeightInfo: {
+    marginHorizontal: '2%',
+    fontSize: 14,
+    color: 'black',
+  },
+  subtitleTypeAndWeightInfo: {
+    marginHorizontal: '2%',
+    fontSize: 14,
+    color: 'gray',
   },
 
   // Tablet syles

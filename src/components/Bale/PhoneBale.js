@@ -11,7 +11,7 @@ const Bale = ({ id, onPressAction }) => (
   <View style={styles.containerPhoneBale}>
     <TouchableOpacity onPress={onPressAction} style={styles.touchableStyle}>
       <Image source={FardoIcon} style={styles.baleImageStylePhone} />
-      <Text style={styles.text}>{`${strings.bale} #${id}`}</Text>
+      <Text style={styles.baleComponentTitle}>{`${strings.bale} #${id}`}</Text>
     </TouchableOpacity>
     <Button
       title={strings.baleButtonText}
@@ -36,6 +36,8 @@ class PhoneBale extends Component {
     super(props);
     this.state = {
       id: props.id,
+      type: props.type,
+      weight: props.weight,
       showingInfo: false,
     };
   }
@@ -47,7 +49,7 @@ class PhoneBale extends Component {
       return (
         <View>
           <Bale id={this.state.id} onPressAction={this.toggleInfo} />
-          <BaleInfo />
+          <BaleInfo type={this.state.type} weight={this.state.weight} />
         </View>
       );
     }
@@ -61,10 +63,14 @@ class PhoneBale extends Component {
 
 PhoneBale.propTypes = {
   id: PropTypes.string,
+  type: PropTypes.string,
+  weight: PropTypes.string,
 };
 
 PhoneBale.defaultProps = {
   id: '',
+  type: '',
+  weight: 0,
 };
 
 export default PhoneBale;
