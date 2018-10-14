@@ -48,4 +48,5 @@ export default {
   bale: 'Fardo',
   history: 'Historial',
   filterByRole: 'Filtrar',
+  information: 'Información',
 };

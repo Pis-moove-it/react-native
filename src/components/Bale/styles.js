@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
     width: 50,
     borderRadius: 20,
   },
+  touchableStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 
   // Tablet syles
   containerTabletBale: {
