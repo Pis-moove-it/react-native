@@ -52,7 +52,6 @@ class Profile extends Component {
   };
 
   render() {
-    const { user } = this.props;
     return (
       <View style={{ flex: 10 }}>
         <View style={styles.imageContainer}>
@@ -64,7 +63,7 @@ class Profile extends Component {
             <Text style={TextStyles.lowerButtons}>{`${strings.role}: `}</Text>
           </View>
           <View style={styles.middleColumn}>
-            <Text style={TextStyles.lowerButtons}>{user.name}</Text>
+            <Text style={TextStyles.lowerButtons}>{this.props.user.name}</Text>
             <Text style={TextStyles.lowerButtons}>{this.props.role}</Text>
           </View>
           <View style={styles.rightColumn}>
