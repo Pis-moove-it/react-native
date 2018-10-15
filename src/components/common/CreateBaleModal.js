@@ -62,19 +62,12 @@ class CreateBaleModal extends Component {
     }
   }
 
-  closeModal = () => {
-    this.setState({ newWeight: 0 }); // will get deleted later
-    this.setState({ selectedMaterial: false }); // will get deleted later
-    this.setState({ errors: [] });
-    this.props.closeCreateBaleModal();
-  }
-
   render() {
     return (
       <Modal
         isVisible={this.props.isModalVisible}
-        onBackButtonPress={this.closeModal}
-        onBackdropPress={this.closeModal}
+        onBackButtonPress={this.props.closeCreateBaleModal}
+        onBackdropPress={this.props.closeCreateBaleModal}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>
@@ -102,7 +95,7 @@ class CreateBaleModal extends Component {
               style={styles.buttonModal}
               textStyle={styles.text}
               title={strings.acceptModal}
-              onPress={this.acceptEdit}
+              onPress={this.props.closeCreateBaleModal}
             />
           </View>
         </View>

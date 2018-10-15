@@ -62,19 +62,12 @@ class EditBaleModal extends Component {
     }
   }
 
-  closeModal = () => {
-    this.setState({ newWeight: 0 }); // will get deleted later
-    this.setState({ selectedMaterial: false }); // will get deleted later
-    this.setState({ errors: [] });
-    this.props.closeEditModal();
-  }
-
   render() {
     return (
       <Modal
         isVisible={this.props.isModalVisible}
-        onBackButtonPress={this.closeModal}
-        onBackdropPress={this.closeModal}
+        onBackButtonPress={this.props.closeEditModal}
+        onBackdropPress={this.props.closeEditModal}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>

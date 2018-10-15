@@ -60,8 +60,6 @@ class BaleList extends Component {
               return (
                 <PhoneBale
                   id={item.id}
-                  type={item.type}
-                  weight={item.weight}
                   onPressAction={this.props.openEditBaleModal}
                 />
               );
