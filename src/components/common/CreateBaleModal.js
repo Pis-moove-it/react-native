@@ -81,7 +81,7 @@ class CreateBaleModal extends Component {
           </View>
           <View>
             <TextField
-              placeholder={strings.editBalePlaceholder}
+              placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
               onChangeText={value =>
                 (this.setState({ newWeight: value }))}

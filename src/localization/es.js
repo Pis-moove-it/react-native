@@ -54,7 +54,7 @@ export default {
 
   // Common Modal
   acceptModal: 'Aceptar',
-  weighPlaceholderModal: 'Peso',
+  weighPlaceholderModal: 'Peso (kg)',
   selectMaterial: 'Seleccione un nuevo material',
   invalidInputNumber: 'Ingrese un número válido',
   invalidInputType: 'Por favor ingrese un tipo de material válido',
