@@ -7,7 +7,7 @@ import strings from '../../localization';
 import styles from './styles';
 import BaleInfo from './BaleInfo';
 
-const Bale = ({ id, onPressAction }) => (
+const Bale = ({ id, onPressAction, openModal }) => (
   <View style={styles.containerPhoneBale}>
     <TouchableOpacity onPress={onPressAction} style={styles.touchableStyle}>
       <Image source={FardoIcon} style={styles.baleImageStylePhone} />
@@ -19,7 +19,7 @@ const Bale = ({ id, onPressAction }) => (
       title={strings.baleButtonText}
       style={styles.editBaleButton}
       textStyle={styles.textButton}
-      onPress={onPressAction}
+      onPress={openModal}
     />
   </View>
 );
@@ -27,11 +27,13 @@ const Bale = ({ id, onPressAction }) => (
 Bale.propTypes = {
   id: PropTypes.string,
   onPressAction: PropTypes.func,
+  openModal: PropTypes.func,
 };
 
 Bale.defaultProps = {
   id: false,
   onPressAction: () => ({}),
+  openModal: () => ({}),
 };
 
 class PhoneBale extends Component {
@@ -58,7 +60,11 @@ class PhoneBale extends Component {
     }
     return (
       <View>
-        <Bale id={this.state.id} onPressAction={this.toggleInfo} />
+        <Bale
+          id={this.state.id}
+          onPressAction={this.toggleInfo}
+          openModal={this.props.onPressAction}
+        />
       </View>
     );
   }
@@ -68,12 +74,14 @@ PhoneBale.propTypes = {
   id: PropTypes.string,
   type: PropTypes.string,
   weight: PropTypes.string,
+  onPressAction: PropTypes.func,
 };
 
 PhoneBale.defaultProps = {
   id: false,
   type: false,
   weight: false,
+  onPressAction: () => ({}),
 };
 
 export default PhoneBale;
