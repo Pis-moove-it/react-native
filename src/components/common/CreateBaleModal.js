@@ -18,7 +18,7 @@ class CreateBaleModal extends Component {
   }
 
   state = {
-    selectedMaterial: null,
+    selectedMaterial: false,
   };
 
   getMaterials() {
