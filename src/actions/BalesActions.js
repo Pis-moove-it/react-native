@@ -1,4 +1,4 @@
-import { getBalesApi } from '../api';
+import BaleController from '../controllers/BaleController';
 
 export const actionTypes = {
   BALES_REQUEST: 'BALES_REQUEST',
@@ -20,13 +20,12 @@ const getBalesSuccess = bales => ({
   bales,
 });
 
-export const fetchBales = () => (dispatch) => {
+export const fetchBales = token => async (dispatch) => {
   dispatch(getBales());
-  getBalesApi()
-    .then((response) => {
-      dispatch(getBalesSuccess(response.data));
-    })
-    .catch((error) => {
-      dispatch(getBalesError(error));
-    });
+  try {
+    const { bales } = await BaleController.getBalesApi(token, '/bales');
+    dispatch(getBalesSuccess(bales));
+  } catch (error) {
+    dispatch(getBalesError(error.message));
+  }
 };

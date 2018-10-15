@@ -20,9 +20,9 @@ const getUsersSuccess = users => ({
   users,
 });
 
-export const fetchUsers = organization => (dispatch) => {
+export const fetchUsers = (token, organization) => (dispatch) => {
   dispatch(getUsers());
-  getUsersApi(organization)
+  getUsersApi(token, organization)
     .then((response) => {
       dispatch(getUsersSuccess(response.data));
     })
