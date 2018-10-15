@@ -49,6 +49,8 @@ export default {
   history: 'History',
   filterByRole: 'Filter',
   arrivedAt: 'Arrived at',
+  pocket: 'Pocket',
+  unweighted: 'Unweighted',
   pocketButtonWeightText: 'Weight',
   pocketButtonEditWeightText: 'Edit weight',
   loginError: 'Invalid username or password',

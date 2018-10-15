@@ -49,6 +49,8 @@ export default {
   history: 'Historial',
   filterByRole: 'Filtrar',
   arrivedAt: 'Hora de llegada',
+  pocket: 'Bolsón',
+  unweighted: 'Sin pesar',
   pocketButtonWeightText: 'Pesar',
   pocketButtonEditWeightText: 'Modificar peso',
   loginError: 'El usuario o la contraseña es inválido',

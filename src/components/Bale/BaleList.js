@@ -4,22 +4,26 @@ import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PhoneBale from '../Bale/PhoneBale';
 import TabletBale from '../Bale/TabletBale';
+import TabletPocket from '../Pocket/TabletPocket';
 
 const balesList = [
   {
     id: '15488',
     type: 'Vidrio',
     weight: '23',
+    status: 'Unweighed',
   },
   {
     id: '6848878',
     type: 'Plástico',
     weight: '10',
+    status: 'Unweighed',
   },
   {
     id: '15488',
     type: 'Papel',
     weight: '6',
+    status: 'Unweighed',
   },
   {
     id: '6848878',
@@ -46,7 +50,14 @@ class BaleList extends Component {
           if (isPhone) {
             return <PhoneBale id={item.id} />;
           }
-          return <TabletBale id={item.id} type={item.type} weight={item.weight} />;
+          return (
+            <TabletPocket
+              id={item.id}
+              type={item.type}
+              weight={item.weight}
+              pocketState={item.status}
+            />
+          );
         }}
       />
     );
