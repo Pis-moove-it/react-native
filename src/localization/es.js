@@ -1,5 +1,6 @@
 export default {
   login: 'Iniciar Sesión',
+  loginError: 'El usuario o la contraseña es inválido',
   selectUser: 'Seleccionar usuario',
   enter: 'Ingresar',
   loading: 'Cargando',
@@ -70,9 +71,13 @@ export default {
   history: 'Historial',
   filterByRole: 'Filtrar',
 <<<<<<< HEAD
+<<<<<<< HEAD
   createBaleDrawer: 'Crear Fardo',
 =======
   information: 'Información',
   loginError: 'El usuario o la contraseña es inválido',
 >>>>>>> master
+=======
+  createBaleDrawer: 'Crear Fardo',
+>>>>>>> e6afbaa58a2e7d0cafde16413348e186e9c85a31
 };

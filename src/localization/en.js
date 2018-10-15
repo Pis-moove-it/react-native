@@ -1,5 +1,6 @@
 export default {
   login: 'Login',
+  loginError: 'Invalid username or password',
   selectUser: 'Select user',
   enter: 'Enter',
   loading: 'Loading',
@@ -73,5 +74,4 @@ export default {
 
   // Informational
   information: 'Information',
-  loginError: 'Invalid username or password',
 };
