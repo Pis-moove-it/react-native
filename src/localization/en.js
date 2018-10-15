@@ -19,6 +19,7 @@ export default {
   changeRole: 'Change Role',
   changeUser: 'Change User',
   roleSelectionTitle: 'Select an activity:',
+  role: 'Role',
   gatherTitle: 'Gather',
   weighTitle: 'Weigh',
   baleTitle: 'Bale',
@@ -46,9 +47,10 @@ export default {
   startTravel: 'Start travelling',
 
   // Bale Component
+  back: 'Return',
   baleComponentBale: 'Bale',
-  baleComponentType: 'Type',
-  baleComponentWeight: 'Weight',
+  type: 'Type',
+  weight: 'Weight',
   baleButtonText: 'Edit bale',
   bale: 'Bale',
 
@@ -75,5 +77,10 @@ export default {
   createBaleDrawer: 'Create Bale',
 
   // Informational
+  arrivedAt: 'Arrived at',
+  pocket: 'Pocket',
+  unweighted: 'Unweighted',
+  pocketButtonWeightText: 'Weight',
+  pocketButtonEditWeightText: 'Edit weight',
   information: 'Information',
 };

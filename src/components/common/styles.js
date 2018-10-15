@@ -41,12 +41,6 @@ const styles = StyleSheet.create({
     width: '100%',
     marginLeft: '5%',
   },
-  userOptionsButtonForRole: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    width: '100%',
-    marginLeft: 0,
-  },
   textTitleStyle: {
     fontSize: 22,
     fontWeight: '700',

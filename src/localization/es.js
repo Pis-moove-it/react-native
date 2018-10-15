@@ -19,6 +19,7 @@ export default {
   changeRole: 'Cambiar Rol',
   changeUser: 'Cambiar Usuario',
   roleSelectionTitle: 'Seleccione una actividad:',
+  role: 'Rol',
   gatherTitle: 'Recolectar',
   weighTitle: 'Pesar',
   baleTitle: 'Enfardar',
@@ -46,9 +47,10 @@ export default {
   startTravel: 'Empezar recorrida',
 
   // Bale Component
+  back: 'Volver',
   baleComponentBale: 'Fardo',
-  baleComponentType: 'Tipo',
-  baleComponentWeight: 'Peso',
+  type: 'Tipo',
+  weight: 'Peso',
   baleButtonText: 'Modificar fardo',
   bale: 'Fardo',
 
@@ -75,5 +77,10 @@ export default {
   createBaleDrawer: 'Crear Fardo',
 
   // Informational
+  arrivedAt: 'Hora de llegada',
+  pocket: 'Bolsón',
+  unweighted: 'Sin pesar',
+  pocketButtonWeightText: 'Pesar',
+  pocketButtonEditWeightText: 'Modificar peso',
   information: 'Información',
 };

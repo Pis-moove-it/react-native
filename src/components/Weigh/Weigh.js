@@ -12,6 +12,8 @@ import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
+import { Screens } from '../Navigation';
+import strings from '../../localization';
 import styles from './styles';
 
 class Weigh extends Component {
@@ -74,6 +76,12 @@ class Weigh extends Component {
             icon: user128,
             style: { color: Colors.white, width: 170 },
             textStyle: { margin: 10 },
+            onPress: () =>
+              this.props.navigator.push({
+                screen: Screens.Profile,
+                animationType: 'fade',
+                title: strings.profile,
+              }),
           },
         },
       ],

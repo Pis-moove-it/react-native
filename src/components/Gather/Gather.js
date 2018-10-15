@@ -15,6 +15,7 @@ import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
+import { Screens } from '../Navigation';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
 
@@ -45,6 +46,7 @@ class Gather extends Component {
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
+
   state = {
     isModalVisible: false,
   };
@@ -83,6 +85,12 @@ class Gather extends Component {
             icon: user128,
             style: { color: Colors.white, width: 170 },
             textStyle: { margin: 10 },
+            onPress: () =>
+              this.props.navigator.push({
+                screen: Screens.Profile,
+                animationType: 'fade',
+                title: strings.profile,
+              }),
           },
         },
         {
@@ -91,7 +99,7 @@ class Gather extends Component {
           passProps: {
             title: strings.history,
             icon: HistoryIconWhite,
-            style: { color: Colors.white },
+            style: { color: Colors.white, width: 100 },
           },
         },
       ],
