@@ -57,7 +57,12 @@ class BaleList extends Component {
           data={balesList}
           renderItem={({ item }) => {
             if (isPhone) {
-              return <PhoneBale id={item.id} onPressAction={this.props.openEditBaleModal} />;
+              return (
+                <PhoneBale
+                  id={item.id}
+                  onPressAction={this.props.openEditBaleModal}
+                />
+              );
             }
             return (
               <TabletBale

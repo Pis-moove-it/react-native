@@ -70,4 +70,8 @@ export default {
   history: 'History',
   filterByRole: 'Filter',
   createBaleDrawer: 'Create Bale',
+
+  // Informational
+  information: 'Information',
+  loginError: 'Invalid username or password',
 };

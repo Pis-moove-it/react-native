@@ -69,5 +69,10 @@ export default {
   // Drawer Buttons
   history: 'Historial',
   filterByRole: 'Filtrar',
+<<<<<<< HEAD
   createBaleDrawer: 'Crear Fardo',
+=======
+  information: 'Información',
+  loginError: 'El usuario o la contraseña es inválido',
+>>>>>>> master
 };
