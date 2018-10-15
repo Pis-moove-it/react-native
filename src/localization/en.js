@@ -51,4 +51,5 @@ export default {
   arrivedAt: 'Arrived at',
   pocketButtonWeightText: 'Weight',
   pocketButtonEditWeightText: 'Edit weight',
+  loginError: 'Invalid username or password',
 };

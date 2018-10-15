@@ -51,4 +51,5 @@ export default {
   arrivedAt: 'Hora de llegada',
   pocketButtonWeightText: 'Pesar',
   pocketButtonEditWeightText: 'Modificar peso',
+  loginError: 'El usuario o la contraseña es inválido',
 };
