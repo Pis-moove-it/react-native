@@ -18,7 +18,7 @@ class EditBaleModal extends Component {
   }
 
   state = {
-    selectedMaterial: null,
+    selectedMaterial: false,
   };
 
   getMaterials() {
