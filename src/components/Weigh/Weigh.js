@@ -11,7 +11,7 @@ import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
-import WeighList from './WeighList';
+import PocketList from '../Pocket/PocketList';
 
 class Weigh extends Component {
   static navigatorStyle = {
@@ -101,7 +101,7 @@ class Weigh extends Component {
   changeRole = () => this.props.changeRole();
 
   render() {
-    return <WeighList />;
+    return <PocketList />;
   }
 }
 
