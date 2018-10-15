@@ -22,9 +22,11 @@ const getBalesSuccess = bales => ({
 
 export const fetchBales = () => (dispatch) => {
   dispatch(getBales());
-  getBalesApi(1)
+  getBalesApi()
     .then((response) => {
       dispatch(getBalesSuccess(response.data));
     })
-    .catch(err => console.log('Error'));
+    .catch((error) => {
+      dispatch(getBalesError(error));
+    });
 };
