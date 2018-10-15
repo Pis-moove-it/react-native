@@ -48,5 +48,6 @@ export default {
   bale: 'Fardo',
   history: 'Historial',
   filterByRole: 'Filtrar',
+  information: 'Información',
   loginError: 'El usuario o la contraseña es inválido',
 };
