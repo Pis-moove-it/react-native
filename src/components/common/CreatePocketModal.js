@@ -3,16 +3,16 @@ import { View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
+import getIsModalVisible from '../../selectors/CreatePocketModalSelector';
+import { closeCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import strings from '../../localization';
-import getIsModalVisible from '../../selectors/EditBaleModalSelector';
-import { closeEditBaleModal } from '../../actions/EditBaleModalActions';
 import ErrorView from '../common/ErrorView';
 import Button from './Button';
 import TextField from './TextField';
 import recyclabeleMaterials from './Constants';
 import styles from './styles';
 
-class EditBaleModal extends Component {
+class CreatePocketModal extends Component {
   constructor(props) {
     super(props);
     this.materials = recyclabeleMaterials;
@@ -51,7 +51,7 @@ class EditBaleModal extends Component {
         this.setState({ newWeight: 0 }); // will get deleted later
         this.setState({ selectedMaterial: false }); // will get deleted later
         this.setState({ errors: [] });
-        this.props.closeEditModal();
+        this.props.closeCreatePocketModal();
       } else {
         this.setState({ inputError: true });
         this.setState({ errors: [strings.invalidInputType] });
@@ -62,29 +62,22 @@ class EditBaleModal extends Component {
     }
   }
 
-  closeModal = () => {
-    this.setState({ newWeight: 0 }); // will get deleted later
-    this.setState({ selectedMaterial: false }); // will get deleted later
-    this.setState({ errors: [] });
-    this.props.closeEditModal();
-  }
-
   render() {
     return (
       <Modal
         isVisible={this.props.isModalVisible}
-        onBackButtonPress={this.closeModal}
-        onBackdropPress={this.closeModal}
+        onBackButtonPress={this.props.closeCreatePocketModal}
+        onBackdropPress={this.props.closeCreatePocketModal}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>
             <Text style={styles.modalTitle}>
-              {strings.editBale}
+              {strings.createPocket}
             </Text>
           </View>
           <View>
             <TextField
-              placeholder={strings.weighPlaceholderModal}
+              placeholder={strings.editPocketPlaceholder}
               keyboardType="numeric"
               onChangeText={value =>
                 (this.setState({ newWeight: value }))}
@@ -102,7 +95,7 @@ class EditBaleModal extends Component {
               style={styles.buttonModal}
               textStyle={styles.text}
               title={strings.acceptModal}
-              onPress={this.acceptEdit}
+              onPress={this.props.closeCreatePocketModal}
             />
           </View>
         </View>
@@ -111,22 +104,22 @@ class EditBaleModal extends Component {
   }
 }
 
-EditBaleModal.propTypes = {
+CreatePocketModal.propTypes = {
+  closeCreatePocketModal: PropTypes.func.isRequired,
   isModalVisible: PropTypes.bool.isRequired,
-  closeEditModal: PropTypes.func.isRequired,
 };
 
-EditBaleModal.defaultProps = {};
+CreatePocketModal.defaultProps = {};
 
 const mapStateToProps = state => ({
   isModalVisible: getIsModalVisible(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  closeEditModal: () => dispatch(closeEditBaleModal()),
+  closeCreatePocketModal: () => dispatch(closeCreatePocketModal()),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(EditBaleModal);
+)(CreatePocketModal);
