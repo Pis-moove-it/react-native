@@ -9,11 +9,11 @@ const BaleInfo = ({ type, weight }) => (
     <Text style={styles.informationTitle}>{strings.information}:</Text>
     <View style={styles.containterTypeAndWeightInfo}>
       <View style={styles.subContainerTypeAndWeigthInfo}>
-        <Text style={styles.titleTypeAndWeightInfo}>{strings.baleComponentType}</Text>
+        <Text style={styles.titleTypeAndWeightInfo}>{strings.type}</Text>
         <Text style={styles.subtitleTypeAndWeightInfo}>{type}</Text>
       </View>
       <View style={styles.subContainerTypeAndWeigthInfo}>
-        <Text style={styles.titleTypeAndWeightInfo}>{strings.baleComponentWeight}</Text>
+        <Text style={styles.titleTypeAndWeightInfo}>{strings.weight}</Text>
         <Text style={styles.subtitleTypeAndWeightInfo}>
           {weight}
           kg
