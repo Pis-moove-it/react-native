@@ -1,5 +1,6 @@
 export default {
   login: 'Iniciar Sesión',
+  loginError: 'El usuario o la contraseña es inválido',
   selectUser: 'Seleccionar usuario',
   enter: 'Ingresar',
   loading: 'Cargando',

@@ -21,11 +21,11 @@ const getUsersSuccess = users => ({
   users,
 });
 
-export const fetchUsers = () => (dispatch) => {
+export const fetchUsers = organization => (dispatch) => {
   dispatch(getUsers());
-  getUsersApi()
+  getUsersApi(organization)
     .then((response) => {
       dispatch(getUsersSuccess(response.data));
     })
-    .catch(err => console.log('Error'));
+    .catch(error => null);
 };

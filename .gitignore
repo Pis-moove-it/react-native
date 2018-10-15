@@ -52,7 +52,7 @@ ios/Pods/
 # BUCK
 buck-out/
 \.buckd/
-*.keystore
+
 
 # fastlane
 #
@@ -65,8 +65,6 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
-#signed key for release
-signed-release-key.keystore
 
 *.env
 
