@@ -10,11 +10,14 @@ const BaleInfo = ({ type, weight }) => (
     <View style={styles.containterTypeAndWeightInfo}>
       <View style={styles.subContainerTypeAndWeigthInfo}>
         <Text style={styles.titleTypeAndWeightInfo}>{strings.baleComponentType}</Text>
-        <Text style={styles.subtitleTypeAndWeightInfo}>{`${type}`}</Text>
+        <Text style={styles.subtitleTypeAndWeightInfo}>{type}</Text>
       </View>
       <View style={styles.subContainerTypeAndWeigthInfo}>
         <Text style={styles.titleTypeAndWeightInfo}>{strings.baleComponentWeight}</Text>
-        <Text style={styles.subtitleTypeAndWeightInfo}>{`${weight} kg`}</Text>
+        <Text style={styles.subtitleTypeAndWeightInfo}>
+          {weight}
+          kg
+        </Text>
       </View>
     </View>
   </View>
@@ -26,8 +29,8 @@ BaleInfo.propTypes = {
 };
 
 BaleInfo.defaultProps = {
-  type: '',
-  weight: '',
+  type: false,
+  weight: false,
 };
 
 export default BaleInfo;

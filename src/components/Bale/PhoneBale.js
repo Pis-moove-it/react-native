@@ -11,7 +11,9 @@ const Bale = ({ id, onPressAction }) => (
   <View style={styles.containerPhoneBale}>
     <TouchableOpacity onPress={onPressAction} style={styles.touchableStyle}>
       <Image source={FardoIcon} style={styles.baleImageStylePhone} />
-      <Text style={styles.baleComponentTitle}>{`${strings.bale} #${id}`}</Text>
+      <Text style={styles.baleComponentTitle}>
+        {strings.bale} #{id}
+      </Text>
     </TouchableOpacity>
     <Button
       title={strings.baleButtonText}
@@ -27,7 +29,7 @@ Bale.propTypes = {
 };
 
 Bale.defaultProps = {
-  id: '',
+  id: false,
   onPressAction: () => ({}),
 };
 
@@ -68,9 +70,9 @@ PhoneBale.propTypes = {
 };
 
 PhoneBale.defaultProps = {
-  id: '',
-  type: '',
-  weight: 0,
+  id: false,
+  type: false,
+  weight: false,
 };
 
 export default PhoneBale;
