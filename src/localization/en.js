@@ -56,6 +56,8 @@ export default {
   acceptModal: 'Accept',
   weighPlaceholderModal: 'Weight',
   selectMaterial: 'Select a new material',
+  invalidInputNumber: 'Please enter a valid number',
+  invalidInputType: 'Please enter a valid material type',
 
   // Bale Edit Modal
   editBale: 'Edit bale',

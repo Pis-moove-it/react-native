@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import strings from '../../localization';
 import getIsModalVisible from '../../selectors/EditBaleModalSelector';
 import { closeEditBaleModal } from '../../actions/EditBaleModalActions';
+import ErrorView from '../common/ErrorView';
 import Button from './Button';
 import TextField from './TextField';
 import recyclabeleMaterials from './Constants';
@@ -19,6 +20,9 @@ class EditBaleModal extends Component {
 
   state = {
     selectedMaterial: false,
+    newWeight: 0,
+    inputError: true,
+    errors: [],
   };
 
   getMaterials() {
@@ -40,10 +44,30 @@ class EditBaleModal extends Component {
     return pickerMaterial;
   }
 
+  acceptEdit = () => {
+    if (this.state.newWeight > 0) {
+      if (this.state.selectedMaterial) {
+        this.setState({ inputError: false });
+        this.setState({ newWeight: 0 }); // will get deleted later
+        this.setState({ selectedMaterial: false }); // will get deleted later
+        this.setState({ errors: [] });
+        this.props.closeEditModal();
+      } else {
+        this.setState({ inputError: true });
+        this.setState({ errors: [strings.invalidInputType] });
+      }
+    } else {
+      this.setState({ inputError: true });
+      this.setState({ errors: [strings.invalidInputNumber] });
+    }
+  }
+
   render() {
     return (
       <Modal
         isVisible={this.props.isModalVisible}
+        onBackButtonPress={this.props.closeEditModal}
+        onBackdropPress={this.props.closeEditModal}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>
@@ -55,6 +79,8 @@ class EditBaleModal extends Component {
             <TextField
               placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
+              onChangeText={value =>
+                (this.setState({ newWeight: value }))}
             />
             <Picker
               selectedValue={this.state.selectedMaterial}
@@ -64,11 +90,12 @@ class EditBaleModal extends Component {
             >
               {this.getMaterials()}
             </Picker>
+            {this.state.inputError && <ErrorView errors={this.state.errors} />}
             <Button
               style={styles.buttonModal}
               textStyle={styles.text}
               title={strings.acceptModal}
-              onPress={this.props.closeEditModal}
+              onPress={this.acceptEdit}
             />
           </View>
         </View>

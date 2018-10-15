@@ -1,5 +1,6 @@
 export default {
   login: 'Iniciar Sesión',
+  loginError: 'Nombre de usuario o contraseña incorrectos',
   selectUser: 'Seleccionar usuario',
   enter: 'Ingresar',
   loading: 'Cargando',
@@ -55,6 +56,8 @@ export default {
   acceptModal: 'Aceptar',
   weighPlaceholderModal: 'Peso',
   selectMaterial: 'Seleccione un nuevo material',
+  invalidInputNumber: 'Ingrese un número válido',
+  invalidInputType: 'Por favor ingrese un tipo de material válido',
 
   // Bale Edit Modal
   editBale: 'Editar Fardo',
