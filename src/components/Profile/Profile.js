@@ -59,8 +59,8 @@ class Profile extends Component {
         </View>
         <View style={styles.buttonsContainer}>
           <View style={styles.leftColumn}>
-            <Text style={TextStyles.lowerButtons}>{`${strings.user}: `}</Text>
-            <Text style={TextStyles.lowerButtons}>{`${strings.role}: `}</Text>
+            <Text style={TextStyles.lowerButtons}>{strings.user}: </Text>
+            <Text style={TextStyles.lowerButtons}>{strings.role}: </Text>
           </View>
           <View style={styles.middleColumn}>
             <Text style={TextStyles.lowerButtons}>{this.props.user.name}</Text>
