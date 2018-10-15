@@ -29,7 +29,7 @@ class User extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData(this.props.organization);
+    this.props.fetchData(this.props.token, this.props.organization);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -107,6 +107,7 @@ User.propTypes = {
   navigator: PropTypes.object.isRequired,
   organization: PropTypes.string,
   user: PropTypes.string,
+  token: PropTypes.string,
 };
 
 User.defaultProps = {
@@ -114,6 +115,7 @@ User.defaultProps = {
   isLoading: false,
   organization: false,
   user: false,
+  token: false,
 };
 
 const mapStateToProps = state => ({
@@ -122,10 +124,11 @@ const mapStateToProps = state => ({
   isLoading: state.user.isLoading,
   organization: state.login.identifier,
   user: state.user.user,
+  token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: organization => dispatch(fetchUsers(organization)),
+  fetchData: (token, organization) => dispatch(fetchUsers(token, organization)),
   login: (identifier, username) => dispatch(login(identifier, username)),
 });
 
