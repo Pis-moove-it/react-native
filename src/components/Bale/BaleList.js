@@ -10,19 +10,16 @@ const balesList = [
     id: '15488',
     type: 'Vidrio',
     weight: '23',
-    status: 'Unweighed',
   },
   {
     id: '6848878',
     type: 'Plástico',
     weight: '10',
-    status: 'Unweighed',
   },
   {
     id: '15488',
     type: 'Papel',
     weight: '6',
-    status: 'Unweighed',
   },
   {
     id: '6848878',
