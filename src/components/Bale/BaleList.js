@@ -47,7 +47,7 @@ class BaleList extends Component {
         data={balesList}
         renderItem={({ item }) => {
           if (isPhone) {
-            return <PhoneBale id={item.id} />;
+            return <PhoneBale id={item.id} type={item.type} weight={item.weight} />;
           }
           return <TabletBale id={item.id} type={item.type} weight={item.weight} />;
         }}

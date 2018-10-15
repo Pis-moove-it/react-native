@@ -53,5 +53,6 @@ export default {
   unweighted: 'Sin pesar',
   pocketButtonWeightText: 'Pesar',
   pocketButtonEditWeightText: 'Modificar peso',
+  information: 'Información',
   loginError: 'El usuario o la contraseña es inválido',
 };
