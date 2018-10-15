@@ -9,7 +9,6 @@ const openCreateBaleModalType = () => ({
 });
 
 export const openCreateBaleModal = () => (dispatch) => {
-  console.log('modal open');
   dispatch(openCreateBaleModalType());
 };
 
