@@ -47,11 +47,7 @@ class CreateBaleModal extends Component {
   acceptEdit = () => {
     if (this.state.newWeight > 0) {
       if (this.state.selectedMaterial) {
-        this.setState({ inputError: false });
-        this.setState({ newWeight: 0 }); // will get deleted later
-        this.setState({ selectedMaterial: false }); // will get deleted later
-        this.setState({ errors: [] });
-        this.props.closeCreateBaleModal();
+        this.closeModal();
       } else {
         this.setState({ inputError: true });
         this.setState({ errors: [strings.invalidInputType] });
@@ -62,12 +58,20 @@ class CreateBaleModal extends Component {
     }
   }
 
+  closeModal = () => {
+    this.setState({ inputError: false });
+    this.setState({ newWeight: 0 }); // will get deleted later
+    this.setState({ selectedMaterial: false }); // will get deleted later
+    this.setState({ errors: [] });
+    this.props.closeCreateBaleModal();
+  }
+
   render() {
     return (
       <Modal
         isVisible={this.props.isModalVisible}
-        onBackButtonPress={this.props.closeCreateBaleModal}
-        onBackdropPress={this.props.closeCreateBaleModal}
+        onBackButtonPress={this.closeModal}
+        onBackdropPress={this.closeModal}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>
@@ -95,7 +99,7 @@ class CreateBaleModal extends Component {
               style={styles.buttonModal}
               textStyle={styles.text}
               title={strings.acceptModal}
-              onPress={this.props.closeCreateBaleModal}
+              onPress={this.acceptEdit}
             />
           </View>
         </View>
