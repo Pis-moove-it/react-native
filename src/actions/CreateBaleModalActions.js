@@ -5,7 +5,7 @@ export const actionTypes = {
 
 const openCreateBaleModalType = () => ({
   type: actionTypes.OPEN_CREATE_BALE_MODAL,
-  isVisible: false,
+  isVisible: true,
 });
 
 export const openCreateBaleModal = () => (dispatch) => {
