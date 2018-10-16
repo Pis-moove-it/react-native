@@ -24,7 +24,6 @@ class User extends Component {
     super();
     this.state = {
       identifier: false,
-      username: false,
     };
   }
 
@@ -45,11 +44,7 @@ class User extends Component {
     const usersData = [];
     usersData.push(<Picker.Item key={999} label={strings.selectUser} value={false} />);
     this.props.dataFetch.map((user, identifier) => {
-      usersData.push(<Picker.Item
-        key={identifier}
-        label={`${user.name} ${user.surname}`}
-        value={`${user.name} ${user.surname}`}
-      />);
+      usersData.push(<Picker.Item key={identifier} label={`${user.name} ${user.surname}`} value={user.id} />);
     });
     return usersData;
   }
@@ -57,7 +52,7 @@ class User extends Component {
   login = () => this.props.login(this.props.token, this.props.organization, this.state.identifier);
 
   usernameChanged = (itemValue, itemIndex) => {
-    this.setState({ identifier: itemIndex, username: itemValue });
+    this.setState({ identifier: itemValue });
   };
 
   render() {
@@ -71,7 +66,7 @@ class User extends Component {
           <View style={styles.pickerContainer}>
             <Image source={avatar} style={styles.icon} />
             <Picker
-              selectedValue={this.state.username}
+              selectedValue={this.state.identifier}
               style={styles.picker}
               mode="dialog"
               onValueChange={this.usernameChanged}
@@ -88,7 +83,7 @@ class User extends Component {
             <Button
               style={styles.button}
               textStyle={styles.textButton}
-              onPress={this.state.username ? this.login : null}
+              onPress={this.state.identifier ? this.login : null}
               title={strings.enter}
             />
           )}
