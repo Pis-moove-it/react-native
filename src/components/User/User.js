@@ -54,7 +54,7 @@ class User extends Component {
     return usersData;
   }
 
-  login = () => this.props.login(this.state.identifier, this.state.username);
+  login = () => this.props.login(this.props.token, this.props.organization, this.state.identifier);
 
   usernameChanged = (itemValue, itemIndex) => {
     this.setState({ identifier: itemIndex, username: itemValue });
@@ -129,7 +129,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData: (token, organization) => dispatch(fetchUsers(token, organization)),
-  login: (identifier, username) => dispatch(login(identifier, username)),
+  login: (token, organization, user) => dispatch(login(token, organization, user)),
 });
 
 export default connect(
