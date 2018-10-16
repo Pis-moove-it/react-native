@@ -7,34 +7,6 @@ import PhoneBale from '../Bale/PhoneBale';
 import TabletBale from '../Bale/TabletBale';
 import { fetchBales } from '../../actions/BalesActions';
 
-const balesList = [
-  {
-    id: '15488',
-    type: 'Vidrio',
-    weight: '23',
-  },
-  {
-    id: '6848878',
-    type: 'Plástico',
-    weight: '10',
-  },
-  {
-    id: '15488',
-    type: 'Papel',
-    weight: '6',
-  },
-  {
-    id: '6848878',
-    type: 'Vidrio',
-    weight: '15',
-  },
-  {
-    id: '15488',
-    type: 'Papel',
-    weight: '2',
-  },
-];
-
 class BaleList extends Component {
   static navigatorStyle = {
     navBarHidden: true,
@@ -45,11 +17,9 @@ class BaleList extends Component {
   }
 
   render() {
-    const { baleList } = this.props.bales;
-    console.log(baleList);
     return (
       <FlatList
-        data={baleList}
+        data={this.props.bales}
         renderItem={({ item }) => {
           if (isPhone) {
             return <PhoneBale id={item.id} type={item.type} weight={item.weight} />;

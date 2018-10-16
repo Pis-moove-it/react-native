@@ -19,7 +19,7 @@ class BaleController {
             bales: response.data,
           });
         })
-        .catch(() => {
+        .catch((error) => {
           reject(new Error(strings.loginError));
         });
     });
