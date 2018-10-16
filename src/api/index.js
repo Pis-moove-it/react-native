@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const staging = 'http://34.213.11.120';
+const URL = 'http://34.213.11.120/users';
 
 export default (token, organization) =>
   axios.get(URL.replace('{organization}', organization), {
