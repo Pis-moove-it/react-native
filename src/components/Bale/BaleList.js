@@ -8,7 +8,7 @@ import PhoneBale from '../Bale/PhoneBale';
 import TabletBale from '../Bale/TabletBale';
 import CreateBaleModal from '../common/CreateBaleModal';
 import EditBaleModal from '../common/EditBaleModal';
-import recyclabeleMaterials from '../common/Constants';
+import recyclableMaterials from '../common/Constants';
 
 const balesList = [
   {
@@ -45,7 +45,7 @@ class BaleList extends Component {
 
   constructor(props) {
     super(props);
-    this.materials = recyclabeleMaterials;
+    this.materials = recyclableMaterials;
   }
 
   render() {

@@ -45,9 +45,9 @@ TabletBale.propTypes = {
 };
 
 TabletBale.defaultProps = {
-  id: '',
-  type: '',
-  weight: 0,
+  id: false,
+  type: false,
+  weight: false,
   onPressAction: () => ({}),
 };
 
