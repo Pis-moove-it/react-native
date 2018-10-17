@@ -39,7 +39,6 @@ class Drawer extends Component {
   };
 
   render() {
-    const { user } = this.props;
     const { role } = this.props;
     let iconRole;
     let iconText;
@@ -56,7 +55,7 @@ class Drawer extends Component {
     return (
       <View style={styles.containerWrapper}>
         <View style={styles.topHalf}>
-          <Text style={styles.textTitleStyle}>{`${user.name}`}</Text>
+          <Text style={styles.textTitleStyle}>{this.props.user}</Text>
           <CustomButton
             icon={iconRole}
             title={iconText}
