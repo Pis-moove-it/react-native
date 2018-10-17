@@ -29,6 +29,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     margin: 10,
     flexShrink: 1,
+    fontWeight: '300',
+  },
+  lowerButtons: {
+    color: Colors.black,
+    fontSize: 18,
+    margin: 10,
+    flexShrink: 1,
+    fontWeight: '500',
   },
 });
 

@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.primary,
   },
-  containerPhoneBale: {
+  containerPhonePocket: {
     flex: 1,
     width: '100%',
     flexDirection: 'row',
@@ -18,76 +18,43 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingTop: 5,
   },
-  baleComponentTitle: {
-    fontSize: 16,
-    color: 'black',
+  pocketComponentTitle: {
+    fontWeight: 'bold',
   },
-  baleComponentElement: {
+  pocketComponentElement: {
     width: '30%',
   },
-  editBaleButton: {
-    width: '35%',
-    height: '60%',
+  pocketButtonWeightText: {
+    width: '30%',
+    height: '55%',
     marginTop: 20,
     backgroundColor: Colors.primary,
-    textAlign: 'center',
     position: 'absolute',
-    alignItems: 'center',
+    right: 20,
+  },
+  pocketButtonEditWeightText: {
+    width: '30%',
+    height: '55%',
+    marginTop: 20,
+    backgroundColor: Colors.gray,
+    position: 'absolute',
     right: 20,
   },
   textButton: {
     flex: 1,
     color: Colors.white,
-    fontSize: 14,
+    fontSize: 13,
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
   },
-  baleImageStylePhone: {
+  pocketImageStylePhone: {
     height: 60,
     width: 50,
     borderRadius: 20,
   },
-  touchableStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  // Phone information
-  containerBaleInfo: {
-    justifyContent: 'flex-start',
-    backgroundColor: Colors.primary,
-    paddingBottom: '2%',
-  },
-  informationTitle: {
-    marginLeft: '3%',
-    fontSize: 18,
-    color: 'white',
-  },
-  containterTypeAndWeightInfo: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    marginHorizontal: '2%',
-  },
-  subContainerTypeAndWeigthInfo: {
-    padding: '1%',
-    width: '50%',
-    backgroundColor: 'white',
-  },
-  titleTypeAndWeightInfo: {
-    marginHorizontal: '2%',
-    fontSize: 14,
-    color: 'black',
-  },
-  subtitleTypeAndWeightInfo: {
-    marginHorizontal: '2%',
-    fontSize: 14,
-    color: 'gray',
-  },
 
   // Tablet syles
-  containerTabletBale: {
+  containerTabletPocket: {
     flex: 1,
     width: '100%',
     flexDirection: 'row',
@@ -98,9 +65,12 @@ const styles = StyleSheet.create({
   },
   tabletButton: {
     backgroundColor: Colors.primary,
-    textAlign: 'center',
   },
-  baleImageStyleTablet: {
+  tabletGrayButton: {
+    backgroundColor: Colors.gray,
+    borderWidth: 0,
+  },
+  pocketImageStyleTablet: {
     height: 100,
     width: 100,
   },

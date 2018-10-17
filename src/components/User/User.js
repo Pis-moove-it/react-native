@@ -24,12 +24,11 @@ class User extends Component {
     super();
     this.state = {
       identifier: false,
-      username: false,
     };
   }
 
   componentDidMount() {
-    this.props.fetchData();
+    this.props.fetchData(this.props.token, this.props.organization);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,29 +42,17 @@ class User extends Component {
 
   getUsers() {
     const usersData = [];
-    usersData.push(
-      <Picker.Item
-        key={999}
-        label={strings.selectUser}
-        value={false}
-      />,
-    );
+    usersData.push(<Picker.Item key={999} label={strings.selectUser} value={false} />);
     this.props.dataFetch.map((user, identifier) => {
-      usersData.push(
-        <Picker.Item
-          key={identifier}
-          label={`${user.name} ${user.surname}`}
-          value={`${user.name} ${user.surname}`}
-        />,
-      );
+      usersData.push(<Picker.Item key={identifier} label={`${user.name} ${user.surname}`} value={user.id} />);
     });
     return usersData;
   }
 
-  login = () => this.props.login(this.state.identifier, this.state.username);
+  login = () => this.props.login(this.props.token, this.props.organization, this.state.identifier);
 
   usernameChanged = (itemValue, itemIndex) => {
-    this.setState({ identifier: itemIndex, username: itemValue });
+    this.setState({ identifier: itemValue });
   };
 
   render() {
@@ -79,7 +66,7 @@ class User extends Component {
           <View style={styles.pickerContainer}>
             <Image source={avatar} style={styles.icon} />
             <Picker
-              selectedValue={this.state.username}
+              selectedValue={this.state.identifier}
               style={styles.picker}
               mode="dialog"
               onValueChange={this.usernameChanged}
@@ -96,7 +83,7 @@ class User extends Component {
             <Button
               style={styles.button}
               textStyle={styles.textButton}
-              onPress={this.state.username ? this.login : null}
+              onPress={this.state.identifier ? this.login : null}
               title={strings.enter}
             />
           )}
@@ -113,25 +100,31 @@ User.propTypes = {
   isLoading: PropTypes.bool,
   login: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
+  organization: PropTypes.string,
   user: PropTypes.string,
+  token: PropTypes.string,
 };
 
 User.defaultProps = {
   errors: [],
   isLoading: false,
+  organization: false,
   user: false,
+  token: false,
 };
 
 const mapStateToProps = state => ({
   dataFetch: state.users.users,
   errors: errorsSelector([actionTypes.USER_LOGIN])(state),
   isLoading: state.user.isLoading,
+  organization: state.login.identifier,
   user: state.user.user,
+  token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: () => dispatch(fetchUsers()),
-  login: (identifier, username) => dispatch(login(identifier, username)),
+  fetchData: (token, organization) => dispatch(fetchUsers(token, organization)),
+  login: (token, organization, user) => dispatch(login(token, organization, user)),
 });
 
 export default connect(
