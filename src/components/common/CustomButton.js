@@ -5,11 +5,10 @@ import Colors from '../../helpers/Colors';
 
 const styles = StyleSheet.create({
   button: {
-    width: 100,
-    height: 48,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    height: 48,
   },
   text: {
     fontSize: 14,

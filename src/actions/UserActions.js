@@ -17,26 +17,27 @@ const loginError = error => ({
   error,
 });
 
-const loginSuccess = user => ({
+const loginSuccess = userData => ({
   type: actionTypes.USER_LOGIN_SUCCESS,
-  user,
+  userData,
 });
 
 const logoutRequest = () => ({
   type: actionTypes.USER_LOGOUT,
 });
 
-export const login = (identifier, username) => async (dispatch) => {
-  dispatch(loginRequest());
-  try {
-    const user = await UserController.login(identifier, username);
-    dispatch(loginSuccess(user));
-  } catch (error) {
-    dispatch(loginError(error.message));
-  }
-};
-
 export const logout = () => (dispatch) => {
   UserController.logout();
   dispatch(logoutRequest());
+};
+
+export const login = (token, organization, user) => async (dispatch) => {
+  dispatch(logout());
+  dispatch(loginRequest());
+  try {
+    const { userData } = await UserController.login(token, organization, user);
+    dispatch(loginSuccess(userData));
+  } catch (error) {
+    dispatch(loginError(error.message));
+  }
 };

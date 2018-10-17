@@ -11,6 +11,23 @@ const credentials = {
   password: 'password',
 };
 
+jest.mock(
+  'react-native-localization',
+  () =>
+    class RNLocalization {
+      language = 'en';
+
+      constructor(props) {
+        this.props = props;
+        this.setLanguage(this.language);
+      }
+
+      setLanguage(interfaceLanguage) {
+        this.language = interfaceLanguage;
+      }
+    },
+);
+
 describe('UserActions', () => {
   afterEach(() => {
     store.clearActions();
@@ -19,14 +36,14 @@ describe('UserActions', () => {
   const store = mockStore(user);
 
   it('should create an action for login', () => {
-    const expectedAction = { type: userActions.actionTypes.USER_LOGIN_REQUEST };
+    const expectedAction = [{ type: 'USER_LOGOUT' }, { type: 'USER_LOGIN_REQUEST' }];
 
     // Dispatch the action
     store.dispatch(userActions.login(credentials.email, credentials.password));
 
     // Test if the store dispatched the expected actions
     const actions = store.getActions();
-    expect(actions).toEqual([expectedAction]);
+    expect(actions).toEqual(expectedAction);
   });
 
   it('should create an action for logout', () => {

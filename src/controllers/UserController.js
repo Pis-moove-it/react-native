@@ -1,18 +1,31 @@
+import axios from 'axios';
+import strings from '../localization';
+
 class UserController {
   constructor() {
-    this.basePath = '/users';
+    this.basePath = 'http://34.213.11.120/organizations/{organization}/users/{user}/login';
   }
 
-  login = async (identifier, username) =>
+  login = async (token, organization, user) =>
     new Promise((resolve, reject) => {
-      if (identifier !== null && username !== null) {
-        setTimeout(() => resolve({ name: username }), 1000);
-      } else {
-        setTimeout(
-          () => reject(new Error('Invalid identifier/username')),
-          1000,
-        );
-      }
+      axios
+        .post(
+          this.basePath.replace('{organization}', organization).replace('{user}', user),
+          {},
+          {
+            headers: {
+              ApiKey: `${token}`,
+            },
+          },
+        )
+        .then((response) => {
+          resolve({
+            userData: response.data,
+          });
+        })
+        .catch((error) => {
+          reject(new Error());
+        });
     });
 
   logout = () => null;

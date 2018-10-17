@@ -27,7 +27,7 @@ class LoginController {
           resolve({
             token: response.headers.apikey,
             name: response.data.name,
-            identifier: '1', // response.data.identifier,
+            identifier: response.data.id,
           });
         })
         .catch((error) => {
