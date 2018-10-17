@@ -53,7 +53,11 @@ class PhoneBale extends Component {
     if (this.state.showingInfo) {
       return (
         <View>
-          <Bale id={this.state.id} onPressAction={this.toggleInfo} />
+          <Bale
+            id={this.state.id}
+            onPressAction={this.toggleInfo}
+            openModal={this.props.onPressAction}
+          />
           <BaleInfo type={this.state.type} weight={this.state.weight} />
         </View>
       );
