@@ -22,7 +22,7 @@ class BaleList extends Component {
         data={this.props.bales}
         renderItem={({ item }) => {
           if (isPhone) {
-            return <PhoneBale id={item.id} type={item.type} weight={item.weight} />;
+            return <PhoneBale id={item.id} type={item.material} weight={item.weight} />;
           }
           return <TabletBale id={item.id} type={item.material} weight={item.weight} />;
         }}
