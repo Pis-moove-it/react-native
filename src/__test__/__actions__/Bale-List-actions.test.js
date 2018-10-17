@@ -7,6 +7,23 @@ const mockStore = configureStore(middlewares);
 
 const user = { name: 'Test' };
 
+jest.mock(
+  'react-native-localization',
+  () =>
+    class RNLocalization {
+      language = 'en';
+
+      constructor(props) {
+        this.props = props;
+        this.setLanguage(this.language);
+      }
+
+      setLanguage(interfaceLanguage) {
+        this.language = interfaceLanguage;
+      }
+    },
+);
+
 describe('UserActions', () => {
   afterEach(() => {
     store.clearActions();
@@ -24,35 +41,4 @@ describe('UserActions', () => {
     const actions = store.getActions();
     expect(actions).toEqual([expectedAction]);
   });
-
-  it('creates BALES_REQUEST_SUCCESS when fetching bales has been done', () => {
-    fetchMock
-      .getOnce('/todos', { body: { todos: ['do something'] }, headers: { 'content-type': 'application/json' } })
-  ​
-    const expectedActions = [
-      { type: balesActions.actionTypes.BALES_REQUEST },
-      { type: balesActions.actionTypes.BALES_REQUEST_SUCCESS, body: {  } }
-    ]
-    const store = mockStore({ todos: [] })
-  ​
-    return store.dispatch(actions.fetchBales()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions)
-    })
-  });
-
-  it('creates BALES_ERROR when fetching bales has been done but returns an error', () => {
-    fetchMock
-      .getOnce('/todos', { body: { todos: ['do something'] }, headers: { 'content-type': 'application/json' } })
-  ​
-    const expectedActions = [
-      { type: balesActions.actionTypes.BALES_REQUEST },
-      { type: balesActions.actionTypes.BALES_REQUEST_ERROR, body: {  } }
-    ]
-    const store = mockStore({ todos: [] })
-  ​
-    return store.dispatch(actions.fetchBales()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions)
-    })
-  });
-
 });
