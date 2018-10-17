@@ -1,4 +1,4 @@
-import { getUsersApi } from '../api';
+import getUsersApi from '../api';
 
 export const actionTypes = {
   USERS_API_REQUEST: 'USERS_API_REQUEST',
