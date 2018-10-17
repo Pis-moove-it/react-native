@@ -1,8 +1,9 @@
-import { actionTypes } from "../actions/UserActions";
+import { actionTypes } from '../actions/UserActions';
 
 const initialState = {
   user: false,
-  isLoading: false
+  userData: false,
+  isLoading: false,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -10,13 +11,19 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.USER_LOGIN_REQUEST:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+      };
+    case actionTypes.USER_LOGIN_ERROR:
+      return {
+        ...state,
+        isLoading: false,
       };
     case actionTypes.USER_LOGIN_SUCCESS:
       return {
         ...state,
-        user: action.user,
-        isLoading: false
+        user: action.userData.name,
+        userData: action.userData,
+        isLoading: false,
       };
     case actionTypes.USER_LOGOUT:
       return initialState;
