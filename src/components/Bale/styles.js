@@ -124,6 +124,36 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 17,
   },
+
+  // Modal styles
+  modalContainer: {
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: Colors.primary,
+    backgroundColor: Colors.white,
+    height: 300,
+    width: 400,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    justifyContent: 'center',
+    height: 50,
+    width: 200,
+  },
+  modalTitleContainer: {
+    paddingTop: 15,
+    paddingBottom: 20,
+  },
+  modalTitle: {
+    fontSize: 30,
+    color: Colors.primary,
+  },
+  buttonText: {
+    fontSize: 15,
+    color: Colors.white,
+  },
 });
 
 export default styles;

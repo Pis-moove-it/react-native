@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
+import { openCreateBaleModal } from '../../actions/CreateBaleModalActions';
 import strings from '../../localization';
 import TextStyles from '../../helpers/TextStyles';
 import getUser from '../../selectors/UserSelector';
@@ -38,19 +39,32 @@ class Drawer extends Component {
     this.props.navigator.pop();
   };
 
+  toggleModal = () => {
+    this.props.openCreateBaleModal();
+    this.props.navigator.toggleDrawer({
+      side: 'right',
+      animated: true,
+      to: 'close',
+    });
+  }
+
   render() {
     const { role } = this.props;
     let iconRole;
     let iconText;
+    let action;
     if (role === strings.gatherAction) {
       iconRole = HistoryIcon;
       iconText = strings.history;
+      action = () => ({});
     } else if (role === strings.weighAction) {
       iconRole = PocketIcon;
       iconText = strings.filterByRole;
+      action = () => ({});
     } else {
       iconRole = BaleIcon;
-      iconText = strings.filterByRole;
+      iconText = strings.createBaleDrawer;
+      action = this.toggleModal;
     }
     return (
       <View style={styles.containerWrapper}>
@@ -61,6 +75,7 @@ class Drawer extends Component {
             title={iconText}
             textStyle={TextStyles.drawerButtons}
             style={styles.userOptionsButtonForRole}
+            onPress={action}
           />
         </View>
         <View style={styles.bottomHalf}>
@@ -89,6 +104,7 @@ Drawer.propTypes = {
   role: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
+  openCreateBaleModal: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
 };
 
@@ -100,6 +116,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
+  openCreateBaleModal: () => dispatch(openCreateBaleModal()),
 });
 
 export default connect(
