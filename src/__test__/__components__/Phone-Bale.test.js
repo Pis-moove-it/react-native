@@ -3,6 +3,23 @@ import renderer from 'react-test-renderer';
 import PhoneBale from '../../components/Bale/PhoneBale';
 import BaleInfo from '../../components/Bale/BaleInfo';
 
+jest.mock(
+  'react-native-localization',
+  () =>
+    class RNLocalization {
+      language = 'en';
+
+      constructor(props) {
+        this.props = props;
+        this.setLanguage(this.language);
+      }
+
+      setLanguage(interfaceLanguage) {
+        this.language = interfaceLanguage;
+      }
+    },
+);
+
 // Minimal case
 it('renders correctly only with required props', () => {
   const tree = renderer.create(<PhoneBale />).toJSON();
