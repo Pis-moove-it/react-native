@@ -14,7 +14,6 @@ import { changeRole } from '../../actions/RoleActions';
 import PocketList from '../Pocket/PocketList';
 import { Screens } from '../Navigation';
 import strings from '../../localization';
-import styles from './styles';
 
 class Weigh extends Component {
   static navigatorStyle = {
