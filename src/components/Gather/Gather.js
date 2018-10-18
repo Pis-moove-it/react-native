@@ -131,6 +131,8 @@ class Gather extends Component {
 
   changeRole = () => this.props.changeRole();
 
+
+
   renderAnnotations = () => (
     <Mapbox.PointAnnotation
       key="pointAnnotation"
@@ -144,14 +146,16 @@ class Gather extends Component {
     </Mapbox.PointAnnotation>
   );
 
+
   render() {
     return (
       <View style={stylesGather.mapContainer}>
         <GatherOverlay />
         <Mapbox.MapView
-          styleURL={Mapbox.StyleURL.Dark}
+          styleURL={Mapbox.StyleURL.Street}
           zoomLevel={15}
-          centerCoordinate={[-56.165921, -34.917352]}
+          // centerCoordinate={[-56.165921, -34.917352]}
+          userTrackingMode={Mapbox.UserTrackingModes.FollowWithHeading}
           showUserLocation
           style={stylesGather.mapContainer}
         >
@@ -160,12 +164,10 @@ class Gather extends Component {
             id="pointAnnotation"
             coordinate={[-56.165921, -34.917352]}
           >
-            {/* <View style={stylesGather.annotationContainer}>
-              <View style={stylesGather.annotationFill} />
-            </View> */}
             <Image source={icon} style={stylesGather.trashIcon} />
             <Mapbox.Callout title="Look! An annotation!" />
           </Mapbox.PointAnnotation>
+
         </Mapbox.MapView>
       </View>
     );
