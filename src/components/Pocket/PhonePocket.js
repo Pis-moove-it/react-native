@@ -6,9 +6,7 @@ import Button from '../common/Button';
 import strings from '../../localization';
 import styles from './styles';
 
-const PhonePocket = ({
-  id, time, weight, pocketState,
-}) => (
+const PhonePocket = ({ id, pocketState }) => (
   <View style={styles.containerPhonePocket}>
     <Image source={PocketIcon} style={styles.pocketImageStylePhone} />
     <Text style={styles.textBlackPhone}>
@@ -31,8 +29,6 @@ const PhonePocket = ({
 
 PhonePocket.propTypes = {
   id: PropTypes.string.isRequired,
-  // time: PropTypes.string.isRequired,
-  // weight: PropTypes.string.isRequired,
   pocketState: PropTypes.string.isRequired,
 };
 
