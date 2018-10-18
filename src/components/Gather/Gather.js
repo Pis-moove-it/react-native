@@ -48,7 +48,7 @@ class Gather extends Component {
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
-
+  
   state = {
     isModalVisible: false,
   };
@@ -131,22 +131,6 @@ class Gather extends Component {
 
   changeRole = () => this.props.changeRole();
 
-
-
-  renderAnnotations = () => (
-    <Mapbox.PointAnnotation
-      key="pointAnnotation"
-      id="pointAnnotation"
-      coordinate={[-56.165921, -34.917352]}
-    >
-      <View style={stylesGather.annotationContainer}>
-        <View style={stylesGather.annotationFill} />
-      </View>
-      <Mapbox.Callout title="Look! An annotation!" />
-    </Mapbox.PointAnnotation>
-  );
-
-
   render() {
     return (
       <View style={stylesGather.mapContainer}>
@@ -154,7 +138,6 @@ class Gather extends Component {
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}
           zoomLevel={15}
-          // centerCoordinate={[-56.165921, -34.917352]}
           userTrackingMode={Mapbox.UserTrackingModes.FollowWithHeading}
           showUserLocation
           style={stylesGather.mapContainer}
@@ -165,9 +148,17 @@ class Gather extends Component {
             coordinate={[-56.165921, -34.917352]}
           >
             <Image source={icon} style={stylesGather.trashIcon} />
-            <Mapbox.Callout title="Look! An annotation!" />
+            <Mapbox.Callout title={strings.recolactionPoint} />
+            
           </Mapbox.PointAnnotation>
-
+          <Mapbox.PointAnnotation
+            key="pointAnnotation2"
+            id="pointAnnotation2"
+            coordinate={[-56.16574729294116, -34.90461658495409]}
+          >
+            <Image source={icon} style={stylesGather.trashIcon} />
+            <Mapbox.Callout title={strings.recolactionPoint} />
+          </Mapbox.PointAnnotation>
         </Mapbox.MapView>
       </View>
     );

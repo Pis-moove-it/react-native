@@ -57,4 +57,5 @@ export default {
   pocketButtonEditWeightText: 'Edit weight ',
   information: 'Information ',
   loginError: 'Invalid username or password ',
+  recolactionPoint: 'Recolaction point',
 };

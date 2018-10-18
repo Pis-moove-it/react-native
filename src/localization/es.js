@@ -57,4 +57,5 @@ export default {
   pocketButtonEditWeightText: 'Modificar peso ',
   information: 'Información ',
   loginError: 'El usuario o la contraseña es inválido ',
+  recolactionPoint: 'Punto de recoleccion',
 };
