@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
+import PropTypes from 'prop-types';
+import { openEditBaleModal } from '../../actions/EditBaleModalActions';
 import PhoneBale from '../Bale/PhoneBale';
 import TabletBale from '../Bale/TabletBale';
+import CreateBaleModal from '../common/CreateBaleModal';
+import EditBaleModal from '../common/EditBaleModal';
+import recyclableMaterials from '../common/Constants';
 
 const balesList = [
   {
@@ -38,28 +43,55 @@ class BaleList extends Component {
     navBarHidden: true,
   };
 
+  constructor(props) {
+    super(props);
+    this.materials = recyclableMaterials;
+  }
+
   render() {
     return (
-      <FlatList
-        data={balesList}
-        renderItem={({ item }) => {
-          if (isPhone) {
-            return <PhoneBale id={item.id} type={item.type} weight={item.weight} />;
-          }
-          return <TabletBale id={item.id} type={item.type} weight={item.weight} />;
-        }}
-      />
+      <View>
+        <CreateBaleModal />
+        <EditBaleModal />
+        <FlatList
+          data={balesList}
+          renderItem={({ item }) => {
+            if (isPhone) {
+              return (
+                <PhoneBale
+                  id={item.id}
+                  type={item.type}
+                  weight={item.weight}
+                  onPressAction={this.props.openEditBaleModal}
+                />
+              );
+            }
+            return (
+              <TabletBale
+                id={item.id}
+                type={item.type}
+                weight={item.weight}
+                onPressAction={this.props.openEditBaleModal}
+              />
+            );
+          }}
+        />
+      </View>
     );
   }
 }
 
-BaleList.propTypes = {};
+BaleList.propTypes = {
+  openEditBaleModal: PropTypes.func.isRequired,
+};
 
 BaleList.defaultProps = {};
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+  openEditBaleModal: () => dispatch(openEditBaleModal()),
+});
 
 export default connect(
   mapStateToProps,

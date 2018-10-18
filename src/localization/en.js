@@ -1,5 +1,6 @@
 export default {
   login: 'Login ',
+  loginError: 'Invalid username or password ',
   selectUser: 'Select user ',
   enter: 'Enter ',
   loading: 'Loading ',
@@ -22,6 +23,8 @@ export default {
   gatherTitle: 'Gather ',
   weighTitle: 'Weigh ',
   baleTitle: 'Bale ',
+
+  // Gather Modal
   month0: 'January ',
   month1: 'February ',
   month2: 'March ',
@@ -42,20 +45,43 @@ export default {
   day5: 'Friday ',
   day6: 'Saturday ',
   startTravel: 'Start travelling ',
+
+  // Bale Component
   back: 'Return ',
   baleComponentBale: 'Bale ',
   type: 'Type ',
   weight: 'Weight ',
   baleButtonText: 'Edit bale ',
   bale: 'Bale ',
+
+  // Common Modal
+  acceptModal: 'Accept ',
+  weighPlaceholderModal: 'Weight (kg) ',
+  selectMaterial: 'Select a new material ',
+  invalidInputNumber: 'Please enter a valid number ',
+  invalidInputType: 'Please enter a valid material type ',
+
+  // Bale Edit Modal
+  editBale: 'Edit bale ',
+
+  // Bale Create Modal
+  createBale: 'New bale ',
+
+  // Constants
+  plastic: 'Plastic ',
+  glass: 'Glass ',
+
+  // Drawer Buttons
   history: 'History ',
   filterByRole: 'Filter ',
+  createBaleDrawer: 'Create Bale ',
+
+  // Informational
   arrivedAt: 'Arrived at ',
   pocket: 'Pocket ',
   unweighted: 'Unweighted ',
   pocketButtonWeightText: 'Weight ',
   pocketButtonEditWeightText: 'Edit weight ',
   information: 'Information ',
-  loginError: 'Invalid username or password ',
   recolactionPoint: 'Recolaction point',
 };
