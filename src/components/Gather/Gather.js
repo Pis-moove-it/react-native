@@ -146,8 +146,8 @@ class Gather extends Component {
             coordinate={[-56.165921, -34.917352]}
           >
             <Image source={icon} style={stylesGather.trashIcon} />
-            <Mapbox.Callout title={strings.recolactionPoint} />
-            
+            <Mapbox.Callout title={strings.collectionPoint} />
+          
           </Mapbox.PointAnnotation>
           <Mapbox.PointAnnotation
             key="pointAnnotation2"
@@ -155,7 +155,7 @@ class Gather extends Component {
             coordinate={[-56.16574729294116, -34.90461658495409]}
           >
             <Image source={icon} style={stylesGather.trashIcon} />
-            <Mapbox.Callout title={strings.recolactionPoint} />
+            <Mapbox.Callout title={strings.collectionPoint} />
           </Mapbox.PointAnnotation>
         </Mapbox.MapView>
       </View>

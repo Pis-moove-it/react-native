@@ -83,5 +83,5 @@ export default {
   pocketButtonWeightText: 'Pesar ',
   pocketButtonEditWeightText: 'Modificar peso ',
   information: 'Información ',
-  recolactionPoint: 'Punto de recoleccion',
+  collectionPoint: 'Punto de recolección',
 };
