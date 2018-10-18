@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
 import PhoneBale from '../Bale/PhoneBale';
 import TabletBale from '../Bale/TabletBale';
 import { fetchBales } from '../../actions/BalesActions';
+import { openEditBaleModal } from '../../actions/EditBaleModalActions';
+import CreateBaleModal from '../common/CreateBaleModal';
+import EditBaleModal from '../common/EditBaleModal';
+import recyclableMaterials from '../common/Constants';
 
 class BaleList extends Component {
   static navigatorStyle = {
     navBarHidden: true,
   };
+
+  constructor(props) {
+    super(props);
+    this.materials = recyclableMaterials;
+  }
 
   componentDidMount() {
     this.props.fetchData(this.props.token);
@@ -18,15 +27,33 @@ class BaleList extends Component {
 
   render() {
     return (
-      <FlatList
-        data={this.props.bales}
-        renderItem={({ item }) => {
-          if (isPhone) {
-            return <PhoneBale id={item.id} type={item.material} weight={item.weight} />;
-          }
-          return <TabletBale id={item.id} type={item.material} weight={item.weight} />;
-        }}
-      />
+      <View>
+        <CreateBaleModal />
+        <EditBaleModal />
+        <FlatList
+          data={this.props.bales}
+          renderItem={({ item }) => {
+            if (isPhone) {
+              return (
+                <PhoneBale
+                  id={item.id}
+                  type={item.material}
+                  weight={item.weight}
+                  onPressAction={this.props.openEditBaleModal}
+                />
+              );
+            }
+            return (
+              <TabletBale
+                id={item.id}
+                type={item.material}
+                weight={item.weight}
+                onPressAction={this.props.openEditBaleModal}
+              />
+            );
+          }}
+        />
+      </View>
     );
   }
 }
@@ -35,6 +62,7 @@ BaleList.propTypes = {
   fetchData: PropTypes.func.isRequired,
   token: PropTypes.string,
   bales: PropTypes.object,
+  openEditBaleModal: PropTypes.func.isRequired,
 };
 
 BaleList.defaultProps = {
@@ -48,6 +76,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  openEditBaleModal: () => dispatch(openEditBaleModal()),
   fetchData: token => dispatch(fetchBales(token)),
 });
 

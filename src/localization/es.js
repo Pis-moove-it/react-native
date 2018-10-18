@@ -1,5 +1,6 @@
 export default {
   login: 'Iniciar Sesión ',
+  loginError: 'Nombre de usuario o contraseña incorrectos ',
   selectUser: 'Seleccionar usuario ',
   enter: 'Ingresar ',
   loading: 'Cargando ',
@@ -22,6 +23,8 @@ export default {
   gatherTitle: 'Recolectar ',
   weighTitle: 'Pesar ',
   baleTitle: 'Enfardar ',
+
+  // Gather Modal
   month0: 'Enero ',
   month1: 'Febrero ',
   month2: 'Marzo ',
@@ -42,19 +45,42 @@ export default {
   day5: 'Viernes ',
   day6: 'Sábado ',
   startTravel: 'Empezar recorrida ',
+
+  // Bale Component
   back: 'Volver ',
   baleComponentBale: 'Fardo ',
   type: 'Tipo ',
   weight: 'Peso ',
   baleButtonText: 'Modificar fardo ',
   bale: 'Fardo ',
+
+  // Common Modal
+  acceptModal: 'Aceptar ',
+  weighPlaceholderModal: 'Peso (kg) ',
+  selectMaterial: 'Seleccione un nuevo material ',
+  invalidInputNumber: 'Ingrese un número válido ',
+  invalidInputType: 'Por favor ingrese un tipo de material válido ',
+
+  // Bale Edit Modal
+  editBale: 'Editar Fardo ',
+
+  // Bale Create Modal
+  createBale: 'Nuevo fardo ',
+
+  // Constants
+  plastic: 'Plástico ',
+  glass: 'Vidrio ',
+
+  // Drawer Buttons
   history: 'Historial ',
   filterByRole: 'Filtrar ',
+  createBaleDrawer: 'Crear Fardo ',
+
+  // Informational
   arrivedAt: 'Hora de llegada ',
   pocket: 'Bolsón ',
   unweighted: 'Sin pesar ',
   pocketButtonWeightText: 'Pesar ',
   pocketButtonEditWeightText: 'Modificar peso ',
   information: 'Información ',
-  loginError: 'El usuario o la contraseña es inválido ',
 };

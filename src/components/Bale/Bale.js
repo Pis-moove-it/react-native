@@ -35,16 +35,14 @@ class Bale extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: props.user,
       landscape: Platform.isLandscape(),
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    const { name } = this.state.user;
     if (isTablet || this.state.landscape) {
-      this.setButtonsTablet(name);
+      this.setButtonsTablet(this.props.user);
     } else {
       this.setButtonsPhone();
     }
@@ -71,7 +69,7 @@ class Bale extends Component {
           id: 'profile',
           component: 'CustomButton',
           passProps: {
-            title: name.toString(),
+            title: name,
             icon: user128,
             style: { color: Colors.white, width: 170 },
             textStyle: { margin: 10 },
