@@ -5,6 +5,7 @@ import user from './UserReducer';
 import login from './LoginReducer';
 import role from './RoleReducer';
 import users from './UsersAPIReducer';
+import bales from './BalesReducer';
 import createBaleModal from './CreateBaleModalReducer';
 import editBaleModal from './EditBaleModalReducer';
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   login,
   role,
   users,
+  bales,
   createBaleModal,
   editBaleModal,
 });
