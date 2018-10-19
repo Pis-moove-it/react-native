@@ -18,27 +18,13 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingTop: 5,
   },
-  pocketComponentTitle: {
-    fontWeight: 'bold',
+  containerItemPhone: {
+    flex: 1,
+    paddingLeft: 10,
   },
-  pocketComponentElement: {
-    width: '30%',
-  },
-  pocketButtonWeightText: {
-    width: '30%',
-    height: '55%',
-    marginTop: 20,
-    backgroundColor: Colors.primary,
-    position: 'absolute',
-    right: 20,
-  },
-  pocketButtonEditWeightText: {
-    width: '30%',
-    height: '55%',
-    marginTop: 20,
-    backgroundColor: Colors.gray,
-    position: 'absolute',
-    right: 20,
+  textBlackPhone: {
+    fontSize: 16,
+    color: 'black',
   },
   textButton: {
     flex: 1,
@@ -51,6 +37,25 @@ const styles = StyleSheet.create({
     height: 60,
     width: 50,
     borderRadius: 20,
+  },
+  containerButtonPhone: {
+    flex: 2,
+    padding: 0,
+    width: '35%',
+    alignContent: 'flex-end',
+  },
+  phoneButton: {
+    alignSelf: 'flex-end',
+    margin: '5%',
+    minWidth: 100,
+    backgroundColor: Colors.primary,
+  },
+  phoneGrayButton: {
+    alignSelf: 'flex-end',
+    margin: '5%',
+    minWidth: 100,
+    backgroundColor: Colors.gray,
+    borderWidth: 0,
   },
 
   // Tablet syles
