@@ -103,13 +103,14 @@ EditBaleModal.propTypes = {
   bale: PropTypes.string.isRequired,
   closeEditModal: PropTypes.func.isRequired,
   editBale: PropTypes.func.isRequired,
-  isModalVisible: PropTypes.bool.isRequired,
+  isModalVisible: PropTypes.bool,
   token: PropTypes.string,
 };
 
 EditBaleModal.defaultProps = {
   bale: false,
   token: false,
+  isModalVisible: false,
 };
 
 const mapStateToProps = state => ({
