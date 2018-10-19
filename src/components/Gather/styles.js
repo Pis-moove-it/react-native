@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import Colors from '../../helpers/Colors';
+import icon from '../../assets/images/MapPointIcon.png';
 
 const stylesGather = StyleSheet.create({
   container: {
@@ -27,6 +28,25 @@ const stylesGather = StyleSheet.create({
   },
   activityIndicator: {
     margin: '2%',
+  },
+  annotationContainer: {
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 15,
+  },
+  annotationFill: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: 'orange',
+    transform: [{ scale: 0.6 }],
+  },
+  trashIcon: {
+    width: 70,
+    height: 70,
   },
 });
 
