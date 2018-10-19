@@ -52,8 +52,8 @@ class PocketList extends Component {
             return (
               <PhonePocket
                 id={item.id}
-                // time={item.time}
-                // weight={item.weight}
+                time={item.time}
+                weight={item.weight}
                 pocketState={item.pocketState}
               />
             );
