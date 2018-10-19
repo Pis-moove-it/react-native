@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
-import PhoneBale from '../Bale/PhoneBale';
+import PhonePocket from './PhonePocket';
 import TabletPocket from './TabletPocket';
 
 const weighList = [
@@ -38,7 +38,7 @@ const weighList = [
   },
 ];
 
-class WeighList extends Component {
+class PocketList extends Component {
   static navigatorStyle = {
     navBarHidden: true,
   };
@@ -49,7 +49,14 @@ class WeighList extends Component {
         data={weighList}
         renderItem={({ item }) => {
           if (isPhone) {
-            return <PhoneBale id={item.id} type={item.type} weight={item.weight} />;
+            return (
+              <PhonePocket
+                id={item.id}
+                // time={item.time}
+                // weight={item.weight}
+                pocketState={item.pocketState}
+              />
+            );
           }
           return (
             <TabletPocket
@@ -65,9 +72,9 @@ class WeighList extends Component {
   }
 }
 
-WeighList.propTypes = {};
+PocketList.propTypes = {};
 
-WeighList.defaultProps = {};
+PocketList.defaultProps = {};
 
 const mapStateToProps = () => ({});
 
@@ -76,4 +83,4 @@ const mapDispatchToProps = () => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(WeighList);
+)(PocketList);
