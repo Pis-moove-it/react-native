@@ -62,7 +62,7 @@ class BaleList extends Component {
                   id={item.id}
                   type={item.type}
                   weight={item.weight}
-                  onPressAction={this.props.openEditBaleModal}
+                  onPressAction={this.props.openEditBaleModal(item.id)}
                 />
               );
             }
@@ -71,7 +71,7 @@ class BaleList extends Component {
                 id={item.id}
                 type={item.type}
                 weight={item.weight}
-                onPressAction={this.props.openEditBaleModal}
+                onPressAction={this.props.openEditBaleModal(item.id)}
               />
             );
           }}
@@ -90,7 +90,7 @@ BaleList.defaultProps = {};
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  openEditBaleModal: () => dispatch(openEditBaleModal()),
+  openEditBaleModal: identifier => dispatch(openEditBaleModal(identifier)),
 });
 
 export default connect(
