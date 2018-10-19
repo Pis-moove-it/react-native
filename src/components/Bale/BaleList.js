@@ -10,6 +10,7 @@ import { openEditBaleModal } from '../../actions/EditBaleModalActions';
 import CreateBaleModal from '../common/CreateBaleModal';
 import EditBaleModal from '../common/EditBaleModal';
 import recyclableMaterials from '../common/Constants';
+import getBales from '../../selectors/BalesSelector';
 
 class BaleList extends Component {
   static navigatorStyle = {
@@ -61,18 +62,17 @@ class BaleList extends Component {
 BaleList.propTypes = {
   fetchData: PropTypes.func.isRequired,
   token: PropTypes.string,
-  bales: PropTypes.object,
   openEditBaleModal: PropTypes.func.isRequired,
+  bales: PropTypes.object.isRequired,
 };
 
 BaleList.defaultProps = {
   token: false,
-  bales: [],
 };
 
 const mapStateToProps = state => ({
   token: state.login.token,
-  bales: state.bales.bales,
+  bales: getBales(state),
 });
 
 const mapDispatchToProps = dispatch => ({

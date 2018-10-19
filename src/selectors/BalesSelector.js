@@ -1,3 +1,1 @@
-export default (state) => {
-  return state.bales.bales;
-};
+export default state => state.bales.bales;
