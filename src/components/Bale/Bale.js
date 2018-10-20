@@ -5,15 +5,18 @@ import PropTypes from 'prop-types';
 import BaleList from '../Bale/BaleList';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
+import { openCreateBaleModal } from '../../actions/CreateBaleModalActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
+import baleIcon from '../../assets/images/BaleIcon.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import { Screens } from '../Navigation';
 import strings from '../../localization';
+import styles from './styles';
 
 class Bale extends Component {
   static navigatorStyle = {
@@ -71,7 +74,7 @@ class Bale extends Component {
           passProps: {
             title: name,
             icon: user128,
-            style: { color: Colors.white, width: 170 },
+            style: styles.tabletHeaderButton,
             textStyle: { margin: 10 },
             onPress: () =>
               this.props.navigator.push({
@@ -79,6 +82,17 @@ class Bale extends Component {
                 animationType: 'fade',
                 title: strings.profile,
               }),
+          },
+        },
+        {
+          id: 'addBale',
+          component: 'CustomButton',
+          passProps: {
+            title: strings.createBale,
+            icon: baleIcon,
+            style: styles.tabletHeaderButton,
+            textStyle: { margin: 10 },
+            onPress: () => this.props.openCreateBaleModal(),
           },
         },
       ],
@@ -115,6 +129,7 @@ Bale.propTypes = {
   user: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
+  openCreateBaleModal: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
 };
 
@@ -126,6 +141,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
+  openCreateBaleModal: () => dispatch(openCreateBaleModal()),
 });
 
 export default connect(

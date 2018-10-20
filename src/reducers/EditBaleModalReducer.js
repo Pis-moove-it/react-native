@@ -11,13 +11,13 @@ const editBaleModalReducer = (state = initialState, action) => {
       return {
         ...state,
         bale: action.bale,
-        editBaleModalIsOpen: action.isVisible,
+        editBaleModalIsOpen: true,
       };
     case actionTypes.CLOSE_EDIT_BALE_MODAL:
       return {
         ...state,
         bale: false,
-        editBaleModalIsOpen: action.isVisible,
+        editBaleModalIsOpen: false,
       };
     default:
       return state;

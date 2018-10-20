@@ -1,4 +1,3 @@
-import axios from 'axios';
 import getUsersApi from '../api';
 
 export const actionTypes = {

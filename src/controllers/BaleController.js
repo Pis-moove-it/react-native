@@ -4,15 +4,14 @@ import basePath from './BaseController';
 
 class BaleController {
   constructor() {
-    this.path = 'bales/{bale}';
+    this.path = 'bales/';
   }
 
   editBale = async (token, bale, weight, material) =>
     new Promise((resolve, reject) => {
-      this.path = this.path.replace('{bale}', bale);
       axios
         .put(
-          `${basePath}${this.path}`,
+          `${basePath}${this.path}${bale}`,
           {
             bale: {
               weight: `${weight}`,
@@ -36,9 +35,8 @@ class BaleController {
         });
     });
 
-  newBale = async (token, bale, weight, material) =>
+  newBale = async (token, weight, material) =>
     new Promise((resolve, reject) => {
-      this.path = this.path.replace('{bale}', bale);
       axios
         .post(
           `${basePath}${this.path}`,
@@ -62,6 +60,24 @@ class BaleController {
         })
         .catch((error) => {
           reject(new Error(strings.baleNewError));
+        });
+    });
+
+  getBales = async token =>
+    new Promise((resolve, reject) => {
+      axios
+        .get(`${basePath}${this.path}`, {
+          headers: {
+            ApiKey: `${token}`,
+          },
+        })
+        .then((response) => {
+          resolve({
+            bales: response.data,
+          });
+        })
+        .catch((error) => {
+          reject(new Error(strings.loginError));
         });
     });
 }

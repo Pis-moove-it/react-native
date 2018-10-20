@@ -73,6 +73,7 @@ export default {
   // Constants
   plastic: 'Plastic ',
   glass: 'Glass ',
+  trash: 'Trash ',
 
   // Drawer Buttons
   history: 'History ',

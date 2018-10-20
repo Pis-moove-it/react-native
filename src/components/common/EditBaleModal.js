@@ -29,7 +29,7 @@ class EditBaleModal extends Component {
     const pickerMaterial = [];
     pickerMaterial.push(<Picker.Item key={999} label={strings.selectMaterial} value={false} />);
     this.materials.map((material) => {
-      pickerMaterial.push(<Picker.Item key={material.id} label={material.name} value={material.name} />);
+      pickerMaterial.push(<Picker.Item key={material.id} label={material.name} value={material.value} />);
     });
     return pickerMaterial;
   }
@@ -100,16 +100,17 @@ class EditBaleModal extends Component {
 }
 
 EditBaleModal.propTypes = {
-  bale: PropTypes.string.isRequired,
+  bale: PropTypes.string,
   closeEditModal: PropTypes.func.isRequired,
   editBale: PropTypes.func.isRequired,
-  isModalVisible: PropTypes.bool.isRequired,
+  isModalVisible: PropTypes.bool,
   token: PropTypes.string,
 };
 
 EditBaleModal.defaultProps = {
   bale: false,
   token: false,
+  isModalVisible: false,
 };
 
 const mapStateToProps = state => ({
