@@ -31,7 +31,6 @@ describe('createBaleModalActions', () => {
 
   it('should create an action for open create bale modal', () => {
     const expectedAction = {
-      isVisible: true,
       type: createBaleModalActions.actionTypes.OPEN_CREATE_BALE_MODAL,
     };
 
@@ -45,7 +44,6 @@ describe('createBaleModalActions', () => {
 
   it('should create an action for close create bale modal', () => {
     const expectedAction = {
-      isVisible: false,
       type: createBaleModalActions.actionTypes.CLOSE_CREATE_BALE_MODAL,
     };
 

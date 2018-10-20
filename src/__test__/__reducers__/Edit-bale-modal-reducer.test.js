@@ -28,6 +28,7 @@ describe('edit bale modal reducer', () => {
       type: actionTypes.CLOSE_EDIT_BALE_MODAL,
       isVisible: false,
     })).toEqual({
+      bale: false,
       editBaleModalIsOpen: false,
     });
   });
