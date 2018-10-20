@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
@@ -20,11 +20,21 @@ class BaleList extends Component {
   constructor(props) {
     super(props);
     this.materials = recyclableMaterials;
+    this.state = {
+      refreshing: false,
+    };
   }
 
   componentDidMount() {
     this.props.fetchData(this.props.token);
   }
+
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.props.fetchData(this.props.token).then(() => {
+      this.setState({ refreshing: false });
+    });
+  };
 
   render() {
     return (
@@ -53,6 +63,9 @@ class BaleList extends Component {
               />
             );
           }}
+          refreshControl={
+            <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
+          }
         />
       </View>
     );
