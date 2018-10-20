@@ -15,8 +15,7 @@ const PocketInfo = ({ time, weight }) => (
       <View style={styles.subContainerTimeAndWeigthInfo}>
         <Text style={styles.titleTimeAndWeightInfo}>{strings.weight}</Text>
         <Text style={styles.subtitleTimeAndWeightInfo}>
-          {weight}
-          kg
+          {weight === strings.unweighted ? weight : `${weight} kg`}
         </Text>
       </View>
     </View>

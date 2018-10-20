@@ -63,7 +63,10 @@ class PhonePocket extends Component {
             pocketState={this.state.pocketState}
             onPressAction={this.toggleInfo}
           />
-          <PocketInfo time={this.state.time} weight={this.state.weight} />
+          <PocketInfo
+            time={this.state.time}
+            weight={this.state.pocketState === 'Unweighed' ? strings.unweighted : this.state.weight}
+          />
         </View>
       );
     }
