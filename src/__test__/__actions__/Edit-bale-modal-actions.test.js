@@ -13,7 +13,10 @@ describe('EditBaleModalActions', () => {
   const store = mockStore();
 
   it('should create an action for open edit bale modal', () => {
-    const expectedAction = { isVisible: true, type: editBaleModalActions.actionTypes.OPEN_EDIT_BALE_MODAL };
+    const expectedAction = {
+      isVisible: true,
+      type: editBaleModalActions.actionTypes.OPEN_EDIT_BALE_MODAL,
+    };
 
     // Dispatch the action
     store.dispatch(editBaleModalActions.openEditBaleModal());
@@ -24,7 +27,10 @@ describe('EditBaleModalActions', () => {
   });
 
   it('should create an action for close edit bale modal', () => {
-    const expectedAction = { isVisible: false, type: editBaleModalActions.actionTypes.CLOSE_EDIT_BALE_MODAL };
+    const expectedAction = {
+      isVisible: false,
+      type: editBaleModalActions.actionTypes.CLOSE_EDIT_BALE_MODAL,
+    };
 
     // Dispatch the action
     store.dispatch(editBaleModalActions.closeEditBaleModal());

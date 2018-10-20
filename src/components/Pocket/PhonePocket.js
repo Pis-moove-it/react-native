@@ -10,8 +10,7 @@ const PhonePocket = ({ id, pocketState }) => (
   <View style={styles.containerPhonePocket}>
     <Image source={PocketIcon} style={styles.pocketImageStylePhone} />
     <Text style={styles.textBlackPhone}>
-      {strings.pocket}
-      {`#${id}`}
+      {strings.pocket} #{id}
     </Text>
     <View style={styles.containerButtonPhone}>
       <Button

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
@@ -12,9 +11,9 @@ import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
+import PocketList from '../Pocket/PocketList';
 import { Screens } from '../Navigation';
 import strings from '../../localization';
-import styles from './styles';
 
 class Weigh extends Component {
   static navigatorStyle = {
@@ -108,7 +107,7 @@ class Weigh extends Component {
   changeRole = () => this.props.changeRole();
 
   render() {
-    return <View style={styles.container} />;
+    return <PocketList />;
   }
 }
 
