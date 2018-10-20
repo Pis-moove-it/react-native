@@ -2,13 +2,12 @@ import BaleController from '../controllers/BaleController';
 
 export const actionTypes = {
   OPEN_EDIT_BALE_MODAL: 'OPEN_EDIT_BALE_MODAL',
-  CLOSE_EDIT_BALE_MODAL: 'OPEN_EDIT_BALE_MODAL',
+  CLOSE_EDIT_BALE_MODAL: 'CLOSE_EDIT_BALE_MODAL',
 };
 
 const openEditBaleModalType = bale => ({
   type: actionTypes.OPEN_EDIT_BALE_MODAL,
   bale,
-  isVisible: true,
 });
 
 export const openEditBaleModal = bale => (dispatch) => {
@@ -17,7 +16,6 @@ export const openEditBaleModal = bale => (dispatch) => {
 
 const closeEditBaleModalType = () => ({
   type: actionTypes.CLOSE_EDIT_BALE_MODAL,
-  isVisible: false,
 });
 
 export const closeEditBaleModal = () => (dispatch) => {
@@ -27,15 +25,6 @@ export const closeEditBaleModal = () => (dispatch) => {
 export const editBale = (token, bale, weight, material) => async (dispatch) => {
   try {
     const { baleData } = await BaleController.editBale(token, bale, weight, material);
-    dispatch(closeEditBaleModal(baleData));
-  } catch (error) {
-    dispatch(openEditBaleModal(error.message));
-  }
-};
-
-export const newBale = (token, bale, weight, material) => async (dispatch) => {
-  try {
-    const { baleData } = await BaleController.newBale(token, bale, weight, material);
     dispatch(closeEditBaleModal(baleData));
   } catch (error) {
     dispatch(openEditBaleModal(error.message));

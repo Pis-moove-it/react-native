@@ -9,12 +9,12 @@ const createBaleModalReducer = (state = initialState, action) => {
     case actionTypes.OPEN_CREATE_BALE_MODAL:
       return {
         ...state,
-        createBaleModalIsOpen: action.isVisible,
+        createBaleModalIsOpen: true,
       };
     case actionTypes.CLOSE_CREATE_BALE_MODAL:
       return {
         ...state,
-        createBaleModalIsOpen: action.isVisible,
+        createBaleModalIsOpen: false,
       };
     default:
       return state;
