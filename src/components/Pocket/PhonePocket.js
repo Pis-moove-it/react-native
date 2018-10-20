@@ -81,9 +81,14 @@ class PhonePocket extends Component {
 
 PhonePocket.propTypes = {
   id: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
-  weight: PropTypes.string.isRequired,
+  time: PropTypes.string,
+  weight: PropTypes.string,
   pocketState: PropTypes.string.isRequired,
+};
+
+PhonePocket.defaultProps = {
+  time: false,
+  weight: false,
 };
 
 export default PhonePocket;
