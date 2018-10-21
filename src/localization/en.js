@@ -70,6 +70,11 @@ export default {
   // Bale Create Modal
   createBale: 'New bale ',
 
+  // Pocket Create Modal
+  createPocket: 'New pocket ',
+  identifierPlaceholderModal: 'Identifier ',
+  descriptionPlaceholderModal: 'Description ',
+
   // Constants
   plastic: 'Plastic ',
   glass: 'Glass ',

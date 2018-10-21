@@ -70,6 +70,11 @@ export default {
   // Bale Create Modal
   createBale: 'Nuevo fardo ',
 
+  // Pocket Create Modal
+  createPocket: 'Nuevo bolsón ',
+  identifierPlaceholderModal: 'Identificador ',
+  descriptionPlaceholderModal: 'Descripción ',
+
   // Constants
   plastic: 'Plástico ',
   glass: 'Vidrio ',

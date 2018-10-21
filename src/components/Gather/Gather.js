@@ -17,6 +17,7 @@ import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
+import CreatePocketModal from '../common/CreatePocketModal';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
 
@@ -133,6 +134,7 @@ class Gather extends Component {
     return (
       <View style={stylesGather.mapContainer}>
         <GatherOverlay />
+        <CreatePocketModal />
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}
           zoomLevel={15}
