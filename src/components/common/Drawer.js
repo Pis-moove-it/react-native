@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import { openCreateBaleModal } from '../../actions/CreateBaleModalActions';
+import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import strings from '../../localization';
 import TextStyles from '../../helpers/TextStyles';
 import getUser from '../../selectors/UserSelector';
@@ -39,8 +40,17 @@ class Drawer extends Component {
     this.props.navigator.pop();
   };
 
-  toggleModal = () => {
+  toggleCreateBaleModal = () => {
     this.props.openCreateBaleModal();
+    this.props.navigator.toggleDrawer({
+      side: 'right',
+      animated: true,
+      to: 'close',
+    });
+  }
+
+  toggleCreatePocketModal = () => {
+    this.props.openCreatePocketModal();
     this.props.navigator.toggleDrawer({
       side: 'right',
       animated: true,
@@ -56,7 +66,7 @@ class Drawer extends Component {
     if (role === strings.gatherAction) {
       iconRole = HistoryIcon;
       iconText = strings.history;
-      action = () => ({});
+      action = this.toggleCreatePocketModal;
     } else if (role === strings.weighAction) {
       iconRole = PocketIcon;
       iconText = strings.filterByRole;
@@ -64,7 +74,7 @@ class Drawer extends Component {
     } else {
       iconRole = BaleIcon;
       iconText = strings.createBaleDrawer;
-      action = this.toggleModal;
+      action = this.toggleCreateBaleModal;
     }
     return (
       <View style={styles.containerWrapper}>
@@ -105,6 +115,7 @@ Drawer.propTypes = {
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   openCreateBaleModal: PropTypes.func.isRequired,
+  openCreatePocketModal: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
 };
 
@@ -117,6 +128,7 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
   openCreateBaleModal: () => dispatch(openCreateBaleModal()),
+  openCreatePocketModal: () => dispatch(openCreatePocketModal()),
 });
 
 export default connect(

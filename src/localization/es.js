@@ -67,6 +67,9 @@ export default {
   // Bale Create Modal
   createBale: 'Nuevo fardo ',
 
+  // Pocket Create Modal
+  createPocket: 'Nuevo bolsón ',
+
   // Constants
   plastic: 'Plástico ',
   glass: 'Vidrio ',
