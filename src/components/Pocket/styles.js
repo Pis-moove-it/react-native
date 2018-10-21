@@ -57,6 +57,43 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray,
     borderWidth: 0,
   },
+  touchableStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  // Info styles
+  containerPocketInfo: {
+    justifyContent: 'flex-start',
+    backgroundColor: Colors.primary,
+    paddingBottom: '2%',
+  },
+  informationTitle: {
+    marginLeft: '3%',
+    fontSize: 18,
+    color: 'white',
+  },
+  containterTimeAndWeightInfo: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginHorizontal: '2%',
+  },
+  subContainerTimeAndWeigthInfo: {
+    padding: '1%',
+    width: '50%',
+    backgroundColor: 'white',
+  },
+  titleTimeAndWeightInfo: {
+    marginHorizontal: '2%',
+    fontSize: 14,
+    color: 'black',
+  },
+  subtitleTimeAndWeightInfo: {
+    marginHorizontal: '2%',
+    fontSize: 14,
+    color: 'gray',
+  },
 
   // Tablet syles
   containerTabletPocket: {
