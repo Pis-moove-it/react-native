@@ -27,9 +27,17 @@ class EditBaleModal extends Component {
 
   getMaterials() {
     const pickerMaterial = [];
-    pickerMaterial.push(<Picker.Item key={999} label={strings.selectMaterial} value={false} />);
+    pickerMaterial.push(<Picker.Item
+      key={999}
+      label={strings.selectMaterial}
+      value={false}
+    />);
     this.materials.map((material) => {
-      pickerMaterial.push(<Picker.Item key={material.id} label={material.name} value={material.value} />);
+      pickerMaterial.push(<Picker.Item
+        key={material.id}
+        label={material.name}
+        value={material.value}
+      />);
     });
     return pickerMaterial;
   }
@@ -55,8 +63,8 @@ class EditBaleModal extends Component {
 
   closeModal = () => {
     this.setState({ inputError: false });
-    this.setState({ newWeight: 0 }); // will get deleted later
-    this.setState({ selectedMaterial: false }); // will get deleted later
+    this.setState({ newWeight: 0 });
+    this.setState({ selectedMaterial: false });
     this.setState({ errors: [] });
     this.props.closeEditModal();
   };
