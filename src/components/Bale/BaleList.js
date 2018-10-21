@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
@@ -20,11 +20,21 @@ class BaleList extends Component {
   constructor(props) {
     super(props);
     this.materials = recyclableMaterials;
+    this.state = {
+      refreshing: false,
+    };
   }
 
   componentDidMount() {
     this.props.fetchData(this.props.token);
   }
+
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.props.fetchData(this.props.token).then(() => {
+      this.setState({ refreshing: false });
+    });
+  };
 
   render() {
     return (
@@ -40,7 +50,7 @@ class BaleList extends Component {
                   id={item.id}
                   type={item.material}
                   weight={item.weight}
-                  onPressAction={this.props.openEditBaleModal}
+                  onPressAction={() => this.props.openEditBaleModal(item.id)}
                 />
               );
             }
@@ -49,10 +59,13 @@ class BaleList extends Component {
                 id={item.id}
                 type={item.material}
                 weight={item.weight}
-                onPressAction={this.props.openEditBaleModal}
+                onPressAction={() => this.props.openEditBaleModal(item.id)}
               />
             );
           }}
+          refreshControl={
+            <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
+          }
         />
       </View>
     );
@@ -60,10 +73,10 @@ class BaleList extends Component {
 }
 
 BaleList.propTypes = {
+  bales: PropTypes.object.isRequired,
   fetchData: PropTypes.func.isRequired,
   token: PropTypes.string,
   openEditBaleModal: PropTypes.func.isRequired,
-  bales: PropTypes.object.isRequired,
 };
 
 BaleList.defaultProps = {
@@ -71,12 +84,12 @@ BaleList.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  token: state.login.token,
   bales: getBales(state),
+  token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
-  openEditBaleModal: () => dispatch(openEditBaleModal()),
+  openEditBaleModal: identifier => dispatch(openEditBaleModal(identifier)),
   fetchData: token => dispatch(fetchBales(token)),
 });
 

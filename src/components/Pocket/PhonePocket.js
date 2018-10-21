@@ -13,7 +13,7 @@ const Pocket = ({ id, pocketState, onPressAction }) => (
       <Image source={PocketIcon} style={styles.pocketImageStylePhone} />
       <Text style={styles.textBlackPhone}>
         {strings.pocket}
-        {`#${id}`}
+        #{id}
       </Text>
     </TouchableOpacity>
     <View style={styles.containerButtonPhone}>

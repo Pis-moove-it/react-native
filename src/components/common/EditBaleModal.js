@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import strings from '../../localization';
-import getIsModalVisible from '../../selectors/EditBaleModalSelector';
-import { closeEditBaleModal } from '../../actions/EditBaleModalActions';
+import { getIsModalVisible, getBale } from '../../selectors/EditBaleModalSelector';
+import { closeEditBaleModal, editBale } from '../../actions/EditBaleModalActions';
 import ErrorView from '../common/ErrorView';
 import Button from './Button';
 import TextField from './TextField';
@@ -27,18 +27,16 @@ class EditBaleModal extends Component {
 
   getMaterials() {
     const pickerMaterial = [];
-    pickerMaterial.push(
-      <Picker.Item
-        key={999}
-        label={strings.selectMaterial}
-        value={false}
-      />,
-    );
+    pickerMaterial.push(<Picker.Item
+      key={999}
+      label={strings.selectMaterial}
+      value={false}
+    />);
     this.materials.map((material) => {
       pickerMaterial.push(<Picker.Item
         key={material.id}
         label={material.name}
-        value={material.name}
+        value={material.value}
       />);
     });
     return pickerMaterial;
@@ -47,7 +45,12 @@ class EditBaleModal extends Component {
   acceptEdit = () => {
     if (this.state.newWeight > 0) {
       if (this.state.selectedMaterial) {
-        this.closeModal();
+        this.props.editBale(
+          this.props.token,
+          this.props.bale,
+          this.state.newWeight,
+          this.state.selectedMaterial,
+        );
       } else {
         this.setState({ inputError: true });
         this.setState({ errors: [strings.invalidInputType] });
@@ -56,15 +59,15 @@ class EditBaleModal extends Component {
       this.setState({ inputError: true });
       this.setState({ errors: [strings.invalidInputNumber] });
     }
-  }
+  };
 
   closeModal = () => {
     this.setState({ inputError: false });
-    this.setState({ newWeight: 0 }); // will get deleted later
-    this.setState({ selectedMaterial: false }); // will get deleted later
+    this.setState({ newWeight: 0 });
+    this.setState({ selectedMaterial: false });
     this.setState({ errors: [] });
     this.props.closeEditModal();
-  }
+  };
 
   render() {
     return (
@@ -75,22 +78,18 @@ class EditBaleModal extends Component {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>
-            <Text style={styles.modalTitle}>
-              {strings.editBale}
-            </Text>
+            <Text style={styles.modalTitle}>{strings.editBale}</Text>
           </View>
           <View>
             <TextField
               placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
-              onChangeText={value =>
-                (this.setState({ newWeight: value }))}
+              onChangeText={value => this.setState({ newWeight: value })}
             />
             <Picker
               selectedValue={this.state.selectedMaterial}
               mode="dropdown"
-              onValueChange={value =>
-                (this.setState({ selectedMaterial: value }))}
+              onValueChange={value => this.setState({ selectedMaterial: value })}
             >
               {this.getMaterials()}
             </Picker>
@@ -109,18 +108,28 @@ class EditBaleModal extends Component {
 }
 
 EditBaleModal.propTypes = {
-  isModalVisible: PropTypes.bool.isRequired,
+  bale: PropTypes.string,
   closeEditModal: PropTypes.func.isRequired,
+  editBale: PropTypes.func.isRequired,
+  isModalVisible: PropTypes.bool,
+  token: PropTypes.string,
 };
 
-EditBaleModal.defaultProps = {};
+EditBaleModal.defaultProps = {
+  bale: false,
+  token: false,
+  isModalVisible: false,
+};
 
 const mapStateToProps = state => ({
+  bale: getBale(state),
   isModalVisible: getIsModalVisible(state),
+  token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
   closeEditModal: () => dispatch(closeEditBaleModal()),
+  editBale: (token, bale, weight, material) => dispatch(editBale(token, bale, weight, material)),
 });
 
 export default connect(

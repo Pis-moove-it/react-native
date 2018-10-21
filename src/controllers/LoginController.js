@@ -1,16 +1,17 @@
 import axios from 'axios';
 import strings from '../localization';
+import basePath from './BaseController';
 
 class LoginController {
   constructor() {
-    this.basePath = 'http://34.213.11.120';
+    this.path = 'organizations/login';
   }
 
-  login = async (organization, password, path) =>
+  login = async (organization, password) =>
     new Promise((resolve, reject) => {
       axios
         .post(
-          `${this.basePath}${path}`,
+          `${basePath}${this.path}`,
           {
             name: `${organization}`,
             password: `${password}`,

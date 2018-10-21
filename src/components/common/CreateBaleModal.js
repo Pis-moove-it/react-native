@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import getIsModalVisible from '../../selectors/CreateBaleModalSelector';
-import { closeCreateBaleModal } from '../../actions/CreateBaleModalActions';
+import { closeCreateBaleModal, newBale } from '../../actions/CreateBaleModalActions';
 import strings from '../../localization';
 import ErrorView from '../common/ErrorView';
 import Button from './Button';
@@ -27,18 +27,16 @@ class CreateBaleModal extends Component {
 
   getMaterials() {
     const pickerMaterial = [];
-    pickerMaterial.push(
-      <Picker.Item
-        key={999}
-        label={strings.selectMaterial}
-        value={false}
-      />,
-    );
+    pickerMaterial.push(<Picker.Item
+      key={999}
+      label={strings.selectMaterial}
+      value={false}
+    />);
     this.materials.map((material) => {
       pickerMaterial.push(<Picker.Item
         key={material.id}
         label={material.name}
-        value={material.name}
+        value={material.value}
       />);
     });
     return pickerMaterial;
@@ -47,7 +45,7 @@ class CreateBaleModal extends Component {
   acceptEdit = () => {
     if (this.state.newWeight > 0) {
       if (this.state.selectedMaterial) {
-        this.closeModal();
+        this.props.newBale(this.props.token, this.state.newWeight, this.state.selectedMaterial);
       } else {
         this.setState({ inputError: true });
         this.setState({ errors: [strings.invalidInputType] });
@@ -56,15 +54,15 @@ class CreateBaleModal extends Component {
       this.setState({ inputError: true });
       this.setState({ errors: [strings.invalidInputNumber] });
     }
-  }
+  };
 
   closeModal = () => {
     this.setState({ inputError: false });
-    this.setState({ newWeight: 0 }); // will get deleted later
-    this.setState({ selectedMaterial: false }); // will get deleted later
+    this.setState({ newWeight: 0 });
+    this.setState({ selectedMaterial: false });
     this.setState({ errors: [] });
     this.props.closeCreateBaleModal();
-  }
+  };
 
   render() {
     return (
@@ -75,22 +73,18 @@ class CreateBaleModal extends Component {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>
-            <Text style={styles.modalTitle}>
-              {strings.createBale}
-            </Text>
+            <Text style={styles.modalTitle}>{strings.createBale}</Text>
           </View>
           <View>
             <TextField
               placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
-              onChangeText={value =>
-                (this.setState({ newWeight: value }))}
+              onChangeText={value => this.setState({ newWeight: value })}
             />
             <Picker
               selectedValue={this.state.selectedMaterial}
               mode="dropdown"
-              onValueChange={value =>
-                (this.setState({ selectedMaterial: value }))}
+              onValueChange={value => this.setState({ selectedMaterial: value })}
             >
               {this.getMaterials()}
             </Picker>
@@ -111,16 +105,22 @@ class CreateBaleModal extends Component {
 CreateBaleModal.propTypes = {
   closeCreateBaleModal: PropTypes.func.isRequired,
   isModalVisible: PropTypes.bool.isRequired,
+  token: PropTypes.string,
+  newBale: PropTypes.func.isRequired,
 };
 
-CreateBaleModal.defaultProps = {};
+CreateBaleModal.defaultProps = {
+  token: false,
+};
 
 const mapStateToProps = state => ({
   isModalVisible: getIsModalVisible(state),
+  token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
   closeCreateBaleModal: () => dispatch(closeCreateBaleModal()),
+  newBale: (token, weight, material) => dispatch(newBale(token, weight, material)),
 });
 
 export default connect(
