@@ -19,8 +19,8 @@ class CreatePocketModal extends Component {
   }
 
   state = {
-    selectedMaterial: false,
-    newWeight: 0,
+    description: false,
+    identifier: 0,
     inputError: true,
     errors: [],
   };
@@ -45,7 +45,7 @@ class CreatePocketModal extends Component {
   }
 
   acceptEdit = () => {
-    if (this.state.newWeight > 0) {
+    if (this.state.identifier > 0) {
       this.closeModal();
     } else {
       this.setState({ inputError: true });
@@ -55,8 +55,8 @@ class CreatePocketModal extends Component {
 
   closeModal = () => {
     this.setState({ inputError: false });
-    this.setState({ newWeight: 0 }); // will get deleted later
-    this.setState({ selectedMaterial: false }); // will get deleted later
+    this.setState({ identifier: 0 }); // will get deleted later
+    this.setState({ description: false }); // will get deleted later
     this.setState({ errors: [] });
     this.props.closeCreatePocketModal();
   }
@@ -76,19 +76,16 @@ class CreatePocketModal extends Component {
           </View>
           <View>
             <TextField
-              placeholder={strings.weighPlaceholderModal}
+              placeholder={strings.identifierPlaceholderModal}
               keyboardType="numeric"
               onChangeText={value =>
-                (this.setState({ newWeight: value }))}
+                (this.setState({ identifier: value }))}
             />
-            <Picker
-              selectedValue={this.state.selectedMaterial}
-              mode="dropdown"
-              onValueChange={value =>
-                (this.setState({ selectedMaterial: value }))}
-            >
-              {this.getMaterials()}
-            </Picker>
+            <TextField
+              placeholder={strings.descriptionPlaceholderModal}
+              onChangeText={value =>
+                (this.setState({ description: value }))}
+            />
             {this.state.inputError && <ErrorView errors={this.state.errors} />}
             <Button
               style={styles.buttonModal}

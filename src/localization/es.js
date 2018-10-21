@@ -69,6 +69,8 @@ export default {
 
   // Pocket Create Modal
   createPocket: 'Nuevo bolsón ',
+  identifierPlaceholderModal: 'Identificador ',
+  descriptionPlaceholderModal: 'Descripción ',
 
   // Constants
   plastic: 'Plástico ',
