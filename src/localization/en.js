@@ -8,6 +8,7 @@ export default {
   email: 'Email ',
   organization: 'Organization ',
   user: 'User ',
+  userError: 'Unable to set user, try again later ',
   home: 'Home ',
   homeMessage: 'Welcome ',
   profile: 'Profile ',
@@ -16,6 +17,8 @@ export default {
   gatherAction: 'Gather ',
   weighAction: 'Weigh ',
   baleAction: 'Bale ',
+  baleEditError: 'Unable to edit bale, try again later ',
+  baleNewError: 'Unable to create bale, try again later ',
   changeRole: 'Change Role ',
   changeUser: 'Change User ',
   roleSelectionTitle: 'Select an activity: ',
@@ -70,6 +73,7 @@ export default {
   // Constants
   plastic: 'Plastic ',
   glass: 'Glass ',
+  trash: 'Trash ',
 
   // Drawer Buttons
   history: 'History ',

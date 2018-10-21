@@ -23,7 +23,7 @@ const getBalesSuccess = bales => ({
 export const fetchBales = token => async (dispatch) => {
   dispatch(getBales());
   try {
-    const { bales } = await BaleController.getBalesApi(token, '/bales');
+    const { bales } = await BaleController.getBales(token);
     dispatch(getBalesSuccess(bales));
   } catch (error) {
     dispatch(getBalesError(error.message));

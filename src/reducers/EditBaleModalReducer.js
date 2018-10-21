@@ -1,6 +1,7 @@
 import { actionTypes } from '../actions/EditBaleModalActions';
 
 export const initialState = {
+  bale: false,
   editBaleModalIsOpen: false,
 };
 
@@ -9,12 +10,14 @@ const editBaleModalReducer = (state = initialState, action) => {
     case actionTypes.OPEN_EDIT_BALE_MODAL:
       return {
         ...state,
-        editBaleModalIsOpen: action.isVisible,
+        bale: action.bale,
+        editBaleModalIsOpen: true,
       };
     case actionTypes.CLOSE_EDIT_BALE_MODAL:
       return {
         ...state,
-        editBaleModalIsOpen: action.isVisible,
+        bale: false,
+        editBaleModalIsOpen: false,
       };
     default:
       return state;

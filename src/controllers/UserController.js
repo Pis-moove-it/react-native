@@ -1,19 +1,23 @@
 import axios from 'axios';
 import strings from '../localization';
+import basePath from './BaseController';
 
 class UserController {
   constructor() {
-    this.basePath = 'http://34.213.11.120/organizations/{organization}/users/{user}/login';
+    this.path = 'organizations/{organization}/users/{user}/login';
   }
 
   login = async (token, organization, user) =>
     new Promise((resolve, reject) => {
+      this.path = this.path.replace('{organization}', organization);
+      this.path = this.path.replace('{user}', user);
       axios
         .post(
-          this.basePath.replace('{organization}', organization).replace('{user}', user),
+          `${basePath}${this.path}`,
           {},
           {
             headers: {
+              'Content-Type': 'application/json',
               ApiKey: `${token}`,
             },
           },
@@ -24,7 +28,7 @@ class UserController {
           });
         })
         .catch((error) => {
-          reject(new Error());
+          reject(new Error(strings.userError));
         });
     });
 

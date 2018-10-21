@@ -8,6 +8,7 @@ export default {
   email: 'Correo ',
   organization: 'Organización ',
   user: 'Usuario ',
+  userError: 'No se pudo registrar el usuario, pruebe nuevamente ',
   home: 'Inicio ',
   homeMessage: 'Bienvenido ',
   profile: 'Perfil ',
@@ -16,6 +17,8 @@ export default {
   gatherAction: 'Recolectar ',
   weighAction: 'Pesar ',
   baleAction: 'Enfardar ',
+  baleEditError: 'No se pudo editar el fardo, intente nuevamente ',
+  baleNewError: 'No se pudo crear el fardo, intente nuevamente ',
   changeRole: 'Cambiar Rol ',
   changeUser: 'Cambiar Usuario ',
   roleSelectionTitle: 'Seleccione una actividad: ',
@@ -70,6 +73,7 @@ export default {
   // Constants
   plastic: 'Plástico ',
   glass: 'Vidrio ',
+  trash: 'Basura ',
 
   // Drawer Buttons
   history: 'Historial ',

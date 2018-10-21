@@ -37,11 +37,7 @@ export const login = (organization, password) => async (dispatch) => {
   dispatch(logout());
   dispatch(loginRequest());
   try {
-    const { token, name, identifier } = await LoginController.login(
-      organization,
-      password,
-      '/organizations/login',
-    );
+    const { token, name, identifier } = await LoginController.login(organization, password);
     dispatch(loginSuccess(token, name, identifier));
   } catch (error) {
     dispatch(loginError(error.message));

@@ -50,7 +50,7 @@ class BaleList extends Component {
                   id={item.id}
                   type={item.material}
                   weight={item.weight}
-                  onPressAction={this.props.openEditBaleModal}
+                  onPressAction={() => this.props.openEditBaleModal(item.id)}
                 />
               );
             }
@@ -59,7 +59,7 @@ class BaleList extends Component {
                 id={item.id}
                 type={item.material}
                 weight={item.weight}
-                onPressAction={this.props.openEditBaleModal}
+                onPressAction={() => this.props.openEditBaleModal(item.id)}
               />
             );
           }}
@@ -73,10 +73,10 @@ class BaleList extends Component {
 }
 
 BaleList.propTypes = {
+  bales: PropTypes.object.isRequired,
   fetchData: PropTypes.func.isRequired,
   token: PropTypes.string,
   openEditBaleModal: PropTypes.func.isRequired,
-  bales: PropTypes.object.isRequired,
 };
 
 BaleList.defaultProps = {
@@ -84,12 +84,12 @@ BaleList.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  token: state.login.token,
   bales: getBales(state),
+  token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
-  openEditBaleModal: () => dispatch(openEditBaleModal()),
+  openEditBaleModal: identifier => dispatch(openEditBaleModal(identifier)),
   fetchData: token => dispatch(fetchBales(token)),
 });
 
