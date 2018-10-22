@@ -10,6 +10,7 @@ export default {
   user: 'Usuario ',
   userError: 'No se pudo registrar el usuario, pruebe nuevamente ',
   home: 'Inicio ',
+  error: 'Error ',
   homeMessage: 'Bienvenido ',
   profile: 'Perfil ',
   profileMessage: 'Mensaje genérico ',

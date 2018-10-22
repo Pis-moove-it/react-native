@@ -77,7 +77,7 @@ class BaleController {
           });
         })
         .catch((error) => {
-          reject(new Error(strings.loginError));
+          reject(new Error(strings.error));
         });
     });
 }

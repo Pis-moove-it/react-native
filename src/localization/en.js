@@ -10,6 +10,7 @@ export default {
   user: 'User ',
   userError: 'Unable to set user, try again later ',
   home: 'Home ',
+  error: 'Error ',
   homeMessage: 'Welcome ',
   profile: 'Profile ',
   profileMessage: 'Generic message ',

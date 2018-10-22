@@ -5,8 +5,9 @@ import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import strings from '../../localization';
 import { getIsModalVisible, getBale } from '../../selectors/EditBaleModalSelector';
-import { closeEditBaleModal, editBale } from '../../actions/EditBaleModalActions';
+import { closeEditBaleModal, editBale, actionTypes } from '../../actions/EditBaleModalActions';
 import ErrorView from '../common/ErrorView';
+import { errorsSelector } from '../../selectors/ErrorSelector';
 import Button from './Button';
 import TextField from './TextField';
 import recyclabeleMaterials from './Constants';
@@ -22,16 +23,12 @@ class EditBaleModal extends Component {
     selectedMaterial: false,
     newWeight: 0,
     inputError: true,
-    errors: [],
+    error: [],
   };
 
   getMaterials() {
     const pickerMaterial = [];
-    pickerMaterial.push(<Picker.Item
-      key={999}
-      label={strings.selectMaterial}
-      value={false}
-    />);
+    pickerMaterial.push(<Picker.Item key={999} label={strings.selectMaterial} value={false} />);
     this.materials.map((material) => {
       pickerMaterial.push(<Picker.Item
         key={material.id}
@@ -53,11 +50,11 @@ class EditBaleModal extends Component {
         );
       } else {
         this.setState({ inputError: true });
-        this.setState({ errors: [strings.invalidInputType] });
+        this.setState({ error: [strings.invalidInputType] });
       }
     } else {
       this.setState({ inputError: true });
-      this.setState({ errors: [strings.invalidInputNumber] });
+      this.setState({ error: [strings.invalidInputNumber] });
     }
   };
 
@@ -65,11 +62,12 @@ class EditBaleModal extends Component {
     this.setState({ inputError: false });
     this.setState({ newWeight: 0 });
     this.setState({ selectedMaterial: false });
-    this.setState({ errors: [] });
+    this.setState({ error: [] });
     this.props.closeEditModal();
   };
 
   render() {
+    const { errors } = this.props;
     return (
       <Modal
         isVisible={this.props.isModalVisible}
@@ -93,7 +91,8 @@ class EditBaleModal extends Component {
             >
               {this.getMaterials()}
             </Picker>
-            {this.state.inputError && <ErrorView errors={this.state.errors} />}
+            {this.state.inputError && <ErrorView errors={this.state.error} />}
+            <ErrorView errors={errors} />
             <Button
               style={styles.buttonModal}
               textStyle={styles.text}
@@ -111,18 +110,21 @@ EditBaleModal.propTypes = {
   bale: PropTypes.string,
   closeEditModal: PropTypes.func.isRequired,
   editBale: PropTypes.func.isRequired,
+  errors: PropTypes.array,
   isModalVisible: PropTypes.bool,
   token: PropTypes.string,
 };
 
 EditBaleModal.defaultProps = {
   bale: false,
-  token: false,
+  errors: [],
   isModalVisible: false,
+  token: false,
 };
 
 const mapStateToProps = state => ({
   bale: getBale(state),
+  errors: errorsSelector([actionTypes.EDIT])(state),
   isModalVisible: getIsModalVisible(state),
   token: state.login.token,
 });

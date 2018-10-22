@@ -30,16 +30,21 @@ describe('createBaleModalActions', () => {
   const store = mockStore();
 
   it('should create an action for open create bale modal', () => {
-    const expectedAction = {
-      type: createBaleModalActions.actionTypes.OPEN_CREATE_BALE_MODAL,
-    };
+    const expectedAction = [
+      {
+        type: createBaleModalActions.actionTypes.CREATE_REQUEST,
+      },
+      {
+        type: createBaleModalActions.actionTypes.OPEN_CREATE_BALE_MODAL,
+      },
+    ];
 
     // Dispatch the action
     store.dispatch(createBaleModalActions.openCreateBaleModal());
 
     // Test if the store dispatched the expected actions
     const actions = store.getActions();
-    expect(actions).toEqual([expectedAction]);
+    expect(actions).toEqual(expectedAction);
   });
 
   it('should create an action for close create bale modal', () => {
