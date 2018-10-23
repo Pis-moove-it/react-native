@@ -9,6 +9,7 @@ import bales from './BalesReducer';
 import createBaleModal from './CreateBaleModalReducer';
 import editBaleModal from './EditBaleModalReducer';
 import createPocketModal from './CreatePocketModalReducer';
+import pockets from './PocketsReducer';
 
 const rootReducer = combineReducers({
   loading,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   role,
   users,
   bales,
+  pockets,
   createBaleModal,
   editBaleModal,
   createPocketModal,
