@@ -1,84 +1,88 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
-import PhonePocket from './PhonePocket';
+import PropTypes from 'prop-types';
+import { fetchPockets } from '../../actions/PocketsActions';
+import getPockets from '../../selectors/PocketsSelector';
 import TabletPocket from './TabletPocket';
-
-const weighList = [
-  {
-    id: '1548',
-    time: '12:30',
-    weight: '',
-    pocketState: 'Unweighed',
-  },
-  {
-    id: '684887',
-    time: '16:19',
-    weight: '10',
-    pocketState: 'Weighed',
-  },
-  {
-    id: '158',
-    time: '03:22',
-    weight: '6',
-    pocketState: 'Weighed',
-  },
-  {
-    id: '68488',
-    time: '19:26',
-    weight: '15',
-    pocketState: 'Weighed',
-  },
-  {
-    id: '488',
-    time: '04:20',
-    weight: '',
-    pocketState: 'Unweighed',
-  },
-];
+import PhonePocket from './PhonePocket';
 
 class PocketList extends Component {
   static navigatorStyle = {
     navBarHidden: true,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+    };
+  }
+
+  componentDidMount() {
+    this.props.fetchData(this.props.token);
+  }
+
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.props.fetchData(this.props.token).then(() => {
+      this.setState({ refreshing: false });
+    });
+  };
+
   render() {
     return (
-      <FlatList
-        data={weighList}
-        renderItem={({ item }) => {
-          if (isPhone) {
+      <View>
+        <FlatList
+          data={this.props.pockets}
+          renderItem={({ item }) => {
+            if (isPhone) {
+              return (
+                <PhonePocket
+                  id={item.serial_number}
+                  time={item.time}
+                  weight={item.weight}
+                  pocketState={item.state}
+                />
+              );
+            }
             return (
-              <PhonePocket
-                id={item.id}
+              <TabletPocket
+                id={item.serial_number}
                 time={item.time}
                 weight={item.weight}
-                pocketState={item.pocketState}
+                pocketState={item.state}
               />
             );
+          }}
+          refreshControl={
+            <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
           }
-          return (
-            <TabletPocket
-              id={item.id}
-              time={item.time}
-              weight={item.weight}
-              pocketState={item.pocketState}
-            />
-          );
-        }}
-      />
+        />
+      </View>
     );
   }
 }
 
-PocketList.propTypes = {};
+PocketList.propTypes = {
+  pockets: PropTypes.object.isRequired,
+  fetchData: PropTypes.func.isRequired,
+  token: PropTypes.string,
+};
 
-PocketList.defaultProps = {};
+PocketList.defaultProps = {
+  token: false,
+};
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  pockets: getPockets(state),
+  token: state.login.token,
+});
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+  fetchData: token => dispatch(fetchPockets(token)),
+});
 
 export default connect(
   mapStateToProps,
