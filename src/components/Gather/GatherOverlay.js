@@ -1,67 +1,68 @@
 import React, { Component } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
 import Modal from 'react-native-modal';
+import PropTypes from 'prop-types';
 import Colors from '../../helpers/Colors';
 import strings from '../../localization/';
 import Button from '../common/Button';
 import stylesGather from './styles';
 
 const transformTime = (min) => {
-  if ((min / 10) >= 1) {
-    return (min.toLocaleString());
+  if (min / 10 >= 1) {
+    return min.toLocaleString();
   }
-  return (`0${min}`);
+  return `0${min}`;
 };
 
 const transformDay = (day) => {
   switch (day) {
     case 0:
-      return (strings.day0);
+      return strings.day0;
     case 1:
-      return (strings.day1);
+      return strings.day1;
     case 2:
-      return (strings.day2);
+      return strings.day2;
     case 3:
-      return (strings.day3);
+      return strings.day3;
     case 4:
-      return (strings.day4);
+      return strings.day4;
     case 5:
-      return (strings.day5);
+      return strings.day5;
     case 6:
-      return (strings.day6);
+      return strings.day6;
     default:
-      return ('error parsing day');
+      return 'error parsing day';
   }
 };
 
 const transformMonth = (month) => {
   switch (month) {
     case 0:
-      return (strings.month0);
+      return strings.month0;
     case 1:
-      return (strings.month1);
+      return strings.month1;
     case 2:
-      return (strings.month2);
+      return strings.month2;
     case 3:
-      return (strings.month3);
+      return strings.month3;
     case 4:
-      return (strings.month4);
+      return strings.month4;
     case 5:
-      return (strings.month5);
+      return strings.month5;
     case 6:
-      return (strings.month6);
+      return strings.month6;
     case 7:
-      return (strings.month7);
+      return strings.month7;
     case 8:
-      return (strings.month8);
+      return strings.month8;
     case 9:
-      return (strings.month9);
+      return strings.month9;
     case 10:
-      return (strings.month10);
+      return strings.month10;
     case 11:
-      return (strings.month11);
+      return strings.month11;
     default:
-      return ('error parsing month');
+      return 'error parsing month';
   }
 };
 
@@ -83,19 +84,20 @@ export default class ModalTester extends Component {
     }, 1000);
   }
 
-
-  toggleModal = () =>
+  toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
+    this.props.startCollection();
+  };
 
   render() {
     return (
       <Modal isVisible={this.state.isModalVisible}>
         <View style={stylesGather.container}>
-          {this.state.currentDay == null ?
+          {this.state.currentDay == null ? (
             <View style={stylesGather.activityIndicator}>
               <ActivityIndicator size="large" color={Colors.primary} />
             </View>
-          :
+          ) : (
             <View style={stylesGather.container}>
               <Text style={stylesGather.overlayTimeText}>
                 {`${this.state.currentHour}:${this.state.currentMinute}`}
@@ -113,9 +115,13 @@ export default class ModalTester extends Component {
                 onPress={this.toggleModal}
               />
             </View>
-          }
+          )}
         </View>
       </Modal>
     );
   }
 }
+
+ModalTester.propTypes = {
+  startCollection: PropTypes.func.isRequired,
+};

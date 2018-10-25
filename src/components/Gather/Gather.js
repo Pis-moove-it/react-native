@@ -8,6 +8,7 @@ import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
+import { fetchStartCollection } from '../../actions/GatherActions';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import icon from '../../assets/images/MapPointIcon.png';
@@ -20,7 +21,6 @@ import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
-
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
@@ -48,7 +48,7 @@ class Gather extends Component {
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
-  
+
   state = {
     isModalVisible: false,
   };
@@ -133,7 +133,7 @@ class Gather extends Component {
   render() {
     return (
       <View style={stylesGather.mapContainer}>
-        <GatherOverlay />
+        <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
         <CreatePocketModal />
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}
@@ -149,8 +149,8 @@ class Gather extends Component {
           >
             <Image source={icon} style={stylesGather.trashIcon} />
             <Mapbox.Callout title={strings.collectionPoint} />
-          
           </Mapbox.PointAnnotation>
+
           <Mapbox.PointAnnotation
             key="pointAnnotation2"
             id="pointAnnotation2"
@@ -170,6 +170,8 @@ Gather.propTypes = {
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
+  startCollection: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 Gather.defaultProps = {};
@@ -177,11 +179,13 @@ Gather.defaultProps = {};
 const mapStateToProps = state => ({
   user: getUser(state),
   role: getRole(state),
+  token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
+  startCollection: token => dispatch(fetchStartCollection(token)),
 });
 
 export default connect(
