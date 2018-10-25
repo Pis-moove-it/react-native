@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, TouchableOpacity, Text } from 'react-native';
+import Modal from 'react-native-modal';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
+import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
+import Button from '../common/Button';
 import icon from '../../assets/images/MapPointIcon.png';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
@@ -23,6 +26,39 @@ import GatherOverlay from './GatherOverlay';
 
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
+
+const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd }) =>
+  (
+    <Modal
+      isVisible={isVisible}
+      onBackdropPress={onPressActionFst}
+      onBackButtonPress={onPressActionFst}
+      animationOut="slideOutLeft"
+      backdropOpacity="0.3"
+      backdropColor={Colors.primary}
+    >
+      <View style={stylesGather.modalContainer}>
+        <View style={stylesGather.modalTitleContainer}>
+          <Text style={stylesGather.modalTitle}>{strings.optionsModalGather}</Text>
+        </View>
+        <View>
+          <Button
+            style={stylesGather.buttonModal}
+            textStyle={stylesGather.text}
+            title={strings.changeStateIsle}
+            onPress={onPressActionFst}
+          />
+          <Button
+            style={stylesGather.buttonModal}
+            textStyle={stylesGather.text}
+            title={strings.newPocket}
+            onPress={onPressActionSnd}
+          />
+        </View>
+      </View>
+    </Modal>
+  );
+
 
 class Gather extends Component {
   static navigatorStyle = {
@@ -48,7 +84,7 @@ class Gather extends Component {
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
-  
+
   state = {
     isModalVisible: false,
   };
@@ -123,6 +159,11 @@ class Gather extends Component {
 
   toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
 
+  toggleCreatePocketModal = () => {
+    this.toggleModal();
+    this.props.openCreatePocketModal();
+  }
+
   logout = () => {
     this.props.logout();
     this.props.changeRole();
@@ -135,6 +176,11 @@ class Gather extends Component {
       <View style={stylesGather.mapContainer}>
         <GatherOverlay />
         <CreatePocketModal />
+        <GatherPointOptionModal
+          isVisible={this.state.isModalVisible}
+          onPressActionFst={this.toggleModal}
+          onPressActionSnd={this.toggleCreatePocketModal}
+        />
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}
           zoomLevel={15}
@@ -147,17 +193,21 @@ class Gather extends Component {
             id="pointAnnotation"
             coordinate={[-56.165921, -34.917352]}
           >
-            <Image source={icon} style={stylesGather.trashIcon} />
-            <Mapbox.Callout title={strings.collectionPoint} />
-          
+            <TouchableOpacity onPress={this.toggleModal}>
+              <Image source={icon} style={stylesGather.trashIcon} />
+            </TouchableOpacity>
+
           </Mapbox.PointAnnotation>
           <Mapbox.PointAnnotation
             key="pointAnnotation2"
             id="pointAnnotation2"
             coordinate={[-56.16574729294116, -34.90461658495409]}
           >
-            <Image source={icon} style={stylesGather.trashIcon} />
-            <Mapbox.Callout title={strings.collectionPoint} />
+
+            <TouchableOpacity onPress={this.toggleModal}>
+              <Image source={icon} style={stylesGather.trashIcon} />
+            </TouchableOpacity>
+
           </Mapbox.PointAnnotation>
         </Mapbox.MapView>
       </View>
@@ -169,6 +219,7 @@ Gather.propTypes = {
   user: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
+  openCreatePocketModal: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
 };
 
@@ -182,6 +233,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
+  openCreatePocketModal: () => dispatch(openCreatePocketModal()),
 });
 
 export default connect(

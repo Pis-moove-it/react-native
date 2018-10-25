@@ -48,6 +48,34 @@ const stylesGather = StyleSheet.create({
     width: 70,
     height: 70,
   },
+  optionMenu: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  modalContainer: {
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: Colors.primary,
+    backgroundColor: Colors.white,
+    height: 300,
+    width: 400,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalTitleContainer: {
+    paddingTop: 10,
+    paddingBottom: 15,
+  },
+  modalTitle: {
+    fontSize: 30,
+    color: Colors.primary,
+  },
+  buttonModal: {
+    justifyContent: 'center',
+    height: 50,
+    width: 200,
+  },
 });
 
 export default stylesGather;
