@@ -1,6 +1,5 @@
 export default {
   login: 'Login ',
-  loginError: 'Invalid username or password ',
   selectUser: 'Select user ',
   enter: 'Enter ',
   loading: 'Loading ',
@@ -8,9 +7,7 @@ export default {
   email: 'Email ',
   organization: 'Organization ',
   user: 'User ',
-  userError: 'Unable to set user, try again later ',
   home: 'Home ',
-  error: 'Error ',
   homeMessage: 'Welcome ',
   profile: 'Profile ',
   profileMessage: 'Generic message ',
@@ -18,8 +15,6 @@ export default {
   gatherAction: 'Gather ',
   weighAction: 'Weigh ',
   baleAction: 'Bale ',
-  baleEditError: 'Unable to edit bale, try again later ',
-  baleNewError: 'Unable to create bale, try again later ',
   changeRole: 'Change Role ',
   changeUser: 'Change User ',
   roleSelectionTitle: 'Select an activity: ',
@@ -93,5 +88,13 @@ export default {
   pocketButtonWeightText: 'Weight ',
   pocketButtonEditWeightText: 'Edit weight ',
   information: 'Information ',
-  collectionPoint: 'Collection point',
+  collectionPoint: 'Collection point ',
+
+  // Errors
+  error: 'Error ',
+  errorLogin: 'Invalid username or password ',
+  errorUser: 'Unable to select user, try again later ',
+  errorNetwork: 'Unable to connect, try again later ',
+  errorEditBale: 'Unable to edit bale, try again later ',
+  errorNewBale: 'Unable to create bale, try again later ',
 };

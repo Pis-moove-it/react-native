@@ -115,7 +115,7 @@ CreateBaleModal.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  errors: errorsSelector([actionTypes.CREATE])(state),
+  errors: errorsSelector([actionTypes.CREATE_BALE])(state),
   isModalVisible: getIsModalVisible(state),
   token: state.login.token,
 });

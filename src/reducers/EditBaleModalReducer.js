@@ -17,12 +17,12 @@ const editBaleModalReducer = (state = initialState, action) => {
         editBaleModalIsOpen: true,
         isLoading: false,
       };
-    case actionTypes.EDIT_REQUEST:
+    case actionTypes.EDIT_BALE_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case actionTypes.EDIT_SUCCESS:
+    case actionTypes.EDIT_BALE_SUCCESS:
       return {
         ...state,
         bale: false,
@@ -30,7 +30,7 @@ const editBaleModalReducer = (state = initialState, action) => {
         editBaleModalIsOpen: false,
         isLoading: false,
       };
-    case actionTypes.EDIT_ERROR:
+    case actionTypes.EDIT_BALE_ERROR:
       return {
         ...state,
         isLoading: false,

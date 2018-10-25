@@ -1,25 +1,25 @@
 import BaleController from '../controllers/BaleController';
 
 export const actionTypes = {
-  EDIT: 'EDIT',
+  EDIT_BALE: 'EDIT_BALE',
   OPEN_EDIT_BALE_MODAL: 'OPEN_EDIT_BALE_MODAL',
-  EDIT_REQUEST: 'EDIT_REQUEST',
-  EDIT_SUCCESS: 'EDIT_SUCCESS',
-  EDIT_ERROR: 'EDIT_ERROR',
+  EDIT_BALE_REQUEST: 'EDIT_BALE_REQUEST',
+  EDIT_BALE_SUCCESS: 'EDIT_BALE_SUCCESS',
+  EDIT_BALE_ERROR: 'EDIT_BALE_ERROR',
   CLOSE_EDIT_BALE_MODAL: 'CLOSE_EDIT_BALE_MODAL',
 };
 
 const editRequest = () => ({
-  type: actionTypes.EDIT_REQUEST,
+  type: actionTypes.EDIT_BALE_REQUEST,
 });
 
 const editSuccess = baleData => ({
-  type: actionTypes.EDIT_SUCCESS,
+  type: actionTypes.EDIT_BALE_SUCCESS,
   baleData,
 });
 
 const editError = error => ({
-  type: actionTypes.EDIT_ERROR,
+  type: actionTypes.EDIT_BALE_ERROR,
   error,
 });
 

@@ -124,7 +124,7 @@ EditBaleModal.defaultProps = {
 
 const mapStateToProps = state => ({
   bale: getBale(state),
-  errors: errorsSelector([actionTypes.EDIT])(state),
+  errors: errorsSelector([actionTypes.EDIT_BALE])(state),
   isModalVisible: getIsModalVisible(state),
   token: state.login.token,
 });

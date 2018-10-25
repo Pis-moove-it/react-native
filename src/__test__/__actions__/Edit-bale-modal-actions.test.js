@@ -32,7 +32,7 @@ describe('EditBaleModalActions', () => {
   it('should create an action for open edit bale modal', () => {
     const expectedAction = [
       {
-        type: editBaleModalActions.actionTypes.EDIT_REQUEST,
+        type: editBaleModalActions.actionTypes.EDIT_BALE_REQUEST,
       },
       {
         bale: undefined,

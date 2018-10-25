@@ -1,25 +1,25 @@
 import BaleController from '../controllers/BaleController';
 
 export const actionTypes = {
-  CREATE: 'CREATE',
+  CREATE_BALE: 'CREATE_BALE',
   OPEN_CREATE_BALE_MODAL: 'OPEN_CREATE_BALE_MODAL',
-  CREATE_REQUEST: 'CREATE_REQUEST',
-  CREATE_SUCCESS: 'CREATE_SUCCESS',
-  CREATE_ERROR: 'CREATE_ERROR',
+  CREATE_BALE_REQUEST: 'CREATE_BALE_REQUEST',
+  CREATE_BALE_SUCCESS: 'CREATE_BALE_SUCCESS',
+  CREATE_BALE_ERROR: 'CREATE_BALE_ERROR',
   CLOSE_CREATE_BALE_MODAL: 'CLOSE_CREATE_BALE_MODAL',
 };
 
 const createRequest = () => ({
-  type: actionTypes.CREATE_REQUEST,
+  type: actionTypes.CREATE_BALE_REQUEST,
 });
 
 const createSuccess = baleData => ({
-  type: actionTypes.CREATE_SUCCESS,
+  type: actionTypes.CREATE_BALE_SUCCESS,
   baleData,
 });
 
 const createError = error => ({
-  type: actionTypes.CREATE_ERROR,
+  type: actionTypes.CREATE_BALE_ERROR,
   error,
 });
 

@@ -32,7 +32,7 @@ describe('createBaleModalActions', () => {
   it('should create an action for open create bale modal', () => {
     const expectedAction = [
       {
-        type: createBaleModalActions.actionTypes.CREATE_REQUEST,
+        type: createBaleModalActions.actionTypes.CREATE_BALE_REQUEST,
       },
       {
         type: createBaleModalActions.actionTypes.OPEN_CREATE_BALE_MODAL,

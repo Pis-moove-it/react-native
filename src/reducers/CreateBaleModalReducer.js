@@ -15,19 +15,19 @@ const createBaleModalReducer = (state = initialState, action) => {
         createBaleModalIsOpen: true,
         isLoading: false,
       };
-    case actionTypes.CREATE_REQUEST:
+    case actionTypes.CREATE_BALE_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case actionTypes.CREATE_SUCCESS:
+    case actionTypes.CREATE_BALE_SUCCESS:
       return {
         ...state,
         baleData: action.baleData,
         createBaleModalIsOpen: false,
         isLoading: false,
       };
-    case actionTypes.CREATE_ERROR:
+    case actionTypes.CREATE_BALE_ERROR:
       return {
         ...state,
         isLoading: false,
