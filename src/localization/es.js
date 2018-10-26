@@ -75,6 +75,9 @@ export default {
   identifierPlaceholderModal: 'Identificador ',
   descriptionPlaceholderModal: 'Descripción ',
 
+  // Edit Pocket Modal
+  editPocket: 'Editar bolsón ',
+
   // Constants
   plastic: 'Plástico ',
   glass: 'Vidrio ',
