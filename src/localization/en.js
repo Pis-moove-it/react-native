@@ -75,6 +75,9 @@ export default {
   identifierPlaceholderModal: 'Identifier ',
   descriptionPlaceholderModal: 'Description ',
 
+  // Edit Pocket Modal
+  editPocket: 'Edit Pocket ',
+
   // Constants
   plastic: 'Plastic ',
   glass: 'Glass ',
