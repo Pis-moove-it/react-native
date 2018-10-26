@@ -149,7 +149,7 @@ class Gather extends Component {
           >
             <Image source={icon} style={stylesGather.trashIcon} />
             <Mapbox.Callout title={strings.collectionPoint} />
-          
+
           </Mapbox.PointAnnotation>
           <Mapbox.PointAnnotation
             key="pointAnnotation2"
