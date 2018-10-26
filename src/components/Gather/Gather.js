@@ -19,6 +19,7 @@ import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
 import CustomButton from '../common/CustomButton';
+import TickIcon from '../../assets/images/Tick.png';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
 
@@ -136,6 +137,7 @@ class Gather extends Component {
         <GatherOverlay />
         <CustomButton
           style={stylesGather.buttonOverMap}
+          icon={TickIcon}
           title={strings.endTravel.toUpperCase()}
           textStyle={stylesGather.textButtonOverMap}
         />

@@ -50,11 +50,10 @@ const stylesGather = StyleSheet.create({
     height: 70,
   },
   buttonOverMap: {
-    width: 150,
-    height: 30,
+    width: 175,
+    height: 45,
     position: 'absolute',
-    bottom: 0,
-    marginBottom: '8%',
+    bottom: 30,
     marginLeft: 10,
     backgroundColor: 'white',
     borderColor: 'black',
@@ -63,7 +62,7 @@ const stylesGather = StyleSheet.create({
   textButtonOverMap: {
     color: 'black',
     fontSize: 12,
-    paddingBottom: 6,
+    paddingLeft: 3,
   },
 });
 
