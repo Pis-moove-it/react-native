@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import PocketIcon from '../../assets/images/PocketIcon.png';
 import Button from '../common/Button';
+import CustomButton from '../common/CustomButton';
+import PencilIcon from '../../assets/ic_common/ic_edit.png';
 import PocketInfo from '../Pocket/PocketInfo';
 import strings from '../../localization';
 import styles from './styles';
@@ -12,20 +14,24 @@ const Pocket = ({ id, pocketState, onPressAction }) => (
     <TouchableOpacity onPress={onPressAction} style={styles.touchableStyle}>
       <Image source={PocketIcon} style={styles.pocketImageStylePhone} />
       <Text style={styles.textBlackPhone}>
-        {strings.pocket}
-        #{id}
+        {strings.pocket}#{id}
       </Text>
     </TouchableOpacity>
-    <View style={styles.containerButtonPhone}>
-      <Button
-        style={pocketState === 'Unweighed' ? styles.phoneButton : styles.phoneGrayButton}
-        title={
-          pocketState === 'Unweighed'
-            ? strings.pocketButtonWeightText
-            : strings.pocketButtonEditWeightText
-        }
-        textStyle={styles.tabletButtonText}
-      />
+    <View style={styles.wrapperButtonPhone}>
+      <View style={styles.containerButtonPhone}>
+        <Button
+          style={pocketState === 'Unweighed' ? styles.phoneButton : styles.phoneBlueButton}
+          title={
+            pocketState === 'Unweighed'
+              ? strings.pocketButtonWeightText
+              : strings.pocketButtonEditWeightText
+          }
+          textStyle={styles.tabletButtonText}
+        />
+      </View>
+      <View style={styles.containerEditTablet}>
+        <CustomButton icon={PencilIcon} />
+      </View>
     </View>
   </View>
 );
