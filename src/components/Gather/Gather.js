@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -18,9 +18,9 @@ import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
+import CustomButton from '../common/CustomButton';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
-
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
@@ -48,7 +48,7 @@ class Gather extends Component {
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
-  
+
   state = {
     isModalVisible: false,
   };
@@ -134,6 +134,11 @@ class Gather extends Component {
     return (
       <View style={stylesGather.mapContainer}>
         <GatherOverlay />
+        <CustomButton
+          style={stylesGather.buttonOverMap}
+          title={strings.endTravel.toUpperCase()}
+          textStyle={stylesGather.textButtonOverMap}
+        />
         <CreatePocketModal />
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}
@@ -149,7 +154,6 @@ class Gather extends Component {
           >
             <Image source={icon} style={stylesGather.trashIcon} />
             <Mapbox.Callout title={strings.collectionPoint} />
-          
           </Mapbox.PointAnnotation>
           <Mapbox.PointAnnotation
             key="pointAnnotation2"

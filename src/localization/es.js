@@ -93,4 +93,7 @@ export default {
   pocketButtonEditWeightText: 'Modificar peso ',
   information: 'Información ',
   collectionPoint: 'Punto de recolección',
+
+  // Map
+  endTravel: 'Terminar recorrido',
 };

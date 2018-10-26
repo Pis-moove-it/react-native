@@ -10,6 +10,7 @@ const stylesGather = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
+    zIndex: -1,
   },
   overlayTimeText: {
     color: Colors.white,
@@ -47,6 +48,22 @@ const stylesGather = StyleSheet.create({
   trashIcon: {
     width: 70,
     height: 70,
+  },
+  buttonOverMap: {
+    width: 150,
+    height: 30,
+    position: 'absolute',
+    bottom: 0,
+    marginBottom: '8%',
+    marginLeft: 10,
+    backgroundColor: 'white',
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  textButtonOverMap: {
+    color: 'black',
+    fontSize: 12,
+    paddingBottom: 6,
   },
 });
 
