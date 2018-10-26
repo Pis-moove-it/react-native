@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
+import PropTypes from 'prop-types';
+import { openEditPocketModal } from '../../actions/EditPocketModalActions';
+import EditPocketModal from '../common/EditPocketModal';
 import PhonePocket from './PhonePocket';
 import TabletPocket from './TabletPocket';
 
@@ -45,40 +48,48 @@ class PocketList extends Component {
 
   render() {
     return (
-      <FlatList
-        data={weighList}
-        renderItem={({ item }) => {
-          if (isPhone) {
+      <View>
+        <EditPocketModal />
+        <FlatList
+          data={weighList}
+          renderItem={({ item }) => {
+            if (isPhone) {
+              return (
+                <PhonePocket
+                  id={item.id}
+                  time={item.time}
+                  weight={item.weight}
+                  pocketState={item.pocketState}
+                  openEditModal={() => this.props.openEditPocketModal()}
+                />
+              );
+            }
             return (
-              <PhonePocket
+              <TabletPocket
                 id={item.id}
                 time={item.time}
                 weight={item.weight}
                 pocketState={item.pocketState}
               />
             );
-          }
-          return (
-            <TabletPocket
-              id={item.id}
-              time={item.time}
-              weight={item.weight}
-              pocketState={item.pocketState}
-            />
-          );
-        }}
-      />
+          }}
+        />
+      </View>
     );
   }
 }
 
-PocketList.propTypes = {};
+PocketList.propTypes = {
+  openEditPocketModal: PropTypes.func.isRequired,
+};
 
 PocketList.defaultProps = {};
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+  openEditPocketModal: () => dispatch(openEditPocketModal()),
+});
 
 export default connect(
   mapStateToProps,

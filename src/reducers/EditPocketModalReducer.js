@@ -6,12 +6,12 @@ export const initialState = {
 
 const editPocketModalReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.OPEN_CREATE_POCKET_MODAL:
+    case actionTypes.OPEN_EDIT_POCKET_MODAL:
       return {
         ...state,
         editPocketModalIsOpen: action.isVisible,
       };
-    case actionTypes.CLOSE_CREATE_POCKET_MODAL:
+    case actionTypes.CLOSE_EDIT_POCKET_MODAL:
       return {
         ...state,
         editPocketModalIsOpen: action.isVisible,

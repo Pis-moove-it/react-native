@@ -6,6 +6,7 @@ import BaleList from '../Bale/BaleList';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import { openCreateBaleModal } from '../../actions/CreateBaleModalActions';
+import EditPocketModal from '../common/EditPocketModal';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import Platform from '../../helpers/Platform';

@@ -19,7 +19,6 @@ class EditPocketModal extends Component {
   }
 
   state = {
-    selectedMaterial: false,
     newIdentifier: 0,
     inputError: true,
     errors: [],
@@ -27,17 +26,7 @@ class EditPocketModal extends Component {
 
   acceptEdit = () => {
     if (this.state.newIdentifier > 0) {
-      if (this.state.selectedMaterial) {
-        this.props.editPocket(
-          this.props.token,
-          this.props.bale,
-          this.state.newIdentifier,
-          this.state.selectedMaterial,
-        );
-      } else {
-        this.setState({ inputError: true });
-        this.setState({ errors: [strings.invalidInputType] });
-      }
+      this.closeModal();
     } else {
       this.setState({ inputError: true });
       this.setState({ errors: [strings.invalidInputNumber] });
@@ -46,8 +35,6 @@ class EditPocketModal extends Component {
 
   closeModal = () => {
     this.setState({ inputError: false });
-    this.setState({ newIdentifier: 0 });
-    this.setState({ selectedMaterial: false });
     this.setState({ errors: [] });
     this.props.closeEditModal();
   };
@@ -84,23 +71,12 @@ class EditPocketModal extends Component {
 }
 
 EditPocketModal.propTypes = {
-  bale: PropTypes.string,
   closeEditModal: PropTypes.func.isRequired,
-  editPocket: PropTypes.func.isRequired,
-  isModalVisible: PropTypes.bool,
-  token: PropTypes.string,
-};
-
-EditPocketModal.defaultProps = {
-  bale: false,
-  token: false,
-  isModalVisible: false,
+  isModalVisible: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
-  bale: getBale(state),
   isModalVisible: getIsModalVisible(state),
-  token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({

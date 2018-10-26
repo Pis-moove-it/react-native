@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
+import getUser from '../../selectors/UserSelector';
+import getRole from '../../selectors/RoleSelector';
 import PocketIcon from '../../assets/images/PocketIcon.png';
 import Button from '../common/Button';
 import CustomButton from '../common/CustomButton';
@@ -9,7 +12,9 @@ import PocketInfo from '../Pocket/PocketInfo';
 import strings from '../../localization';
 import styles from './styles';
 
-const Pocket = ({ id, pocketState, onPressAction }) => (
+const Pocket = ({
+  id, pocketState, onPressAction, openEditModal,
+}) => (
   <View style={styles.containerPhonePocket}>
     <TouchableOpacity onPress={onPressAction} style={styles.touchableStyle}>
       <Image source={PocketIcon} style={styles.pocketImageStylePhone} />
@@ -30,7 +35,7 @@ const Pocket = ({ id, pocketState, onPressAction }) => (
         />
       </View>
       <View style={styles.containerEditTablet}>
-        <CustomButton icon={PencilIcon} />
+        <CustomButton icon={PencilIcon} onPress={openEditModal} />
       </View>
     </View>
   </View>
@@ -39,11 +44,8 @@ const Pocket = ({ id, pocketState, onPressAction }) => (
 Pocket.propTypes = {
   id: PropTypes.string.isRequired,
   pocketState: PropTypes.string.isRequired,
-  onPressAction: PropTypes.func,
-};
-
-Pocket.defaultProps = {
-  onPressAction: () => ({}),
+  onPressAction: PropTypes.func.isRequired,
+  openEditModal: PropTypes.func.isRequired,
 };
 
 class PhonePocket extends Component {
@@ -68,6 +70,7 @@ class PhonePocket extends Component {
             id={this.state.id}
             pocketState={this.state.pocketState}
             onPressAction={this.toggleInfo}
+            openEditModal={this.props.openEditModal}
           />
           <PocketInfo
             time={this.state.time}
@@ -93,6 +96,7 @@ PhonePocket.propTypes = {
   time: PropTypes.string,
   weight: PropTypes.string,
   pocketState: PropTypes.string.isRequired,
+  openEditModal: PropTypes.func.isRequired,
 };
 
 PhonePocket.defaultProps = {
@@ -100,4 +104,9 @@ PhonePocket.defaultProps = {
   weight: false,
 };
 
-export default PhonePocket;
+const mapStateToProps = state => ({
+  user: getUser(state),
+  role: getRole(state),
+});
+
+export default connect(mapStateToProps)(PhonePocket);
