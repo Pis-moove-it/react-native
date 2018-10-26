@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     margin: '5%',
     minWidth: 100,
     backgroundColor: Colors.secondary,
-    borderWidth: 0,
   },
   touchableStyle: {
     flexDirection: 'row',
@@ -118,7 +117,6 @@ const styles = StyleSheet.create({
   },
   tabletBlueButton: {
     backgroundColor: Colors.secondary,
-    borderWidth: 0,
   },
   pocketImageStyleTablet: {
     height: 100,

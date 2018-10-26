@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import PocketIcon from '../../assets/images/PocketIcon.png';
 import Button from '../common/Button';
-import CustomButton from '../common/CustomButton';
-import PencilIcon from '../../assets/ic_common/ic_edit.png';
 import PocketInfo from '../Pocket/PocketInfo';
 import strings from '../../localization';
 import styles from './styles';
@@ -28,9 +26,6 @@ const Pocket = ({ id, pocketState, onPressAction }) => (
           }
           textStyle={styles.tabletButtonText}
         />
-      </View>
-      <View style={styles.containerEditTablet}>
-        <CustomButton icon={PencilIcon} />
       </View>
     </View>
   </View>
