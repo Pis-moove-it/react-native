@@ -8,11 +8,13 @@ import { isTablet } from 'react-native-device-detection';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
+import editPencil from '../../assets/ic_common/ic_editPencil.png';
+import plusSign from '../../assets/ic_common/ic_add.png';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
-import Button from '../common/Button';
+import CustomButton from '../common/CustomButton';
 import icon from '../../assets/images/MapPointIcon.png';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
@@ -34,31 +36,36 @@ const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd 
       onBackdropPress={onPressActionFst}
       onBackButtonPress={onPressActionFst}
       animationOut="slideOutLeft"
-      backdropOpacity="0.3"
-      backdropColor={Colors.primary}
     >
       <View style={stylesGather.modalContainer}>
         <View style={stylesGather.modalTitleContainer}>
           <Text style={stylesGather.modalTitle}>{strings.optionsModalGather}</Text>
         </View>
         <View>
-          <Button
+          <CustomButton
             style={stylesGather.buttonModal}
-            textStyle={stylesGather.text}
+            textStyle={stylesGather.textButton}
             title={strings.changeStateIsle}
             onPress={onPressActionFst}
+            icon={editPencil}
           />
-          <Button
+          <CustomButton
             style={stylesGather.buttonModal}
-            textStyle={stylesGather.text}
+            textStyle={stylesGather.textButton}
             title={strings.newPocket}
             onPress={onPressActionSnd}
+            icon={plusSign}
           />
         </View>
       </View>
     </Modal>
   );
 
+GatherPointOptionModal.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
+  onPressActionFst: PropTypes.func.isRequired,
+  onPressActionSnd: PropTypes.func.isRequired,
+};
 
 class Gather extends Component {
   static navigatorStyle = {

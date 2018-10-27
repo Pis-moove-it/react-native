@@ -24,7 +24,9 @@ const stylesGather = StyleSheet.create({
     height: 50,
   },
   textButton: {
-    fontSize: 20,
+    paddingLeft: 5,
+    fontSize: 22,
+    fontWeight: '700',
   },
   activityIndicator: {
     margin: '2%',
@@ -72,9 +74,15 @@ const stylesGather = StyleSheet.create({
     color: Colors.primary,
   },
   buttonModal: {
-    justifyContent: 'center',
     height: 50,
     width: 200,
+    backgroundColor: Colors.primary,
+    alignSelf: 'stretch',
+    borderColor: Colors.primary,
+    borderWidth: 1,
+    marginTop: 10,
+    padding: 5,
+    borderRadius: 5,
   },
 });
 
