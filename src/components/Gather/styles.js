@@ -18,7 +18,7 @@ const stylesGather = StyleSheet.create({
   },
   overlayDayText: {
     color: Colors.white,
-    fontSize: 25,
+    fontSize: 20,
   },
   button: {
     justifyContent: 'center',
