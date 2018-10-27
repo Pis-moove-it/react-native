@@ -69,8 +69,6 @@ class CreatePocketModal extends Component {
         onBackButtonPress={this.closeModal}
         onBackdropPress={this.closeModal}
         animationIn="slideInRight"
-        backdropOpacity="0.3"
-        backdropColor={Colors.primary}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>

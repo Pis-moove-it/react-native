@@ -25,6 +25,7 @@ import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
+import MapboxGL from '@mapbox/react-native-mapbox-gl';
 
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
@@ -195,31 +196,23 @@ class Gather extends Component {
           showUserLocation
           style={stylesGather.mapContainer}
         >
-          <Mapbox.PointAnnotation
+          <MapboxGL.PointAnnotation
             key="pointAnnotation"
             id="pointAnnotation"
             coordinate={[-56.165921, -34.917352]}
+            selected={false}
           >
-<<<<<<< HEAD
             <TouchableOpacity onPress={this.toggleModal}>
               <Image source={icon} style={stylesGather.trashIcon} />
             </TouchableOpacity>
-=======
-            <Image source={icon} style={stylesGather.trashIcon} />
-            <Mapbox.Callout title={strings.collectionPoint} />
->>>>>>> master
-
-          </Mapbox.PointAnnotation>
+          </MapboxGL.PointAnnotation>
           <Mapbox.PointAnnotation
-            key="pointAnnotation2"
             id="pointAnnotation2"
             coordinate={[-56.16574729294116, -34.90461658495409]}
           >
-
             <TouchableOpacity onPress={this.toggleModal}>
               <Image source={icon} style={stylesGather.trashIcon} />
             </TouchableOpacity>
-
           </Mapbox.PointAnnotation>
         </Mapbox.MapView>
       </View>
