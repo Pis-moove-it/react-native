@@ -1,6 +1,6 @@
 import axios from 'axios';
 import strings from '../localization';
-import basePath from './BaseController';
+import basePath, { Network } from './BaseController';
 
 class BaleController {
   constructor() {
@@ -31,7 +31,8 @@ class BaleController {
           });
         })
         .catch((error) => {
-          reject(new Error(strings.baleEditError));
+          if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
+          else reject(new Error(strings.errorEditBale));
         });
     });
 
@@ -59,7 +60,8 @@ class BaleController {
           });
         })
         .catch((error) => {
-          reject(new Error(strings.baleNewError));
+          if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
+          else reject(new Error(strings.errorNewBale));
         });
     });
 
@@ -68,6 +70,7 @@ class BaleController {
       axios
         .get(`${basePath}${this.path}`, {
           headers: {
+            'Content-Type': 'application/json',
             ApiKey: `${token}`,
           },
         })
@@ -77,7 +80,8 @@ class BaleController {
           });
         })
         .catch((error) => {
-          reject(new Error(strings.loginError));
+          if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
+          else reject(new Error(strings.error));
         });
     });
 }
