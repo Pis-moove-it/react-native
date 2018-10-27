@@ -200,9 +200,14 @@ class Gather extends Component {
             id="pointAnnotation"
             coordinate={[-56.165921, -34.917352]}
           >
+<<<<<<< HEAD
             <TouchableOpacity onPress={this.toggleModal}>
               <Image source={icon} style={stylesGather.trashIcon} />
             </TouchableOpacity>
+=======
+            <Image source={icon} style={stylesGather.trashIcon} />
+            <Mapbox.Callout title={strings.collectionPoint} />
+>>>>>>> master
 
           </Mapbox.PointAnnotation>
           <Mapbox.PointAnnotation

@@ -84,6 +84,7 @@ class EditBaleModal extends Component {
             <TextField
               placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
+              maxLength={8}
               onChangeText={value => this.setState({ newWeight: value })}
             />
             <Picker

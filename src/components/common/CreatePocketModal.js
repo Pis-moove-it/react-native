@@ -82,11 +82,13 @@ class CreatePocketModal extends Component {
             <TextField
               placeholder={strings.identifierPlaceholderModal}
               keyboardType="numeric"
+              maxLength={8}
               onChangeText={value =>
                 (this.setState({ identifier: value }))}
             />
             <TextField
               placeholder={strings.descriptionPlaceholderModal}
+              maxLength={23}
               onChangeText={value =>
                 (this.setState({ description: value }))}
             />
