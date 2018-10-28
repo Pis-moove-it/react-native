@@ -1,4 +1,4 @@
-import { actionTypes } from '../actions/BalesActions';
+import { actionTypes } from '../actions/PocketActions';
 
 export const initialState = {
   pocket: false,

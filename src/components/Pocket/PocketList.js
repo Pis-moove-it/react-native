@@ -2,51 +2,25 @@ import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
+import PropTypes from 'prop-types';
+import { getPockets } from '../../actions/PocketActions';
+import pockets from '../../selectors/PocketSelector';
 import PhonePocket from './PhonePocket';
 import TabletPocket from './TabletPocket';
-
-const weighList = [
-  {
-    id: '1548',
-    time: '12:30',
-    weight: '',
-    pocketState: 'Unweighed',
-  },
-  {
-    id: '684887',
-    time: '16:19',
-    weight: '10',
-    pocketState: 'Weighed',
-  },
-  {
-    id: '158',
-    time: '03:22',
-    weight: '6',
-    pocketState: 'Weighed',
-  },
-  {
-    id: '68488',
-    time: '19:26',
-    weight: '15',
-    pocketState: 'Weighed',
-  },
-  {
-    id: '488',
-    time: '04:20',
-    weight: '',
-    pocketState: 'Unweighed',
-  },
-];
 
 class PocketList extends Component {
   static navigatorStyle = {
     navBarHidden: true,
   };
 
+  componentDidMount() {
+    this.props.getPockets(this.props.token);
+  }
+
   render() {
     return (
       <FlatList
-        data={weighList}
+        data={this.props.pockets}
         renderItem={({ item }) => {
           if (isPhone) {
             return (
@@ -72,13 +46,25 @@ class PocketList extends Component {
   }
 }
 
-PocketList.propTypes = {};
+PocketList.propTypes = {
+  getPockets: PropTypes.func.isRequired,
+  pockets: PropTypes.array,
+  token: PropTypes.string,
+};
 
-PocketList.defaultProps = {};
+PocketList.defaultProps = {
+  pockets: [],
+  token: false,
+};
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  pockets: pockets(state),
+  token: state.login.token,
+});
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+  getPockets: token => dispatch(getPockets(token)),
+});
 
 export default connect(
   mapStateToProps,
