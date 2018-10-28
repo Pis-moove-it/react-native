@@ -19,14 +19,14 @@ const Pocket = ({
     <TouchableOpacity onPress={onPressAction} style={styles.touchableStyle}>
       <Image source={PocketIcon} style={styles.pocketImageStylePhone} />
       <Text style={styles.textBlackPhone}>
-        {strings.pocket}#{id}
+        {strings.pocket} #{id}
       </Text>
     </TouchableOpacity>
     <View style={styles.wrapperButtonPhone}>
       <View style={styles.containerButtonPhone}>
         <Button
           style={pocketState === 'Unweighed' ? styles.phoneButton : styles.phoneBlueButton}
-          title={
+          title={ 
             pocketState === 'Unweighed'
               ? strings.pocketButtonWeightText
               : strings.pocketButtonEditWeightText
@@ -85,6 +85,7 @@ class PhonePocket extends Component {
           id={this.state.id}
           pocketState={this.state.pocketState}
           onPressAction={this.toggleInfo}
+          openEditModal={this.props.openEditModal}
         />
       </View>
     );

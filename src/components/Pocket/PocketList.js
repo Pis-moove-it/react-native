@@ -60,7 +60,7 @@ class PocketList extends Component {
                   time={item.time}
                   weight={item.weight}
                   pocketState={item.pocketState}
-                  openEditModal={() => this.props.openEditPocketModal()}
+                  openEditModal={this.props.openEditPocketModal}
                 />
               );
             }
