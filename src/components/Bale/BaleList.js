@@ -11,6 +11,7 @@ import CreateBaleModal from '../common/CreateBaleModal';
 import EditBaleModal from '../common/EditBaleModal';
 import recyclableMaterials from '../common/Constants';
 import getBales from '../../selectors/BalesSelector';
+import strings from '../../localization';
 
 class BaleList extends Component {
   static navigatorStyle = {
@@ -36,6 +37,19 @@ class BaleList extends Component {
     });
   };
 
+  materialString = (type) => {
+    switch (type) {
+      case 'Plastic':
+        return strings.plastic;
+      case 'Glass':
+        return strings.glass;
+      case 'Trash':
+        return strings.trash;
+      default:
+        return strings.trash;
+    }
+  };
+
   render() {
     return (
       <View>
@@ -48,7 +62,7 @@ class BaleList extends Component {
               return (
                 <PhoneBale
                   id={item.id}
-                  type={item.material}
+                  type={this.materialString(item.material)}
                   weight={item.weight}
                   onPressAction={() => this.props.openEditBaleModal(item.id)}
                 />
@@ -57,7 +71,7 @@ class BaleList extends Component {
             return (
               <TabletBale
                 id={item.id}
-                type={item.material}
+                type={this.materialString(item.material)}
                 weight={item.weight}
                 onPressAction={() => this.props.openEditBaleModal(item.id)}
               />
