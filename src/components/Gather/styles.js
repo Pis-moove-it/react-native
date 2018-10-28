@@ -49,20 +49,45 @@ const stylesGather = StyleSheet.create({
     width: 70,
     height: 70,
   },
-  buttonOverMap: {
-    width: 175,
+  buttonOverMapPhone: {
+    width: 170,
     height: 45,
     position: 'absolute',
-    bottom: 30,
-    marginLeft: 10,
+    bottom: '6%',
+    marginLeft: '1.5%',
     backgroundColor: 'white',
     borderColor: 'black',
     borderWidth: 1,
   },
-  textButtonOverMap: {
+  textButtonOverMapPhone: {
     color: 'black',
     fontSize: 12,
+    fontWeight: '500',
     paddingLeft: 3,
+  },
+  tickStylePhone: {
+    width: 30,
+    height: 30,
+  },
+  buttonOverMapTablet: {
+    width: 260,
+    height: 80,
+    position: 'absolute',
+    bottom: '8%',
+    marginLeft: '5%',
+    backgroundColor: 'white',
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  textButtonOverMapTablet: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: '500',
+    paddingLeft: 3,
+  },
+  tickStyleTablet: {
+    width: 50,
+    height: 50,
   },
 });
 

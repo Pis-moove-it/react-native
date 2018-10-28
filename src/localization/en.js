@@ -95,5 +95,5 @@ export default {
   collectionPoint: 'Collection point',
 
   // Map
-  endTravel: 'End travel',
+  endTravel: 'Complete trip',
 };

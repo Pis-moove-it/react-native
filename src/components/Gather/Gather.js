@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -136,10 +136,13 @@ class Gather extends Component {
       <View style={stylesGather.mapContainer}>
         <GatherOverlay />
         <CustomButton
-          style={stylesGather.buttonOverMap}
+          style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
           icon={TickIcon}
-          title={strings.endTravel.toUpperCase()}
-          textStyle={stylesGather.textButtonOverMap}
+          iconStyle={isTablet ? stylesGather.tickStyleTablet : stylesGather.tickStylePhone}
+          title="TERMINAR RECORRIDA"
+          textStyle={
+            isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
+          }
         />
         <CreatePocketModal />
         <Mapbox.MapView
