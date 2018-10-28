@@ -88,7 +88,7 @@ export default {
   pocketButtonWeightText: 'Pesar ',
   pocketButtonEditWeightText: 'Modificar peso ',
   information: 'Información ',
-  collectionPoint: 'Punto de recolección',
+  collectionPoint: 'Punto de recolección ',
 
   // Errors
   error: 'Error ',
@@ -99,5 +99,5 @@ export default {
   errorNewBale: 'No se pudo crear el fardo, intente nuevamente ',
 
   // Map
-  endTravel: 'Terminar recorrido',
+  endTravel: 'Terminar recorrido ',
 };

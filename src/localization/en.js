@@ -88,7 +88,7 @@ export default {
   pocketButtonWeightText: 'Weight ',
   pocketButtonEditWeightText: 'Edit weight ',
   information: 'Information ',
-  collectionPoint: 'Collection point',
+  collectionPoint: 'Collection point ',
 
   // Errors
   error: 'Error ',
@@ -99,5 +99,5 @@ export default {
   errorNewBale: 'Unable to create bale, try again later ',
 
   // Map
-  endTravel: 'Complete trip',
+  endTravel: 'Complete trip ',
 };

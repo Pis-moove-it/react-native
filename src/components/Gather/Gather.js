@@ -139,7 +139,7 @@ class Gather extends Component {
           style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
           icon={TickIcon}
           iconStyle={isTablet ? stylesGather.tickStyleTablet : stylesGather.tickStylePhone}
-          title="TERMINAR RECORRIDA"
+          title={strings.endTravel.toUpperCase()}
           textStyle={
             isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
           }
