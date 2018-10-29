@@ -152,6 +152,7 @@ class Gather extends Component {
           textStyle={
             isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
           }
+          onPress={this.finishTravel}
         />
         <CreatePocketModal />
         <Mapbox.MapView
