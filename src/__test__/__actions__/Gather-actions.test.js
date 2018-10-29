@@ -35,7 +35,7 @@ describe('GatherActions', () => {
     const expectedAction = { type: gatherActions.actionTypes.START_COLLECTION_REQUEST };
 
     // Dispatch the action
-    store.dispatch(gatherActions.fetchStartCollection());
+    store.dispatch(gatherActions.startCollection());
 
     // Test if the store dispatched the expected actions
     const actions = store.getActions();
