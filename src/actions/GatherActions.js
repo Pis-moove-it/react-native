@@ -1,13 +1,19 @@
 import GatherController from '../controllers/GatherController';
 
 export const actionTypes = {
+  START_COLLECTION: 'START_COLLECTION',
   START_COLLECTION_REQUEST: 'START_COLLECTION_REQUEST',
+  START_COLLECTION_SUCCESS: 'START_COLLECTION_SUCCESS',
   START_COLLECTION_ERROR: 'START_COLLECTION_ERROR',
-  START_COLLECTION_REQUEST_SUCCESS: 'START_COLLECTION_REQUEST_SUCCESS',
 };
 
-const startCollection = () => ({
+const startCollectionRequest = () => ({
   type: actionTypes.START_COLLECTION_REQUEST,
+});
+
+const startCollectionSuccess = identifier => ({
+  type: actionTypes.START_COLLECTION_SUCCESS,
+  identifier,
 });
 
 const startCollectionError = error => ({
@@ -15,16 +21,11 @@ const startCollectionError = error => ({
   error,
 });
 
-const startCollectionSuccess = collectionId => ({
-  type: actionTypes.START_COLLECTION_REQUEST_SUCCESS,
-  collectionId,
-});
-
-export const fetchStartCollection = token => async (dispatch) => {
-  dispatch(startCollection());
+export const startCollection = token => async (dispatch) => {
+  dispatch(startCollectionRequest());
   try {
-    const { userData } = await GatherController.startCollection(token);
-    dispatch(startCollectionSuccess(userData.id));
+    const { identifier } = await GatherController.startCollection(token);
+    dispatch(startCollectionSuccess(identifier));
   } catch (error) {
     dispatch(startCollectionError(error.message));
   }

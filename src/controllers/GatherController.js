@@ -1,10 +1,10 @@
 import axios from 'axios';
 import strings from '../localization';
-import basePath from './BaseController';
+import basePath, { Network } from './BaseController';
 
 class GatherController {
   constructor() {
-    this.path = '/routes';
+    this.path = 'routes/';
   }
 
   startCollection = async token =>
@@ -22,11 +22,12 @@ class GatherController {
         )
         .then((response) => {
           resolve({
-            userData: response.data,
+            identifier: response.data.id,
           });
         })
         .catch((error) => {
-          reject(new Error(strings.userError));
+          if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
+          else reject(new Error(strings.errorUser));
         });
     });
 }

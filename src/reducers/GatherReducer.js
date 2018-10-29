@@ -1,8 +1,8 @@
 import { actionTypes } from '../actions/GatherActions';
 
 export const initialState = {
-  collectionId: null,
-  error: false,
+  collectionId: false,
+  isLoading: false,
 };
 
 const gatherReducer = (state = initialState, action) => {
@@ -10,18 +10,14 @@ const gatherReducer = (state = initialState, action) => {
     case actionTypes.START_COLLECTION_REQUEST:
       return {
         ...state,
-        collectionId: null,
+        collectionId: false,
+        isLoading: true,
       };
-    case actionTypes.START_COLLECTION_ERROR:
+    case actionTypes.START_COLLECTION_SUCCESS:
       return {
         ...state,
-        error: true,
-      };
-    case actionTypes.START_COLLECTION_REQUEST_SUCCESS:
-      return {
-        ...state,
-        collectionId: action.collectionId,
-        error: false,
+        collectionId: action.identifier,
+        isLoading: false,
       };
     default:
       return state;
