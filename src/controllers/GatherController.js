@@ -2,7 +2,7 @@ import axios from 'axios';
 import strings from '../localization';
 import basePath from './BaseController';
 
-class CollectionController {
+class GatherController {
   constructor() {
     this.path = '/routes';
   }
@@ -31,4 +31,4 @@ class CollectionController {
     });
 }
 
-export default new CollectionController();
+export default new GatherController();
