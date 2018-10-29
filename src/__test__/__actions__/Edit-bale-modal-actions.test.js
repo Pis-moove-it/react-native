@@ -30,16 +30,22 @@ describe('EditBaleModalActions', () => {
   const store = mockStore();
 
   it('should create an action for open edit bale modal', () => {
-    const expectedAction = {
-      type: editBaleModalActions.actionTypes.OPEN_EDIT_BALE_MODAL,
-    };
+    const expectedAction = [
+      {
+        type: editBaleModalActions.actionTypes.EDIT_BALE_REQUEST,
+      },
+      {
+        bale: undefined,
+        type: editBaleModalActions.actionTypes.OPEN_EDIT_BALE_MODAL,
+      },
+    ];
 
     // Dispatch the action
     store.dispatch(editBaleModalActions.openEditBaleModal());
 
     // Test if the store dispatched the expected actions
     const actions = store.getActions();
-    expect(actions).toEqual([expectedAction]);
+    expect(actions).toEqual(expectedAction);
   });
 
   it('should create an action for close edit bale modal', () => {
