@@ -12,20 +12,21 @@ const Pocket = ({ id, pocketState, onPressAction }) => (
     <TouchableOpacity onPress={onPressAction} style={styles.touchableStyle}>
       <Image source={PocketIcon} style={styles.pocketImageStylePhone} />
       <Text style={styles.textBlackPhone}>
-        {strings.pocket}
-        #{id}
+        {strings.pocket}#{id}
       </Text>
     </TouchableOpacity>
-    <View style={styles.containerButtonPhone}>
-      <Button
-        style={pocketState === 'Unweighed' ? styles.phoneButton : styles.phoneGrayButton}
-        title={
-          pocketState === 'Unweighed'
-            ? strings.pocketButtonWeightText
-            : strings.pocketButtonEditWeightText
-        }
-        textStyle={styles.tabletButtonText}
-      />
+    <View style={styles.wrapperButtonPhone}>
+      <View style={styles.containerButtonPhone}>
+        <Button
+          style={pocketState === 'Unweighed' ? styles.phoneButton : styles.phoneBlueButton}
+          title={
+            pocketState === 'Unweighed'
+              ? strings.pocketButtonWeightText
+              : strings.pocketButtonEditWeightText
+          }
+          textStyle={styles.tabletButtonText}
+        />
+      </View>
     </View>
   </View>
 );

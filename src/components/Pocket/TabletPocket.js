@@ -27,7 +27,7 @@ const TabletPocket = ({
     </View>
     <View style={styles.containerButtonTablet}>
       <Button
-        style={pocketState === 'Unweighed' ? styles.tabletButton : styles.tabletGrayButton}
+        style={pocketState === 'Unweighed' ? styles.tabletButton : styles.tabletBlueButton}
         title={
           pocketState === 'Unweighed'
             ? strings.pocketButtonWeightText
