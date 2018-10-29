@@ -9,7 +9,7 @@ import strings from '../../localization';
 import styles from './styles';
 
 const TabletPocket = ({
-  id, time, weight, pocketState,
+  id, time, weight, pocketState, openEditModal,
 }) => (
   <View style={styles.containerTabletPocket}>
     <Image source={PocketIcon} style={styles.pocketImageStyleTablet} />
@@ -27,19 +27,21 @@ const TabletPocket = ({
         {pocketState === 'Unweighed' ? strings.unweighted : `${weight} kg`}
       </Text>
     </View>
-    <View style={styles.containerButtonTablet}>
-      <Button
-        style={pocketState === 'Unweighed' ? styles.tabletButton : styles.tabletBlueButton}
-        title={
-          pocketState === 'Unweighed'
-            ? strings.pocketButtonWeightText
-            : strings.pocketButtonEditWeightText
-        }
-        textStyle={styles.tabletButtonText}
-      />
-    </View>
-    <View style={styles.containerEditTablet}>
-      <CustomButton icon={PencilIcon} />
+    <View style={styles.wrapperButtonTablet}>
+      <View style={styles.containerButtonTablet}>
+        <Button
+          style={pocketState === 'Unweighed' ? styles.tabletButton : styles.tabletBlueButton}
+          title={
+            pocketState === 'Unweighed'
+              ? strings.pocketButtonWeightText
+              : strings.pocketButtonEditWeightText
+          }
+          textStyle={styles.tabletButtonText}
+        />
+      </View>
+      <View style={styles.containerEditTablet}>
+        <CustomButton icon={PencilIcon} onPress={openEditModal} />
+      </View>
     </View>
   </View>
 );
@@ -49,6 +51,7 @@ TabletPocket.propTypes = {
   time: PropTypes.string.isRequired,
   weight: PropTypes.string.isRequired,
   pocketState: PropTypes.string.isRequired,
+  openEditModal: PropTypes.func.isRequired,
 };
 
 export default TabletPocket;

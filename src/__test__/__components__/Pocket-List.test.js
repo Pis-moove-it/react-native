@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 import PocketList from '../../components/Pocket/PocketList';
 
 jest.mock(
@@ -28,6 +29,10 @@ const store = mockStore();
 
 // Minimal case
 it('renders correctly only with required props', () => {
-  const tree = renderer.create(<PocketList store={store} />).toJSON();
+  const tree = renderer
+    .create(<Provider store={store}>
+      <PocketList />
+            </Provider>)
+    .toJSON();
   expect(tree).toMatchSnapshot;
 });

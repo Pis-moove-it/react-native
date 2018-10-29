@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
-import getUser from '../../selectors/UserSelector';
-import getRole from '../../selectors/RoleSelector';
 import PocketIcon from '../../assets/images/PocketIcon.png';
 import Button from '../common/Button';
 import CustomButton from '../common/CustomButton';
@@ -105,9 +102,4 @@ PhonePocket.defaultProps = {
   weight: false,
 };
 
-const mapStateToProps = state => ({
-  user: getUser(state),
-  role: getRole(state),
-});
-
-export default connect(mapStateToProps)(PhonePocket);
+export default PhonePocket;

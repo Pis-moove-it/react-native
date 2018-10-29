@@ -139,6 +139,12 @@ const styles = StyleSheet.create({
   containerButtonTablet: {
     flex: 2,
     paddingLeft: 10,
+    paddingEnd: 10,
+  },
+  wrapperButtonTablet: {
+    flex: 2,
+    flexDirection: 'row',
+    paddingLeft: 10,
   },
   tabletButtonText: {
     color: Colors.white,
