@@ -11,6 +11,7 @@ import editBaleModal from './EditBaleModalReducer';
 import createPocketModal from './CreatePocketModalReducer';
 import editPocketModal from './EditPocketModalReducer';
 import editWeightPocketModal from './EditWeightPocketModalReducer';
+import gather from './GatherReducer';
 
 const rootReducer = combineReducers({
   loading,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   createPocketModal,
   editPocketModal,
   editWeightPocketModal,
+  gather,
 });
 
 export default rootReducer;
