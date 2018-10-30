@@ -19,6 +19,16 @@ const gatherReducer = (state = initialState, action) => {
         collectionId: action.identifier,
         isLoading: false,
       };
+    case actionTypes.ADD_POCKET_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case actionTypes.ADD_POCKET_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
     default:
       return state;
   }
