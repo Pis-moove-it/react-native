@@ -1,6 +1,6 @@
 import axios from 'axios';
 import strings from '../localization';
-import basePath from './BaseController';
+import basePath, { Network } from './BaseController';
 
 class LoginController {
   constructor() {
@@ -19,8 +19,8 @@ class LoginController {
           {
             headers: {
               'Content-Type': 'application/json',
-              DeviceTypeHeader: 'android',
-              DeviceIdHeader: 'a587refvs251fw8wgw12r8njytio8pqn1vhf93eej',
+              DeviceTypeHeader: 'android', // Temporal
+              DeviceIdHeader: 'a587refvs251fw8wgw12r8njytio8pqn1vhf93eej', // Temporal
             },
           },
         )
@@ -32,7 +32,8 @@ class LoginController {
           });
         })
         .catch((error) => {
-          reject(new Error(strings.loginError));
+          if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
+          else reject(new Error(strings.errorLogin));
         });
     });
 

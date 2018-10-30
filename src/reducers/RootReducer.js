@@ -9,7 +9,7 @@ import bales from './BalesReducer';
 import createBaleModal from './CreateBaleModalReducer';
 import editBaleModal from './EditBaleModalReducer';
 import createPocketModal from './CreatePocketModalReducer';
-import pockets from './PocketsReducer';
+import pockets from './PocketReducer';
 
 const rootReducer = combineReducers({
   loading,

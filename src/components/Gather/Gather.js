@@ -18,9 +18,10 @@ import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
+import CustomButton from '../common/CustomButton';
+import TickIcon from '../../assets/images/Tick.png';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
-
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
@@ -48,7 +49,7 @@ class Gather extends Component {
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
-  
+
   state = {
     isModalVisible: false,
   };
@@ -134,6 +135,15 @@ class Gather extends Component {
     return (
       <View style={stylesGather.mapContainer}>
         <GatherOverlay />
+        <CustomButton
+          style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
+          icon={TickIcon}
+          iconStyle={isTablet ? stylesGather.tickStyleTablet : stylesGather.tickStylePhone}
+          title={strings.endTravel.toUpperCase()}
+          textStyle={
+            isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
+          }
+        />
         <CreatePocketModal />
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}
@@ -149,7 +159,6 @@ class Gather extends Component {
           >
             <Image source={icon} style={stylesGather.trashIcon} />
             <Mapbox.Callout title={strings.collectionPoint} />
-          
           </Mapbox.PointAnnotation>
           <Mapbox.PointAnnotation
             key="pointAnnotation2"

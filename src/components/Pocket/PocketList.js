@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { FlatList, RefreshControl, View, Text } from 'react-native';
+import { FlatList, RefreshControl, View } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
-import { fetchPockets } from '../../actions/PocketsActions';
-import getPockets from '../../selectors/PocketsSelector';
+import { getPockets } from '../../actions/PocketActions';
+import pockets from '../../selectors/PocketSelector';
 import TabletPocket from './TabletPocket';
 import PhonePocket from './PhonePocket';
 
@@ -21,12 +21,12 @@ class PocketList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData(this.props.token);
+    this.props.getPockets(this.props.token);
   }
 
   onRefresh = () => {
     this.setState({ refreshing: true });
-    this.props.fetchData(this.props.token).then(() => {
+    this.props.getPockets(this.props.token).then(() => {
       this.setState({ refreshing: false });
     });
   };
@@ -66,22 +66,23 @@ class PocketList extends Component {
 }
 
 PocketList.propTypes = {
-  pockets: PropTypes.object.isRequired,
-  fetchData: PropTypes.func.isRequired,
+  getPockets: PropTypes.func.isRequired,
+  pockets: PropTypes.array,
   token: PropTypes.string,
 };
 
 PocketList.defaultProps = {
+  pockets: [],
   token: false,
 };
 
 const mapStateToProps = state => ({
-  pockets: getPockets(state),
+  pockets: pockets(state),
   token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: token => dispatch(fetchPockets(token)),
+  getPockets: token => dispatch(getPockets(token)),
 });
 
 export default connect(
