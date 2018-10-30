@@ -10,7 +10,7 @@ import strings from '../../localization';
 import styles from './styles';
 
 const Pocket = ({
-  id, pocketState, onPressAction, openEditModal,
+  id, pocketState, onPressAction, openEditModal, openWeightEditModal,
 }) => (
   <View style={styles.containerPhonePocket}>
     <TouchableOpacity onPress={onPressAction} style={styles.touchableStyle}>
@@ -29,6 +29,7 @@ const Pocket = ({
               : strings.pocketButtonEditWeightText
           }
           textStyle={styles.tabletButtonText}
+          onPress={openWeightEditModal}
         />
       </View>
       <View style={styles.containerEditTablet}>
@@ -43,6 +44,7 @@ Pocket.propTypes = {
   pocketState: PropTypes.string.isRequired,
   onPressAction: PropTypes.func.isRequired,
   openEditModal: PropTypes.func.isRequired,
+  openWeightEditModal: PropTypes.func.isRequired,
 };
 
 class PhonePocket extends Component {
@@ -68,6 +70,7 @@ class PhonePocket extends Component {
             pocketState={this.state.pocketState}
             onPressAction={this.toggleInfo}
             openEditModal={this.props.openEditModal}
+            openWeightEditModal={this.props.openEditWeightPocketModal}
           />
           <PocketInfo
             time={this.state.time}
@@ -83,6 +86,7 @@ class PhonePocket extends Component {
           pocketState={this.state.pocketState}
           onPressAction={this.toggleInfo}
           openEditModal={this.props.openEditModal}
+          openWeightEditModal={this.props.openEditWeightPocketModal}
         />
       </View>
     );
@@ -95,6 +99,7 @@ PhonePocket.propTypes = {
   weight: PropTypes.string,
   pocketState: PropTypes.string.isRequired,
   openEditModal: PropTypes.func.isRequired,
+  openEditWeightPocketModal: PropTypes.func.isRequired,
 };
 
 PhonePocket.defaultProps = {

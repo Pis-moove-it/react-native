@@ -76,7 +76,9 @@ export default {
   descriptionPlaceholderModal: 'Description ',
 
   // Edit Pocket Modal
-  editPocket: 'Edit Pocket ',
+  editPocket: 'Edit pocket ',
+  editWeightPocket: 'Edit weight ',
+  addWeightPocket: 'Add weight ',
 
   // Constants
   plastic: 'Plastic ',

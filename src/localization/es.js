@@ -77,6 +77,8 @@ export default {
 
   // Edit Pocket Modal
   editPocket: 'Editar bolsón ',
+  editWeightPocket: 'Editar peso ',
+  addWeightPocket: 'Agregar peso ',
 
   // Constants
   plastic: 'Plástico ',
@@ -95,5 +97,5 @@ export default {
   pocketButtonWeightText: 'Pesar ',
   pocketButtonEditWeightText: 'Modificar peso ',
   information: 'Información ',
-  collectionPoint: 'Punto de recolección',
+  collectionPoint: 'Punto de recolección ',
 };

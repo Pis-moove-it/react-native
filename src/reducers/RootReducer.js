@@ -10,6 +10,7 @@ import createBaleModal from './CreateBaleModalReducer';
 import editBaleModal from './EditBaleModalReducer';
 import createPocketModal from './CreatePocketModalReducer';
 import editPocketModal from './EditPocketModalReducer';
+import editWeightPocketModal from './EditWeightPocketModalReducer';
 
 const rootReducer = combineReducers({
   loading,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   editBaleModal,
   createPocketModal,
   editPocketModal,
+  editWeightPocketModal,
 });
 
 export default rootReducer;
