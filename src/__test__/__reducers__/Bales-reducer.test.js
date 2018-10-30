@@ -4,7 +4,6 @@ import { actionTypes } from '../../actions/BalesActions';
 const mockState = {
   bales: ['initial', 'mock', 'bales'],
   isFetching: false,
-  error: false,
 };
 
 jest.mock(
@@ -34,34 +33,42 @@ describe('bales list reducer', () => {
   });
 
   it('should a state with isFetching in true', () => {
-    expect(balesListReducer(initialState, { bales: [], type: actionTypes.BALES_REQUEST })).toEqual({
+    expect(balesListReducer(initialState, { type: actionTypes.BALES_REQUEST })).toEqual({
       bales: [],
+      balesQuantity: false,
       isFetching: true,
-      error: false,
     });
   });
 
   it('should return a state with error in true', () => {
-    expect(balesListReducer(initialState, { bales: [], type: actionTypes.BALES_ERROR })).toEqual({
+    expect(balesListReducer(initialState, { type: actionTypes.BALES_ERROR })).toEqual({
       bales: [],
+      balesQuantity: false,
       isFetching: false,
-      error: true,
     });
   });
 
   it('should return a state with mock bales', () => {
-    expect(balesListReducer(initialState, { bales: ['Test'], type: actionTypes.BALES_REQUEST_SUCCESS })).toEqual({
+    expect(balesListReducer(initialState, {
       bales: ['Test'],
+      balesQuantity: 99,
+      type: actionTypes.BALES_SUCCESS,
+    })).toEqual({
+      bales: ['Test'],
+      balesQuantity: 99,
       isFetching: false,
-      error: false,
     });
   });
 
   it('should return a state with different bales', () => {
-    expect(balesListReducer(mockState, { bales: ['new data'], type: actionTypes.BALES_REQUEST_SUCCESS })).toEqual({
-      bales: ['new data'],
+    expect(balesListReducer(mockState, {
+      bales: ['New data'],
+      balesQuantity: 99,
+      type: actionTypes.BALES_SUCCESS,
+    })).toEqual({
+      bales: ['New data'],
+      balesQuantity: 99,
       isFetching: false,
-      error: false,
     });
   });
 });

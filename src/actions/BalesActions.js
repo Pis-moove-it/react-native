@@ -1,9 +1,10 @@
 import BaleController from '../controllers/BaleController';
 
 export const actionTypes = {
+  BALES: 'BALES',
   BALES_REQUEST: 'BALES_REQUEST',
   BALES_ERROR: 'BALES_ERROR',
-  BALES_REQUEST_SUCCESS: 'BALES_REQUEST_SUCCESS',
+  BALES_SUCCESS: 'BALES_SUCCESS',
 };
 
 const getBales = () => ({
@@ -15,16 +16,17 @@ const getBalesError = error => ({
   error,
 });
 
-const getBalesSuccess = bales => ({
-  type: actionTypes.BALES_REQUEST_SUCCESS,
+const getBalesSuccess = (bales, balesQuantity) => ({
+  type: actionTypes.BALES_SUCCESS,
   bales,
+  balesQuantity,
 });
 
 export const fetchBales = token => async (dispatch) => {
   dispatch(getBales());
   try {
     const { bales } = await BaleController.getBales(token);
-    dispatch(getBalesSuccess(bales));
+    dispatch(getBalesSuccess(bales, bales.length));
   } catch (error) {
     dispatch(getBalesError(error.message));
   }

@@ -65,14 +65,18 @@ class User extends Component {
         <View style={[styles.bottomContainer, ShadowStyles.shadow]}>
           <View style={styles.pickerContainer}>
             <Image source={avatar} style={styles.icon} />
-            <Picker
-              selectedValue={this.state.identifier}
-              style={styles.picker}
-              mode="dialog"
-              onValueChange={this.usernameChanged}
-            >
-              {this.getUsers()}
-            </Picker>
+            {this.props.dataFetch.length > 0 ? (
+              <Picker
+                selectedValue={this.state.identifier}
+                style={styles.picker}
+                mode="dialog"
+                onValueChange={this.usernameChanged}
+              >
+                {this.getUsers()}
+              </Picker>
+            ) : (
+              <ActivityIndicator size="large" color={Colors.primary} />
+            )}
           </View>
           <ErrorView errors={errors} />
           {this.props.isLoading && errors.length < 1 ? (
