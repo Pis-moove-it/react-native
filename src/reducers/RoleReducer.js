@@ -4,7 +4,7 @@ const initialState = {
   role: false,
 };
 
-const userReducer = (state = initialState, action) => {
+const roleReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ROLE_SELECTION:
       return {
@@ -18,4 +18,4 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
-export default userReducer;
+export default roleReducer;

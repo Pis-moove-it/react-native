@@ -2,7 +2,8 @@ import { actionTypes } from '../actions/GatherActions';
 
 export const initialState = {
   date: false,
-  km: 0,
+  hour: false,
+  kmsTraveled: 0,
   pocketsCollected: 0,
 };
 
@@ -12,7 +13,8 @@ const gatherReducer = (state = initialState, action) => {
       return {
         ...state,
         date: action.date,
-        km: action.km,
+        hour: action.hour,
+        kmsTraveled: action.kmsTraveled,
         pocketsCollected: action.pocketsCollected,
       };
     default:

@@ -9,6 +9,10 @@ import bales from './BalesReducer';
 import createBaleModal from './CreateBaleModalReducer';
 import editBaleModal from './EditBaleModalReducer';
 import createPocketModal from './CreatePocketModalReducer';
+import date from './GatherReducer';
+import hour from './GatherReducer';
+import kmsTraveled from './GatherReducer';
+import pocketsCollected from './GatherReducer';
 
 const rootReducer = combineReducers({
   loading,
@@ -21,6 +25,10 @@ const rootReducer = combineReducers({
   createBaleModal,
   editBaleModal,
   createPocketModal,
+  date,
+  hour,
+  kmsTraveled,
+  pocketsCollected,
 });
 
 export default rootReducer;

@@ -2,13 +2,14 @@ export const actionTypes = {
   FINISH_TRAVEL: 'FINISH_TRAVEL',
 };
 
-const travelFinished = (date, km, pocketsCollected) => ({
+const travelFinished = (date, hour, kmsTraveled, pocketsCollected) => ({
   type: actionTypes.FINISH_TRAVEL,
   date,
-  km,
+  hour,
+  kmsTraveled,
   pocketsCollected,
 });
 
-export const finishTravel = (date, km, pocketsCollected) => (dispatch) => {
-  dispatch(travelFinished(date, km, pocketsCollected));
+export const finishTravel = (date, hour, kmsTraveled, pocketsCollected) => (dispatch) => {
+  dispatch(travelFinished(date, hour, kmsTraveled, pocketsCollected));
 };

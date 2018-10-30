@@ -100,4 +100,10 @@ export default {
 
   // Map
   endTravel: 'Complete trip ',
+
+  // Travel Finished
+  summary: 'Summary ',
+  hour: 'Hour ',
+  kmsTraveled: 'Kilometers traveled ',
+  pocketsCollected: 'Number of pockets ',
 };

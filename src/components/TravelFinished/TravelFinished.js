@@ -8,6 +8,12 @@ import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
+import {
+  getDate,
+  getHour,
+  getKmsTraveled,
+  getPocketsCollected,
+} from '../../selectors/GatherSelector';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
@@ -130,7 +136,30 @@ class TravelFinished extends Component {
   render() {
     return (
       <View>
-        <Text> Recorrido finalizado </Text>
+        <View style={styles.resumeAndHourContainer}>
+          <View style={styles.resumeContainer}>
+            <Text style={styles.resumeAndHourTitle}> {strings.summary} </Text>
+            <Text style={styles.resumeAndHourTitlex}> {this.props.date} </Text>
+          </View>
+          <View style={styles.hourContainer}>
+            <Text style={styles.resumeAndHourTitle}> {strings.hour} </Text>
+            <Text style={styles.resumeAndHourTitlex}> {this.props.hour} </Text>
+          </View>
+        </View>
+        <Image source={this.props.mapTravelImage} />
+        <View style={styles.kmsAndPocketsContainer}>
+          <View>
+            <Text style={styles.kmsAndPocketsTitle}> {strings.kmsTraveled.toUpperCase()} </Text>
+            <Text style={styles.resumeAndHourTitlex}> {this.props.kmsTraveled} </Text>
+          </View>
+          <View>
+            <Text style={styles.kmsAndPocketsTitle}>
+              {' '}
+              {strings.pocketsCollected.toUpperCase()}{' '}
+            </Text>
+            <Text style={styles.resumeAndHourTitlex}> {this.props.pocketsCollected} </Text>
+          </View>
+        </View>
       </View>
     );
   }
@@ -141,6 +170,11 @@ TravelFinished.propTypes = {
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
+  date: PropTypes.string.isRequired,
+  hour: PropTypes.string.isRequired,
+  mapTravelImage: PropTypes.object.isRequired,
+  kmsTraveled: PropTypes.number.isRequired,
+  pocketsCollected: PropTypes.number.isRequired,
 };
 
 TravelFinished.defaultProps = {};
@@ -148,6 +182,10 @@ TravelFinished.defaultProps = {};
 const mapStateToProps = state => ({
   user: getUser(state),
   role: getRole(state),
+  date: getDate(state),
+  hour: getHour(state),
+  kmsTraveled: getKmsTraveled(state),
+  pocketsCollected: getPocketsCollected(state),
 });
 
 const mapDispatchToProps = dispatch => ({
