@@ -7,35 +7,6 @@ class BaleController {
     this.path = 'bales/';
   }
 
-  editBale = async (token, bale, weight, material) =>
-    new Promise((resolve, reject) => {
-      axios
-        .put(
-          `${basePath}${this.path}${bale}`,
-          {
-            bale: {
-              weight: `${weight}`,
-              material: `${material}`,
-            },
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              ApiKey: `${token}`,
-            },
-          },
-        )
-        .then((response) => {
-          resolve({
-            baleData: response.data,
-          });
-        })
-        .catch((error) => {
-          if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
-          else reject(new Error(strings.errorEditBale));
-        });
-    });
-
   newBale = async (token, weight, material) =>
     new Promise((resolve, reject) => {
       axios
@@ -62,6 +33,35 @@ class BaleController {
         .catch((error) => {
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
           else reject(new Error(strings.errorNewBale));
+        });
+    });
+
+  editBale = async (token, bale, weight, material) =>
+    new Promise((resolve, reject) => {
+      axios
+        .put(
+          `${basePath}${this.path}${bale}`,
+          {
+            bale: {
+              weight: `${weight}`,
+              material: `${material}`,
+            },
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              ApiKey: `${token}`,
+            },
+          },
+        )
+        .then((response) => {
+          resolve({
+            baleData: response.data,
+          });
+        })
+        .catch((error) => {
+          if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
+          else reject(new Error(strings.errorEditBale));
         });
     });
 

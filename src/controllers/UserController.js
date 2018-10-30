@@ -6,7 +6,7 @@ class UserController {
   constructor() {
     this.organizationPath = 'organizations/{organization}/';
     this.userPath = 'users/{user}/';
-    this.loginPath = 'login';
+    this.loginPath = 'login/';
   }
 
   login = async (token, organization, user) =>
