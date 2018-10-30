@@ -6,6 +6,8 @@ const mockState = {
   isFetching: false,
 };
 
+const array = ['bale1', 'bale2'];
+
 jest.mock(
   'react-native-localization',
   () =>
@@ -50,24 +52,24 @@ describe('bales list reducer', () => {
 
   it('should return a state with mock bales', () => {
     expect(balesListReducer(initialState, {
-      bales: ['Test'],
-      balesQuantity: 99,
+      bales: array,
+      balesQuantity: array.length,
       type: actionTypes.BALES_SUCCESS,
     })).toEqual({
-      bales: ['Test'],
-      balesQuantity: 99,
+      bales: ['bale1', 'bale2'],
+      balesQuantity: 2,
       isFetching: false,
     });
   });
 
   it('should return a state with different bales', () => {
     expect(balesListReducer(mockState, {
-      bales: ['New data'],
-      balesQuantity: 99,
+      bales: array,
+      balesQuantity: array.length,
       type: actionTypes.BALES_SUCCESS,
     })).toEqual({
-      bales: ['New data'],
-      balesQuantity: 99,
+      bales: ['bale1', 'bale2'],
+      balesQuantity: 2,
       isFetching: false,
     });
   });
