@@ -3,6 +3,7 @@ import { actionTypes } from '../actions/GatherActions';
 export const initialState = {
   date: false,
   hour: false,
+  travelImage: false,
   kmsTraveled: 0,
   pocketsCollected: 0,
 };
@@ -14,6 +15,7 @@ const gatherReducer = (state = initialState, action) => {
         ...state,
         date: action.date,
         hour: action.hour,
+        travelImage: action.travelImage,
         kmsTraveled: action.kmsTraveled,
         pocketsCollected: action.pocketsCollected,
       };

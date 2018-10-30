@@ -133,7 +133,7 @@ class Gather extends Component {
   changeRole = () => this.props.changeRole();
 
   finishTravel = () => {
-    this.props.finishTravel('Miércoles 16 de Octubre', '17:05', 200, 25);
+    this.props.finishTravel('Miércoles 16 de Octubre', '17:05', TickIcon, 200, 25);
     this.props.navigator.push({
       screen: Screens.TravelFinished,
       animationType: 'fade',
@@ -202,8 +202,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
-  finishTravel: (date, hour, kmsTraveled, pocketsCollected) =>
-    dispatch(finishTravel(date, hour, kmsTraveled, pocketsCollected)),
+  finishTravel: (date, hour, travelImage, kmsTraveled, pocketsCollected) =>
+    dispatch(finishTravel(date, hour, travelImage, kmsTraveled, pocketsCollected)),
 });
 
 export default connect(

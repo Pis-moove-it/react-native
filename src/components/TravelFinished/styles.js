@@ -22,21 +22,46 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   resumeAndHourTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: '800',
     color: Colors.primary,
+    padding: 0,
+    marginHorizontal: 0,
+  },
+  resumeAndHourSubtitle: {
+    fontSize: 15,
+    fontWeight: '300',
+    color: Colors.black,
+  },
+  imageContainer: {
+    marginHorizontal: '10%',
+    alignItems: 'center',
+  },
+  image: {
+    width: '100%',
   },
   kmsAndPocketsContainer: {
     display: 'flex',
     flexDirection: 'column',
     marginTop: '10%',
     marginHorizontal: '10%',
-    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  kmsContainer: {
+    alignItems: 'center',
+  },
+  pocketsContainer: {
+    alignItems: 'center',
   },
   kmsAndPocketsTitle: {
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: '600',
     color: Colors.primary,
+  },
+  kmsAndPocketsSubtitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: Colors.black,
   },
 });
 

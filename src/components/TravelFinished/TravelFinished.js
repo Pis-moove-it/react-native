@@ -11,6 +11,7 @@ import getRole from '../../selectors/RoleSelector';
 import {
   getDate,
   getHour,
+  getImage,
   getKmsTraveled,
   getPocketsCollected,
 } from '../../selectors/GatherSelector';
@@ -139,25 +140,27 @@ class TravelFinished extends Component {
         <View style={styles.resumeAndHourContainer}>
           <View style={styles.resumeContainer}>
             <Text style={styles.resumeAndHourTitle}> {strings.summary} </Text>
-            <Text style={styles.resumeAndHourTitlex}> {this.props.date} </Text>
+            <Text style={styles.resumeAndHourSubtitle}> {this.props.date} </Text>
           </View>
           <View style={styles.hourContainer}>
             <Text style={styles.resumeAndHourTitle}> {strings.hour} </Text>
-            <Text style={styles.resumeAndHourTitlex}> {this.props.hour} </Text>
+            <Text style={styles.resumeAndHourSubtitle}>
+              {this.props.hour}
+              hs
+            </Text>
           </View>
         </View>
-        <Image source={this.props.mapTravelImage} />
+        <View style={styles.imageContainer}>
+          <Image source={this.props.travelImage} />
+        </View>
         <View style={styles.kmsAndPocketsContainer}>
-          <View>
+          <View style={styles.kmsContainer}>
             <Text style={styles.kmsAndPocketsTitle}> {strings.kmsTraveled.toUpperCase()} </Text>
-            <Text style={styles.resumeAndHourTitlex}> {this.props.kmsTraveled} </Text>
+            <Text style={styles.kmsAndPocketsSubtitle}> {this.props.kmsTraveled} </Text>
           </View>
-          <View>
-            <Text style={styles.kmsAndPocketsTitle}>
-              {' '}
-              {strings.pocketsCollected.toUpperCase()}{' '}
-            </Text>
-            <Text style={styles.resumeAndHourTitlex}> {this.props.pocketsCollected} </Text>
+          <View style={styles.pocketsContainer}>
+            <Text style={styles.kmsAndPocketsTitle}>{strings.pocketsCollected.toUpperCase()}</Text>
+            <Text style={styles.kmsAndPocketsSubtitle}> {this.props.pocketsCollected} </Text>
           </View>
         </View>
       </View>
@@ -172,7 +175,7 @@ TravelFinished.propTypes = {
   navigator: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   hour: PropTypes.string.isRequired,
-  mapTravelImage: PropTypes.object.isRequired,
+  travelImage: PropTypes.object.isRequired,
   kmsTraveled: PropTypes.number.isRequired,
   pocketsCollected: PropTypes.number.isRequired,
 };
@@ -184,6 +187,7 @@ const mapStateToProps = state => ({
   role: getRole(state),
   date: getDate(state),
   hour: getHour(state),
+  travelImage: getImage(state),
   kmsTraveled: getKmsTraveled(state),
   pocketsCollected: getPocketsCollected(state),
 });

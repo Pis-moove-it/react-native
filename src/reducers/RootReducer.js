@@ -11,6 +11,7 @@ import editBaleModal from './EditBaleModalReducer';
 import createPocketModal from './CreatePocketModalReducer';
 import date from './GatherReducer';
 import hour from './GatherReducer';
+import travelImage from './GatherReducer';
 import kmsTraveled from './GatherReducer';
 import pocketsCollected from './GatherReducer';
 
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   createPocketModal,
   date,
   hour,
+  travelImage,
   kmsTraveled,
   pocketsCollected,
 });
