@@ -19,6 +19,8 @@ import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
+import CustomButton from '../common/CustomButton';
+import TickIcon from '../../assets/images/Tick.png';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
 
@@ -128,6 +130,15 @@ class Gather extends Component {
     return (
       <View style={stylesGather.mapContainer}>
         <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
+        <CustomButton
+          style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
+          icon={TickIcon}
+          iconStyle={isTablet ? stylesGather.tickStyleTablet : stylesGather.tickStylePhone}
+          title={strings.endTravel.toUpperCase()}
+          textStyle={
+            isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
+          }
+        />
         <CreatePocketModal />
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}

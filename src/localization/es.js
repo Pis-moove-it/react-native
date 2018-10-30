@@ -97,4 +97,7 @@ export default {
   errorNetwork: 'No se pudo establecer una conexión, intente nuevamente ',
   errorEditBale: 'No se pudo editar el fardo, intente nuevamente ',
   errorNewBale: 'No se pudo crear el fardo, intente nuevamente ',
+
+  // Map
+  endTravel: 'Terminar recorrido ',
 };
