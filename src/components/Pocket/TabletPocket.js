@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Image, Text } from 'react-native';
 import PocketIcon from '../../assets/images/PocketIcon.png';
+import PencilIcon from '../../assets/ic_common/ic_edit.png';
 import Button from '../common/Button';
 import CustomButton from '../common/CustomButton';
 import strings from '../../localization';
