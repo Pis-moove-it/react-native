@@ -5,7 +5,7 @@ export const initialState = {
   isLoading: false,
 };
 
-const collectionReducer = (state = initialState, action) => {
+const gatherReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.START_COLLECTION_REQUEST:
       return {
@@ -24,4 +24,4 @@ const collectionReducer = (state = initialState, action) => {
   }
 };
 
-export default collectionReducer;
+export default gatherReducer;
