@@ -61,4 +61,24 @@ describe('gather reducer', () => {
       isLoading: false,
     });
   });
+
+  it('should a state with isFetching in true', () => {
+    expect(gatherReducer(initialState, {
+      collectionId: false,
+      type: actionTypes.END_COLLECTION_REQUEST,
+    })).toEqual({
+      collectionId: false,
+      isLoading: true,
+    });
+  });
+
+  it('should a state with isFetching in true', () => {
+    expect(gatherReducer(initialState, {
+      collectionId: false,
+      type: actionTypes.END_COLLECTION_SUCCESS,
+    })).toEqual({
+      collectionId: false,
+      isLoading: false,
+    });
+  });
 });
