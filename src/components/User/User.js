@@ -63,9 +63,9 @@ class User extends Component {
           <Image source={reciclandoLogo} style={styles.logo} />
         </View>
         <View style={[styles.bottomContainer, ShadowStyles.shadow]}>
-          <View style={styles.pickerContainer}>
-            <Image source={avatar} style={styles.icon} />
-            {this.props.dataFetch.length > 0 ? (
+          {this.props.dataFetch.length > 0 ? (
+            <View style={styles.pickerContainer}>
+              <Image source={avatar} style={styles.icon} />
               <Picker
                 selectedValue={this.state.identifier}
                 style={styles.picker}
@@ -74,10 +74,10 @@ class User extends Component {
               >
                 {this.getUsers()}
               </Picker>
-            ) : (
-              <ActivityIndicator size="large" color={Colors.primary} />
-            )}
-          </View>
+            </View>
+          ) : (
+            <ActivityIndicator size="large" color={Colors.primary} />
+          )}
           <ErrorView errors={errors} />
           {this.props.isLoading && errors.length < 1 ? (
             <View style={styles.activityIndicator}>
