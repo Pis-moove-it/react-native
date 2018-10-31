@@ -58,6 +58,32 @@ class GatherController {
           else reject(new Error(strings.errorUser));
         });
     });
+
+  endCollection = async (token, routeId, routeLength, routeImage) =>
+    new Promise((resolve, reject) => {
+      this.routeID = routeId;
+      axios
+        .put(
+          `${basePath}${this.routesPath}/${this.routeID}`,
+          {
+            length: routeLength,
+            travel_image: routeImage,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              ApiKey: `${token}`,
+            },
+          },
+        )
+        .then(() => {
+          resolve({});
+        })
+        .catch((error) => {
+          if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
+          else reject(new Error(strings.errorUser));
+        });
+    });
 }
 
 export default new GatherController();
