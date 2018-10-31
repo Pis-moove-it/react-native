@@ -31,7 +31,7 @@ describe('GatherActions', () => {
 
   const store = mockStore(user);
 
-  it('should create an action for bales request', () => {
+  it('should create an action for starting route request', () => {
     const expectedAction = { type: gatherActions.actionTypes.START_COLLECTION_REQUEST };
 
     // Dispatch the action
@@ -42,7 +42,7 @@ describe('GatherActions', () => {
     expect(actions).toEqual([expectedAction]);
   });
 
-  it('should create an action for bales request', () => {
+  it('should create an action for add pockets to route request', () => {
     const expectedAction = { type: gatherActions.actionTypes.ADD_POCKET_REQUEST };
 
     // Dispatch the action
