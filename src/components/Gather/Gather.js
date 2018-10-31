@@ -18,9 +18,9 @@ import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
+import requestLocationPermission from '../../helpers/Permissions';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
-
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
@@ -48,12 +48,13 @@ class Gather extends Component {
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
-  
+
   state = {
     isModalVisible: false,
   };
 
   componentDidMount() {
+    requestLocationPermission();
     if (isTablet || this.state.landscape) {
       this.setButtonsTablet(this.props.user);
     } else {
@@ -149,7 +150,6 @@ class Gather extends Component {
           >
             <Image source={icon} style={stylesGather.trashIcon} />
             <Mapbox.Callout title={strings.collectionPoint} />
-
           </Mapbox.PointAnnotation>
           <Mapbox.PointAnnotation
             key="pointAnnotation2"
