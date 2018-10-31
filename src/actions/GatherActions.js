@@ -7,6 +7,10 @@ export const actionTypes = {
   START_COLLECTION_ERROR: 'START_COLLECTION_ERROR',
   ADD_POCKET_REQUEST: 'ADD_POCKET_REQUEST',
   ADD_POCKET_SUCCESS: 'ADD_POCKET_SUCCESS',
+  ADD_POCKET_ERROR: 'ADD_POCKET_ERROR',
+  END_COLLECTION_REQUEST: 'END_COLLECTION_REQUEST',
+  END_COLLECTION_SUCCESS: 'END_COLLECTION_SUCCESS',
+  END_COLLECTION_ERROR: 'END_COLLECTION_ERROR',
 };
 
 const startCollectionRequest = () => ({
@@ -32,7 +36,20 @@ const addPocketSuccess = () => ({
 });
 
 const addPocketError = error => ({
-  type: actionTypes.START_COLLECTION_ERROR,
+  type: actionTypes.ADD_POCKET_ERROR,
+  error,
+});
+
+const endCollectionRequest = () => ({
+  type: actionTypes.END_COLLECTION_REQUEST,
+});
+
+const endCollectionSuccess = () => ({
+  type: actionTypes.END_COLLECTION_SUCCESS,
+});
+
+const endCollectionError = error => ({
+  type: actionTypes.END_COLLECTION_ERROR,
   error,
 });
 
@@ -58,5 +75,15 @@ export const addPocketToCollection = (
     dispatch(addPocketSuccess());
   } catch (error) {
     dispatch(addPocketError(error.message));
+  }
+};
+
+export const endCollection = (token, routeId, routeLength, routeImage) => async (dispatch) => {
+  dispatch(endCollectionRequest());
+  try {
+    await GatherController.endCollection(token, routeId, routeLength, routeImage);
+    dispatch(endCollectionSuccess());
+  } catch (error) {
+    dispatch(endCollectionError(error.message));
   }
 };

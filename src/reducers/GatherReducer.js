@@ -29,6 +29,16 @@ const gatherReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
       };
+    case actionTypes.END_COLLECTION_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case actionTypes.END_COLLECTION_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
     default:
       return state;
   }
