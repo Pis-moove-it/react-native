@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import strings from '../../localization';
-import getIsModalVisible from '../../selectors/EditPocketModalSelector';
-import { closeEditPocketModal } from '../../actions/EditPocketModalActions';
-import ErrorView from '../common/ErrorView';
+import getIsModalVisible from '../../selectors/EditIdPocketModalSelector';
+import { closeEditPocketModal } from '../../actions/EditIdPocketModalActions';
+import ErrorView from './ErrorView';
 import Button from './Button';
 import TextField from './TextField';
 import recyclabeleMaterials from './Constants';
@@ -54,6 +54,7 @@ class EditPocketModal extends Component {
             <TextField
               placeholder={strings.identifierPlaceholderModal}
               keyboardType="numeric"
+              maxLength={8}
               onChangeText={value => this.setState({ newIdentifier: value })}
             />
             {this.state.inputError && <ErrorView errors={this.state.errors} />}

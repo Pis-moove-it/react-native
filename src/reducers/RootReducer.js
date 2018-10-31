@@ -9,7 +9,7 @@ import bales from './BalesReducer';
 import createBaleModal from './CreateBaleModalReducer';
 import editBaleModal from './EditBaleModalReducer';
 import createPocketModal from './CreatePocketModalReducer';
-import editPocketModal from './EditPocketModalReducer';
+import editPocketModal from './EditIdPocketModalReducer';
 import editWeightPocketModal from './EditWeightPocketModalReducer';
 import gather from './GatherReducer';
 

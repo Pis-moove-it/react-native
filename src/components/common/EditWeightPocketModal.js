@@ -56,6 +56,7 @@ class EditWeightPocketModal extends Component {
             <TextField
               placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
+              maxLength={8}
               onChangeText={value => this.setState({ newIdentifier: value })}
             />
             {this.state.inputError && <ErrorView errors={this.state.errors} />}

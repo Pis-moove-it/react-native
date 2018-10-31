@@ -1,4 +1,4 @@
-import { actionTypes } from '../actions/EditPocketModalActions';
+import { actionTypes } from '../actions/EditIdPocketModalActions';
 
 export const initialState = {
   editPocketModalIsOpen: false,
