@@ -30,9 +30,10 @@ const store = mockStore();
 // Minimal case
 it('renders correctly only with required props', () => {
   const tree = renderer
-    .create(<Provider store={store}>
-      <PocketList />
-            </Provider>)
+    .create(
+      <Provider store={store}>
+        <PocketList />
+      </Provider>)
     .toJSON();
   expect(tree).toMatchSnapshot;
 });
