@@ -26,14 +26,12 @@ const Bale = ({ id, onPressAction, openModal }) => (
 
 Bale.propTypes = {
   id: PropTypes.string,
-  onPressAction: PropTypes.func,
-  openModal: PropTypes.func,
+  onPressAction: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 Bale.defaultProps = {
   id: false,
-  onPressAction: () => ({}),
-  openModal: () => ({}),
 };
 
 class PhoneBale extends Component {

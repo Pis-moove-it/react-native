@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { FlatList, RefreshControl, View } from 'react-native';
+import { FlatList, View, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
+import { openEditIdPocketModal } from '../../actions/EditIdPocketModalActions';
+import { openEditWeightPocketModal } from '../../actions/EditWeightPocketModalActions';
 import { getPockets } from '../../actions/PocketActions';
+import EditIdPocketModal from '../common/EditIdPocketModal';
+import EditWeightPocketModal from '../common/EditWeightPocketModal';
 import pockets from '../../selectors/PocketSelector';
 import TabletPocket from './TabletPocket';
 import PhonePocket from './PhonePocket';
@@ -34,12 +38,17 @@ class PocketList extends Component {
   render() {
     return (
       <View>
+        <EditIdPocketModal />
+        <EditWeightPocketModal />
         <FlatList
           data={this.props.pockets}
           renderItem={({ item }) => {
             if (isPhone) {
               return (
                 <PhonePocket
+
+                  openEditIdPocketModal={this.props.openEditIdPocketModal}
+                  openEditWeightPocketModal={() => this.props.openEditWeightPocketModal(item.state !== 'Unweighed')}
                   id={item.serial_number}
                   time={item.check_in}
                   weight={item.weight}
@@ -53,6 +62,8 @@ class PocketList extends Component {
                 time={item.check_in}
                 weight={item.weight}
                 pocketState={item.state}
+                openEditIdPocketModal={this.props.openEditIdPocketModal}
+                openEditWeightPocketModal={() => this.props.openEditWeightPocketModal(item.state !== 'Unweighed')}
               />
             );
           }}
@@ -66,6 +77,8 @@ class PocketList extends Component {
 }
 
 PocketList.propTypes = {
+  openEditIdPocketModal: PropTypes.func.isRequired,
+  openEditWeightPocketModal: PropTypes.func.isRequired,
   getPockets: PropTypes.func.isRequired,
   pockets: PropTypes.array,
   token: PropTypes.string,
@@ -82,6 +95,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  openEditIdPocketModal: () => dispatch(openEditIdPocketModal()),
+  openEditWeightPocketModal: hasWeight => dispatch(openEditWeightPocketModal(hasWeight)),
   getPockets: token => dispatch(getPockets(token)),
 });
 

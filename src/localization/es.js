@@ -71,6 +71,11 @@ export default {
   identifierPlaceholderModal: 'Identificador ',
   descriptionPlaceholderModal: 'Descripción ',
 
+  // Edit Pocket Modal
+  editPocket: 'Editar bolsón ',
+  editWeightPocket: 'Editar peso ',
+  addWeightPocket: 'Agregar peso ',
+
   // Constants
   plastic: 'Plástico ',
   glass: 'Vidrio ',

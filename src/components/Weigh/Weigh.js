@@ -107,7 +107,9 @@ class Weigh extends Component {
   changeRole = () => this.props.changeRole();
 
   render() {
-    return <PocketList />;
+    return (
+      <PocketList />
+    );
   }
 }
 

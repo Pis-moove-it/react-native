@@ -4,15 +4,19 @@ import { View, Image, Text, TouchableOpacity } from 'react-native';
 import PocketIcon from '../../assets/images/PocketIcon.png';
 import Button from '../common/Button';
 import PocketInfo from '../Pocket/PocketInfo';
+import CustomButton from '../common/CustomButton';
 import strings from '../../localization';
+import PencilIcon from '../../assets/ic_common/ic_edit.png';
 import styles from './styles';
 
-const Pocket = ({ id, pocketState, onPressAction }) => (
+const Pocket = ({
+  id, pocketState, onPressAction, openIdEditModal, openWeightEditModal,
+}) => (
   <View style={styles.containerPhonePocket}>
     <TouchableOpacity onPress={onPressAction} style={styles.touchableStyle}>
       <Image source={PocketIcon} style={styles.pocketImageStylePhone} />
       <Text style={styles.textBlackPhone}>
-        {strings.pocket}#{id}
+        {strings.pocket} #{id}
       </Text>
     </TouchableOpacity>
     <View style={styles.wrapperButtonPhone}>
@@ -25,8 +29,10 @@ const Pocket = ({ id, pocketState, onPressAction }) => (
               : strings.pocketButtonEditWeightText
           }
           textStyle={styles.tabletButtonText}
+          onPress={openWeightEditModal}
         />
       </View>
+      <CustomButton icon={PencilIcon} onPress={openIdEditModal} />
     </View>
   </View>
 );
@@ -34,11 +40,9 @@ const Pocket = ({ id, pocketState, onPressAction }) => (
 Pocket.propTypes = {
   id: PropTypes.string.isRequired,
   pocketState: PropTypes.string.isRequired,
-  onPressAction: PropTypes.func,
-};
-
-Pocket.defaultProps = {
-  onPressAction: () => ({}),
+  onPressAction: PropTypes.func.isRequired,
+  openIdEditModal: PropTypes.func.isRequired,
+  openWeightEditModal: PropTypes.func.isRequired,
 };
 
 class PhonePocket extends Component {
@@ -63,6 +67,8 @@ class PhonePocket extends Component {
             id={this.state.id}
             pocketState={this.state.pocketState}
             onPressAction={this.toggleInfo}
+            openIdEditModal={this.props.openEditIdPocketModal}
+            openWeightEditModal={this.props.openEditWeightPocketModal}
           />
           <PocketInfo
             time={this.state.time}
@@ -77,6 +83,8 @@ class PhonePocket extends Component {
           id={this.state.id}
           pocketState={this.state.pocketState}
           onPressAction={this.toggleInfo}
+          openIdEditModal={this.props.openEditIdPocketModal}
+          openWeightEditModal={this.props.openEditWeightPocketModal}
         />
       </View>
     );
@@ -88,6 +96,8 @@ PhonePocket.propTypes = {
   time: PropTypes.string,
   weight: PropTypes.string,
   pocketState: PropTypes.string.isRequired,
+  openEditIdPocketModal: PropTypes.func.isRequired,
+  openEditWeightPocketModal: PropTypes.func.isRequired,
 };
 
 PhonePocket.defaultProps = {
