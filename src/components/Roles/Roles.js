@@ -21,7 +21,6 @@ class Roles extends Component {
     // TODO: Add 'portrait' and 'deviceType' to a redux prop to make it accesible from any component
     this.state = {
       portrait: Platform.isPortrait(),
-      deviceType: Platform.isTablet() ? 'tablet' : 'phone',
     };
 
     // Event Listener for orientation changes
@@ -93,10 +92,6 @@ Roles.propTypes = {
   selectRole: PropTypes.func.isRequired,
   role: PropTypes.string.isRequired,
   navigator: PropTypes.object.isRequired,
-};
-
-Roles.defaultProps = {
-  role: false,
 };
 
 const mapStateToProps = state => ({

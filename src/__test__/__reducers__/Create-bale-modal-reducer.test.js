@@ -26,18 +26,20 @@ describe('create bale modal reducer', () => {
   it('should a state with isVisible in false', () => {
     expect(createBaleModalReducer(initialState, {
       type: actionTypes.CLOSE_CREATE_BALE_MODAL,
-      isVisible: false,
     })).toEqual({
+      baleData: false,
       createBaleModalIsOpen: false,
+      isLoading: false,
     });
   });
 
   it('should a state with isVisible in true', () => {
     expect(createBaleModalReducer(initialState, {
       type: actionTypes.OPEN_CREATE_BALE_MODAL,
-      isVisible: true,
     })).toEqual({
+      baleData: false,
       createBaleModalIsOpen: true,
+      isLoading: false,
     });
   });
 });

@@ -10,6 +10,7 @@ const stylesGather = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
+    zIndex: -1,
   },
   overlayTimeText: {
     color: Colors.white,
@@ -47,6 +48,46 @@ const stylesGather = StyleSheet.create({
   trashIcon: {
     width: 70,
     height: 70,
+  },
+  buttonOverMapPhone: {
+    width: 170,
+    height: 45,
+    position: 'absolute',
+    bottom: '6%',
+    marginLeft: '1.5%',
+    backgroundColor: 'white',
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  textButtonOverMapPhone: {
+    color: 'black',
+    fontSize: 12,
+    fontWeight: '500',
+    paddingLeft: 3,
+  },
+  tickStylePhone: {
+    width: 30,
+    height: 30,
+  },
+  buttonOverMapTablet: {
+    width: 260,
+    height: 80,
+    position: 'absolute',
+    bottom: '8%',
+    marginLeft: '5%',
+    backgroundColor: 'white',
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  textButtonOverMapTablet: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: '500',
+    paddingLeft: 3,
+  },
+  tickStyleTablet: {
+    width: 50,
+    height: 50,
   },
 });
 
