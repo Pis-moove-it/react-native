@@ -40,9 +40,7 @@ const TabletPocket = ({
           onPress={openEditWeightModal}
         />
       </View>
-      <View style={styles.containerEditTablet}>
-        <CustomButton icon={PencilIcon} onPress={openEditModal} />
-      </View>
+      <CustomButton icon={PencilIcon} onPress={openEditModal} />
     </View>
   </View>
 );

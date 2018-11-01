@@ -32,7 +32,7 @@ const Pocket = ({
           onPress={openWeightEditModal}
         />
       </View>
-      <View style={styles.containerEditTablet}>
+      <View style={styles.containerEdit}>
         <CustomButton icon={PencilIcon} onPress={openEditModal} />
       </View>
     </View>
