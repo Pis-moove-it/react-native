@@ -3,9 +3,9 @@ import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
-import { openEditPocketModal } from '../../actions/EditIdPocketModalActions';
+import { openEditIdPocketModal } from '../../actions/EditIdPocketModalActions';
 import { openEditWeightPocketModal } from '../../actions/EditWeightPocketModalActions';
-import EditPocketModal from '../common/EditIdPocketModal';
+import EditIdPocketModal from '../common/EditIdPocketModal';
 import EditWeightPocketModal from '../common/EditWeightPocketModal';
 import PhonePocket from './PhonePocket';
 import TabletPocket from './TabletPocket';
@@ -51,7 +51,7 @@ class PocketList extends Component {
   render() {
     return (
       <View>
-        <EditPocketModal />
+        <EditIdPocketModal />
         <EditWeightPocketModal />
         <FlatList
           data={weighList}
@@ -63,7 +63,7 @@ class PocketList extends Component {
                   time={item.time}
                   weight={item.weight}
                   pocketState={item.pocketState}
-                  openEditModal={this.props.openEditPocketModal}
+                  openEditIdModal={this.props.openEditIdPocketModal}
                   openEditWeightPocketModal={() => this.props.openEditWeightPocketModal(item.pocketState !== 'Unweighed')}
                 />
               );
@@ -74,7 +74,7 @@ class PocketList extends Component {
                 time={item.time}
                 weight={item.weight}
                 pocketState={item.pocketState}
-                openEditModal={this.props.openEditPocketModal}
+                openEditIdModal={this.props.openEditIdPocketModal}
                 openEditWeightModal={() => this.props.openEditWeightPocketModal(item.pocketState !== 'Unweighed')}
               />
             );
@@ -86,7 +86,7 @@ class PocketList extends Component {
 }
 
 PocketList.propTypes = {
-  openEditPocketModal: PropTypes.func.isRequired,
+  openEditIdPocketModal: PropTypes.func.isRequired,
   openEditWeightPocketModal: PropTypes.func.isRequired,
 };
 
@@ -95,7 +95,7 @@ PocketList.defaultProps = {};
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  openEditPocketModal: () => dispatch(openEditPocketModal()),
+  openEditIdPocketModal: () => dispatch(openEditIdPocketModal()),
   openEditWeightPocketModal: hasWeight => dispatch(openEditWeightPocketModal(hasWeight)),
 });
 

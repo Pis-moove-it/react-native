@@ -10,7 +10,7 @@ import PencilIcon from '../../assets/ic_common/ic_edit.png';
 import styles from './styles';
 
 const Pocket = ({
-  id, pocketState, onPressAction, openEditModal, openWeightEditModal,
+  id, pocketState, onPressAction, openEditIdModal, openWeightEditModal,
 }) => (
   <View style={styles.containerPhonePocket}>
     <TouchableOpacity onPress={onPressAction} style={styles.touchableStyle}>
@@ -32,7 +32,7 @@ const Pocket = ({
           onPress={openWeightEditModal}
         />
       </View>
-      <CustomButton icon={PencilIcon} onPress={openEditModal} />
+      <CustomButton icon={PencilIcon} onPress={openEditIdModal} />
     </View>
   </View>
 );
@@ -41,7 +41,7 @@ Pocket.propTypes = {
   id: PropTypes.string.isRequired,
   pocketState: PropTypes.string.isRequired,
   onPressAction: PropTypes.func.isRequired,
-  openEditModal: PropTypes.func.isRequired,
+  openEditIdModal: PropTypes.func.isRequired,
   openWeightEditModal: PropTypes.func.isRequired,
 };
 
@@ -67,7 +67,7 @@ class PhonePocket extends Component {
             id={this.state.id}
             pocketState={this.state.pocketState}
             onPressAction={this.toggleInfo}
-            openEditModal={this.props.openEditModal}
+            openEditIdModal={this.props.openEditIdModal}
             openWeightEditModal={this.props.openEditWeightPocketModal}
           />
           <PocketInfo
@@ -83,7 +83,7 @@ class PhonePocket extends Component {
           id={this.state.id}
           pocketState={this.state.pocketState}
           onPressAction={this.toggleInfo}
-          openEditModal={this.props.openEditModal}
+          openEditIdModal={this.props.openEditIdModal}
           openWeightEditModal={this.props.openEditWeightPocketModal}
         />
       </View>
@@ -96,7 +96,7 @@ PhonePocket.propTypes = {
   time: PropTypes.string,
   weight: PropTypes.string,
   pocketState: PropTypes.string.isRequired,
-  openEditModal: PropTypes.func.isRequired,
+  openEditIdModal: PropTypes.func.isRequired,
   openEditWeightPocketModal: PropTypes.func.isRequired,
 };
 

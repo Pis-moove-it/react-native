@@ -3,20 +3,20 @@ export const actionTypes = {
   CLOSE_EDIT_POCKET_MODAL: 'CLOSE_EDIT_POCKET_MODAL',
 };
 
-const openEditPocketModalType = () => ({
+const openEditIdPocketModalType = () => ({
   type: actionTypes.OPEN_EDIT_POCKET_MODAL,
   isVisible: true,
 });
 
-export const openEditPocketModal = () => (dispatch) => {
-  dispatch(openEditPocketModalType());
+export const openEditIdPocketModal = () => (dispatch) => {
+  dispatch(openEditIdPocketModalType());
 };
 
-const closeEditPocketModalType = () => ({
+const closeEditIdPocketModalType = () => ({
   type: actionTypes.CLOSE_EDIT_POCKET_MODAL,
   isVisible: false,
 });
 
-export const closeEditPocketModal = () => (dispatch) => {
-  dispatch(closeEditPocketModalType());
+export const closeEditIdPocketModal = () => (dispatch) => {
+  dispatch(closeEditIdPocketModalType());
 };

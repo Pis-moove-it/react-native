@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import strings from '../../localization';
 import getIsModalVisible from '../../selectors/EditIdPocketModalSelector';
-import { closeEditPocketModal } from '../../actions/EditIdPocketModalActions';
+import { closeEditIdPocketModal } from '../../actions/EditIdPocketModalActions';
 import ErrorView from './ErrorView';
 import Button from './Button';
 import TextField from './TextField';
@@ -81,7 +81,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  closeEditModal: () => dispatch(closeEditPocketModal()),
+  closeEditModal: () => dispatch(closeEditIdPocketModal()),
 });
 
 export default connect(
