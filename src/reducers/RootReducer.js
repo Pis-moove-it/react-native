@@ -11,6 +11,7 @@ import editBaleModal from './EditBaleModalReducer';
 import createPocketModal from './CreatePocketModalReducer';
 import editPocketModal from './EditIdPocketModalReducer';
 import editWeightPocketModal from './EditWeightPocketModalReducer';
+import pockets from './PocketReducer';
 import gather from './GatherReducer';
 
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   role,
   users,
   bales,
+  pockets,
   createBaleModal,
   editBaleModal,
   createPocketModal,
