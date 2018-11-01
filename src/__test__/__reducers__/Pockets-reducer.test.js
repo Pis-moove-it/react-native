@@ -1,9 +1,9 @@
-import pocketsListReducer, { initialState } from '../../reducers/PocketsReducer';
-import { actionTypes } from '../../actions/PocketsActions';
+import pocketsListReducer, { initialState } from '../../reducers/PocketReducer';
+import { actionTypes } from '../../actions/PocketActions';
 
 const mockState = {
   pockets: ['initial', 'mock', 'pockets'],
-  isFetching: false,
+  isLoading: false,
   error: false,
 };
 
@@ -33,19 +33,19 @@ describe('pockets list reducer', () => {
     expect(pocketsListReducer(initialState, { pockets: [], type: 'not_an_action2' })).toEqual(initialState);
   });
 
-  it('should a state with isFetching in true', () => {
+  it('should a return state with isLoading in true', () => {
     expect(pocketsListReducer(initialState, { pockets: [], type: actionTypes.POCKETS_REQUEST })).toEqual({
       pockets: [],
-      isFetching: true,
-      error: false,
+      isLoading: false,
+      pocket: false,
     });
   });
 
   it('should return a state with error in true', () => {
     expect(pocketsListReducer(initialState, { pockets: [], type: actionTypes.POCKETS_ERROR })).toEqual({
       pockets: [],
-      isFetching: false,
-      error: true,
+      isLoading: false,
+      pocket: false,
     });
   });
 
@@ -54,9 +54,9 @@ describe('pockets list reducer', () => {
       pockets: ['Test'],
       type: actionTypes.POCKETS_REQUEST_SUCCESS,
     })).toEqual({
-      pockets: ['Test'],
-      isFetching: false,
-      error: false,
+      pockets: [],
+      pocket: false,
+      isLoading: false,
     });
   });
 
@@ -65,8 +65,8 @@ describe('pockets list reducer', () => {
       pockets: ['new data'],
       type: actionTypes.POCKETS_REQUEST_SUCCESS,
     })).toEqual({
-      pockets: ['new data'],
-      isFetching: false,
+      pockets: ['initial', 'mock', 'pockets'],
+      isLoading: false,
       error: false,
     });
   });
