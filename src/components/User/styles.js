@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   picker: {
     justifyContent: 'center',
-    width: 150,
+    width: '70%',
     margin: '5%',
   },
   activityIndicator: {
