@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, RefreshControl } from 'react-native';
+import { FlatList, View, RefreshControl, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
@@ -12,6 +12,7 @@ import EditBaleModal from '../common/EditBaleModal';
 import recyclableMaterials from '../common/Constants';
 import getBales from '../../selectors/BalesSelector';
 import strings from '../../localization';
+import Colors from '../../helpers/Colors';
 
 class BaleList extends Component {
   static navigatorStyle = {
@@ -52,45 +53,55 @@ class BaleList extends Component {
 
   render() {
     return (
-      <View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+        }}
+      >
         <CreateBaleModal />
         <EditBaleModal />
-        <FlatList
-          data={this.props.bales}
-          renderItem={({ item }) => {
-            if (isPhone) {
+        {!this.state.refreshing && this.props.bales.length !== this.props.balesQuantity ? (
+          <ActivityIndicator size="large" color={Colors.primary} />
+        ) : (
+          <FlatList
+            data={this.props.bales}
+            renderItem={({ item }) => {
+              if (isPhone) {
+                return (
+                  <PhoneBale
+                    id={item.id}
+                    type={this.materialString(item.material)}
+                    weight={item.weight}
+                    onPressAction={() => this.props.openEditBaleModal(item.id)}
+                  />
+                );
+              }
               return (
-                <PhoneBale
+                <TabletBale
                   id={item.id}
                   type={this.materialString(item.material)}
                   weight={item.weight}
                   onPressAction={() => this.props.openEditBaleModal(item.id)}
                 />
               );
+            }}
+            refreshControl={
+              <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
             }
-            return (
-              <TabletBale
-                id={item.id}
-                type={this.materialString(item.material)}
-                weight={item.weight}
-                onPressAction={() => this.props.openEditBaleModal(item.id)}
-              />
-            );
-          }}
-          refreshControl={
-            <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
-          }
-        />
+          />
+        )}
       </View>
     );
   }
 }
 
 BaleList.propTypes = {
-  bales: PropTypes.object.isRequired,
+  bales: PropTypes.array.isRequired,
   fetchData: PropTypes.func.isRequired,
   token: PropTypes.string,
   openEditBaleModal: PropTypes.func.isRequired,
+  balesQuantity: PropTypes.number.isRequired,
 };
 
 BaleList.defaultProps = {
@@ -99,6 +110,7 @@ BaleList.defaultProps = {
 
 const mapStateToProps = state => ({
   bales: getBales(state),
+  balesQuantity: state.bales.balesQuantity,
   token: state.login.token,
 });
 

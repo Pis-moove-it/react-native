@@ -2,42 +2,34 @@ import axios from 'axios';
 import strings from '../localization';
 import basePath, { Network } from './BaseController';
 
-class LoginController {
+class GatherController {
   constructor() {
-    this.path = 'organizations/login/';
+    this.path = 'routes/';
   }
 
-  login = async (organization, password) =>
+  startCollection = async token =>
     new Promise((resolve, reject) => {
       axios
         .post(
           `${basePath}${this.path}`,
-          {
-            name: `${organization}`,
-            password: `${password}`,
-          },
+          {},
           {
             headers: {
               'Content-Type': 'application/json',
-              DeviceTypeHeader: 'android', // Temporal
-              DeviceIdHeader: 'a587refvs251fw8wgw12r8njytio8pqn1vhf93eej', // Temporal
+              ApiKey: `${token}`,
             },
           },
         )
         .then((response) => {
           resolve({
-            token: response.headers.apikey,
-            name: response.data.name,
             identifier: response.data.id,
           });
         })
         .catch((error) => {
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
-          else reject(new Error(strings.errorLogin));
+          else reject(new Error(strings.errorUser));
         });
     });
-
-  logout = () => null;
 }
 
-export default new LoginController();
+export default new GatherController();
