@@ -64,10 +64,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  containerEdit: {
-    flex: 0,
-    paddingLeft: 10,
-  },
 
   // Info styles
   containerPocketInfo: {
