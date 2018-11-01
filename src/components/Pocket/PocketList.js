@@ -63,7 +63,7 @@ class PocketList extends Component {
                   time={item.time}
                   weight={item.weight}
                   pocketState={item.pocketState}
-                  openEditIdModal={this.props.openEditIdPocketModal}
+                  openEditIdPocketModal={this.props.openEditIdPocketModal}
                   openEditWeightPocketModal={() => this.props.openEditWeightPocketModal(item.pocketState !== 'Unweighed')}
                 />
               );
@@ -74,8 +74,8 @@ class PocketList extends Component {
                 time={item.time}
                 weight={item.weight}
                 pocketState={item.pocketState}
-                openEditIdModal={this.props.openEditIdPocketModal}
-                openEditWeightModal={() => this.props.openEditWeightPocketModal(item.pocketState !== 'Unweighed')}
+                openEditIdPocketModal={this.props.openEditIdPocketModal}
+                openEditWeightPocketModal={() => this.props.openEditWeightPocketModal(item.pocketState !== 'Unweighed')}
               />
             );
           }}

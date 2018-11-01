@@ -10,7 +10,7 @@ import PencilIcon from '../../assets/ic_common/ic_edit.png';
 import styles from './styles';
 
 const Pocket = ({
-  id, pocketState, onPressAction, openEditIdModal, openWeightEditModal,
+  id, pocketState, onPressAction, openIdEditModal, openWeightEditModal,
 }) => (
   <View style={styles.containerPhonePocket}>
     <TouchableOpacity onPress={onPressAction} style={styles.touchableStyle}>
@@ -32,7 +32,7 @@ const Pocket = ({
           onPress={openWeightEditModal}
         />
       </View>
-      <CustomButton icon={PencilIcon} onPress={openEditIdModal} />
+      <CustomButton icon={PencilIcon} onPress={openIdEditModal} />
     </View>
   </View>
 );
@@ -41,7 +41,7 @@ Pocket.propTypes = {
   id: PropTypes.string.isRequired,
   pocketState: PropTypes.string.isRequired,
   onPressAction: PropTypes.func.isRequired,
-  openEditIdModal: PropTypes.func.isRequired,
+  openIdEditModal: PropTypes.func.isRequired,
   openWeightEditModal: PropTypes.func.isRequired,
 };
 
@@ -67,7 +67,7 @@ class PhonePocket extends Component {
             id={this.state.id}
             pocketState={this.state.pocketState}
             onPressAction={this.toggleInfo}
-            openEditIdModal={this.props.openEditIdModal}
+            openIdEditModal={this.props.openEditIdPocketModal}
             openWeightEditModal={this.props.openEditWeightPocketModal}
           />
           <PocketInfo
@@ -83,7 +83,7 @@ class PhonePocket extends Component {
           id={this.state.id}
           pocketState={this.state.pocketState}
           onPressAction={this.toggleInfo}
-          openEditIdModal={this.props.openEditIdModal}
+          openIdEditModal={this.props.openEditIdPocketModal}
           openWeightEditModal={this.props.openEditWeightPocketModal}
         />
       </View>
@@ -96,7 +96,7 @@ PhonePocket.propTypes = {
   time: PropTypes.string,
   weight: PropTypes.string,
   pocketState: PropTypes.string.isRequired,
-  openEditIdModal: PropTypes.func.isRequired,
+  openEditIdPocketModal: PropTypes.func.isRequired,
   openEditWeightPocketModal: PropTypes.func.isRequired,
 };
 

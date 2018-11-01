@@ -9,7 +9,7 @@ import strings from '../../localization';
 import styles from './styles';
 
 const TabletPocket = ({
-  id, time, weight, pocketState, openEditIdModal, openEditWeightModal,
+  id, time, weight, pocketState, openEditIdPocketModal, openEditWeightPocketModal,
 }) => (
   <View style={styles.containerTabletPocket}>
     <Image source={PocketIcon} style={styles.pocketImageStyleTablet} />
@@ -37,10 +37,10 @@ const TabletPocket = ({
               : strings.pocketButtonEditWeightText
           }
           textStyle={styles.tabletButtonText}
-          onPress={openEditWeightModal}
+          onPress={openEditWeightPocketModal}
         />
       </View>
-      <CustomButton icon={PencilIcon} onPress={openEditIdModal} />
+      <CustomButton icon={PencilIcon} onPress={openEditIdPocketModal} />
     </View>
   </View>
 );
@@ -50,8 +50,8 @@ TabletPocket.propTypes = {
   time: PropTypes.string.isRequired,
   weight: PropTypes.string.isRequired,
   pocketState: PropTypes.string.isRequired,
-  openEditIdModal: PropTypes.func.isRequired,
-  openEditWeightModal: PropTypes.func.isRequired,
+  openEditIdPocketModal: PropTypes.func.isRequired,
+  openEditWeightPocketModal: PropTypes.func.isRequired,
 };
 
 export default TabletPocket;
