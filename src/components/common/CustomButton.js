@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
 const CustomButton = props => (
   <TouchableOpacity {...props} style={[styles.button, props.style]}>
-    <Image style={styles.icon} source={props.icon} />
+    <Image style={[styles.icon, props.iconStyle]} source={props.icon} />
     <Text style={[styles.text, props.textStyle]}>{props.title}</Text>
   </TouchableOpacity>
 );
@@ -33,12 +33,14 @@ CustomButton.propTypes = {
   textStyle: PropTypes.object,
   title: PropTypes.string,
   icon: PropTypes.object.isRequired,
+  iconStyle: PropTypes.object,
 };
 
 CustomButton.defaultProps = {
   style: null,
   textStyle: null,
   title: '',
+  iconStyle: null,
 };
 
 export default CustomButton;

@@ -1,5 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import thunk from 'redux-thunk';
+import configureStore from 'redux-mock-store';
 import PhonePocket from '../../components/Pocket/PhonePocket';
 import PocketInfo from '../../components/Pocket/PocketInfo';
 
@@ -20,14 +22,21 @@ jest.mock(
     },
 );
 
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+
+const store = mockStore();
+
 // Different props combinations
 
-it('renders correctly only with unweighted pocket', () => {
-  const tree = renderer.create(<PhonePocket id="test_1" pocketState="Unweighed" />).toJSON();
+it('renders correctly only with unweighed pocket', () => {
+  const tree = renderer
+    .create(<PhonePocket store={store} id="test_1" pocketState="Unweighed" />)
+    .toJSON();
   expect(tree).toMatchSnapshot;
 });
 
-it('renders correctly only with weighted pocket', () => {
+it('renders correctly only with weighed pocket', () => {
   const mockPocket = {
     id: 'id_1',
     pocketState: 'Weight',

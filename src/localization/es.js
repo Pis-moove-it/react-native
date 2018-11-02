@@ -1,6 +1,5 @@
 export default {
   login: 'Iniciar Sesión ',
-  loginError: 'Nombre de usuario o contraseña incorrectos ',
   selectUser: 'Seleccionar usuario ',
   enter: 'Ingresar ',
   loading: 'Cargando ',
@@ -8,7 +7,6 @@ export default {
   email: 'Correo ',
   organization: 'Organización ',
   user: 'Usuario ',
-  userError: 'No se pudo registrar el usuario, pruebe nuevamente ',
   home: 'Inicio ',
   homeMessage: 'Bienvenido ',
   profile: 'Perfil ',
@@ -17,8 +15,6 @@ export default {
   gatherAction: 'Recolectar ',
   weighAction: 'Pesar ',
   baleAction: 'Enfardar ',
-  baleEditError: 'No se pudo editar el fardo, intente nuevamente ',
-  baleNewError: 'No se pudo crear el fardo, intente nuevamente ',
   changeRole: 'Cambiar Rol ',
   changeUser: 'Cambiar Usuario ',
   roleSelectionTitle: 'Seleccione una actividad: ',
@@ -76,6 +72,11 @@ export default {
   identifierPlaceholderModal: 'Identificador ',
   descriptionPlaceholderModal: 'Descripción ',
 
+  // Edit Pocket Modal
+  editPocket: 'Editar bolsón ',
+  editWeightPocket: 'Editar peso ',
+  addWeightPocket: 'Agregar peso ',
+
   // Constants
   plastic: 'Plástico ',
   glass: 'Vidrio ',
@@ -99,4 +100,15 @@ export default {
   changeStateIsle: 'Cambiar estado ',
   newPocket: 'Agregar bolsón ',
   optionsModalGather: 'Opciones ',
+
+  // Errors
+  error: 'Error ',
+  errorLogin: 'Nombre de usuario o contraseña incorrectos ',
+  errorUser: 'No se pudo registrar el usuario, intente nuevamente ',
+  errorNetwork: 'No se pudo establecer una conexión, intente nuevamente ',
+  errorEditBale: 'No se pudo editar el fardo, intente nuevamente ',
+  errorNewBale: 'No se pudo crear el fardo, intente nuevamente ',
+
+  // Map
+  endTravel: 'Terminar recorrido ',
 };

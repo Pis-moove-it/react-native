@@ -2,8 +2,8 @@ import { actionTypes } from '../actions/BalesActions';
 
 export const initialState = {
   bales: [],
+  balesQuantity: false,
   isFetching: false,
-  error: false,
 };
 
 const balesListReducer = (state = initialState, action) => {
@@ -12,20 +12,21 @@ const balesListReducer = (state = initialState, action) => {
       return {
         ...state,
         bales: [],
+        balesQuantity: false,
         isFetching: true,
       };
     case actionTypes.BALES_ERROR:
       return {
         ...state,
-        error: true,
+        balesQuantity: false,
         isFetching: false,
       };
-    case actionTypes.BALES_REQUEST_SUCCESS:
+    case actionTypes.BALES_SUCCESS:
       return {
         ...state,
         bales: action.bales,
+        balesQuantity: action.balesQuantity,
         isFetching: false,
-        error: false,
       };
     default:
       return state;

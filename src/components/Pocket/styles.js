@@ -41,7 +41,11 @@ const styles = StyleSheet.create({
   containerButtonPhone: {
     flex: 2,
     padding: 0,
-    width: '35%',
+    alignContent: 'flex-end',
+  },
+  wrapperButtonPhone: {
+    flex: 2,
+    flexDirection: 'row',
     alignContent: 'flex-end',
   },
   phoneButton: {
@@ -50,12 +54,11 @@ const styles = StyleSheet.create({
     minWidth: 100,
     backgroundColor: Colors.primary,
   },
-  phoneGrayButton: {
+  phoneBlueButton: {
     alignSelf: 'flex-end',
     margin: '5%',
     minWidth: 100,
-    backgroundColor: Colors.gray,
-    borderWidth: 0,
+    backgroundColor: Colors.secondary,
   },
   touchableStyle: {
     flexDirection: 'row',
@@ -108,9 +111,8 @@ const styles = StyleSheet.create({
   tabletButton: {
     backgroundColor: Colors.primary,
   },
-  tabletGrayButton: {
-    backgroundColor: Colors.gray,
-    borderWidth: 0,
+  tabletBlueButton: {
+    backgroundColor: Colors.secondary,
   },
   pocketImageStyleTablet: {
     height: 100,
@@ -130,6 +132,12 @@ const styles = StyleSheet.create({
   },
   containerButtonTablet: {
     flex: 2,
+    paddingLeft: 10,
+    paddingEnd: 10,
+  },
+  wrapperButtonTablet: {
+    flex: 2,
+    flexDirection: 'row',
     paddingLeft: 10,
   },
   tabletButtonText: {

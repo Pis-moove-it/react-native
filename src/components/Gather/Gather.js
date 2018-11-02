@@ -12,9 +12,9 @@ import editPencil from '../../assets/ic_common/ic_editPencil.png';
 import plusSign from '../../assets/ic_common/ic_add.png';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
+import { startCollection } from '../../actions/GatherActions';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
-import CustomButton from '../common/CustomButton';
 import icon from '../../assets/images/MapPointIcon.png';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
@@ -23,10 +23,11 @@ import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
-import stylesGather from './styles';
+import requestLocationPermission from '../../helpers/Permissions';
+import CustomButton from '../common/CustomButton';
+import TickIcon from '../../assets/images/Tick.png';
 import GatherOverlay from './GatherOverlay';
-import MapboxGL from '@mapbox/react-native-mapbox-gl';
-
+import stylesGather from './styles';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
@@ -98,6 +99,7 @@ class Gather extends Component {
   };
 
   componentDidMount() {
+    requestLocationPermission();
     if (isTablet || this.state.landscape) {
       this.setButtonsTablet(this.props.user);
     } else {
@@ -182,7 +184,16 @@ class Gather extends Component {
   render() {
     return (
       <View style={stylesGather.mapContainer}>
-        <GatherOverlay />
+        <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
+        <CustomButton
+          style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
+          icon={TickIcon}
+          iconStyle={isTablet ? stylesGather.tickStyleTablet : stylesGather.tickStylePhone}
+          title={strings.endTravel.toUpperCase()}
+          textStyle={
+            isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
+          }
+        />
         <CreatePocketModal />
         <GatherPointOptionModal
           isVisible={this.state.isModalVisible}
@@ -196,7 +207,7 @@ class Gather extends Component {
           showUserLocation
           style={stylesGather.mapContainer}
         >
-          <MapboxGL.PointAnnotation
+          <Mapbox.PointAnnotation
             key="pointAnnotation"
             id="pointAnnotation"
             coordinate={[-56.165921, -34.917352]}
@@ -205,7 +216,7 @@ class Gather extends Component {
             <TouchableOpacity onPress={this.toggleModal}>
               <Image source={icon} style={stylesGather.trashIcon} />
             </TouchableOpacity>
-          </MapboxGL.PointAnnotation>
+          </Mapbox.PointAnnotation>
           <Mapbox.PointAnnotation
             id="pointAnnotation2"
             coordinate={[-56.16574729294116, -34.90461658495409]}
@@ -221,24 +232,30 @@ class Gather extends Component {
 }
 
 Gather.propTypes = {
-  user: PropTypes.string.isRequired,
-  logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   openCreatePocketModal: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
+  startCollection: PropTypes.func.isRequired,
+  token: PropTypes.string,
+  user: PropTypes.string.isRequired,
 };
 
-Gather.defaultProps = {};
+Gather.defaultProps = {
+  token: false,
+};
 
 const mapStateToProps = state => ({
-  user: getUser(state),
   role: getRole(state),
+  user: getUser(state),
+  token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
   openCreatePocketModal: () => dispatch(openCreatePocketModal()),
+  startCollection: token => dispatch(startCollection(token)),
 });
 
 export default connect(
