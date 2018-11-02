@@ -7,6 +7,7 @@ import getIsModalVisible from '../../selectors/CreatePocketModalSelector';
 import { closeCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import strings from '../../localization';
 import ErrorView from '../common/ErrorView';
+import Colors from '../../helpers/Colors';
 import Button from './Button';
 import TextField from './TextField';
 import recyclabeleMaterials from './Constants';
@@ -49,7 +50,7 @@ class CreatePocketModal extends Component {
       this.closeModal();
     } else {
       this.setState({ inputError: true });
-      this.setState({ errors: [strings.invalidInputNumber] });
+      this.setState({ errors: [strings.invalidInputId] });
     }
   }
 
@@ -67,6 +68,7 @@ class CreatePocketModal extends Component {
         isVisible={this.props.isModalVisible}
         onBackButtonPress={this.closeModal}
         onBackdropPress={this.closeModal}
+        animationIn="slideInRight"
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>

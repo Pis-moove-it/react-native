@@ -57,7 +57,8 @@ export default {
   acceptModal: 'Aceptar ',
   weighPlaceholderModal: 'Peso (kg) ',
   selectMaterial: 'Seleccione un nuevo material ',
-  invalidInputNumber: 'Ingrese un número válido ',
+  invalidInputNumber: 'Por favor ingrese un número válido ',
+  invalidInputId: 'Por favor ingrese un identificador válido ',
   invalidInputType: 'Por favor ingrese un tipo de material válido ',
 
   // Bale Edit Modal
@@ -94,6 +95,11 @@ export default {
   pocketButtonEditWeightText: 'Modificar peso ',
   information: 'Información ',
   collectionPoint: 'Punto de recolección ',
+
+  // Gather secondary modal
+  changeStateIsle: 'Cambiar estado ',
+  newPocket: 'Agregar bolsón ',
+  optionsModalGather: 'Opciones ',
 
   // Errors
   error: 'Error ',
