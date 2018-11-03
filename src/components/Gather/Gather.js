@@ -5,7 +5,6 @@ import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
-import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import { finishTravel, startCollection } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
@@ -31,37 +30,36 @@ import stylesGather from './styles';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
-const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd }) =>
-  (
-    <Modal
-      isVisible={isVisible}
-      onBackdropPress={onPressActionFst}
-      onBackButtonPress={onPressActionFst}
-      animationOut="slideOutLeft"
-    >
-      <View style={stylesGather.modalContainer}>
-        <View style={stylesGather.modalTitleContainer}>
-          <Text style={stylesGather.modalTitle}>{strings.optionsModalGather}</Text>
-        </View>
-        <View>
-          <CustomButton
-            style={stylesGather.buttonModal}
-            textStyle={stylesGather.textButton}
-            title={strings.changeStateIsle}
-            onPress={onPressActionFst}
-            icon={editPencil}
-          />
-          <CustomButton
-            style={stylesGather.buttonModal}
-            textStyle={stylesGather.textButton}
-            title={strings.newPocket}
-            onPress={onPressActionSnd}
-            icon={plusSign}
-          />
-        </View>
+const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd }) => (
+  <Modal
+    isVisible={isVisible}
+    onBackdropPress={onPressActionFst}
+    onBackButtonPress={onPressActionFst}
+    animationOut="slideOutLeft"
+  >
+    <View style={stylesGather.modalContainer}>
+      <View style={stylesGather.modalTitleContainer}>
+        <Text style={stylesGather.modalTitle}>{strings.optionsModalGather}</Text>
       </View>
-    </Modal>
-  );
+      <View>
+        <CustomButton
+          style={stylesGather.buttonModal}
+          textStyle={stylesGather.textButton}
+          title={strings.changeStateIsle}
+          onPress={onPressActionFst}
+          icon={editPencil}
+        />
+        <CustomButton
+          style={stylesGather.buttonModal}
+          textStyle={stylesGather.textButton}
+          title={strings.newPocket}
+          onPress={onPressActionSnd}
+          icon={plusSign}
+        />
+      </View>
+    </View>
+  </Modal>
+);
 
 GatherPointOptionModal.propTypes = {
   isVisible: PropTypes.bool.isRequired,
@@ -115,6 +113,9 @@ class Gather extends Component {
           animated: true,
           to: 'open',
         });
+        break;
+      case 'logo':
+        this.changeRole();
         break;
       default:
         break;
@@ -172,14 +173,15 @@ class Gather extends Component {
   toggleCreatePocketModal = () => {
     this.toggleModal();
     this.props.openCreatePocketModal();
-  }
-
-  logout = () => {
-    this.props.logout();
-    this.props.changeRole();
   };
 
-  changeRole = () => this.props.changeRole();
+  changeRole = () => {
+    this.props.changeRole();
+    this.props.navigator.push({
+      screen: Screens.Roles,
+      animationType: 'fade',
+    });
+  };
 
   finishTravel = () => {
     this.props.finishTravel('Miércoles 16 de Octubre', '17:05', TickIcon, 200, 25);
@@ -244,7 +246,6 @@ Gather.propTypes = {
   changeRole: PropTypes.func.isRequired,
   finishTravel: PropTypes.func.isRequired,
   openCreatePocketModal: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   startCollection: PropTypes.func.isRequired,
   token: PropTypes.string,
@@ -262,7 +263,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
   finishTravel: (date, hour, travelImage, kmsTraveled, pocketsCollected) =>
     dispatch(finishTravel(date, hour, travelImage, kmsTraveled, pocketsCollected)),

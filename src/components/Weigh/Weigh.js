@@ -9,7 +9,6 @@ import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
-import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import PocketList from '../Pocket/PocketList';
 import { Screens } from '../Navigation';
@@ -57,6 +56,9 @@ class Weigh extends Component {
           to: 'open',
         });
         break;
+      case 'logo':
+        this.changeRole();
+        break;
       default:
         break;
     }
@@ -99,23 +101,21 @@ class Weigh extends Component {
     });
   };
 
-  logout = () => {
-    this.props.logout();
+  changeRole = () => {
     this.props.changeRole();
+    this.props.navigator.push({
+      screen: Screens.Roles,
+      animationType: 'fade',
+    });
   };
 
-  changeRole = () => this.props.changeRole();
-
   render() {
-    return (
-      <PocketList />
-    );
+    return <PocketList />;
   }
 }
 
 Weigh.propTypes = {
   user: PropTypes.string.isRequired,
-  logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
 };
@@ -126,7 +126,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
 });
 
