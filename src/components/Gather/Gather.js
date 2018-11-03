@@ -31,37 +31,36 @@ import stylesGather from './styles';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
-const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd }) =>
-  (
-    <Modal
-      isVisible={isVisible}
-      onBackdropPress={onPressActionFst}
-      onBackButtonPress={onPressActionFst}
-      animationOut="slideOutLeft"
-    >
-      <View style={stylesGather.modalContainer}>
-        <View style={stylesGather.modalTitleContainer}>
-          <Text style={stylesGather.modalTitle}>{strings.optionsModalGather}</Text>
-        </View>
-        <View>
-          <CustomButton
-            style={stylesGather.buttonModal}
-            textStyle={stylesGather.textButton}
-            title={strings.changeStateIsle}
-            onPress={onPressActionFst}
-            icon={editPencil}
-          />
-          <CustomButton
-            style={stylesGather.buttonModal}
-            textStyle={stylesGather.textButton}
-            title={strings.newPocket}
-            onPress={onPressActionSnd}
-            icon={plusSign}
-          />
-        </View>
+const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd }) => (
+  <Modal
+    isVisible={isVisible}
+    onBackdropPress={onPressActionFst}
+    onBackButtonPress={onPressActionFst}
+    animationOut="slideOutLeft"
+  >
+    <View style={stylesGather.modalContainer}>
+      <View style={stylesGather.modalTitleContainer}>
+        <Text style={stylesGather.modalTitle}>{strings.optionsModalGather}</Text>
       </View>
-    </Modal>
-  );
+      <View>
+        <CustomButton
+          style={stylesGather.buttonModal}
+          textStyle={stylesGather.textButton}
+          title={strings.changeStateIsle}
+          onPress={onPressActionFst}
+          icon={editPencil}
+        />
+        <CustomButton
+          style={stylesGather.buttonModal}
+          textStyle={stylesGather.textButton}
+          title={strings.newPocket}
+          onPress={onPressActionSnd}
+          icon={plusSign}
+        />
+      </View>
+    </View>
+  </Modal>
+);
 
 GatherPointOptionModal.propTypes = {
   isVisible: PropTypes.bool.isRequired,
@@ -172,7 +171,7 @@ class Gather extends Component {
   toggleCreatePocketModal = () => {
     this.toggleModal();
     this.props.openCreatePocketModal();
-  }
+  };
 
   logout = () => {
     this.props.logout();
@@ -182,7 +181,7 @@ class Gather extends Component {
   changeRole = () => this.props.changeRole();
 
   finishTravel = () => {
-    this.props.finishTravel('Miércoles 16 de Octubre', '17:05', TickIcon, 200, 25);
+    this.props.finishTravel(TickIcon, 200, 25);
     this.props.navigator.push({
       screen: Screens.TravelFinished,
       animationType: 'fade',
@@ -264,8 +263,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
-  finishTravel: (date, hour, travelImage, kmsTraveled, pocketsCollected) =>
-    dispatch(finishTravel(date, hour, travelImage, kmsTraveled, pocketsCollected)),
+  finishTravel: (travelImage, kmsTraveled, pocketsCollected) =>
+    dispatch(finishTravel(travelImage, kmsTraveled, pocketsCollected)),
   openCreatePocketModal: () => dispatch(openCreatePocketModal()),
   startCollection: token => dispatch(startCollection(token)),
 });
