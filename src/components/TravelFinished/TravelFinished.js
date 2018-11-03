@@ -11,7 +11,7 @@ import getRole from '../../selectors/RoleSelector';
 import {
   getDate,
   getHour,
-  getImage,
+  getCoordinates,
   getKmsTraveled,
   getPocketsCollected,
 } from '../../selectors/GatherSelector';
@@ -25,8 +25,16 @@ import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CustomButton from '../common/CustomButton';
 import styles from '../TravelFinished/styles';
+import stylesGather from '../Gather/styles';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
+const layerStyles = Mapbox.StyleSheet.create({
+  route: {
+    lineColor: 'green',
+    lineWidth: 6,
+    lineOpacity: 0.84,
+  },
+});
 
 class TravelFinished extends Component {
   static navigatorStyle = {
@@ -49,6 +57,7 @@ class TravelFinished extends Component {
     super(props);
     this.state = {
       landscape: Platform.isLandscape(),
+      travel: {},
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -56,6 +65,17 @@ class TravelFinished extends Component {
   state = {
     isModalVisible: false,
   };
+
+  componentWillMount() {
+    this.state.travel = {
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'LineString',
+        coordinates: this.props.coordinates,
+      },
+    };
+  }
 
   componentDidMount() {
     if (isTablet || this.state.landscape) {
@@ -136,7 +156,7 @@ class TravelFinished extends Component {
 
   render() {
     return (
-      <View>
+      <View style={stylesGather.mapContainer}>
         <View style={styles.resumeAndHourContainer}>
           <View style={styles.resumeContainer}>
             <Text style={styles.resumeAndHourTitle}> {strings.summary} </Text>
@@ -150,9 +170,26 @@ class TravelFinished extends Component {
             </Text>
           </View>
         </View>
-        <View style={styles.imageContainer}>
-          <Image source={this.props.travelImage} />
-        </View>
+
+        {/*  <View style={styles.imageContainer}> */}
+        <Mapbox.MapView
+          styleURL={Mapbox.StyleURL.Street}
+          zoomLevel={11}
+          userTrackingMode={Mapbox.UserTrackingModes.FollowWithHeading}
+          showUserLocation
+          style={stylesGather.mapContainer}
+        >
+          <Mapbox.ShapeSource id="routeSource" shape={this.state.travel}>
+            <Mapbox.LineLayer
+              id="routeFill"
+              style={layerStyles.route}
+              belowLayerID="originInnerCircle"
+            />
+          </Mapbox.ShapeSource>
+        </Mapbox.MapView>
+        {/* <Image source={this.props.travelImage} /> */}
+        {/* </View> */}
+
         <View style={styles.kmsAndPocketsContainer}>
           <View style={styles.kmsContainer}>
             <Text style={styles.kmsAndPocketsTitle}> {strings.kmsTraveled.toUpperCase()} </Text>
@@ -175,7 +212,7 @@ TravelFinished.propTypes = {
   navigator: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   hour: PropTypes.string.isRequired,
-  travelImage: PropTypes.object.isRequired,
+  coordinates: PropTypes.object.isRequired,
   kmsTraveled: PropTypes.number.isRequired,
   pocketsCollected: PropTypes.number.isRequired,
 };
@@ -187,7 +224,7 @@ const mapStateToProps = state => ({
   role: getRole(state),
   date: getDate(state),
   hour: getHour(state),
-  travelImage: getImage(state),
+  coordinates: getCoordinates(state),
   kmsTraveled: getKmsTraveled(state),
   pocketsCollected: getPocketsCollected(state),
 });
