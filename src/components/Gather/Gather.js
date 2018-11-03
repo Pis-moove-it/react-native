@@ -117,9 +117,11 @@ class Gather extends Component {
       latitude: null,
       longitude: null,
       error: null,
-      coordinates: [[-56.165921, -34.917352], [-56.16574729294116, -34.90461658495409]],
+      coordinates: [
+        /* [-56.165921, -34.917352] */
+      ],
       distanceTravelled: 0,
-      prevLatLng: [],
+      prevLatLng: null,
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -148,8 +150,8 @@ class Gather extends Component {
           ],
           distanceTravelled:
             this.state.distanceTravelled +
-            this.calcDistance([position.coords.latitude, position.coords.longitude]),
-          prevLatLng: [position.coords.latitude, position.coords.longitude],
+            this.calcDistance([position.coords.longitude, position.coords.latitude]),
+          prevLatLng: [position.coords.longitude, position.coords.latitude],
         }));
       },
       error => this.setState({ error: error.message }),
@@ -223,7 +225,18 @@ class Gather extends Component {
 
   calcDistance(newLatLng) {
     const { prevLatLng } = this.state;
-    return haversine(prevLatLng, newLatLng) || 0;
+    console.log(prevLatLng);
+    if (prevLatLng !== null) {
+      console.log('prevCoord', prevLatLng);
+      console.log('nextCoord', newLatLng);
+      console.log(haversine(prevLatLng, newLatLng, { unit: 'meter', format: '[lon,lat]' }));
+      const dinstance = haversine(prevLatLng, newLatLng, {
+        unit: 'km',
+        format: '[lon,lat]',
+      }).toFixed(2);
+      return Number(dinstance);
+    }
+    return 0;
   }
 
   toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
@@ -246,7 +259,13 @@ class Gather extends Component {
 
   finishTravel = () => {
     console.log('Gather coords', this.state.coordinates);
-    this.props.finishTravel('Miércoles 16 de Octubre', '17:05', this.state.coordinates, 200, 25);
+    this.props.finishTravel(
+      'Miércoles 16 de Octubre',
+      '17:05',
+      this.state.coordinates,
+      this.state.distanceTravelled,
+      25,
+    );
     this.props.navigator.push({
       screen: Screens.TravelFinished,
       animationType: 'fade',
@@ -310,6 +329,7 @@ class Gather extends Component {
         <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Latitude: {this.state.latitude}</Text>
           <Text>Longitude: {this.state.longitude}</Text>
+          <Text>Disntace: {this.state.distanceTravelled} km</Text>
           {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
         </View>
       </View>
