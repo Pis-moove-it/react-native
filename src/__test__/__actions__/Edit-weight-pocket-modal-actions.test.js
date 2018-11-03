@@ -1,4 +1,4 @@
-import configureStore from 'redux-mock-store'; // ES6 modules
+import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as editWeightPocketModalActions from '../../actions/EditWeightPocketModalActions';
 
@@ -32,9 +32,13 @@ describe('editWeightPocketModalActions', () => {
   it('should create an action for open edit weight pocket modal with weight', () => {
     const expectedAction = [
       {
-        type: editWeightPocketModalActions.actionTypes.OPEN_EDIT_WEIGHT_POCKET_MODAL,
-        isVisible: true,
-        pocketHasWeight: true,
+        type: editWeightPocketModalActions.actionTypes.EDIT_POCKET_WEIGHT_REQUEST,
+      },
+      {
+        type: editWeightPocketModalActions.actionTypes.OPEN_EDIT_POCKET_WEIGHT_MODAL,
+        pocket: true,
+        weight: undefined,
+        hasWeight: undefined,
       },
     ];
 
@@ -49,9 +53,13 @@ describe('editWeightPocketModalActions', () => {
   it('should create an action for open edit weight pocket modal without weight', () => {
     const expectedAction = [
       {
-        type: editWeightPocketModalActions.actionTypes.OPEN_EDIT_WEIGHT_POCKET_MODAL,
-        isVisible: true,
-        pocketHasWeight: false,
+        type: editWeightPocketModalActions.actionTypes.EDIT_POCKET_WEIGHT_REQUEST,
+      },
+      {
+        type: editWeightPocketModalActions.actionTypes.OPEN_EDIT_POCKET_WEIGHT_MODAL,
+        pocket: false,
+        weight: undefined,
+        hasWeight: undefined,
       },
     ];
 
@@ -66,8 +74,7 @@ describe('editWeightPocketModalActions', () => {
   it('should create an action for close edit weight pocket modal', () => {
     const expectedAction = [
       {
-        type: editWeightPocketModalActions.actionTypes.CLOSE_EDIT_WEIGHT_POCKET_MODAL,
-        isVisible: false,
+        type: editWeightPocketModalActions.actionTypes.CLOSE_EDIT_POCKET_WEIGHT_MODAL,
       },
     ];
 
