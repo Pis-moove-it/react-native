@@ -19,7 +19,6 @@ import icon from '../../assets/images/MapPointIcon.png';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
-import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
@@ -138,15 +137,6 @@ class Gather extends Component {
                 animationType: 'fade',
                 title: strings.profile,
               }),
-          },
-        },
-        {
-          id: 'history',
-          component: 'CustomButton',
-          passProps: {
-            title: strings.history,
-            icon: HistoryIconWhite,
-            style: { color: Colors.white, width: 100 },
           },
         },
       ],

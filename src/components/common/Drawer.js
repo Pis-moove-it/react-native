@@ -10,7 +10,6 @@ import TextStyles from '../../helpers/TextStyles';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import ChangeRoleIcon from '../../assets/ic_common/ic_refresh.png';
-import HistoryIcon from '../../assets/images/HistoryIcon.png';
 import BaleIcon from '../../assets/images/BaleIcon.png';
 import PocketIcon from '../../assets/images/PocketIcon.png';
 import UserIcon from '../../assets/ic_user/ic_user128_green.png';
@@ -46,37 +45,41 @@ class Drawer extends Component {
       animated: true,
       to: 'close',
     });
-  }
+  };
 
   render() {
     const { role } = this.props;
     let iconRole;
     let iconText;
     let action;
-    if (role === strings.gatherAction) {
-      iconRole = HistoryIcon;
-      iconText = strings.history;
-      action = () => ({});
-    } else if (role === strings.weighAction) {
+    if (role === strings.weighAction) {
       iconRole = PocketIcon;
       iconText = strings.filterByRole;
       action = () => ({});
-    } else {
+    } else if (role === strings.baleAction) {
       iconRole = BaleIcon;
       iconText = strings.createBaleDrawer;
       action = this.toggleCreateBaleModal;
     }
+
+    let button;
+    if (role !== strings.gatherAction) {
+      button = (
+        <CustomButton
+          icon={iconRole}
+          title={iconText}
+          textStyle={TextStyles.drawerButtons}
+          style={styles.userOptionsButtonForRole}
+          onPress={action}
+        />
+      );
+    }
+
     return (
       <View style={styles.containerWrapper}>
         <View style={styles.topHalf}>
           <Text style={styles.textTitleStyle}>{this.props.user}</Text>
-          <CustomButton
-            icon={iconRole}
-            title={iconText}
-            textStyle={TextStyles.drawerButtons}
-            style={styles.userOptionsButtonForRole}
-            onPress={action}
-          />
+          {button}
         </View>
         <View style={styles.bottomHalf}>
           <CustomButton
