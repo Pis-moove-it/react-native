@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Text, Alert } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -23,8 +23,28 @@ import CustomButton from '../common/CustomButton';
 import TickIcon from '../../assets/images/Tick.png';
 import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
+import { Geolocation } from 'react-native';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
+const layerStyles = Mapbox.StyleSheet.create({
+  route: {
+    lineColor: 'black',
+    lineWidth: 8,
+    lineOpacity: 0.84,
+   //lineDasharray: [2,2],
+  },
+ 
+});
+
+const shape = {
+  type: 'Feature',
+  properties: {},
+  geometry: {
+    type: 'LineString',
+    coordinates: [[-56.165921, -34.917352], [-56.16574729294116, -34.90461658495409], [-56.167024, -34.7868122]],
+  },
+};
+const options = {steps: 10, units: 'kilometers', properties: {foo: 'bar'}};
 
 class Gather extends Component {
   static navigatorStyle = {
@@ -42,11 +62,16 @@ class Gather extends Component {
     ],
     rightButtons: [],
   };
+  
 
   constructor(props) {
     super(props);
     this.state = {
       landscape: Platform.isLandscape(),
+      latitude: null,
+      longitude: null,
+      error: null,
+      coordinates: [],
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -57,6 +82,23 @@ class Gather extends Component {
     } else {
       this.setButtonsPhone();
     }
+
+    this.watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        this.setState(prevState => ({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null,
+          coordinates: [...prevState.coordinates, [position.coords.latitude, position.coords.longitude]],
+        }));
+      },
+      (error) => this.setState({ error: error.message }),
+      {  timeout: 20000,  distanceFilter: 1 },
+    );
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchId);
   }
 
   onNavigatorEvent(event) {
@@ -126,7 +168,36 @@ class Gather extends Component {
 
   changeRole = () => this.props.changeRole();
 
+  renderCoords = () => {
+    console.log(this.state.coordinates);
+  }
+
+  
+
+  renderRoute = () => {
+    const shape = {
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'LineString',
+        coordinates: this.state.coordinates,
+      },
+    };
+    return (
+      <Mapbox.ShapeSource
+      id="myRoute"
+      shape={shape}
+    >
+      <Mapbox.LineLayer
+        id="routeFill"
+        style={layerStyles}
+      />
+    </Mapbox.ShapeSource>
+    );
+  }
+
   render() {
+    
     return (
       <View style={stylesGather.mapContainer}>
         <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
@@ -138,6 +209,7 @@ class Gather extends Component {
           textStyle={
             isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
           }
+          onPress={this.renderCoords}
         />
         <CreatePocketModal />
         <Mapbox.MapView
@@ -164,7 +236,16 @@ class Gather extends Component {
             <Image source={icon} style={stylesGather.trashIcon} />
             <Mapbox.Callout title={strings.collectionPoint} />
           </Mapbox.PointAnnotation>
+          <Mapbox.ShapeSource id='routeSource' shape={shape}>
+            <Mapbox.LineLayer id='routeFill' style={layerStyles.route} belowLayerID='originInnerCircle' />
+          </Mapbox.ShapeSource>
         </Mapbox.MapView>
+        
+        <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Latitude: {this.state.latitude}</Text>
+          <Text>Longitude: {this.state.longitude}</Text>
+          {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
+        </View>
       </View>
     );
   }

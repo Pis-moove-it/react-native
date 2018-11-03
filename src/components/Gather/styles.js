@@ -89,6 +89,9 @@ const stylesGather = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  route: {
+    color: 'black',
+  },
 });
 
 export default stylesGather;
