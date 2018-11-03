@@ -129,8 +129,10 @@ export const getContainers = token => async (dispatch) => {
   dispatch(getContainersRequest());
   try {
     const { containers } = await GatherController.getContainers(token);
+    console.log(containers);
     dispatch(getContainersSuccess(containers));
   } catch (error) {
+    console.log(error);
     dispatch(getContainersError(error.message));
   }
 };

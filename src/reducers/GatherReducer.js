@@ -8,6 +8,8 @@ export const initialState = {
   pocketsCollected: 0,
   collectionId: false,
   isLoading: false,
+  containers: [],
+  isLoadingContainers: false,
 };
 
 const gatherReducer = (state = initialState, action) => {
@@ -56,13 +58,13 @@ const gatherReducer = (state = initialState, action) => {
     case actionTypes.GET_CONTAINERS_REQUEST:
       return {
         ...state,
-        isLoading: true,
+        isLoadingContainers: true,
       };
     case actionTypes.GET_CONTAINERS_SUCCESS:
       return {
         ...state,
         containers: action.containers,
-        isLoading: false,
+        isLoadingContainers: false,
       };
     default:
       return state;
