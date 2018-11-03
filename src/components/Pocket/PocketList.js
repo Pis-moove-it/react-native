@@ -1,84 +1,104 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
-import PhonePocket from './PhonePocket';
+import PropTypes from 'prop-types';
+import { openEditIdPocketModal } from '../../actions/EditIdPocketModalActions';
+import { openEditWeightPocketModal } from '../../actions/EditWeightPocketModalActions';
+import { getPockets } from '../../actions/PocketActions';
+import EditIdPocketModal from '../common/EditIdPocketModal';
+import EditWeightPocketModal from '../common/EditWeightPocketModal';
+import pockets from '../../selectors/PocketSelector';
 import TabletPocket from './TabletPocket';
-
-const weighList = [
-  {
-    id: '1548',
-    time: '12:30',
-    weight: '',
-    pocketState: 'Unweighed',
-  },
-  {
-    id: '684887',
-    time: '16:19',
-    weight: '10',
-    pocketState: 'Weighed',
-  },
-  {
-    id: '158',
-    time: '03:22',
-    weight: '6',
-    pocketState: 'Weighed',
-  },
-  {
-    id: '68488',
-    time: '19:26',
-    weight: '15',
-    pocketState: 'Weighed',
-  },
-  {
-    id: '488',
-    time: '04:20',
-    weight: '',
-    pocketState: 'Unweighed',
-  },
-];
+import PhonePocket from './PhonePocket';
 
 class PocketList extends Component {
   static navigatorStyle = {
     navBarHidden: true,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+    };
+  }
+
+  componentDidMount() {
+    this.props.getPockets(this.props.token);
+  }
+
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.props.getPockets(this.props.token).then(() => {
+      this.setState({ refreshing: false });
+    });
+  };
+
   render() {
     return (
-      <FlatList
-        data={weighList}
-        renderItem={({ item }) => {
-          if (isPhone) {
+      <View>
+        <EditIdPocketModal />
+        <EditWeightPocketModal />
+        <FlatList
+          data={this.props.pockets}
+          renderItem={({ item }) => {
+            if (isPhone) {
+              return (
+                <PhonePocket
+
+                  openEditIdPocketModal={this.props.openEditIdPocketModal}
+                  openEditWeightPocketModal={() => this.props.openEditWeightPocketModal(item.state !== 'Unweighed')}
+                  id={item.serial_number}
+                  time={item.check_in}
+                  weight={item.weight}
+                  pocketState={item.state}
+                />
+              );
+            }
             return (
-              <PhonePocket
-                id={item.id}
-                time={item.time}
+              <TabletPocket
+                id={item.serial_number}
+                time={item.check_in}
                 weight={item.weight}
-                pocketState={item.pocketState}
+                pocketState={item.state}
+                openEditIdPocketModal={this.props.openEditIdPocketModal}
+                openEditWeightPocketModal={() => this.props.openEditWeightPocketModal(item.state !== 'Unweighed')}
               />
             );
+          }}
+          refreshControl={
+            <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
           }
-          return (
-            <TabletPocket
-              id={item.id}
-              time={item.time}
-              weight={item.weight}
-              pocketState={item.pocketState}
-            />
-          );
-        }}
-      />
+        />
+      </View>
     );
   }
 }
 
-PocketList.propTypes = {};
+PocketList.propTypes = {
+  openEditIdPocketModal: PropTypes.func.isRequired,
+  openEditWeightPocketModal: PropTypes.func.isRequired,
+  getPockets: PropTypes.func.isRequired,
+  pockets: PropTypes.array,
+  token: PropTypes.string,
+};
 
-PocketList.defaultProps = {};
+PocketList.defaultProps = {
+  pockets: [],
+  token: false,
+};
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  pockets: pockets(state),
+  token: state.login.token,
+});
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+  openEditIdPocketModal: () => dispatch(openEditIdPocketModal()),
+  openEditWeightPocketModal: hasWeight => dispatch(openEditWeightPocketModal(hasWeight)),
+  getPockets: token => dispatch(getPockets(token)),
+});
 
 export default connect(
   mapStateToProps,

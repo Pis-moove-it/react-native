@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
-import { View, Image, Text, Alert } from 'react-native';
+import { View, Image, Text, Alert, TouchableOpacity } from 'react-native';
+//import { View, Image, TouchableOpacity, Text } from 'react-native';
+import Modal from 'react-native-modal';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
+import { finishTravel, startCollection } from '../../actions/GatherActions';
+import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
+import editPencil from '../../assets/ic_common/ic_editPencil.png';
+import plusSign from '../../assets/ic_common/ic_add.png';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
-import { startCollection } from '../../actions/GatherActions';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import icon from '../../assets/images/MapPointIcon.png';
@@ -19,11 +24,12 @@ import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
+import requestLocationPermission from '../../helpers/Permissions';
 import CustomButton from '../common/CustomButton';
 import TickIcon from '../../assets/images/Tick.png';
-import stylesGather from './styles';
 import GatherOverlay from './GatherOverlay';
 import { Geolocation } from 'react-native';
+import stylesGather from './styles';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 const layerStyles = Mapbox.StyleSheet.create({
@@ -45,6 +51,44 @@ const shape = {
   },
 };
 const options = {steps: 10, units: 'kilometers', properties: {foo: 'bar'}};
+
+const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd }) =>
+  (
+    <Modal
+      isVisible={isVisible}
+      onBackdropPress={onPressActionFst}
+      onBackButtonPress={onPressActionFst}
+      animationOut="slideOutLeft"
+    >
+      <View style={stylesGather.modalContainer}>
+        <View style={stylesGather.modalTitleContainer}>
+          <Text style={stylesGather.modalTitle}>{strings.optionsModalGather}</Text>
+        </View>
+        <View>
+          <CustomButton
+            style={stylesGather.buttonModal}
+            textStyle={stylesGather.textButton}
+            title={strings.changeStateIsle}
+            onPress={onPressActionFst}
+            icon={editPencil}
+          />
+          <CustomButton
+            style={stylesGather.buttonModal}
+            textStyle={stylesGather.textButton}
+            title={strings.newPocket}
+            onPress={onPressActionSnd}
+            icon={plusSign}
+          />
+        </View>
+      </View>
+    </Modal>
+  );
+
+GatherPointOptionModal.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
+  onPressActionFst: PropTypes.func.isRequired,
+  onPressActionSnd: PropTypes.func.isRequired,
+};
 
 class Gather extends Component {
   static navigatorStyle = {
@@ -76,7 +120,12 @@ class Gather extends Component {
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
+  state = {
+    isModalVisible: false,
+  };
+
   componentDidMount() {
+    requestLocationPermission();
     if (isTablet || this.state.landscape) {
       this.setButtonsTablet(this.props.user);
     } else {
@@ -161,6 +210,13 @@ class Gather extends Component {
     });
   };
 
+  toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
+
+  toggleCreatePocketModal = () => {
+    this.toggleModal();
+    this.props.openCreatePocketModal();
+  }
+
   logout = () => {
     this.props.logout();
     this.props.changeRole();
@@ -196,6 +252,15 @@ class Gather extends Component {
     );
   }
 
+  
+  finishTravel = () => {
+    this.props.finishTravel('Miércoles 16 de Octubre', '17:05', TickIcon, 200, 25);
+    this.props.navigator.push({
+      screen: Screens.TravelFinished,
+      animationType: 'fade',
+    });
+  };
+
   render() {
     
     return (
@@ -209,9 +274,14 @@ class Gather extends Component {
           textStyle={
             isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
           }
-          onPress={this.renderCoords}
+          onPress={this.finishTravel}
         />
         <CreatePocketModal />
+        <GatherPointOptionModal
+          isVisible={this.state.isModalVisible}
+          onPressActionFst={this.toggleModal}
+          onPressActionSnd={this.toggleCreatePocketModal}
+        />
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}
           zoomLevel={15}
@@ -223,18 +293,19 @@ class Gather extends Component {
             key="pointAnnotation"
             id="pointAnnotation"
             coordinate={[-56.165921, -34.917352]}
+            selected={false}
           >
-            <Image source={icon} style={stylesGather.trashIcon} />
-            <Mapbox.Callout title={strings.collectionPoint} />
+            <TouchableOpacity onPress={this.toggleModal}>
+              <Image source={icon} style={stylesGather.trashIcon} />
+            </TouchableOpacity>
           </Mapbox.PointAnnotation>
-
           <Mapbox.PointAnnotation
-            key="pointAnnotation2"
             id="pointAnnotation2"
             coordinate={[-56.16574729294116, -34.90461658495409]}
           >
-            <Image source={icon} style={stylesGather.trashIcon} />
-            <Mapbox.Callout title={strings.collectionPoint} />
+            <TouchableOpacity onPress={this.toggleModal}>
+              <Image source={icon} style={stylesGather.trashIcon} />
+            </TouchableOpacity>
           </Mapbox.PointAnnotation>
           <Mapbox.ShapeSource id='routeSource' shape={shape}>
             <Mapbox.LineLayer id='routeFill' style={layerStyles.route} belowLayerID='originInnerCircle' />
@@ -253,6 +324,8 @@ class Gather extends Component {
 
 Gather.propTypes = {
   changeRole: PropTypes.func.isRequired,
+  finishTravel: PropTypes.func.isRequired,
+  openCreatePocketModal: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   startCollection: PropTypes.func.isRequired,
@@ -273,6 +346,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
+  finishTravel: (date, hour, travelImage, kmsTraveled, pocketsCollected) =>
+    dispatch(finishTravel(date, hour, travelImage, kmsTraveled, pocketsCollected)),
+  openCreatePocketModal: () => dispatch(openCreatePocketModal()),
   startCollection: token => dispatch(startCollection(token)),
 });
 

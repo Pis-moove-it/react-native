@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import { openCreateBaleModal } from '../../actions/CreateBaleModalActions';
-import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import strings from '../../localization';
 import TextStyles from '../../helpers/TextStyles';
 import getUser from '../../selectors/UserSelector';
@@ -49,15 +48,6 @@ class Drawer extends Component {
     });
   }
 
-  toggleCreatePocketModal = () => {
-    this.props.openCreatePocketModal();
-    this.props.navigator.toggleDrawer({
-      side: 'right',
-      animated: true,
-      to: 'close',
-    });
-  }
-
   render() {
     const { role } = this.props;
     let iconRole;
@@ -66,7 +56,7 @@ class Drawer extends Component {
     if (role === strings.gatherAction) {
       iconRole = HistoryIcon;
       iconText = strings.history;
-      action = this.toggleCreatePocketModal;
+      action = () => ({});
     } else if (role === strings.weighAction) {
       iconRole = PocketIcon;
       iconText = strings.filterByRole;
@@ -115,7 +105,6 @@ Drawer.propTypes = {
   logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   openCreateBaleModal: PropTypes.func.isRequired,
-  openCreatePocketModal: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
 };
 
@@ -128,7 +117,6 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
   openCreateBaleModal: () => dispatch(openCreateBaleModal()),
-  openCreatePocketModal: () => dispatch(openCreatePocketModal()),
 });
 
 export default connect(

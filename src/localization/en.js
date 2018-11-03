@@ -58,6 +58,7 @@ export default {
   weighPlaceholderModal: 'Weight (kg) ',
   selectMaterial: 'Select a new material ',
   invalidInputNumber: 'Please enter a valid number ',
+  invalidInputId: 'Please enter a valid ID ',
   invalidInputType: 'Please enter a valid material type ',
 
   // Bale Edit Modal
@@ -70,6 +71,11 @@ export default {
   createPocket: 'New pocket ',
   identifierPlaceholderModal: 'Identifier ',
   descriptionPlaceholderModal: 'Description ',
+
+  // Edit Pocket Modal
+  editPocket: 'Edit pocket ',
+  editWeightPocket: 'Edit weight ',
+  addWeightPocket: 'Add weight ',
 
   // Constants
   plastic: 'Plastic ',
@@ -90,6 +96,11 @@ export default {
   information: 'Information ',
   collectionPoint: 'Collection point ',
 
+  // Gather secondary modal
+  changeStateIsle: 'Change state ',
+  newPocket: 'New pocket ',
+  optionsModalGather: 'Options ',
+
   // Errors
   error: 'Error ',
   errorLogin: 'Invalid username or password ',
@@ -100,4 +111,10 @@ export default {
 
   // Map
   endTravel: 'Complete trip ',
+
+  // Travel Finished
+  summary: 'Summary ',
+  hour: 'Hour ',
+  kmsTraveled: 'Kilometers traveled ',
+  pocketsCollected: 'Number of pockets ',
 };
