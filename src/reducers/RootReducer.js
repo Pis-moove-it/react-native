@@ -14,6 +14,10 @@ import hour from './GatherReducer';
 import travelImage from './GatherReducer';
 import kmsTraveled from './GatherReducer';
 import pocketsCollected from './GatherReducer';
+import gather from './GatherReducer';
+import editPocketModal from './EditIdPocketModalReducer';
+import editWeightPocketModal from './EditWeightPocketModalReducer';
+import pockets from './PocketReducer';
 
 const rootReducer = combineReducers({
   loading,
@@ -23,6 +27,7 @@ const rootReducer = combineReducers({
   role,
   users,
   bales,
+  pockets,
   createBaleModal,
   editBaleModal,
   createPocketModal,
@@ -31,6 +36,9 @@ const rootReducer = combineReducers({
   travelImage,
   kmsTraveled,
   pocketsCollected,
+  editPocketModal,
+  editWeightPocketModal,
+  gather,
 });
 
 export default rootReducer;

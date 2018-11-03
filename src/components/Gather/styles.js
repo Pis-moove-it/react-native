@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import Colors from '../../helpers/Colors';
-import icon from '../../assets/images/MapPointIcon.png';
 
 const stylesGather = StyleSheet.create({
   container: {
@@ -25,7 +24,9 @@ const stylesGather = StyleSheet.create({
     height: 50,
   },
   textButton: {
-    fontSize: 20,
+    paddingLeft: 5,
+    fontSize: 22,
+    fontWeight: '700',
   },
   activityIndicator: {
     margin: '2%',
