@@ -7,6 +7,7 @@ class GatherController {
     this.routeID = null;
     this.routesPath = 'routes/';
     this.collectionsPath = `routes/${this.routeID}/collections`;
+    this.containersPath = 'containers';
   }
 
   startCollection = async token =>
@@ -82,6 +83,26 @@ class GatherController {
         .catch((error) => {
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
           else reject(new Error(strings.errorUser));
+        });
+    });
+
+  getContainers = async token =>
+    new Promise((resolve, reject) => {
+      axios
+        .get(`${basePath}${this.containersPath}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            ApiKey: `${token}`,
+          },
+        })
+        .then((response) => {
+          resolve({
+            containers: response.data,
+          });
+        })
+        .catch((error) => {
+          if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
+          else reject(new Error(strings.error));
         });
     });
 }

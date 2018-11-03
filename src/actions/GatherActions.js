@@ -12,6 +12,9 @@ export const actionTypes = {
   END_COLLECTION_REQUEST: 'END_COLLECTION_REQUEST',
   END_COLLECTION_SUCCESS: 'END_COLLECTION_SUCCESS',
   END_COLLECTION_ERROR: 'END_COLLECTION_ERROR',
+  GET_CONTAINERS_REQUEST: 'GET_CONTAINERS_REQUEST',
+  GET_CONTAINERS_SUCCESS: 'GET_CONTAINERS_SUCCESS',
+  GET_CONTAINERS_ERROR: 'GET_CONTAINERS_ERROR',
 };
 
 const travelFinished = (date, hour, travelImage, kmsTraveled, pocketsCollected) => ({
@@ -73,6 +76,20 @@ const endCollectionError = error => ({
   error,
 });
 
+const getContainersRequest = () => ({
+  type: actionTypes.GET_CONTAINERS_REQUEST,
+});
+
+const getContainersSuccess = containers => ({
+  type: actionTypes.GET_CONTAINERS_SUCCESS,
+  containers,
+});
+
+const getContainersError = error => ({
+  type: actionTypes.GET_CONTAINERS_ERROR,
+  error,
+});
+
 export const startCollection = token => async (dispatch) => {
   dispatch(startCollectionRequest());
   try {
@@ -105,5 +122,15 @@ export const endCollection = (token, routeId, routeLength, routeImage) => async 
     dispatch(endCollectionSuccess());
   } catch (error) {
     dispatch(endCollectionError(error.message));
+  }
+};
+
+export const getContainers = token => async (dispatch) => {
+  dispatch(getContainersRequest());
+  try {
+    const { containers } = await GatherController.getContainers(token);
+    dispatch(getContainersSuccess(containers));
+  } catch (error) {
+    dispatch(getContainersError(error.message));
   }
 };

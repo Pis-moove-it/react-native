@@ -53,6 +53,17 @@ const gatherReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
       };
+    case actionTypes.GET_CONTAINERS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case actionTypes.GET_CONTAINERS_SUCCESS:
+      return {
+        ...state,
+        containers: action.containers,
+        isLoading: false,
+      };
     default:
       return state;
   }

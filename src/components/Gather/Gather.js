@@ -10,7 +10,7 @@ import { Geolocation } from 'react-native';
 import haversine from 'haversine';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
-import { finishTravel, startCollection } from '../../actions/GatherActions';
+import { finishTravel, startCollection, getContainers } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import editPencil from '../../assets/ic_common/ic_editPencil.png';
 import plusSign from '../../assets/ic_common/ic_add.png';
@@ -122,6 +122,7 @@ class Gather extends Component {
       ],
       distanceTravelled: 0,
       prevLatLng: null,
+      containers: {},
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -130,8 +131,14 @@ class Gather extends Component {
     isModalVisible: false,
   };
 
+  componentWillMount() {
+    this.setState({ containers: this.props.getContainers(this.props.token) });
+  }
+
   componentDidMount() {
     requestLocationPermission();
+
+    console.log('CONTAINERS', this.state.containers);
     if (isTablet || this.state.landscape) {
       this.setButtonsTablet(this.props.user);
     } else {
@@ -346,6 +353,7 @@ Gather.propTypes = {
   startCollection: PropTypes.func.isRequired,
   token: PropTypes.string,
   user: PropTypes.string.isRequired,
+  getContainers: PropTypes.func.isRequired,
 };
 
 Gather.defaultProps = {
@@ -365,6 +373,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(finishTravel(date, hour, travelImage, kmsTraveled, pocketsCollected)),
   openCreatePocketModal: () => dispatch(openCreatePocketModal()),
   startCollection: token => dispatch(startCollection(token)),
+  getContainers: token => dispatch(getContainers(token)),
 });
 
 export default connect(
