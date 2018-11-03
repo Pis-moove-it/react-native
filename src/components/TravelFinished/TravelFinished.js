@@ -17,7 +17,6 @@ import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
-// import CustomButton from '../common/CustomButton';
 import { transformTime, transformDay, transformMonth } from '../../helpers/DateFormatter';
 import styles from '../TravelFinished/styles';
 
@@ -61,7 +60,6 @@ class TravelFinished extends Component {
 
     setInterval(() => {
       this.setState({
-        // currentYear: new Date().getFullYear().toLocaleString(),
         currentMonth: transformMonth(new Date().getMonth()),
         currentDay: new Date().getDate().toLocaleString(),
         currentDayName: transformDay(new Date().getDay()),
