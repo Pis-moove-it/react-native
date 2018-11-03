@@ -111,4 +111,10 @@ export default {
 
   // Map
   endTravel: 'Terminar recorrido ',
+
+  // Travel Finished
+  summary: 'Resumen ',
+  hour: 'Hora ',
+  kmsTraveled: 'Kilómetros realizados ',
+  pocketsCollected: 'Número de bolsones ',
 };

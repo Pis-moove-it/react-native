@@ -7,12 +7,12 @@ import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
+import { finishTravel, startCollection } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import editPencil from '../../assets/ic_common/ic_editPencil.png';
 import plusSign from '../../assets/ic_common/ic_add.png';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
-import { startCollection } from '../../actions/GatherActions';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import icon from '../../assets/images/MapPointIcon.png';
@@ -181,6 +181,14 @@ class Gather extends Component {
 
   changeRole = () => this.props.changeRole();
 
+  finishTravel = () => {
+    this.props.finishTravel('Miércoles 16 de Octubre', '17:05', TickIcon, 200, 25);
+    this.props.navigator.push({
+      screen: Screens.TravelFinished,
+      animationType: 'fade',
+    });
+  };
+
   render() {
     return (
       <View style={stylesGather.mapContainer}>
@@ -193,6 +201,7 @@ class Gather extends Component {
           textStyle={
             isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
           }
+          onPress={this.finishTravel}
         />
         <CreatePocketModal />
         <GatherPointOptionModal
@@ -233,6 +242,7 @@ class Gather extends Component {
 
 Gather.propTypes = {
   changeRole: PropTypes.func.isRequired,
+  finishTravel: PropTypes.func.isRequired,
   openCreatePocketModal: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
@@ -254,6 +264,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
+  finishTravel: (date, hour, travelImage, kmsTraveled, pocketsCollected) =>
+    dispatch(finishTravel(date, hour, travelImage, kmsTraveled, pocketsCollected)),
   openCreatePocketModal: () => dispatch(openCreatePocketModal()),
   startCollection: token => dispatch(startCollection(token)),
 });

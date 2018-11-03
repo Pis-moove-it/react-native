@@ -9,10 +9,15 @@ import bales from './BalesReducer';
 import createBaleModal from './CreateBaleModalReducer';
 import editBaleModal from './EditBaleModalReducer';
 import createPocketModal from './CreatePocketModalReducer';
+import date from './GatherReducer';
+import hour from './GatherReducer';
+import travelImage from './GatherReducer';
+import kmsTraveled from './GatherReducer';
+import pocketsCollected from './GatherReducer';
+import gather from './GatherReducer';
 import editPocketModal from './EditIdPocketModalReducer';
 import editWeightPocketModal from './EditWeightPocketModalReducer';
 import pockets from './PocketReducer';
-import gather from './GatherReducer';
 
 const rootReducer = combineReducers({
   loading,
@@ -26,6 +31,11 @@ const rootReducer = combineReducers({
   createBaleModal,
   editBaleModal,
   createPocketModal,
+  date,
+  hour,
+  travelImage,
+  kmsTraveled,
+  pocketsCollected,
   editPocketModal,
   editWeightPocketModal,
   gather,
