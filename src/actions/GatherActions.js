@@ -6,6 +6,16 @@ export const actionTypes = {
   START_COLLECTION_REQUEST: 'START_COLLECTION_REQUEST',
   START_COLLECTION_SUCCESS: 'START_COLLECTION_SUCCESS',
   START_COLLECTION_ERROR: 'START_COLLECTION_ERROR',
+  ADD_POCKET_REQUEST: 'ADD_POCKET_REQUEST',
+  ADD_POCKET_SUCCESS: 'ADD_POCKET_SUCCESS',
+  ADD_POCKET_ERROR: 'ADD_POCKET_ERROR',
+  END_COLLECTION_REQUEST: 'END_COLLECTION_REQUEST',
+  END_COLLECTION_SUCCESS: 'END_COLLECTION_SUCCESS',
+  END_COLLECTION_ERROR: 'END_COLLECTION_ERROR',
+  GET_CONTAINERS_REQUEST: 'GET_CONTAINERS_REQUEST',
+  GET_CONTAINERS_SUCCESS: 'GET_CONTAINERS_SUCCESS',
+  GET_CONTAINERS_ERROR: 'GET_CONTAINERS_ERROR',
+  SET_CONTAINER_ID: 'SET_CONTAINER_ID',
 };
 
 const travelFinished = (travelImage, kmsTraveled, pocketsCollected) => ({
@@ -33,6 +43,51 @@ const startCollectionError = error => ({
   error,
 });
 
+const addPocketRequest = () => ({
+  type: actionTypes.ADD_POCKET_REQUEST,
+});
+
+const addPocketSuccess = () => ({
+  type: actionTypes.ADD_POCKET_SUCCESS,
+});
+
+const addPocketError = error => ({
+  type: actionTypes.ADD_POCKET_ERROR,
+  error,
+});
+
+const endCollectionRequest = () => ({
+  type: actionTypes.END_COLLECTION_REQUEST,
+});
+
+const endCollectionSuccess = () => ({
+  type: actionTypes.END_COLLECTION_SUCCESS,
+});
+
+const endCollectionError = error => ({
+  type: actionTypes.END_COLLECTION_ERROR,
+  error,
+});
+
+const getContainersRequest = () => ({
+  type: actionTypes.GET_CONTAINERS_REQUEST,
+});
+
+const getContainersSuccess = containers => ({
+  type: actionTypes.GET_CONTAINERS_SUCCESS,
+  containers,
+});
+
+const getContainersError = error => ({
+  type: actionTypes.GET_CONTAINERS_ERROR,
+  error,
+});
+
+export const setContainerId = containerIdSelected => ({
+  type: actionTypes.SET_CONTAINER_ID,
+  containerIdSelected,
+});
+
 export const startCollection = token => async (dispatch) => {
   dispatch(startCollectionRequest());
   try {
@@ -40,5 +95,42 @@ export const startCollection = token => async (dispatch) => {
     dispatch(startCollectionSuccess(identifier));
   } catch (error) {
     dispatch(startCollectionError(error.message));
+  }
+};
+
+export const addPocketToCollection = (
+  token,
+  routeId,
+  collectionId,
+  pocketsArray,
+) => async (dispatch) => {
+  dispatch(addPocketRequest());
+  try {
+    await GatherController.addPocketToCollection(token, routeId, collectionId, pocketsArray);
+    dispatch(addPocketSuccess());
+  } catch (error) {
+    console.log(error);
+    dispatch(addPocketError(error.message));
+  }
+};
+
+export const endCollection = (token, routeId, routeLength, routeImage) => async (dispatch) => {
+  dispatch(endCollectionRequest());
+  try {
+    await GatherController.endCollection(token, routeId, routeLength, routeImage);
+    dispatch(endCollectionSuccess());
+  } catch (error) {
+    console.log('error en el end', error);
+    dispatch(endCollectionError(error.message));
+  }
+};
+
+export const getContainers = token => async (dispatch) => {
+  dispatch(getContainersRequest());
+  try {
+    const { containers } = await GatherController.getContainers(token);
+    dispatch(getContainersSuccess(containers));
+  } catch (error) {
+    dispatch(getContainersError(error.message));
   }
 };

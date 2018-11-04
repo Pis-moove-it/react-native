@@ -52,6 +52,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     marginHorizontal: '10%',
     alignItems: 'center',
+    flex: 1,
+    zIndex: -1,
   },
   image: {
     width: '100%',
