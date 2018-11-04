@@ -65,7 +65,7 @@ class EditPocketModal extends Component {
           <View style={styles.modalTitleContainer}>
             <Text style={styles.modalTitle}>{strings.editPocket}</Text>
           </View>
-          <View style={{ width: '50%' }}>
+          <View style={styles.textFieldView}>
             <TextField
               placeholder={strings.identifierPlaceholderModal}
               keyboardType="numeric"

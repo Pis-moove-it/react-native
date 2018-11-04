@@ -69,7 +69,7 @@ class EditWeightPocketModal extends Component {
               {this.props.hasWeight ? strings.editWeightPocket : strings.addWeightPocket}
             </Text>
           </View>
-          <View style={{ width: '50%' }}>
+          <View style={styles.textFieldView}>
             <TextField
               placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
