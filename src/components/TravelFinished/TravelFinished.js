@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, BackHandler } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -25,6 +25,10 @@ class TravelFinished extends Component {
   static navigatorStyle = {
     navBarHidden: false,
     navBarBackgroundColor: Colors.primary,
+    title: strings.summary,
+    navBarTextColor: Colors.white,
+    navBarTitleTextCentered: true,
+    navBarTextFontSize: 22,
   };
 
   static navigatorButtons = {
@@ -40,9 +44,6 @@ class TravelFinished extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      landscape: Platform.isLandscape(),
-    };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -51,11 +52,11 @@ class TravelFinished extends Component {
   };
 
   componentDidMount() {
-    if (isTablet || this.state.landscape) {
-      this.setButtonsTablet(this.props.user);
-    } else {
-      this.setButtonsPhone();
-    }
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      this.props.navigator.pop();
+      this.props.navigator.pop();
+      return true;
+    });
 
     setInterval(() => {
       this.setState({
@@ -71,13 +72,6 @@ class TravelFinished extends Component {
 
   onNavigatorEvent(event) {
     switch (event.id) {
-      case 'sideMenuIcon':
-        this.props.navigator.toggleDrawer({
-          side: 'right',
-          animated: true,
-          to: 'open',
-        });
-        break;
       case 'logo':
         this.changeRole();
         break;
@@ -85,52 +79,6 @@ class TravelFinished extends Component {
         break;
     }
   }
-
-  setButtonsTablet = (name) => {
-    this.props.navigator.setButtons({
-      rightButtons: [
-        {
-          id: 'profile',
-          component: 'CustomButton',
-          passProps: {
-            title: name,
-            icon: user128,
-            style: { color: Colors.white, width: 170 },
-            textStyle: { margin: 10 },
-            onPress: () =>
-              this.props.navigator.push({
-                screen: Screens.Profile,
-                animationType: 'fade',
-                title: strings.profile,
-              }),
-          },
-        },
-        {
-          id: 'history',
-          component: 'CustomButton',
-          passProps: {
-            title: strings.history,
-            icon: HistoryIconWhite,
-            style: { color: Colors.white, width: 100 },
-          },
-        },
-      ],
-      animated: false,
-    });
-  };
-
-  setButtonsPhone = () => {
-    this.props.navigator.setButtons({
-      rightButtons: [
-        {
-          icon: sideMenuIcon,
-          id: 'sideMenuIcon',
-          buttonColor: Colors.white,
-        },
-      ],
-      animated: false,
-    });
-  };
 
   toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
 
