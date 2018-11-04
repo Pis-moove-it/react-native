@@ -15,6 +15,7 @@ import {
   startCollection,
   getContainers,
   endCollection,
+  setContainerId,
 } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import editPencil from '../../assets/ic_common/ic_editPencil.png';
@@ -35,7 +36,11 @@ import CreatePocketModal from '../common/CreatePocketModal';
 import requestLocationPermission from '../../helpers/Permissions';
 import CustomButton from '../common/CustomButton';
 import TickIcon from '../../assets/images/Tick.png';
-import { selectIsLoading, selectContainers } from '../../selectors/GatherSelector';
+import {
+  selectIsLoading,
+  selectContainers,
+  selectContainerIdSelected,
+} from '../../selectors/GatherSelector';
 import GatherOverlay from './GatherOverlay';
 import stylesGather from './styles';
 
@@ -257,11 +262,18 @@ class Gather extends Component {
     return 0;
   }
 
-  toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
+  toggleModal = (containerId) => {
+    if (!this.state.isModalVisible) {
+      this.props.setContainerId(containerId);
+    }
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  };
 
   toggleCreatePocketModal = () => {
     this.toggleModal();
-    this.props.openCreatePocketModal();
+    console.log(this.props.containerIdSelected);
+    // Despacha una accion que esta escuchando el modal para renderizarse
+    this.props.openCreatePocketModal(/* idContainer, idCollection */);
     // ACA VA LA FUNCION DE AGREGAR BOLSON
     // OBTENER EL CONTAINER ID
     // OBTENER COLLECION ID
@@ -302,7 +314,7 @@ class Gather extends Component {
         id={container.id.toString()}
         coordinate={[Number(container.longitude), Number(container.latitude)]}
       >
-        <TouchableOpacity onPress={this.toggleModal}>
+        <TouchableOpacity onPress={() => this.toggleModal(container.id)}>
           <Image source={icon} style={stylesGather.trashIcon} />
         </TouchableOpacity>
       </Mapbox.PointAnnotation>
@@ -324,7 +336,14 @@ class Gather extends Component {
           }
           onPress={this.finishTravel}
         />
-        <CreatePocketModal />
+
+        {/* MODAL DE AGREGAR BOLSON */}
+        <CreatePocketModal
+          collectionId={this.props.collectionId}
+          containerIdSelected={this.props.containerIdSelected}
+        />
+        {/* MODAL DE AGREGAR BOLSON */}
+
         <GatherPointOptionModal
           isVisible={this.state.isModalVisible}
           onPressActionFst={this.toggleModal}
@@ -363,6 +382,8 @@ Gather.propTypes = {
   getContainers: PropTypes.func.isRequired,
   containers: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
+  setContainerId: PropTypes.func.isRequired,
+  containerIdSelected: PropTypes.number.isRequired,
 };
 
 Gather.defaultProps = {
@@ -376,6 +397,7 @@ const mapStateToProps = state => ({
   collectionId: getCollection(state),
   loading: selectIsLoading(state),
   containers: selectContainers(state),
+  containerIdSelected: selectContainerIdSelected(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -387,6 +409,7 @@ const mapDispatchToProps = dispatch => ({
   openCreatePocketModal: () => dispatch(openCreatePocketModal()),
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),
+  setContainerId: containerId => dispatch(setContainerId(containerId)),
 });
 
 export default connect(

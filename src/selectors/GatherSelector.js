@@ -6,3 +6,4 @@ export const getPocketsCollected = state => state.pocketsCollected.pocketsCollec
 export const getUserData = state => state.gather.userData;
 export const selectContainers = state => state.gather.containers;
 export const selectIsLoading = state => state.gather.isLoadingContainers;
+export const selectContainerIdSelected = state => state.gather.containerIdSelected;

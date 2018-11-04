@@ -15,6 +15,7 @@ export const actionTypes = {
   GET_CONTAINERS_REQUEST: 'GET_CONTAINERS_REQUEST',
   GET_CONTAINERS_SUCCESS: 'GET_CONTAINERS_SUCCESS',
   GET_CONTAINERS_ERROR: 'GET_CONTAINERS_ERROR',
+  SET_CONTAINER_ID: 'SET_CONTAINER_ID',
 };
 
 const travelFinished = (date, hour, travelImage, kmsTraveled, pocketsCollected) => ({
@@ -90,6 +91,11 @@ const getContainersError = error => ({
   error,
 });
 
+export const setContainerId = containerIdSelected => ({
+  type: actionTypes.SET_CONTAINER_ID,
+  containerIdSelected,
+});
+
 export const startCollection = token => async (dispatch) => {
   dispatch(startCollectionRequest());
   try {
@@ -111,6 +117,7 @@ export const addPocketToCollection = (
     await GatherController.addPocketToCollection(token, routeId, collectionId, pocketsArray);
     dispatch(addPocketSuccess());
   } catch (error) {
+    console.log(error);
     dispatch(addPocketError(error.message));
   }
 };
@@ -129,10 +136,8 @@ export const getContainers = token => async (dispatch) => {
   dispatch(getContainersRequest());
   try {
     const { containers } = await GatherController.getContainers(token);
-    console.log(containers);
     dispatch(getContainersSuccess(containers));
   } catch (error) {
-    console.log(error);
     dispatch(getContainersError(error.message));
   }
 };

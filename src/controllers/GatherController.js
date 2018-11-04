@@ -6,8 +6,8 @@ class GatherController {
   constructor() {
     this.routeID = null;
     this.routesPath = 'routes';
-    this.collectionsPath = `routes/${this.routeID}/collections`;
     this.containersPath = 'containers';
+    this.collectionsPath = '/collections';
   }
 
   startCollection = async token =>
@@ -36,13 +36,13 @@ class GatherController {
 
   addPocketToCollection = async (token, routeId, collectionId, pocket) =>
     new Promise((resolve, reject) => {
-      this.routeID = routeId;
+      console.log('RUTAAAA', `${basePath}${this.routesPath}/${routeId}${this.collectionsPath}`);
       axios
         .post(
-          `${basePath}${this.collectionsPath}`,
+          `${basePath}${this.routesPath}/${routeId}${this.collectionsPath}`,
           {
             collection_point_id: collectionId,
-            pockets_attributes: [{ serial_number: `${pocket.serial_number}` }],
+            pockets_attributes: [{ serial_number: `${pocket}` }],
           },
           {
             headers: {

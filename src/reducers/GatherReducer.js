@@ -10,6 +10,7 @@ export const initialState = {
   isLoading: false,
   containers: [],
   isLoadingContainers: false,
+  containerIdSelected: null,
 };
 
 const gatherReducer = (state = initialState, action) => {
@@ -65,6 +66,11 @@ const gatherReducer = (state = initialState, action) => {
         ...state,
         containers: action.containers,
         isLoadingContainers: false,
+      };
+    case actionTypes.SET_CONTAINER_ID:
+      return {
+        ...state,
+        containerIdSelected: action.containerIdSelected,
       };
     default:
       return state;
