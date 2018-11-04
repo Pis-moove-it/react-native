@@ -59,14 +59,14 @@ class GatherController {
         });
     });
 
-  endCollection = async (token, routeId, routeLength, routeImage) =>
+  endCollection = async (token, routeId, routeLength, coordinates) =>
     new Promise((resolve, reject) => {
       axios
         .put(
           `${basePath}${this.routesPath}/${routeId}`,
           {
             length: routeLength,
-            travel_image: routeImage,
+            points: coordinates,
           },
           {
             headers: {

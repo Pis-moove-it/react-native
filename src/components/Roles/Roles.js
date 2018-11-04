@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import getRole from '../../selectors/RoleSelector';
 import { getContainers } from '../../actions/GatherActions';
 import Button from '../common/Button';
+import requestLocationPermission from '../../helpers/Permissions';
 import { selectRole } from '../../actions/RoleActions';
 import strings from '../../localization';
 import Platform from '../../helpers/Platform';
@@ -30,6 +31,10 @@ class Roles extends Component {
         portrait: Platform.isPortrait(),
       });
     });
+  }
+
+  componentDidMount() {
+    requestLocationPermission();
   }
 
   selectRole = selectedRole => this.props.selectRole(selectedRole);

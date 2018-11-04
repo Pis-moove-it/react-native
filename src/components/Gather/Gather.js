@@ -104,7 +104,7 @@ class Gather extends Component {
   }
 
   componentDidMount() {
-    requestLocationPermission();
+    // requestLocationPermission();
     if (isTablet || this.state.landscape) {
       this.setButtonsTablet(this.props.user);
     } else {
@@ -233,7 +233,7 @@ class Gather extends Component {
       this.props.token,
       this.props.collectionId,
       this.state.distanceTravelled,
-      'Image',
+      this.state.coordinates.coords,
     );
     console.log('COOOOOOOOOORDS', this.state.coordinates.coords);
     this.props.finishTravel(
