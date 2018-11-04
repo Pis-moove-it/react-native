@@ -11,6 +11,8 @@ export const initialState = {
   containers: [],
   isLoadingContainers: false,
   containerIdSelected: null,
+  isTravelling: false,
+  pocketCounter: 0,
 };
 
 const gatherReducer = (state = initialState, action) => {
@@ -29,6 +31,7 @@ const gatherReducer = (state = initialState, action) => {
         ...state,
         collectionId: false,
         isLoading: true,
+        isTravelling: true,
       };
     case actionTypes.START_COLLECTION_SUCCESS:
       return {
@@ -45,16 +48,19 @@ const gatherReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        pocketCounter: state.pocketCounter + 1,
       };
     case actionTypes.END_COLLECTION_REQUEST:
       return {
         ...state,
         isLoading: true,
+        isTravelling: false,
       };
     case actionTypes.END_COLLECTION_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        pocketCounter: 0,
       };
     case actionTypes.GET_CONTAINERS_REQUEST:
       return {

@@ -7,3 +7,5 @@ export const getUserData = state => state.gather.userData;
 export const selectContainers = state => state.gather.containers;
 export const selectIsLoading = state => state.gather.isLoadingContainers;
 export const selectContainerIdSelected = state => state.gather.containerIdSelected;
+export const selectIsTravelling = state => state.gather.isTravelling;
+export const selectPocketCounter = state => state.gather.pocketCounter;

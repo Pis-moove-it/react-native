@@ -40,6 +40,8 @@ import {
   selectIsLoading,
   selectContainers,
   selectContainerIdSelected,
+  selectIsTravelling,
+  selectPocketCounter,
 } from '../../selectors/GatherSelector';
 import GatherOverlay from './GatherOverlay';
 import stylesGather from './styles';
@@ -272,6 +274,7 @@ class Gather extends Component {
   toggleCreatePocketModal = () => {
     this.toggleModal();
     console.log(this.props.containerIdSelected);
+    console.log('Cantidad de bolsones', this.props.pocketCounter);
     // Despacha una accion que esta escuchando el modal para renderizarse
     this.props.openCreatePocketModal(/* idContainer, idCollection */);
     // ACA VA LA FUNCION DE AGREGAR BOLSON
@@ -300,7 +303,7 @@ class Gather extends Component {
       '17:05',
       this.state.coordinates,
       this.state.distanceTravelled,
-      25,
+      this.props.pocketCounter,
     );
     this.props.navigator.push({
       screen: Screens.TravelFinished,
@@ -323,9 +326,10 @@ class Gather extends Component {
   render() {
     return (
       <View style={stylesGather.mapContainer}>
-        {!this.state.finish && (
-          <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
-        )}
+        {!this.state.finish &&
+          !this.props.isTravelling && (
+            <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
+          )}
         <CustomButton
           style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
           icon={TickIcon}
@@ -384,6 +388,8 @@ Gather.propTypes = {
   loading: PropTypes.bool.isRequired,
   setContainerId: PropTypes.func.isRequired,
   containerIdSelected: PropTypes.number.isRequired,
+  isTravelling: PropTypes.bool.isRequired,
+  pocketCounter: PropTypes.number.isRequired,
 };
 
 Gather.defaultProps = {
@@ -398,6 +404,8 @@ const mapStateToProps = state => ({
   loading: selectIsLoading(state),
   containers: selectContainers(state),
   containerIdSelected: selectContainerIdSelected(state),
+  isTravelling: selectIsTravelling(state),
+  pocketCounter: selectPocketCounter(state),
 });
 
 const mapDispatchToProps = dispatch => ({
