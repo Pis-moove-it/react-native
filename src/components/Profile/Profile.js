@@ -37,6 +37,16 @@ class Profile extends Component {
     rightButtons: [],
   };
 
+  onNavigatorEvent(event) {
+    switch (event.id) {
+      case 'logo':
+        this.changeRole();
+        break;
+      default:
+        break;
+    }
+  }
+
   logout = () => {
     this.props.logout();
     this.props.changeRole();

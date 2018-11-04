@@ -5,7 +5,6 @@ import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
-import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import { finishTravel, startCollection } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
@@ -115,6 +114,9 @@ class Gather extends Component {
           to: 'open',
         });
         break;
+      case 'logo':
+        this.changeRole();
+        break;
       default:
         break;
     }
@@ -173,12 +175,13 @@ class Gather extends Component {
     this.props.openCreatePocketModal();
   };
 
-  logout = () => {
-    this.props.logout();
+  changeRole = () => {
     this.props.changeRole();
+    this.props.navigator.push({
+      screen: Screens.Roles,
+      animationType: 'fade',
+    });
   };
-
-  changeRole = () => this.props.changeRole();
 
   finishTravel = () => {
     this.props.finishTravel(TickIcon, 200, 25);
@@ -243,7 +246,6 @@ Gather.propTypes = {
   changeRole: PropTypes.func.isRequired,
   finishTravel: PropTypes.func.isRequired,
   openCreatePocketModal: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   startCollection: PropTypes.func.isRequired,
   token: PropTypes.string,
@@ -261,7 +263,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
   finishTravel: (travelImage, kmsTraveled, pocketsCollected) =>
     dispatch(finishTravel(travelImage, kmsTraveled, pocketsCollected)),

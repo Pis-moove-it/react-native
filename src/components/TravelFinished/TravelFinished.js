@@ -4,7 +4,6 @@ import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
-import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
@@ -78,6 +77,9 @@ class TravelFinished extends Component {
           to: 'open',
         });
         break;
+      case 'logo':
+        this.changeRole();
+        break;
       default:
         break;
     }
@@ -131,12 +133,13 @@ class TravelFinished extends Component {
 
   toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
 
-  logout = () => {
-    this.props.logout();
+  changeRole = () => {
     this.props.changeRole();
+    this.props.navigator.push({
+      screen: Screens.Roles,
+      animationType: 'fade',
+    });
   };
-
-  changeRole = () => this.props.changeRole();
 
   render() {
     return (
@@ -181,7 +184,6 @@ class TravelFinished extends Component {
 
 TravelFinished.propTypes = {
   user: PropTypes.string.isRequired,
-  logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   travelImage: PropTypes.object.isRequired,
@@ -200,7 +202,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
 });
 
