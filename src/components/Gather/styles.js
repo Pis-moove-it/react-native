@@ -90,6 +90,9 @@ const stylesGather = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  route: {
+    color: 'black',
+  },
   modalContainer: {
     borderRadius: 4,
     borderWidth: 2,

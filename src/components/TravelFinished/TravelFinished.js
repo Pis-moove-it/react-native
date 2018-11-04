@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,7 +7,11 @@ import { isTablet } from 'react-native-device-detection';
 import { changeRole } from '../../actions/RoleActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
-import { getImage, getKmsTraveled, getPocketsCollected } from '../../selectors/GatherSelector';
+import {
+  getCoordinates,
+  getKmsTraveled,
+  getPocketsCollected,
+} from '../../selectors/GatherSelector';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
@@ -18,8 +22,16 @@ import strings from '../../localization';
 import { Screens } from '../Navigation';
 import { transformTime, transformDay, transformMonth } from '../../helpers/DateFormatter';
 import styles from '../TravelFinished/styles';
+import stylesGather from '../Gather/styles';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
+const layerStyles = Mapbox.StyleSheet.create({
+  route: {
+    lineColor: 'green',
+    lineWidth: 6,
+    lineOpacity: 0.84,
+  },
+});
 
 class TravelFinished extends Component {
   static navigatorStyle = {
@@ -42,6 +54,7 @@ class TravelFinished extends Component {
     super(props);
     this.state = {
       landscape: Platform.isLandscape(),
+      travel: {},
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -49,6 +62,17 @@ class TravelFinished extends Component {
   state = {
     isModalVisible: false,
   };
+
+  componentWillMount() {
+    this.state.travel = {
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'LineString',
+        coordinates: this.props.coordinates,
+      },
+    };
+  }
 
   componentDidMount() {
     if (isTablet || this.state.landscape) {
@@ -144,7 +168,7 @@ class TravelFinished extends Component {
 
   render() {
     return (
-      <View>
+      <View style={stylesGather.mapContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}> {strings.summary} </Text>
         </View>
@@ -164,13 +188,27 @@ class TravelFinished extends Component {
             </Text>
           </View>
         </View>
-        <View style={styles.imageContainer}>
-          <Image source={this.props.travelImage} />
-        </View>
+
+        <Mapbox.MapView
+          styleURL={Mapbox.StyleURL.Street}
+          zoomLevel={11}
+          userTrackingMode={Mapbox.UserTrackingModes.FollowWithHeading}
+          showUserLocation
+          style={stylesGather.mapContainer}
+        >
+          <Mapbox.ShapeSource id="routeSource" shape={this.state.travel}>
+            <Mapbox.LineLayer
+              id="routeFill"
+              style={layerStyles.route}
+              belowLayerID="originInnerCircle"
+            />
+          </Mapbox.ShapeSource>
+        </Mapbox.MapView>
+
         <View style={styles.kmsAndPocketsContainer}>
           <View style={styles.kmsContainer}>
             <Text style={styles.kmsAndPocketsTitle}> {strings.kmsTraveled.toUpperCase()} </Text>
-            <Text style={styles.kmsAndPocketsSubtitle}> {this.props.kmsTraveled} </Text>
+            <Text style={styles.kmsAndPocketsSubtitle}>{this.props.kmsTraveled.toFixed(2)} km</Text>
           </View>
           <View style={styles.pocketsContainer}>
             <Text style={styles.kmsAndPocketsTitle}>{strings.pocketsCollected.toUpperCase()}</Text>
@@ -186,7 +224,7 @@ TravelFinished.propTypes = {
   user: PropTypes.string.isRequired,
   changeRole: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
-  travelImage: PropTypes.object.isRequired,
+  coordinates: PropTypes.object.isRequired,
   kmsTraveled: PropTypes.number.isRequired,
   pocketsCollected: PropTypes.number.isRequired,
 };
@@ -196,7 +234,7 @@ TravelFinished.defaultProps = {};
 const mapStateToProps = state => ({
   user: getUser(state),
   role: getRole(state),
-  travelImage: getImage(state),
+  coordinates: getCoordinates(state),
   kmsTraveled: getKmsTraveled(state),
   pocketsCollected: getPocketsCollected(state),
 });

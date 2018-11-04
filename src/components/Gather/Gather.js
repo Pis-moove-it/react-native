@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
-import { View, Image, TouchableOpacity, Text } from 'react-native';
+import { View, Image, Text, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Modal from 'react-native-modal';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
+import haversine from 'haversine';
 import { changeRole } from '../../actions/RoleActions';
-import { finishTravel, startCollection } from '../../actions/GatherActions';
+import {
+  finishTravel,
+  startCollection,
+  getContainers,
+  endCollection,
+  setContainerId,
+} from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import plusSign from '../../assets/ic_common/ic_add.png';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
+import getCollection from '../../selectors/RouteSelector';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import icon from '../../assets/images/MapPointIcon.png';
@@ -23,6 +31,13 @@ import CreatePocketModal from '../common/CreatePocketModal';
 import requestLocationPermission from '../../helpers/Permissions';
 import CustomButton from '../common/CustomButton';
 import TickIcon from '../../assets/images/Tick.png';
+import {
+  selectIsLoading,
+  selectContainers,
+  selectContainerIdSelected,
+  selectIsTravelling,
+  selectPocketCounter,
+} from '../../selectors/GatherSelector';
 import GatherOverlay from './GatherOverlay';
 import stylesGather from './styles';
 
@@ -79,13 +94,14 @@ class Gather extends Component {
     super(props);
     this.state = {
       landscape: Platform.isLandscape(),
+      coordinates: { coords: [] },
+      distanceTravelled: 0,
+      prevLatLng: null,
+      finish: false,
+      isModalVisible: false,
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
-
-  state = {
-    isModalVisible: false,
-  };
 
   componentDidMount() {
     requestLocationPermission();
@@ -94,6 +110,32 @@ class Gather extends Component {
     } else {
       this.setButtonsPhone();
     }
+
+    this.watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        this.setState(prevState => ({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null,
+          coordinates: {
+            coords: [
+              ...prevState.coordinates.coords,
+              [position.coords.longitude, position.coords.latitude],
+            ],
+          },
+          distanceTravelled:
+            this.state.distanceTravelled +
+            this.calcDistance([position.coords.longitude, position.coords.latitude]),
+          prevLatLng: [position.coords.longitude, position.coords.latitude],
+        }));
+      },
+      error => this.setState({ error: error.message }),
+      { timeout: 20000, distanceFilter: 1 },
+    );
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchId);
   }
 
   onNavigatorEvent(event) {
@@ -150,7 +192,24 @@ class Gather extends Component {
     });
   };
 
-  toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
+  calcDistance(newLatLng) {
+    const { prevLatLng } = this.state;
+    if (prevLatLng !== null) {
+      const distance = haversine(prevLatLng, newLatLng, {
+        unit: 'km',
+        format: '[lon,lat]',
+      }).toFixed(2);
+      return Number(distance);
+    }
+    return 0;
+  }
+
+  toggleModal = (containerId) => {
+    if (!this.state.isModalVisible) {
+      this.props.setContainerId(containerId);
+    }
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  };
 
   toggleCreatePocketModal = () => {
     this.toggleModal();
@@ -166,17 +225,48 @@ class Gather extends Component {
   };
 
   finishTravel = () => {
-    this.props.finishTravel(TickIcon, 200, 25);
+    this.setState({ finish: true });
+    if (this.state.distanceTravelled === 0) {
+      this.state.distanceTravelled = 0.01;
+    }
+    this.props.endCollection(
+      this.props.token,
+      this.props.collectionId,
+      this.state.distanceTravelled,
+      'Image',
+    );
+    console.log('COOOOOOOOOORDS', this.state.coordinates.coords);
+    this.props.finishTravel(
+      this.state.coordinates.coords,
+      this.state.distanceTravelled,
+      this.props.pocketCounter,
+    );
+
     this.props.navigator.push({
       screen: Screens.TravelFinished,
       animationType: 'fade',
     });
   };
 
+  renderContainers = containers =>
+    containers.map(container => (
+      <Mapbox.PointAnnotation
+        id={container.id.toString()}
+        coordinate={[Number(container.longitude), Number(container.latitude)]}
+      >
+        <TouchableOpacity onPress={() => this.toggleModal(container.id)}>
+          <Image source={icon} style={stylesGather.trashIcon} />
+        </TouchableOpacity>
+      </Mapbox.PointAnnotation>
+    ));
+
   render() {
     return (
       <View style={stylesGather.mapContainer}>
-        <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
+        {!this.state.finish &&
+          !this.props.isTravelling && (
+            <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
+          )}
         <CustomButton
           style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
           icon={TickIcon}
@@ -187,7 +277,12 @@ class Gather extends Component {
           }
           onPress={this.finishTravel}
         />
-        <CreatePocketModal />
+
+        <CreatePocketModal
+          collectionId={this.props.collectionId}
+          containerIdSelected={this.props.containerIdSelected}
+        />
+
         <GatherPointOptionModal
           isVisible={this.state.isModalVisible}
           onPressActionFst={this.toggleModal}
@@ -200,24 +295,7 @@ class Gather extends Component {
           showUserLocation
           style={stylesGather.mapContainer}
         >
-          <Mapbox.PointAnnotation
-            key="pointAnnotation"
-            id="pointAnnotation"
-            coordinate={[-56.165921, -34.917352]}
-            selected={false}
-          >
-            <TouchableOpacity onPress={this.toggleModal}>
-              <Image source={icon} style={stylesGather.trashIcon} />
-            </TouchableOpacity>
-          </Mapbox.PointAnnotation>
-          <Mapbox.PointAnnotation
-            id="pointAnnotation2"
-            coordinate={[-56.16574729294116, -34.90461658495409]}
-          >
-            <TouchableOpacity onPress={this.toggleModal}>
-              <Image source={icon} style={stylesGather.trashIcon} />
-            </TouchableOpacity>
-          </Mapbox.PointAnnotation>
+          {!this.props.loading && this.renderContainers(this.props.containers)}
         </Mapbox.MapView>
       </View>
     );
@@ -227,11 +305,19 @@ class Gather extends Component {
 Gather.propTypes = {
   changeRole: PropTypes.func.isRequired,
   finishTravel: PropTypes.func.isRequired,
+  endCollection: PropTypes.func.isRequired,
   openCreatePocketModal: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   startCollection: PropTypes.func.isRequired,
   token: PropTypes.string,
   user: PropTypes.string.isRequired,
+  collectionId: PropTypes.string.isRequired,
+  containers: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  setContainerId: PropTypes.func.isRequired,
+  containerIdSelected: PropTypes.number.isRequired,
+  isTravelling: PropTypes.bool.isRequired,
+  pocketCounter: PropTypes.number.isRequired,
 };
 
 Gather.defaultProps = {
@@ -242,14 +328,24 @@ const mapStateToProps = state => ({
   role: getRole(state),
   user: getUser(state),
   token: state.login.token,
+  collectionId: getCollection(state),
+  loading: selectIsLoading(state),
+  containers: selectContainers(state),
+  containerIdSelected: selectContainerIdSelected(state),
+  isTravelling: selectIsTravelling(state),
+  pocketCounter: selectPocketCounter(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   changeRole: () => dispatch(changeRole()),
-  finishTravel: (travelImage, kmsTraveled, pocketsCollected) =>
-    dispatch(finishTravel(travelImage, kmsTraveled, pocketsCollected)),
+  finishTravel: (coordinates, distanceTravelled, pocketCounter) =>
+    dispatch(finishTravel(coordinates, distanceTravelled, pocketCounter)),
+  endCollection: (token, routeId, routeLength, routeImage) =>
+    dispatch(endCollection(token, routeId, routeLength, routeImage)),
   openCreatePocketModal: () => dispatch(openCreatePocketModal()),
   startCollection: token => dispatch(startCollection(token)),
+  getContainers: token => dispatch(getContainers(token)),
+  setContainerId: containerId => dispatch(setContainerId(containerId)),
 });
 
 export default connect(
