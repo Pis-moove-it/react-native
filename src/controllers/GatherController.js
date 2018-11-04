@@ -62,16 +62,11 @@ class GatherController {
 
   endCollection = async (token, routeId, routeLength, routeImage) =>
     new Promise((resolve, reject) => {
-      // this.routeID = routeId;
-      // http://34.213.11.120/routes//undefined
-      console.log('path', `${basePath}${this.routesPath}/${routeId}`);
-      console.log('routelength', routeLength);
-      console.log('routeimg', routeImage);
       axios
         .put(
           `${basePath}${this.routesPath}/${routeId}`,
           {
-            length: routeLength,
+            length: 10, // parseInt(routeLength, 10),
             travel_image: routeImage,
           },
           {
@@ -82,11 +77,9 @@ class GatherController {
           },
         )
         .then(() => {
-          console.log('todobn');
           resolve({});
         })
         .catch((error) => {
-          console.log('error', error);
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
           else reject(new Error(strings.errorUser));
         });
