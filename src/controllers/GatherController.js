@@ -66,7 +66,7 @@ class GatherController {
         .put(
           `${basePath}${this.routesPath}/${routeId}`,
           {
-            length: 10, // parseInt(routeLength, 10),
+            length: routeLength,
             travel_image: routeImage,
           },
           {

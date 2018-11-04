@@ -47,28 +47,6 @@ import GatherOverlay from './GatherOverlay';
 import stylesGather from './styles';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
-const layerStyles = Mapbox.StyleSheet.create({
-  route: {
-    lineColor: 'black',
-    lineWidth: 8,
-    lineOpacity: 0.84,
-    // lineDasharray: [2,2],
-  },
-});
-
-const shape = {
-  type: 'Feature',
-  properties: {},
-  geometry: {
-    type: 'LineString',
-    coordinates: [
-      [-56.165921, -34.917352],
-      [-56.16574729294116, -34.90461658495409],
-      [-56.167024, -34.7868122],
-    ],
-  },
-};
-const options = { steps: 10, units: 'kilometers', properties: { foo: 'bar' } };
 
 const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd }) => (
   <Modal
@@ -128,28 +106,13 @@ class Gather extends Component {
     super(props);
     this.state = {
       landscape: Platform.isLandscape(),
-      latitude: null,
-      longitude: null,
-      error: null,
-      coordinates: [
-        /* [-56.165921, -34.917352] */
-      ],
+      coordinates: [],
       distanceTravelled: 0,
       prevLatLng: null,
-      containers: {},
-      routeId: null,
       finish: false,
       isModalVisible: false,
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
-  /*  state = {
-
-  }; */
-
-  componentWillMount() {
-    // this.setState({ containers: this.props.getContainers(this.props.token) });
   }
 
   componentDidMount() {
@@ -250,11 +213,7 @@ class Gather extends Component {
 
   calcDistance(newLatLng) {
     const { prevLatLng } = this.state;
-    console.log(prevLatLng);
     if (prevLatLng !== null) {
-      console.log('prevCoord', prevLatLng);
-      console.log('nextCoord', newLatLng);
-      console.log(haversine(prevLatLng, newLatLng, { unit: 'meter', format: '[lon,lat]' }));
       const distance = haversine(prevLatLng, newLatLng, {
         unit: 'km',
         format: '[lon,lat]',
@@ -273,13 +232,7 @@ class Gather extends Component {
 
   toggleCreatePocketModal = () => {
     this.toggleModal();
-    console.log(this.props.containerIdSelected);
-    console.log('Cantidad de bolsones', this.props.pocketCounter);
-    // Despacha una accion que esta escuchando el modal para renderizarse
-    this.props.openCreatePocketModal(/* idContainer, idCollection */);
-    // ACA VA LA FUNCION DE AGREGAR BOLSON
-    // OBTENER EL CONTAINER ID
-    // OBTENER COLLECION ID
+    this.props.openCreatePocketModal();
   };
 
   changeRole = () => {
@@ -292,6 +245,9 @@ class Gather extends Component {
 
   finishTravel = () => {
     this.setState({ finish: true });
+    if (this.state.distanceTravelled === 0) {
+      this.state.distanceTravelled = 0.01;
+    }
     this.props.endCollection(
       this.props.token,
       this.props.collectionId,
@@ -341,12 +297,10 @@ class Gather extends Component {
           onPress={this.finishTravel}
         />
 
-        {/* MODAL DE AGREGAR BOLSON */}
         <CreatePocketModal
           collectionId={this.props.collectionId}
           containerIdSelected={this.props.containerIdSelected}
         />
-        {/* MODAL DE AGREGAR BOLSON */}
 
         <GatherPointOptionModal
           isVisible={this.state.isModalVisible}
@@ -362,12 +316,6 @@ class Gather extends Component {
         >
           {!this.props.loading && this.renderContainers(this.props.containers)}
         </Mapbox.MapView>
-        {/* <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Latitude: {this.state.latitude}</Text>
-          <Text>Longitude: {this.state.longitude}</Text>
-          <Text>Disntace: {this.state.distanceTravelled} km</Text>
-          {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
-        </View> */}
       </View>
     );
   }
@@ -383,7 +331,6 @@ Gather.propTypes = {
   token: PropTypes.string,
   user: PropTypes.string.isRequired,
   collectionId: PropTypes.string.isRequired,
-  getContainers: PropTypes.func.isRequired,
   containers: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   setContainerId: PropTypes.func.isRequired,

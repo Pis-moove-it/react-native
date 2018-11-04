@@ -37,10 +37,6 @@ class CreatePocketModal extends Component {
   }
 
   acceptEdit = () => {
-    console.log('token', this.props.token);
-    console.log('collectionId', this.props.collectionId);
-    console.log('containerId', this.props.containerIdSelected);
-    console.log('pocketId', this.state.identifier);
     if (this.state.identifier > 0) {
       this.props.addPocketToCollection(
         this.props.token,
@@ -48,7 +44,6 @@ class CreatePocketModal extends Component {
         this.props.containerIdSelected,
         this.state.identifier,
       );
-      // ACA VA LA FUNCION DE CREAR BOLSON
       this.closeModal();
     } else {
       this.setState({ inputError: true });

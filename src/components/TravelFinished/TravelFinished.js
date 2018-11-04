@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -173,7 +173,6 @@ class TravelFinished extends Component {
           </View>
         </View>
 
-        {/*  <View style={styles.imageContainer}> */}
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}
           zoomLevel={11}
@@ -189,13 +188,11 @@ class TravelFinished extends Component {
             />
           </Mapbox.ShapeSource>
         </Mapbox.MapView>
-        {/* <Image source={this.props.travelImage} /> */}
-        {/* </View> */}
 
         <View style={styles.kmsAndPocketsContainer}>
           <View style={styles.kmsContainer}>
             <Text style={styles.kmsAndPocketsTitle}> {strings.kmsTraveled.toUpperCase()} </Text>
-            <Text style={styles.kmsAndPocketsSubtitle}> {this.props.kmsTraveled} </Text>
+            <Text style={styles.kmsAndPocketsSubtitle}>{this.props.kmsTraveled.toFixed(2)} km</Text>
           </View>
           <View style={styles.pocketsContainer}>
             <Text style={styles.kmsAndPocketsTitle}>{strings.pocketsCollected.toUpperCase()}</Text>
