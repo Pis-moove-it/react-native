@@ -31,7 +31,18 @@ describe('GatherActions', () => {
 
   const store = mockStore(user);
 
-  it('should create an action for starting route request', () => {
+  it('should create an action for finishing the travel', () => {
+    const expectedAction = { type: gatherActions.actionTypes.FINISH_TRAVEL };
+
+    // Dispatch the action
+    store.dispatch(gatherActions.finishTravel());
+
+    // Test if the store dispatched the expected actions
+    const actions = store.getActions();
+    expect(actions).toEqual([expectedAction]);
+  });
+
+  it('should create an action for bales request', () => {
     const expectedAction = { type: gatherActions.actionTypes.START_COLLECTION_REQUEST };
 
     // Dispatch the action

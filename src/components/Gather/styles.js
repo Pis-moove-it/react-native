@@ -93,6 +93,39 @@ const stylesGather = StyleSheet.create({
   route: {
     color: 'black',
   },
+  modalContainer: {
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: Colors.primary,
+    backgroundColor: Colors.white,
+    height: 300,
+    width: 400,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonModal: {
+    width: 200,
+    backgroundColor: Colors.primary,
+    alignSelf: 'stretch',
+    borderColor: Colors.primary,
+    borderWidth: 1,
+    marginTop: 10,
+    padding: 5,
+    borderRadius: 5,
+  },
+  modalTitleContainer: {
+    paddingTop: 15,
+    paddingBottom: 20,
+  },
+  modalTitle: {
+    fontSize: 30,
+    color: Colors.primary,
+  },
+  buttonText: {
+    fontSize: 15,
+    color: Colors.white,
+  },
 });
 
 export default stylesGather;

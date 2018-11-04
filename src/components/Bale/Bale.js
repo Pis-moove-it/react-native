@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
 import BaleList from '../Bale/BaleList';
-import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import { openCreateBaleModal } from '../../actions/CreateBaleModalActions';
 import getUser from '../../selectors/UserSelector';
@@ -60,6 +59,9 @@ class Bale extends Component {
           to: 'open',
         });
         break;
+      case 'logo':
+        this.changeRole();
+        break;
       default:
         break;
     }
@@ -113,12 +115,13 @@ class Bale extends Component {
     });
   };
 
-  logout = () => {
-    this.props.logout();
+  changeRole = () => {
     this.props.changeRole();
+    this.props.navigator.push({
+      screen: Screens.Roles,
+      animationType: 'fade',
+    });
   };
-
-  changeRole = () => this.props.changeRole();
 
   render() {
     return <BaleList />;
@@ -127,7 +130,6 @@ class Bale extends Component {
 
 Bale.propTypes = {
   user: PropTypes.string.isRequired,
-  logout: PropTypes.func.isRequired,
   changeRole: PropTypes.func.isRequired,
   openCreateBaleModal: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
@@ -139,7 +141,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
   openCreateBaleModal: () => dispatch(openCreateBaleModal()),
 });

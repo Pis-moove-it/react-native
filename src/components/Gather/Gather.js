@@ -187,6 +187,9 @@ class Gather extends Component {
           to: 'open',
         });
         break;
+      case 'logo':
+        this.changeRole();
+        break;
       default:
         break;
     }
@@ -264,12 +267,13 @@ class Gather extends Component {
     // OBTENER COLLECION ID
   };
 
-  logout = () => {
-    this.props.logout();
+  changeRole = () => {
     this.props.changeRole();
+    this.props.navigator.push({
+      screen: Screens.Roles,
+      animationType: 'fade',
+    });
   };
-
-  changeRole = () => this.props.changeRole();
 
   finishTravel = () => {
     this.setState({ finish: true });
@@ -351,7 +355,6 @@ Gather.propTypes = {
   finishTravel: PropTypes.func.isRequired,
   endCollection: PropTypes.func.isRequired,
   openCreatePocketModal: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   startCollection: PropTypes.func.isRequired,
   token: PropTypes.string,
@@ -376,7 +379,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
   changeRole: () => dispatch(changeRole()),
   finishTravel: (date, hour, travelImage, kmsTraveled, pocketsCollected) =>
     dispatch(finishTravel(date, hour, travelImage, kmsTraveled, pocketsCollected)),
