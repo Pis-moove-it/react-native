@@ -246,6 +246,9 @@ class Gather extends Component {
   toggleCreatePocketModal = () => {
     this.toggleModal();
     this.props.openCreatePocketModal();
+    // ACA VA LA FUNCION DE AGREGAR BOLSON
+    // OBTENER EL CONTAINER ID
+    // OBTENER COLLECION ID
   };
 
   logout = () => {
@@ -310,12 +313,12 @@ class Gather extends Component {
         >
           {!this.props.loading && this.renderContainers(this.props.containers)}
         </Mapbox.MapView>
-        <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
+        {/* <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Latitude: {this.state.latitude}</Text>
           <Text>Longitude: {this.state.longitude}</Text>
           <Text>Disntace: {this.state.distanceTravelled} km</Text>
           {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
-        </View>
+        </View> */}
       </View>
     );
   }
