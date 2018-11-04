@@ -8,7 +8,6 @@ import { isTablet } from 'react-native-device-detection';
 import { changeRole } from '../../actions/RoleActions';
 import { finishTravel, startCollection } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
-import editPencil from '../../assets/ic_common/ic_editPencil.png';
 import plusSign from '../../assets/ic_common/ic_add.png';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
@@ -41,13 +40,6 @@ const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd 
         <Text style={stylesGather.modalTitle}>{strings.optionsModalGather}</Text>
       </View>
       <View>
-        <CustomButton
-          style={stylesGather.buttonModal}
-          textStyle={stylesGather.textButton}
-          title={strings.changeStateIsle}
-          onPress={onPressActionFst}
-          icon={editPencil}
-        />
         <CustomButton
           style={stylesGather.buttonModal}
           textStyle={stylesGather.textButton}
