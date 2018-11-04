@@ -166,7 +166,7 @@ class Gather extends Component {
   };
 
   finishTravel = () => {
-    this.props.finishTravel('Miércoles 16 de Octubre', '17:05', TickIcon, 200, 25);
+    this.props.finishTravel(TickIcon, 200, 25);
     this.props.navigator.push({
       screen: Screens.TravelFinished,
       animationType: 'fade',
@@ -246,8 +246,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   changeRole: () => dispatch(changeRole()),
-  finishTravel: (date, hour, travelImage, kmsTraveled, pocketsCollected) =>
-    dispatch(finishTravel(date, hour, travelImage, kmsTraveled, pocketsCollected)),
+  finishTravel: (travelImage, kmsTraveled, pocketsCollected) =>
+    dispatch(finishTravel(travelImage, kmsTraveled, pocketsCollected)),
   openCreatePocketModal: () => dispatch(openCreatePocketModal()),
   startCollection: token => dispatch(startCollection(token)),
 });

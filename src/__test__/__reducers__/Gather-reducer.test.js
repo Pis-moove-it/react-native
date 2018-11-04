@@ -3,8 +3,6 @@ import { actionTypes } from '../../actions/GatherActions';
 import TickIcon from '../../assets/images/Tick.png';
 
 const mockState = {
-  date: '11/3',
-  hour: '1:57',
   travelImage: TickIcon,
   kmsTraveled: 175,
   pocketsCollected: 17,
@@ -43,8 +41,6 @@ describe('gather reducer', () => {
       collectionId: false,
       type: actionTypes.START_COLLECTION_REQUEST,
     })).toEqual({
-      date: false,
-      hour: false,
       travelImage: false,
       kmsTraveled: 0,
       pocketsCollected: 0,

@@ -6,10 +6,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
   },
+  titleContainer: {
+    marginTop: '5%',
+    width: '100%',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: Colors.primary,
+    alignSelf: 'center',
+  },
   resumeAndHourContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: '10%',
+    marginTop: '3%',
     marginHorizontal: '8%',
   },
   resumeContainer: {
@@ -22,16 +33,21 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   resumeAndHourTitle: {
-    fontSize: 22,
-    fontWeight: '800',
+    fontSize: 20,
+    fontWeight: '700',
     color: Colors.primary,
-    padding: 0,
-    marginHorizontal: 0,
   },
-  resumeAndHourSubtitle: {
+  resumeSubtitle: {
     fontSize: 15,
     fontWeight: '300',
     color: Colors.black,
+    marginLeft: 5,
+  },
+  hourSubtitle: {
+    fontSize: 15,
+    fontWeight: '300',
+    color: Colors.black,
+    marginRight: 10, // this is because of the space at the end of the "Hour" string
   },
   imageContainer: {
     marginHorizontal: '10%',

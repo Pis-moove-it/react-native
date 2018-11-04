@@ -116,5 +116,5 @@ export default {
   summary: 'Summary ',
   hour: 'Hour ',
   kmsTraveled: 'Kilometers traveled ',
-  pocketsCollected: 'Number of pockets ',
+  pocketsCollected: 'Pockets collected ',
 };
