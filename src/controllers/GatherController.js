@@ -5,7 +5,7 @@ import basePath, { Network } from './BaseController';
 class GatherController {
   constructor() {
     this.routeID = null;
-    this.routesPath = 'routes/';
+    this.routesPath = 'routes';
     this.collectionsPath = `routes/${this.routeID}/collections`;
     this.containersPath = 'containers';
   }
@@ -62,10 +62,14 @@ class GatherController {
 
   endCollection = async (token, routeId, routeLength, routeImage) =>
     new Promise((resolve, reject) => {
-      this.routeID = routeId;
+      // this.routeID = routeId;
+      // http://34.213.11.120/routes//undefined
+      console.log('path', `${basePath}${this.routesPath}/${routeId}`);
+      console.log('routelength', routeLength);
+      console.log('routeimg', routeImage);
       axios
         .put(
-          `${basePath}${this.routesPath}/${this.routeID}`,
+          `${basePath}${this.routesPath}/${routeId}`,
           {
             length: routeLength,
             travel_image: routeImage,
@@ -78,9 +82,11 @@ class GatherController {
           },
         )
         .then(() => {
+          console.log('todobn');
           resolve({});
         })
         .catch((error) => {
+          console.log('error', error);
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
           else reject(new Error(strings.errorUser));
         });
