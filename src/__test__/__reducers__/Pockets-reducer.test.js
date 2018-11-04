@@ -2,9 +2,9 @@ import pocketsListReducer, { initialState } from '../../reducers/PocketReducer';
 import { actionTypes } from '../../actions/PocketActions';
 
 const mockState = {
-  pockets: ['initial', 'mock', 'pockets'],
+  pockets: ['Test'],
+  pocketsQuantity: 1,
   isLoading: false,
-  error: false,
 };
 
 jest.mock(
@@ -26,48 +26,50 @@ jest.mock(
 
 describe('pockets list reducer', () => {
   it('should return the same state', () => {
-    expect(pocketsListReducer(mockState, { pockets: [], type: 'not_an_action' })).toEqual(mockState);
+    expect(pocketsListReducer(mockState, { type: 'not_an_action' })).toEqual(mockState);
   });
 
   it('should return the same state - using initialState', () => {
-    expect(pocketsListReducer(initialState, { pockets: [], type: 'not_an_action2' })).toEqual(initialState);
+    expect(pocketsListReducer(initialState, { type: 'not_an_action2' })).toEqual(initialState);
   });
 
   it('should a return state with isLoading in true', () => {
-    expect(pocketsListReducer(initialState, { pockets: [], type: actionTypes.POCKETS_REQUEST })).toEqual({
+    expect(pocketsListReducer(initialState, { type: actionTypes.POCKETS_REQUEST })).toEqual({
       pockets: [],
-      isLoading: false,
-      pocket: false,
+      pocketsQuantity: false,
+      isLoading: true,
     });
   });
 
   it('should return a state with error in true', () => {
-    expect(pocketsListReducer(initialState, { pockets: [], type: actionTypes.POCKETS_ERROR })).toEqual({
+    expect(pocketsListReducer(initialState, { type: actionTypes.POCKETS_ERROR })).toEqual({
       pockets: [],
+      pocketsQuantity: false,
       isLoading: false,
-      pocket: false,
     });
   });
 
   it('should return a state with mock pockets', () => {
     expect(pocketsListReducer(initialState, {
       pockets: ['Test'],
-      type: actionTypes.POCKETS_REQUEST_SUCCESS,
+      pocketsQuantity: ['Test'].length,
+      type: actionTypes.POCKETS_SUCCESS,
     })).toEqual({
-      pockets: [],
-      pocket: false,
+      pockets: ['Test'],
+      pocketsQuantity: 1,
       isLoading: false,
     });
   });
 
   it('should return a state with different pockets', () => {
     expect(pocketsListReducer(mockState, {
-      pockets: ['new data'],
-      type: actionTypes.POCKETS_REQUEST_SUCCESS,
+      pockets: ['Test', 'Prueba'],
+      pocketsQuantity: ['Test', 'Prueba'].length,
+      type: actionTypes.POCKETS_SUCCESS,
     })).toEqual({
-      pockets: ['initial', 'mock', 'pockets'],
+      pockets: ['Test', 'Prueba'],
+      pocketsQuantity: 2,
       isLoading: false,
-      error: false,
     });
   });
 });

@@ -77,6 +77,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: Colors.white,
   },
+  textFieldView: {
+    width: '50%',
+  },
 });
 
 export default styles;
