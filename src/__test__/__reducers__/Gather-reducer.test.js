@@ -43,13 +43,18 @@ describe('gather reducer', () => {
       collectionId: false,
       type: actionTypes.START_COLLECTION_REQUEST,
     })).toEqual({
+      collectionId: false,
+      containerIdSelected: null,
+      containers: [],
       date: false,
       hour: false,
-      travelImage: false,
-      kmsTraveled: 0,
-      pocketsCollected: 0,
-      collectionId: false,
       isLoading: true,
+      isLoadingContainers: false,
+      isTravelling: true,
+      kmsTraveled: 0,
+      pocketCounter: 0,
+      pocketsCollected: 0,
+      travelImage: false,
     });
   });
 
@@ -59,7 +64,17 @@ describe('gather reducer', () => {
       type: actionTypes.ADD_POCKET_REQUEST,
     })).toEqual({
       collectionId: false,
+      containerIdSelected: null,
+      containers: [],
+      date: false,
+      hour: false,
       isLoading: true,
+      isLoadingContainers: false,
+      isTravelling: false,
+      kmsTraveled: 0,
+      pocketCounter: 0,
+      pocketsCollected: 0,
+      travelImage: false,
     });
   });
 
@@ -69,7 +84,17 @@ describe('gather reducer', () => {
       type: actionTypes.ADD_POCKET_SUCCESS,
     })).toEqual({
       collectionId: false,
+      containerIdSelected: null,
+      containers: [],
+      date: false,
+      hour: false,
       isLoading: false,
+      isLoadingContainers: false,
+      isTravelling: false,
+      kmsTraveled: 0,
+      pocketCounter: 1,
+      pocketsCollected: 0,
+      travelImage: false,
     });
   });
 
@@ -79,7 +104,17 @@ describe('gather reducer', () => {
       type: actionTypes.END_COLLECTION_REQUEST,
     })).toEqual({
       collectionId: false,
+      containerIdSelected: null,
+      containers: [],
+      date: false,
+      hour: false,
       isLoading: true,
+      isLoadingContainers: false,
+      isTravelling: false,
+      kmsTraveled: 0,
+      pocketCounter: 0,
+      pocketsCollected: 0,
+      travelImage: false,
     });
   });
 
@@ -89,7 +124,17 @@ describe('gather reducer', () => {
       type: actionTypes.END_COLLECTION_SUCCESS,
     })).toEqual({
       collectionId: false,
+      containerIdSelected: null,
+      containers: [],
+      date: false,
+      hour: false,
       isLoading: false,
+      isLoadingContainers: false,
+      isTravelling: false,
+      kmsTraveled: 0,
+      pocketCounter: 0,
+      pocketsCollected: 0,
+      travelImage: false,
     });
   });
 });
