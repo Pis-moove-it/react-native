@@ -18,23 +18,15 @@ export const actionTypes = {
   SET_CONTAINER_ID: 'SET_CONTAINER_ID',
 };
 
-const travelFinished = (date, hour, travelImage, kmsTraveled, pocketsCollected) => ({
+const travelFinished = (travelImage, kmsTraveled, pocketsCollected) => ({
   type: actionTypes.FINISH_TRAVEL,
-  date,
-  hour,
   travelImage,
   kmsTraveled,
   pocketsCollected,
 });
 
-export const finishTravel = (
-  date,
-  hour,
-  travelImage,
-  kmsTraveled,
-  pocketsCollected,
-) => (dispatch) => {
-  dispatch(travelFinished(date, hour, travelImage, kmsTraveled, pocketsCollected));
+export const finishTravel = (travelImage, kmsTraveled, pocketsCollected) => (dispatch) => {
+  dispatch(travelFinished(travelImage, kmsTraveled, pocketsCollected));
 };
 
 const startCollectionRequest = () => ({

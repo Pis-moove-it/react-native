@@ -1,8 +1,6 @@
-export const getDate = state => state.date.date;
-export const getHour = state => state.hour.hour;
-export const getCoordinates = state => state.travelImage.travelImage;
-export const getKmsTraveled = state => state.kmsTraveled.kmsTraveled;
-export const getPocketsCollected = state => state.pocketsCollected.pocketsCollected;
+export const getCoordinates = state => state.gather.travelImage;
+export const getKmsTraveled = state => state.gather.kmsTraveled;
+export const getPocketsCollected = state => state.gather.pocketsCollected;
 export const getUserData = state => state.gather.userData;
 export const selectContainers = state => state.gather.containers;
 export const selectIsLoading = state => state.gather.isLoadingContainers;

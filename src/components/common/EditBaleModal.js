@@ -30,11 +30,7 @@ class EditBaleModal extends Component {
     const pickerMaterial = [];
     pickerMaterial.push(<Picker.Item key={999} label={strings.selectMaterial} value={false} />);
     this.materials.map((material) => {
-      pickerMaterial.push(<Picker.Item
-        key={material.id}
-        label={material.name}
-        value={material.value}
-      />);
+      pickerMaterial.push(<Picker.Item key={material.id} label={material.name} value={material.value} />);
     });
     return pickerMaterial;
   }
@@ -49,20 +45,17 @@ class EditBaleModal extends Component {
           this.state.selectedMaterial,
         );
       } else {
-        this.setState({ inputError: true });
-        this.setState({ error: [strings.invalidInputType] });
+        this.setState({ error: [strings.invalidInputType], inputError: true });
       }
     } else {
-      this.setState({ inputError: true });
-      this.setState({ error: [strings.invalidInputNumber] });
+      this.setState({ error: [strings.invalidInputNumber], inputError: true });
     }
   };
 
   closeModal = () => {
-    this.setState({ inputError: false });
-    this.setState({ newWeight: 0 });
-    this.setState({ selectedMaterial: false });
-    this.setState({ error: [] });
+    this.setState({
+      inputError: false, newWeight: 0, selectedMaterial: false, error: [],
+    });
     this.props.closeEditModal();
   };
 

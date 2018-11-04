@@ -6,9 +6,7 @@ import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
-import { Geolocation } from 'react-native';
 import haversine from 'haversine';
-import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
 import {
   finishTravel,
@@ -18,7 +16,6 @@ import {
   setContainerId,
 } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
-import editPencil from '../../assets/ic_common/ic_editPencil.png';
 import plusSign from '../../assets/ic_common/ic_add.png';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
@@ -29,7 +26,6 @@ import icon from '../../assets/images/MapPointIcon.png';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
 import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
-import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
@@ -60,13 +56,6 @@ const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd 
         <Text style={stylesGather.modalTitle}>{strings.optionsModalGather}</Text>
       </View>
       <View>
-        <CustomButton
-          style={stylesGather.buttonModal}
-          textStyle={stylesGather.textButton}
-          title={strings.changeStateIsle}
-          onPress={onPressActionFst}
-          icon={editPencil}
-        />
         <CustomButton
           style={stylesGather.buttonModal}
           textStyle={stylesGather.textButton}
@@ -184,15 +173,6 @@ class Gather extends Component {
               }),
           },
         },
-        {
-          id: 'history',
-          component: 'CustomButton',
-          passProps: {
-            title: strings.history,
-            icon: HistoryIconWhite,
-            style: { color: Colors.white, width: 100 },
-          },
-        },
       ],
       animated: false,
     });
@@ -255,12 +235,11 @@ class Gather extends Component {
       'Image',
     );
     this.props.finishTravel(
-      'Miércoles 16 de Octubre',
-      '17:05',
       this.state.coordinates,
       this.state.distanceTravelled,
       this.props.pocketCounter,
     );
+
     this.props.navigator.push({
       screen: Screens.TravelFinished,
       animationType: 'fade',
@@ -357,8 +336,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   changeRole: () => dispatch(changeRole()),
-  finishTravel: (date, hour, travelImage, kmsTraveled, pocketsCollected) =>
-    dispatch(finishTravel(date, hour, travelImage, kmsTraveled, pocketsCollected)),
+  finishTravel: (coordinates, distanceTravelled, pocketCounter) =>
+    dispatch(finishTravel(coordinates, distanceTravelled, pocketCounter)),
   endCollection: (token, routeId, routeLength, routeImage) =>
     dispatch(endCollection(token, routeId, routeLength, routeImage)),
   openCreatePocketModal: () => dispatch(openCreatePocketModal()),

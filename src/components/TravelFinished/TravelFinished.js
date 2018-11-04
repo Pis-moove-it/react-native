@@ -8,8 +8,6 @@ import { changeRole } from '../../actions/RoleActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import {
-  getDate,
-  getHour,
   getCoordinates,
   getKmsTraveled,
   getPocketsCollected,
@@ -22,6 +20,7 @@ import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
+import { transformTime, transformDay, transformMonth } from '../../helpers/DateFormatter';
 import styles from '../TravelFinished/styles';
 import stylesGather from '../Gather/styles';
 
@@ -81,6 +80,17 @@ class TravelFinished extends Component {
     } else {
       this.setButtonsPhone();
     }
+
+    setInterval(() => {
+      this.setState({
+        currentYear: new Date().getFullYear().toLocaleString(),
+        currentMonth: transformMonth(new Date().getMonth()),
+        currentDay: new Date().getDate().toLocaleString(),
+        currentDayName: transformDay(new Date().getDay()),
+        currentHour: transformTime(new Date().getHours()),
+        currentMinute: transformTime(new Date().getMinutes()),
+      });
+    }, 1000);
   }
 
   onNavigatorEvent(event) {
@@ -159,16 +169,22 @@ class TravelFinished extends Component {
   render() {
     return (
       <View style={stylesGather.mapContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}> {strings.summary} </Text>
+        </View>
         <View style={styles.resumeAndHourContainer}>
           <View style={styles.resumeContainer}>
-            <Text style={styles.resumeAndHourTitle}> {strings.summary} </Text>
-            <Text style={styles.resumeAndHourSubtitle}> {this.props.date} </Text>
+            <Text style={styles.resumeAndHourTitle}> Fecha </Text>
+            <Text style={styles.resumeSubtitle}>
+              {this.state.currentDayName}
+              {this.state.currentDay}, {this.state.currentMonth}
+              {this.state.currentYear}
+            </Text>
           </View>
           <View style={styles.hourContainer}>
             <Text style={styles.resumeAndHourTitle}> {strings.hour} </Text>
-            <Text style={styles.resumeAndHourSubtitle}>
-              {this.props.hour}
-              hs
+            <Text style={styles.hourSubtitle}>
+              {this.state.currentHour}:{this.state.currentMinute}
             </Text>
           </View>
         </View>
@@ -208,8 +224,6 @@ TravelFinished.propTypes = {
   user: PropTypes.string.isRequired,
   changeRole: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
-  date: PropTypes.string.isRequired,
-  hour: PropTypes.string.isRequired,
   coordinates: PropTypes.object.isRequired,
   kmsTraveled: PropTypes.number.isRequired,
   pocketsCollected: PropTypes.number.isRequired,
@@ -220,8 +234,6 @@ TravelFinished.defaultProps = {};
 const mapStateToProps = state => ({
   user: getUser(state),
   role: getRole(state),
-  date: getDate(state),
-  hour: getHour(state),
   coordinates: getCoordinates(state),
   kmsTraveled: getKmsTraveled(state),
   pocketsCollected: getPocketsCollected(state),
