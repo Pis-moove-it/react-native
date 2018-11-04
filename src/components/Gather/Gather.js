@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, Alert, TouchableOpacity } from 'react-native';
+import { View, Image, Text, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
 // import { View, Image, TouchableOpacity, Text } from 'react-native';
 import Modal from 'react-native-modal';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
@@ -35,6 +35,7 @@ import CreatePocketModal from '../common/CreatePocketModal';
 import requestLocationPermission from '../../helpers/Permissions';
 import CustomButton from '../common/CustomButton';
 import TickIcon from '../../assets/images/Tick.png';
+import { selectIsLoading, selectContainers } from '../../selectors/GatherSelector';
 import GatherOverlay from './GatherOverlay';
 import stylesGather from './styles';
 
@@ -139,13 +140,11 @@ class Gather extends Component {
   };
 
   componentWillMount() {
-    this.setState({ containers: this.props.getContainers(this.props.token) });
+    // this.setState({ containers: this.props.getContainers(this.props.token) });
   }
 
   componentDidMount() {
     requestLocationPermission();
-
-    console.log('CONTAINERS', this.state.containers);
     if (isTablet || this.state.landscape) {
       this.setButtonsTablet(this.props.user);
     } else {
@@ -267,12 +266,7 @@ class Gather extends Component {
 
   changeRole = () => this.props.changeRole();
 
-  renderCoords = () => {
-    console.log(this.state.coordinates);
-  };
-
   finishTravel = () => {
-    console.log('Gather coords', this.state.coordinates);
     this.props.finishTravel(
       'Miércoles 16 de Octubre',
       '17:05',
@@ -291,6 +285,18 @@ class Gather extends Component {
       'Image',
     );
   };
+
+  renderContainers = containers =>
+    containers.map(container => (
+      <Mapbox.PointAnnotation
+        id={container.id.toString()}
+        coordinate={[Number(container.longitude), Number(container.latitude)]}
+      >
+        <TouchableOpacity onPress={this.toggleModal}>
+          <Image source={icon} style={stylesGather.trashIcon} />
+        </TouchableOpacity>
+      </Mapbox.PointAnnotation>
+    ));
 
   render() {
     return (
@@ -319,33 +325,8 @@ class Gather extends Component {
           showUserLocation
           style={stylesGather.mapContainer}
         >
-          <Mapbox.PointAnnotation
-            key="pointAnnotation"
-            id="pointAnnotation"
-            coordinate={[-56.165921, -34.917352]}
-            selected={false}
-          >
-            <TouchableOpacity onPress={this.toggleModal}>
-              <Image source={icon} style={stylesGather.trashIcon} />
-            </TouchableOpacity>
-          </Mapbox.PointAnnotation>
-          <Mapbox.PointAnnotation
-            id="pointAnnotation2"
-            coordinate={[-56.16574729294116, -34.90461658495409]}
-          >
-            <TouchableOpacity onPress={this.toggleModal}>
-              <Image source={icon} style={stylesGather.trashIcon} />
-            </TouchableOpacity>
-          </Mapbox.PointAnnotation>
-          <Mapbox.ShapeSource id="routeSource" shape={shape}>
-            <Mapbox.LineLayer
-              id="routeFill"
-              style={layerStyles.route}
-              belowLayerID="originInnerCircle"
-            />
-          </Mapbox.ShapeSource>
+          {!this.props.loading && this.renderContainers(this.props.containers)}
         </Mapbox.MapView>
-
         <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Collection Id: {this.props.collectionId}</Text>
           <Text>Latitude: {this.state.latitude}</Text>
@@ -370,6 +351,8 @@ Gather.propTypes = {
   user: PropTypes.string.isRequired,
   collectionId: PropTypes.string.isRequired,
   getContainers: PropTypes.func.isRequired,
+  containers: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 Gather.defaultProps = {
@@ -381,6 +364,8 @@ const mapStateToProps = state => ({
   user: getUser(state),
   token: state.login.token,
   collectionId: getCollection(state),
+  loading: selectIsLoading(state),
+  containers: selectContainers(state),
 });
 
 const mapDispatchToProps = dispatch => ({
