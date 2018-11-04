@@ -116,5 +116,5 @@ export default {
   summary: 'Resumen ',
   hour: 'Hora ',
   kmsTraveled: 'Kilómetros realizados ',
-  pocketsCollected: 'Número de bolsones ',
+  pocketsCollected: 'Bolsones recogidos ',
 };

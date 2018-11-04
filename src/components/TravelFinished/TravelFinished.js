@@ -59,6 +59,7 @@ class TravelFinished extends Component {
 
     setInterval(() => {
       this.setState({
+        currentYear: new Date().getFullYear().toLocaleString(),
         currentMonth: transformMonth(new Date().getMonth()),
         currentDay: new Date().getDate().toLocaleString(),
         currentDayName: transformDay(new Date().getDay()),
@@ -152,9 +153,8 @@ class TravelFinished extends Component {
             <Text style={styles.resumeAndHourTitle}> Fecha </Text>
             <Text style={styles.resumeSubtitle}>
               {this.state.currentDayName}
-              {strings.getLanguage() === 'en'
-                ? `${this.state.currentMonth} ${this.state.currentDay}`
-                : `${this.state.currentDay} de ${this.state.currentMonth}`}
+              {this.state.currentDay}, {this.state.currentMonth}
+              {this.state.currentYear}
             </Text>
           </View>
           <View style={styles.hourContainer}>
