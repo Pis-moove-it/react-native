@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Image, Text, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
-// import { View, Image, TouchableOpacity, Text } from 'react-native';
 import Modal from 'react-native-modal';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
@@ -95,7 +94,7 @@ class Gather extends Component {
     super(props);
     this.state = {
       landscape: Platform.isLandscape(),
-      coordinates: [],
+      coordinates: { coords: [] },
       distanceTravelled: 0,
       prevLatLng: null,
       finish: false,
@@ -118,10 +117,12 @@ class Gather extends Component {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           error: null,
-          coordinates: [
-            ...prevState.coordinates,
-            [position.coords.longitude, position.coords.latitude],
-          ],
+          coordinates: {
+            coords: [
+              ...prevState.coordinates.coords,
+              [position.coords.longitude, position.coords.latitude],
+            ],
+          },
           distanceTravelled:
             this.state.distanceTravelled +
             this.calcDistance([position.coords.longitude, position.coords.latitude]),
@@ -234,8 +235,9 @@ class Gather extends Component {
       this.state.distanceTravelled,
       'Image',
     );
+    console.log('COOOOOOOOOORDS', this.state.coordinates.coords);
     this.props.finishTravel(
-      this.state.coordinates,
+      this.state.coordinates.coords,
       this.state.distanceTravelled,
       this.props.pocketCounter,
     );

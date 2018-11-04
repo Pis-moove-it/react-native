@@ -36,7 +36,6 @@ class GatherController {
 
   addPocketToCollection = async (token, routeId, collectionId, pocket) =>
     new Promise((resolve, reject) => {
-      console.log('RUTAAAA', `${basePath}${this.routesPath}/${routeId}${this.collectionsPath}`);
       axios
         .post(
           `${basePath}${this.routesPath}/${routeId}${this.collectionsPath}`,
