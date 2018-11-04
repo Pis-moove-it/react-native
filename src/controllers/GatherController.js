@@ -5,7 +5,7 @@ import basePath, { Network } from './BaseController';
 class GatherController {
   constructor() {
     this.routeID = null;
-    this.routesPath = 'routes/';
+    this.routesPath = 'routes';
     this.collectionsPath = `routes/${this.routeID}/collections`;
     this.containersPath = 'containers';
   }
@@ -62,12 +62,11 @@ class GatherController {
 
   endCollection = async (token, routeId, routeLength, routeImage) =>
     new Promise((resolve, reject) => {
-      this.routeID = routeId;
       axios
         .put(
-          `${basePath}${this.routesPath}/${this.routeID}`,
+          `${basePath}${this.routesPath}/${routeId}`,
           {
-            length: routeLength,
+            length: 10, // parseInt(routeLength, 10),
             travel_image: routeImage,
           },
           {

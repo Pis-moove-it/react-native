@@ -15,6 +15,7 @@ import travelImage from './GatherReducer';
 import kmsTraveled from './GatherReducer';
 import pocketsCollected from './GatherReducer';
 import gather from './GatherReducer';
+import collectionId from './GatherReducer';
 import editPocketModal from './EditIdPocketModalReducer';
 import editWeightPocketModal from './EditWeightPocketModalReducer';
 import pockets from './PocketReducer';
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
   editPocketModal,
   editWeightPocketModal,
   gather,
+  collectionId,
 });
 
 export default rootReducer;

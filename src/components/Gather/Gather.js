@@ -10,12 +10,18 @@ import { Geolocation } from 'react-native';
 import haversine from 'haversine';
 import { logout } from '../../actions/UserActions';
 import { changeRole } from '../../actions/RoleActions';
-import { finishTravel, startCollection, getContainers } from '../../actions/GatherActions';
+import {
+  finishTravel,
+  startCollection,
+  getContainers,
+  endCollection,
+} from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import editPencil from '../../assets/ic_common/ic_editPencil.png';
 import plusSign from '../../assets/ic_common/ic_add.png';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
+import getCollection from '../../selectors/RouteSelector';
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import icon from '../../assets/images/MapPointIcon.png';
@@ -123,13 +129,17 @@ class Gather extends Component {
       ],
       distanceTravelled: 0,
       prevLatLng: null,
+      containers: {},
+      routeId: null,
+      finish: false,
+      isModalVisible: false,
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  state = {
-    isModalVisible: false,
-  };
+  /*  state = {
+
+  }; */
 
   componentWillMount() {
     // this.setState({ containers: this.props.getContainers(this.props.token) });
@@ -232,6 +242,9 @@ class Gather extends Component {
     const { prevLatLng } = this.state;
     console.log(prevLatLng);
     if (prevLatLng !== null) {
+      console.log('prevCoord', prevLatLng);
+      console.log('nextCoord', newLatLng);
+      console.log(haversine(prevLatLng, newLatLng, { unit: 'meter', format: '[lon,lat]' }));
       const distance = haversine(prevLatLng, newLatLng, {
         unit: 'km',
         format: '[lon,lat]',
@@ -259,6 +272,13 @@ class Gather extends Component {
   changeRole = () => this.props.changeRole();
 
   finishTravel = () => {
+    this.setState({ finish: true });
+    this.props.endCollection(
+      this.props.token,
+      this.props.collectionId,
+      this.state.distanceTravelled,
+      'Image',
+    );
     this.props.finishTravel(
       'Miércoles 16 de Octubre',
       '17:05',
@@ -287,7 +307,9 @@ class Gather extends Component {
   render() {
     return (
       <View style={stylesGather.mapContainer}>
-        <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
+        {!this.state.finish && (
+          <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
+        )}
         <CustomButton
           style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
           icon={TickIcon}
@@ -327,12 +349,14 @@ class Gather extends Component {
 Gather.propTypes = {
   changeRole: PropTypes.func.isRequired,
   finishTravel: PropTypes.func.isRequired,
+  endCollection: PropTypes.func.isRequired,
   openCreatePocketModal: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   startCollection: PropTypes.func.isRequired,
   token: PropTypes.string,
   user: PropTypes.string.isRequired,
+  collectionId: PropTypes.string.isRequired,
   getContainers: PropTypes.func.isRequired,
   containers: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -346,6 +370,7 @@ const mapStateToProps = state => ({
   role: getRole(state),
   user: getUser(state),
   token: state.login.token,
+  collectionId: getCollection(state),
   loading: selectIsLoading(state),
   containers: selectContainers(state),
 });
@@ -355,6 +380,8 @@ const mapDispatchToProps = dispatch => ({
   changeRole: () => dispatch(changeRole()),
   finishTravel: (date, hour, travelImage, kmsTraveled, pocketsCollected) =>
     dispatch(finishTravel(date, hour, travelImage, kmsTraveled, pocketsCollected)),
+  endCollection: (token, routeId, routeLength, routeImage) =>
+    dispatch(endCollection(token, routeId, routeLength, routeImage)),
   openCreatePocketModal: () => dispatch(openCreatePocketModal()),
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),
