@@ -31,14 +31,14 @@ class BaleList extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({ refreshing: true });
+    this.setState({ refreshing: true, currentBales: [] });
     this.props.fetchData(this.props.token, 1).then(() => {
       this.setState({ refreshing: false, currentBales: this.props.bales, nextPage: 2 });
     });
   };
 
   onRefresh = () => {
-    this.setState({ refreshing: true });
+    this.setState({ refreshing: true, currentBales: [] });
     this.props.fetchData(this.props.token, 1).then(() => {
       this.setState({ refreshing: false, currentBales: this.props.bales, nextPage: 2 });
     });
@@ -90,7 +90,9 @@ class BaleList extends Component {
                     id={item.id}
                     type={this.materialString(item.material)}
                     weight={item.weight}
-                    onPressAction={() => this.props.openEditBaleModal(item.id)}
+                    onPressAction={() =>
+                      this.props.openEditBaleModal(item.id, item.weight, item.material)
+                    }
                   />
                 );
               }
@@ -99,7 +101,9 @@ class BaleList extends Component {
                   id={item.id}
                   type={this.materialString(item.material)}
                   weight={item.weight}
-                  onPressAction={() => this.props.openEditBaleModal(item.id)}
+                  onPressAction={() =>
+                    this.props.openEditBaleModal(item.id, item.weight, item.material)
+                  }
                 />
               );
             }}
@@ -133,7 +137,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  openEditBaleModal: identifier => dispatch(openEditBaleModal(identifier)),
+  openEditBaleModal: (identifier, weight, material) =>
+    dispatch(openEditBaleModal(identifier, weight, material)),
   fetchData: (token, nextPage) => dispatch(fetchBales(token, nextPage)),
 });
 
