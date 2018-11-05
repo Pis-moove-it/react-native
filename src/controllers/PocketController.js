@@ -92,10 +92,10 @@ class PocketController {
         });
     });
 
-  getPockets = async token =>
+  getPockets = async (token, nextPage) =>
     new Promise((resolve, reject) => {
       axios
-        .get(`${basePath}${this.path}`, {
+        .get(`${basePath}${this.path}?page=${nextPage}`, {
           headers: {
             'Content-Type': 'application/json',
             ApiKey: `${token}`,

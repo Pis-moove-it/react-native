@@ -22,10 +22,10 @@ const getBalesSuccess = (bales, balesQuantity) => ({
   balesQuantity,
 });
 
-export const fetchBales = token => async (dispatch) => {
+export const fetchBales = (token, nextPage) => async (dispatch) => {
   dispatch(getBales());
   try {
-    const { bales } = await BaleController.getBales(token);
+    const { bales } = await BaleController.getBales(token, nextPage);
     dispatch(getBalesSuccess(bales, bales.length));
   } catch (error) {
     dispatch(getBalesError(error.message));

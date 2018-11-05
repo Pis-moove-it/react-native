@@ -52,6 +52,7 @@ export default {
   weight: 'Peso ',
   baleButtonText: 'Modificar fardo ',
   bale: 'Fardo ',
+  moreContent: 'Presione para los próximos 10',
 
   // Common Modal
   acceptModal: 'Aceptar ',

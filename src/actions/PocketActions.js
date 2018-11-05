@@ -32,10 +32,10 @@ const setPocketData = pocketData => ({
   pocketData,
 });
 
-export const getPockets = token => async (dispatch) => {
+export const getPockets = (token, nextPage) => async (dispatch) => {
   dispatch(pocketRequest());
   try {
-    const { pockets } = await PocketController.getPockets(token);
+    const { pockets } = await PocketController.getPockets(token, nextPage);
     await dispatch(setPockets(pockets));
     dispatch(pocketSuccess());
   } catch (error) {
