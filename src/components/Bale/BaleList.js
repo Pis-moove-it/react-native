@@ -13,6 +13,7 @@ import recyclableMaterials from '../common/Constants';
 import getBales from '../../selectors/BalesSelector';
 import strings from '../../localization';
 import Colors from '../../helpers/Colors';
+import CustomButton from '../common/CustomButton';
 
 class BaleList extends Component {
   static navigatorStyle = {
@@ -24,17 +25,33 @@ class BaleList extends Component {
     this.materials = recyclableMaterials;
     this.state = {
       refreshing: false,
+      nextPage: 2,
+      currentBales: [],
     };
   }
 
-  componentDidMount() {
-    this.props.fetchData(this.props.token);
-  }
+  componentDidMount = () => {
+    this.setState({ refreshing: true });
+    this.props.fetchData(this.props.token, 1).then(() => {
+      this.setState({ refreshing: false, currentBales: this.props.bales, nextPage: 2 });
+    });
+  };
 
   onRefresh = () => {
     this.setState({ refreshing: true });
-    this.props.fetchData(this.props.token).then(() => {
-      this.setState({ refreshing: false });
+    this.props.fetchData(this.props.token, 1).then(() => {
+      this.setState({ refreshing: false, currentBales: this.props.bales, nextPage: 2 });
+    });
+  };
+
+  onEnd = () => {
+    this.setState({ refreshing: true });
+    this.props.fetchData(this.props.token, this.state.nextPage).then(() => {
+      this.setState({
+        refreshing: false,
+        currentBales: this.state.currentBales.concat(this.props.bales),
+        nextPage: this.state.nextPage + 1,
+      });
     });
   };
 
@@ -65,7 +82,7 @@ class BaleList extends Component {
           <ActivityIndicator size="large" color={Colors.primary} />
         ) : (
           <FlatList
-            data={this.props.bales}
+            data={this.state.currentBales}
             renderItem={({ item }) => {
               if (isPhone) {
                 return (
@@ -91,6 +108,11 @@ class BaleList extends Component {
             }
           />
         )}
+        <CustomButton
+          onPress={this.onEnd}
+          textStyle={{ color: Colors.primary }}
+          title={strings.moreContent}
+        />
       </View>
     );
   }
@@ -112,7 +134,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   openEditBaleModal: identifier => dispatch(openEditBaleModal(identifier)),
-  fetchData: token => dispatch(fetchBales(token)),
+  fetchData: (token, nextPage) => dispatch(fetchBales(token, nextPage)),
 });
 
 export default connect(

@@ -8,6 +8,8 @@ import { openEditWeightPocketModal } from '../../actions/EditWeightPocketModalAc
 import { getPockets } from '../../actions/PocketActions';
 import EditIdPocketModal from '../common/EditIdPocketModal';
 import EditWeightPocketModal from '../common/EditWeightPocketModal';
+import CustomButton from '../common/CustomButton';
+import strings from '../../localization';
 import { pockets, getPocketsQuantity } from '../../selectors/PocketSelector';
 import Colors from '../../helpers/Colors';
 import TabletPocket from './TabletPocket';
@@ -22,17 +24,33 @@ class PocketList extends Component {
     super(props);
     this.state = {
       refreshing: false,
+      nextPage: 2,
+      currentPockets: [],
     };
   }
 
-  componentDidMount() {
-    this.props.getPockets(this.props.token);
-  }
+  componentDidMount = () => {
+    this.setState({ refreshing: true });
+    this.props.getPockets(this.props.token, 1).then(() => {
+      this.setState({ refreshing: false, currentPockets: this.props.pockets, nextPage: 2 });
+    });
+  };
 
   onRefresh = () => {
     this.setState({ refreshing: true });
-    this.props.getPockets(this.props.token).then(() => {
-      this.setState({ refreshing: false });
+    this.props.getPockets(this.props.token, 1).then(() => {
+      this.setState({ refreshing: false, currentPockets: this.props.pockets, nextPage: 2 });
+    });
+  };
+
+  onEnd = () => {
+    this.setState({ refreshing: true });
+    this.props.getPockets(this.props.token, this.state.nextPage).then(() => {
+      this.setState({
+        refreshing: false,
+        currentPockets: this.state.currentPockets.concat(this.props.pockets),
+        nextPage: this.state.nextPage + 1,
+      });
     });
   };
 
@@ -50,7 +68,7 @@ class PocketList extends Component {
           <ActivityIndicator size="large" color={Colors.primary} />
         ) : (
           <FlatList
-            data={this.props.pockets}
+            data={this.state.currentPockets}
             renderItem={({ item }) => {
               if (isPhone) {
                 return (
@@ -96,6 +114,11 @@ class PocketList extends Component {
             }
           />
         )}
+        <CustomButton
+          onPress={this.onEnd}
+          textStyle={{ color: Colors.primary }}
+          title={strings.moreContent}
+        />
       </View>
     );
   }
@@ -121,7 +144,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(openEditIdPocketModal(pocket, serialNumber)),
   openEditWeightPocketModal: (pocket, weight, hasWeight) =>
     dispatch(openEditWeightPocketModal(pocket, weight, hasWeight)),
-  getPockets: token => dispatch(getPockets(token)),
+  getPockets: (token, nextPage) => dispatch(getPockets(token, nextPage)),
 });
 
 export default connect(
