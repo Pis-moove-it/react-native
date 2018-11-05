@@ -235,7 +235,6 @@ class Gather extends Component {
       this.state.distanceTravelled,
       this.state.coordinates.coords,
     );
-    console.log('COOOOOOOOOORDS', this.state.coordinates.coords);
     this.props.finishTravel(
       this.state.coordinates.coords,
       this.state.distanceTravelled,

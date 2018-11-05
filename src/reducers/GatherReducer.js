@@ -51,6 +51,7 @@ const gatherReducer = (state = initialState, action) => {
         ...state,
         isLoading: true,
         isTravelling: false,
+        pocketCounter: 0,
       };
     case actionTypes.END_COLLECTION_SUCCESS:
       return {
