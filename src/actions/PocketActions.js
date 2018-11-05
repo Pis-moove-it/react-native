@@ -23,48 +23,10 @@ const pocketsError = error => ({
 });
 
 export const getPockets = (token, nextPage) => async (dispatch) => {
-  dispatch(pocketRequest());
+  dispatch(pocketsRequest());
   try {
     const { pockets } = await PocketController.getPockets(token, nextPage);
-    await dispatch(setPockets(pockets));
-    dispatch(pocketSuccess());
-  } catch (error) {
-    dispatch(pocketError(error.message));
-  }
-};
-
-export const editPocketSerialNumber = (token, pocket, serialNumber) => async (dispatch) => {
-  dispatch(pocketRequest());
-  try {
-    const { pocketData } = await PocketController.editPocketSerialNumber(
-      token,
-      pocket,
-      serialNumber,
-    );
-    await dispatch(setPocketData(pocketData));
-    dispatch(pocketSuccess());
-  } catch (error) {
-    dispatch(pocketError(error.message));
-  }
-};
-
-export const editPocketWeight = (token, pocket, weight) => async (dispatch) => {
-  dispatch(pocketRequest());
-  try {
-    const { pocketData } = await PocketController.editPocketWeight(token, pocket, weight);
-    await dispatch(setPocketData(pocketData));
-    dispatch(pocketSuccess());
-  } catch (error) {
-    dispatch(pocketError(error.message));
-  }
-};
-
-export const addPocketWeight = (token, pocket, weight) => async (dispatch) => {
-  dispatch(pocketRequest());
-  try {
-    const { pocketData } = await PocketController.addPocketWeight(token, pocket, weight);
-    await dispatch(setPocketData(pocketData));
-    dispatch(pocketSuccess());
+    dispatch(pocketsSuccess(pockets, pockets.length));
   } catch (error) {
     dispatch(pocketsError(error.message));
   }
