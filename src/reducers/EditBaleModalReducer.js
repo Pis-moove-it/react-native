@@ -4,7 +4,9 @@ export const initialState = {
   bale: false,
   baleData: false,
   editBaleModalIsOpen: false,
+  material: false,
   isLoading: false,
+  weight: false,
 };
 
 const editBaleModalReducer = (state = initialState, action) => {
@@ -15,7 +17,9 @@ const editBaleModalReducer = (state = initialState, action) => {
         bale: action.bale,
         baleData: false,
         editBaleModalIsOpen: true,
+        material: action.material,
         isLoading: false,
+        weight: action.weight,
       };
     case actionTypes.EDIT_BALE_REQUEST:
       return {
@@ -28,7 +32,9 @@ const editBaleModalReducer = (state = initialState, action) => {
         bale: false,
         baleData: action.baleData,
         editBaleModalIsOpen: false,
+        material: false,
         isLoading: false,
+        weight: false,
       };
     case actionTypes.EDIT_BALE_ERROR:
       return {

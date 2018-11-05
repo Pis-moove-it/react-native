@@ -30,14 +30,14 @@ class PocketList extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({ refreshing: true });
+    this.setState({ refreshing: true, currentPockets: [] });
     this.props.getPockets(this.props.token, 1).then(() => {
       this.setState({ refreshing: false, currentPockets: this.props.pockets, nextPage: 2 });
     });
   };
 
   onRefresh = () => {
-    this.setState({ refreshing: true });
+    this.setState({ refreshing: true, currentPockets: [] });
     this.props.getPockets(this.props.token, 1).then(() => {
       this.setState({ refreshing: false, currentPockets: this.props.pockets, nextPage: 2 });
     });
