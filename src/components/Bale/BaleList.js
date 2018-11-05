@@ -121,13 +121,9 @@ class BaleList extends Component {
 BaleList.propTypes = {
   bales: PropTypes.array.isRequired,
   fetchData: PropTypes.func.isRequired,
-  token: PropTypes.string,
+  token: PropTypes.string.isRequired,
   openEditBaleModal: PropTypes.func.isRequired,
   balesQuantity: PropTypes.number.isRequired,
-};
-
-BaleList.defaultProps = {
-  token: false,
 };
 
 const mapStateToProps = state => ({

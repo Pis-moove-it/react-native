@@ -1,35 +1,25 @@
 import PocketController from '../controllers/PocketController';
 
 export const actionTypes = {
-  POCKET: 'POCKET',
-  POCKET_REQUEST: 'POCKET_REQUEST',
-  POCKET_SUCCESS: 'POCKET_SUCCESS',
-  POCKET_ERROR: 'POCKET_ERROR',
-  POCKET_SET: 'POCKET_SET',
-  POCKET_SET_DATA: 'POCKET_SET_DATA',
+  POCKETS: 'POCKETS',
+  POCKETS_REQUEST: 'POCKETS_REQUEST',
+  POCKETS_SUCCESS: 'POCKETS_SUCCESS',
+  POCKETS_ERROR: 'POCKETS_ERROR',
 };
 
-const pocketRequest = () => ({
-  type: actionTypes.POCKET_REQUEST,
+const pocketsRequest = () => ({
+  type: actionTypes.POCKETS_REQUEST,
 });
 
-const pocketSuccess = () => ({
-  type: actionTypes.POCKET_SUCCESS,
-});
-
-const pocketError = error => ({
-  type: actionTypes.POCKET_ERROR,
-  error,
-});
-
-const setPockets = pockets => ({
-  type: actionTypes.POCKET_SET,
+const pocketsSuccess = (pockets, pocketsQuantity) => ({
+  type: actionTypes.POCKETS_SUCCESS,
   pockets,
+  pocketsQuantity,
 });
 
-const setPocketData = pocketData => ({
-  type: actionTypes.POCKET_SET_DATA,
-  pocketData,
+const pocketsError = error => ({
+  type: actionTypes.POCKETS_ERROR,
+  error,
 });
 
 export const getPockets = (token, nextPage) => async (dispatch) => {
@@ -76,6 +66,6 @@ export const addPocketWeight = (token, pocket, weight) => async (dispatch) => {
     await dispatch(setPocketData(pocketData));
     dispatch(pocketSuccess());
   } catch (error) {
-    dispatch(pocketError(error.message));
+    dispatch(pocketsError(error.message));
   }
 };

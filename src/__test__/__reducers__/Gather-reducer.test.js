@@ -3,8 +3,6 @@ import { actionTypes } from '../../actions/GatherActions';
 import TickIcon from '../../assets/images/Tick.png';
 
 const mockState = {
-  date: '11/3',
-  hour: '1:57',
   travelImage: TickIcon,
   kmsTraveled: 175,
   pocketsCollected: 17,
@@ -43,13 +41,88 @@ describe('gather reducer', () => {
       collectionId: false,
       type: actionTypes.START_COLLECTION_REQUEST,
     })).toEqual({
-      date: false,
-      hour: false,
-      travelImage: false,
-      kmsTraveled: 0,
-      pocketsCollected: 0,
       collectionId: false,
+      containerIdSelected: null,
+      containers: [],
       isLoading: true,
+      isLoadingContainers: false,
+      isTravelling: true,
+      kmsTraveled: 0,
+      pocketCounter: 0,
+      pocketsCollected: 0,
+      travelImage: false,
+    });
+  });
+
+  it('should a state with isFetching in true', () => {
+    expect(gatherReducer(initialState, {
+      collectionId: false,
+      type: actionTypes.ADD_POCKET_REQUEST,
+    })).toEqual({
+      collectionId: false,
+      containerIdSelected: null,
+      containers: [],
+      isLoading: true,
+      isLoadingContainers: false,
+      isTravelling: false,
+      kmsTraveled: 0,
+      pocketCounter: 0,
+      pocketsCollected: 0,
+      travelImage: false,
+    });
+  });
+
+  it('should a state with isFetching in true', () => {
+    expect(gatherReducer(initialState, {
+      collectionId: false,
+      type: actionTypes.ADD_POCKET_SUCCESS,
+    })).toEqual({
+      collectionId: false,
+      containerIdSelected: null,
+      containers: [],
+      isLoading: false,
+      isLoadingContainers: false,
+      isTravelling: false,
+      kmsTraveled: 0,
+      pocketCounter: 1,
+      pocketsCollected: 0,
+      travelImage: false,
+    });
+  });
+
+  it('should a state with isFetching in true', () => {
+    expect(gatherReducer(initialState, {
+      collectionId: false,
+      type: actionTypes.END_COLLECTION_REQUEST,
+    })).toEqual({
+      collectionId: false,
+      containerIdSelected: null,
+      containers: [],
+      isLoading: true,
+      isLoadingContainers: false,
+      isTravelling: false,
+      kmsTraveled: 0,
+      pocketCounter: 0,
+      pocketsCollected: 0,
+      travelImage: false,
+    });
+  });
+
+  it('should a state with isFetching in true', () => {
+    expect(gatherReducer(initialState, {
+      collectionId: false,
+      type: actionTypes.END_COLLECTION_SUCCESS,
+    })).toEqual({
+      collectionId: false,
+      containerIdSelected: null,
+      containers: [],
+      isLoading: false,
+      isLoadingContainers: false,
+      isTravelling: false,
+      kmsTraveled: 0,
+      pocketCounter: 0,
+      pocketsCollected: 0,
+      travelImage: false,
     });
   });
 });

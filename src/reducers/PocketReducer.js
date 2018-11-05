@@ -1,38 +1,31 @@
 import { actionTypes } from '../actions/PocketActions';
 
 export const initialState = {
-  pocket: false,
   pockets: [],
+  pocketsQuantity: false,
   isLoading: false,
 };
 
 const pocketListReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.POCKET_REQUEST:
+    case actionTypes.POCKETS_REQUEST:
       return {
         ...state,
+        pockets: [],
+        pocketsQuantity: false,
         isLoading: true,
       };
-    case actionTypes.POCKET_SUCCESS:
+    case actionTypes.POCKETS_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-      };
-    case actionTypes.POCKET_ERROR:
-      return {
-        ...state,
-        isLoading: false,
-      };
-    case actionTypes.POCKET_SET:
-      return {
-        ...state,
-        pocket: false,
         pockets: action.pockets,
+        pocketsQuantity: action.pocketsQuantity,
+        isLoading: false,
       };
-    case actionTypes.POCKET_SET_DATA:
+    case actionTypes.POCKETS_ERROR:
       return {
         ...state,
-        pocket: action.pocketData,
+        isLoading: false,
       };
     default:
       return state;

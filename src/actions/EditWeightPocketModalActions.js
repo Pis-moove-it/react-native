@@ -1,23 +1,64 @@
+import PocketController from '../controllers/PocketController';
+
 export const actionTypes = {
-  OPEN_EDIT_WEIGHT_POCKET_MODAL: 'OPEN_EDIT_WEIGHT_POCKET_MODAL',
-  CLOSE_EDIT_WEIGHT_POCKET_MODAL: 'CLOSE_EDIT_WEIGHT_POCKET_MODAL',
+  EDIT_POCKET_WEIGHT: 'EDIT_POCKET_WEIGHT',
+  OPEN_EDIT_POCKET_WEIGHT_MODAL: 'OPEN_EDIT_POCKET_WEIGHT_MODAL',
+  EDIT_POCKET_WEIGHT_REQUEST: 'EDIT_POCKET_WEIGHT_REQUEST',
+  EDIT_POCKET_WEIGHT_SUCCESS: 'EDIT_POCKET_WEIGHT_SUCCESS',
+  EDIT_POCKET_WEIGHT_ERROR: 'EDIT_POCKET_WEIGHT_ERROR',
+  CLOSE_EDIT_POCKET_WEIGHT_MODAL: 'CLOSE_EDIT_POCKET_WEIGHT_MODAL',
 };
 
-const openEditWeightPocketModalType = pocketHasWeight => ({
-  type: actionTypes.OPEN_EDIT_WEIGHT_POCKET_MODAL,
-  isVisible: true,
-  pocketHasWeight,
+const editRequest = () => ({
+  type: actionTypes.EDIT_POCKET_WEIGHT_REQUEST,
 });
 
-export const openEditWeightPocketModal = pocketHasWeight => (dispatch) => {
-  dispatch(openEditWeightPocketModalType(pocketHasWeight));
+const editSuccess = pocketData => ({
+  type: actionTypes.EDIT_POCKET_WEIGHT_SUCCESS,
+  pocketData,
+});
+
+const editError = error => ({
+  type: actionTypes.EDIT_POCKET_WEIGHT_ERROR,
+  error,
+});
+
+const openModal = (pocket, weight, hasWeight) => ({
+  type: actionTypes.OPEN_EDIT_POCKET_WEIGHT_MODAL,
+  pocket,
+  weight,
+  hasWeight,
+});
+
+export const openEditWeightPocketModal = (pocket, weight, hasWeight) => (dispatch) => {
+  dispatch(editRequest());
+  dispatch(openModal(pocket, weight, hasWeight));
 };
 
-const closeEditWeightPocketModalType = () => ({
-  type: actionTypes.CLOSE_EDIT_WEIGHT_POCKET_MODAL,
-  isVisible: false,
+const closeModal = () => ({
+  type: actionTypes.CLOSE_EDIT_POCKET_WEIGHT_MODAL,
 });
 
 export const closeEditWeightPocketModal = () => (dispatch) => {
-  dispatch(closeEditWeightPocketModalType());
+  dispatch(closeModal());
+};
+
+export const editPocketWeight = (token, pocket, weight) => async (dispatch) => {
+  dispatch(editRequest());
+  try {
+    const { pocketData } = await PocketController.editPocketWeight(token, pocket, weight);
+    dispatch(editSuccess(pocketData));
+  } catch (error) {
+    dispatch(editError(error.message));
+  }
+};
+
+export const addPocketWeight = (token, pocket, weight) => async (dispatch) => {
+  dispatch(editRequest());
+  try {
+    const { pocketData } = await PocketController.addPocketWeight(token, pocket, weight);
+    dispatch(editSuccess(pocketData));
+  } catch (error) {
+    dispatch(editError(error.message));
+  }
 };
