@@ -23,16 +23,16 @@ const editError = error => ({
   error,
 });
 
-const openEditBaleModalType = (bale, weight, material) => ({
+const openEditBaleModalType = (bale, material, weight) => ({
   type: actionTypes.OPEN_EDIT_BALE_MODAL,
   bale,
-  weight,
   material,
+  weight,
 });
 
-export const openEditBaleModal = (bale, weight, material) => (dispatch) => {
+export const openEditBaleModal = (bale, material, weight) => (dispatch) => {
   dispatch(editRequest());
-  dispatch(openEditBaleModalType(bale, weight, material));
+  dispatch(openEditBaleModalType(bale, material, weight));
 };
 
 const closeEditBaleModalType = () => ({

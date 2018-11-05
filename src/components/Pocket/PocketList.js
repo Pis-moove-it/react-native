@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, View } from 'react-native';
+import { FlatList, RefreshControl, View } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
@@ -10,7 +10,7 @@ import EditIdPocketModal from '../common/EditIdPocketModal';
 import EditWeightPocketModal from '../common/EditWeightPocketModal';
 import CustomButton from '../common/CustomButton';
 import strings from '../../localization';
-import { pockets, getPocketsQuantity } from '../../selectors/PocketSelector';
+import { pockets } from '../../selectors/PocketSelector';
 import Colors from '../../helpers/Colors';
 import TabletPocket from './TabletPocket';
 import PhonePocket from './PhonePocket';
@@ -64,34 +64,12 @@ class PocketList extends Component {
       >
         <EditIdPocketModal />
         <EditWeightPocketModal />
-        {!this.state.refreshing && this.props.pockets.length !== this.props.pocketsQuantity ? (
-          <ActivityIndicator size="large" color={Colors.primary} />
-        ) : (
-          <FlatList
-            data={this.state.currentPockets}
-            renderItem={({ item }) => {
-              if (isPhone) {
-                return (
-                  <PhonePocket
-                    id={item.serial_number}
-                    time={item.check_in}
-                    weight={item.weight}
-                    pocketState={item.state}
-                    openEditIdPocketModal={() =>
-                      this.props.openEditIdPocketModal(item.id, item.serial_number)
-                    }
-                    openEditWeightPocketModal={() =>
-                      this.props.openEditWeightPocketModal(
-                        item.id,
-                        item.weight,
-                        item.state !== 'Unweighed',
-                      )
-                    }
-                  />
-                );
-              }
+        <FlatList
+          data={this.state.currentPockets}
+          renderItem={({ item }) => {
+            if (isPhone) {
               return (
-                <TabletPocket
+                <PhonePocket
                   id={item.serial_number}
                   time={item.check_in}
                   weight={item.weight}
@@ -108,12 +86,30 @@ class PocketList extends Component {
                   }
                 />
               );
-            }}
-            refreshControl={
-              <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
             }
-          />
-        )}
+            return (
+              <TabletPocket
+                id={item.serial_number}
+                time={item.check_in}
+                weight={item.weight}
+                pocketState={item.state}
+                openEditIdPocketModal={() =>
+                  this.props.openEditIdPocketModal(item.id, item.serial_number)
+                }
+                openEditWeightPocketModal={() =>
+                  this.props.openEditWeightPocketModal(
+                    item.id,
+                    item.weight,
+                    item.state !== 'Unweighed',
+                  )
+                }
+              />
+            );
+          }}
+          refreshControl={
+            <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
+          }
+        />
         <CustomButton
           onPress={this.onEnd}
           textStyle={{ color: Colors.primary }}
@@ -129,13 +125,11 @@ PocketList.propTypes = {
   openEditIdPocketModal: PropTypes.func.isRequired,
   openEditWeightPocketModal: PropTypes.func.isRequired,
   pockets: PropTypes.array.isRequired,
-  pocketsQuantity: PropTypes.number.isRequired,
   token: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   pockets: pockets(state),
-  pocketsQuantity: getPocketsQuantity(state),
   token: state.login.token,
 });
 
