@@ -101,6 +101,10 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     flexDirection: 'column',
   },
+  titleContainerLandscape: {
+    width: '100%',
+    alignItems: 'center',
+  },
   dateContainerLandscape: {
     display: 'flex',
     flexDirection: 'column',

@@ -195,7 +195,7 @@ class TravelFinished extends Component {
           </Mapbox.ShapeSource>
         </Mapbox.MapView>
         <View style={styles.infoContainerLandscape}>
-          <View style={styles.titleContainer}>
+          <View style={styles.titleContainerLandscape}>
             <Text style={styles.title}> {strings.summary} </Text>
           </View>
           <View style={styles.dateContainerLandscape}>
