@@ -97,6 +97,10 @@ class TravelFinished extends Component {
     }, 1000);
   }
 
+  componentWillUnmount() {
+    this.backHandler.remove();
+  }
+
   onNavigatorEvent(event) {
     switch (event.id) {
       case 'logo':

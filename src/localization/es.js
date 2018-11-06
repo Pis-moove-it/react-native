@@ -56,6 +56,7 @@ export default {
 
   // Common Modal
   acceptModal: 'Aceptar ',
+  cancelModal: 'Cancelar ',
   weighPlaceholderModal: 'Peso (kg) ',
   selectMaterial: 'Seleccione un nuevo material ',
   invalidInputNumber: 'Por favor ingrese un número válido ',
@@ -97,10 +98,14 @@ export default {
   information: 'Información ',
   collectionPoint: 'Punto de recolección ',
 
-  // Gather secondary modal
+  // Gather option modal
   changeStateIsle: 'Cambiar estado ',
   newPocket: 'Agregar bolsón ',
   optionsModalGather: 'Opciones ',
+
+  // Gather confrim exit modal
+  confirmExitTripStartedTitle: 'Estas seguro de que quieres salir? ',
+  confirmExitTripStartedSubtitle: 'Tienes un viaje comenzado, si sales perderás todo el progreso realizado ',
 
   // Errors
   error: 'Error ',
