@@ -103,7 +103,7 @@ class Gather extends Component {
       error => this.setState({ error: error.message }),
       { timeout: 20000, distanceFilter: 1 },
     );
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.changeRoleOnBackPress);
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.backButtonPressOverride);
   }
 
   componentWillUnmount() {
@@ -174,7 +174,7 @@ class Gather extends Component {
     return 0;
   }
 
-  changeRoleOnBackPress = () => {
+  backButtonPressOverride = () => {
     this.toggleConfirmExitModal(() => {
       this.finishTravel();
       this.changeRole();

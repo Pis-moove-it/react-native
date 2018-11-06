@@ -31,6 +31,8 @@ describe('edit bale modal reducer', () => {
       baleData: false,
       editBaleModalIsOpen: false,
       isLoading: false,
+      material: false,
+      weight: false,
     });
   });
 
