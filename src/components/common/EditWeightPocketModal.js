@@ -5,6 +5,7 @@ import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import strings from '../../localization';
 import Colors from '../../helpers/Colors';
+import { pockets } from '../../selectors/PocketSelector';
 import {
   getPocket,
   getPocketWeight,
@@ -41,9 +42,19 @@ class EditWeightPocketModal extends Component {
     this.setState({ error: [] });
     if (this.state.newIdentifier > 0) {
       if (this.props.hasWeight) {
-        this.props.editPocketWeight(this.props.token, this.props.pocket, this.state.newIdentifier);
+        this.props.editPocketWeight(
+          this.props.token,
+          this.props.pocket,
+          this.state.newIdentifier,
+          this.props.pockets,
+        );
       } else {
-        this.props.addPocketWeight(this.props.token, this.props.pocket, this.state.newIdentifier);
+        this.props.addPocketWeight(
+          this.props.token,
+          this.props.pocket,
+          this.state.newIdentifier,
+          this.props.pockets,
+        );
       }
     } else {
       this.setState({ inputError: true, error: [strings.invalidInputNumber] });
@@ -113,6 +124,7 @@ EditWeightPocketModal.propTypes = {
   hasWeight: PropTypes.string.isRequired,
   isModalVisible: PropTypes.bool.isRequired,
   pocket: PropTypes.string.isRequired,
+  pockets: PropTypes.array.isRequired,
   token: PropTypes.string.isRequired,
   weight: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
@@ -123,15 +135,18 @@ const mapStateToProps = state => ({
   hasWeight: getPocketState(state),
   isModalVisible: getIsModalVisible(state),
   pocket: getPocket(state),
+  pockets: pockets(state),
   token: state.login.token,
   weight: getPocketWeight(state),
   isLoading: isLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  addPocketWeight: (token, pocket, weight) => dispatch(addPocketWeight(token, pocket, weight)),
+  addPocketWeight: (token, pocket, weight, pocketsArray) =>
+    dispatch(addPocketWeight(token, pocket, weight, pocketsArray)),
   closeEditWeightModal: () => dispatch(closeEditWeightPocketModal()),
-  editPocketWeight: (token, pocket, weight) => dispatch(editPocketWeight(token, pocket, weight)),
+  editPocketWeight: (token, pocket, weight, pocketsArray) =>
+    dispatch(editPocketWeight(token, pocket, weight, pocketsArray)),
 });
 
 export default connect(
