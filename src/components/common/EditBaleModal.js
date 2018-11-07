@@ -19,18 +19,6 @@ import recyclabeleMaterials from './Constants';
 import styles from './styles';
 
 class EditBaleModal extends Component {
-  constructor(props) {
-    super(props);
-    this.materials = recyclabeleMaterials;
-
-    this.state = {
-      selectedMaterial: false,
-      newWeight: false,
-      inputError: true,
-      error: [],
-    };
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!prevState.selectedMaterial && nextProps.material) {
       return {
@@ -44,6 +32,18 @@ class EditBaleModal extends Component {
       };
     }
     return prevState;
+  }
+
+  constructor(props) {
+    super(props);
+    this.materials = recyclabeleMaterials;
+
+    this.state = {
+      selectedMaterial: false,
+      newWeight: false,
+      inputError: true,
+      error: [],
+    };
   }
 
   getMaterials() {
@@ -131,6 +131,7 @@ EditBaleModal.propTypes = {
   editBale: PropTypes.func.isRequired,
   errors: PropTypes.array,
   isModalVisible: PropTypes.bool,
+  material: PropTypes.string.isRequired,
   token: PropTypes.string,
   weight: PropTypes.string.isRequired,
 };
@@ -146,6 +147,7 @@ const mapStateToProps = state => ({
   bale: getBale(state),
   errors: errorsSelector([actionTypes.EDIT_BALE])(state),
   isModalVisible: getIsModalVisible(state),
+  material: getMaterial(state),
   token: state.login.token,
   weight: getWeight(state),
 });
