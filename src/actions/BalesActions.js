@@ -22,6 +22,11 @@ const getBalesError = error => ({
   error,
 });
 
+export const setBales = bales => async (dispatch) => {
+  dispatch(getBales());
+  dispatch(getBalesSuccess(bales, bales.length));
+};
+
 export const fetchBales = (token, nextPage) => async (dispatch) => {
   dispatch(getBales());
   try {
