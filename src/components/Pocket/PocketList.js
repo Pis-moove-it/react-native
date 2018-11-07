@@ -97,11 +97,8 @@ class PocketList extends Component {
           refreshControl={
             <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
           }
-        />
-        <CustomButton
-          onPress={this.onEnd}
-          textStyle={{ color: Colors.primary }}
-          title={strings.moreContent}
+          onEndReachedThreshold={0.05}
+          onEndReached={this.onEnd}
         />
       </View>
     );

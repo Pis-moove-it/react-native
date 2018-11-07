@@ -106,13 +106,10 @@ class BaleList extends Component {
             refreshControl={
               <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
             }
+            onEndReachedThreshold={0.05}
+            onEndReached={this.onEnd}
           />
         )}
-        <CustomButton
-          onPress={this.onEnd}
-          textStyle={{ color: Colors.primary }}
-          title={strings.moreContent}
-        />
       </View>
     );
   }
