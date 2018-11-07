@@ -1,5 +1,6 @@
 import gatherReducer, { initialState } from '../../reducers/GatherReducer';
 import { actionTypes } from '../../actions/GatherActions';
+import { actionTypes as createPocketactionTypes } from '../../actions/CreatePocketModalActions';
 import TickIcon from '../../assets/images/Tick.png';
 
 const mockState = {
@@ -57,7 +58,7 @@ describe('gather reducer', () => {
   it('should a state with isFetching in true', () => {
     expect(gatherReducer(initialState, {
       collectionId: false,
-      type: actionTypes.ADD_POCKET_REQUEST,
+      type: createPocketactionTypes.ADD_POCKET_REQUEST,
     })).toEqual({
       collectionId: false,
       containerIdSelected: null,
@@ -75,7 +76,7 @@ describe('gather reducer', () => {
   it('should a state with isFetching in true', () => {
     expect(gatherReducer(initialState, {
       collectionId: false,
-      type: actionTypes.ADD_POCKET_SUCCESS,
+      type: createPocketactionTypes.ADD_POCKET_SUCCESS,
     })).toEqual({
       collectionId: false,
       containerIdSelected: null,

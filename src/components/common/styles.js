@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
   },
   buttonModal: {
     justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
     height: 50,
     width: 200,
   },

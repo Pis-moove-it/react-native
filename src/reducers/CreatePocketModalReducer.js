@@ -9,12 +9,17 @@ const createPocketModalReducer = (state = initialState, action) => {
     case actionTypes.OPEN_CREATE_POCKET_MODAL:
       return {
         ...state,
-        createPocketModalIsOpen: action.isVisible,
+        createPocketModalIsOpen: true,
       };
     case actionTypes.CLOSE_CREATE_POCKET_MODAL:
       return {
         ...state,
-        createPocketModalIsOpen: action.isVisible,
+        createPocketModalIsOpen: false,
+      };
+    case actionTypes.ADD_POCKET_SUCCESS:
+      return {
+        ...state,
+        createPocketModalIsOpen: false,
       };
     default:
       return state;
