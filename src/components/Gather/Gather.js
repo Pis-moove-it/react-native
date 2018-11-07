@@ -78,8 +78,6 @@ class Gather extends Component {
     // requestLocationPermission();
     if (isTablet || this.state.landscape) {
       this.setButtonsTablet(this.props.user);
-    } else {
-      this.setButtonsPhone();
     }
 
     this.watchId = navigator.geolocation.watchPosition(
@@ -151,13 +149,6 @@ class Gather extends Component {
           },
         },
       ],
-      animated: false,
-    });
-  };
-
-  setButtonsPhone = () => {
-    this.props.navigator.setButtons({
-      rightButtons: [],
       animated: false,
     });
   };
