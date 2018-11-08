@@ -1,3 +1,5 @@
+// DEPRECADO
+
 import React, { Component } from 'react';
 import { ActivityIndicator, View, Text } from 'react-native';
 import { connect } from 'react-redux';

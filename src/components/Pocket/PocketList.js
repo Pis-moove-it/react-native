@@ -85,6 +85,7 @@ class PocketList extends Component {
                         item.id,
                         item.weight,
                         item.state !== 'Unweighed',
+                        item.serial_number,
                       )
                     }
                   />
@@ -104,6 +105,7 @@ class PocketList extends Component {
                       item.id,
                       item.weight,
                       item.state !== 'Unweighed',
+                      item.serial_number,
                     )
                   }
                 />
@@ -142,8 +144,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   openEditIdPocketModal: (pocket, serialNumber) =>
     dispatch(openEditIdPocketModal(pocket, serialNumber)),
-  openEditWeightPocketModal: (pocket, weight, hasWeight) =>
-    dispatch(openEditWeightPocketModal(pocket, weight, hasWeight)),
+  openEditWeightPocketModal: (pocket, weight, hasWeight, serialNumber) =>
+    dispatch(openEditWeightPocketModal(pocket, weight, hasWeight, serialNumber)),
   getPockets: (token, nextPage) => dispatch(getPockets(token, nextPage)),
 });
 

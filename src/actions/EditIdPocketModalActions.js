@@ -1,3 +1,5 @@
+// DEPRECADO
+
 import PocketController from '../controllers/PocketController';
 
 export const actionTypes = {
@@ -9,49 +11,35 @@ export const actionTypes = {
   CLOSE_EDIT_POCKET_SERIAL_MODAL: 'CLOSE_EDIT_POCKET_SERIAL_MODAL',
 };
 
-const editRequest = () => ({
+const editSNRequest = () => ({
   type: actionTypes.EDIT_POCKET_SERIAL_REQUEST,
 });
 
-const editSuccess = pocketData => ({
+const editSNSuccess = pocketData => ({
   type: actionTypes.EDIT_POCKET_SERIAL_SUCCESS,
   pocketData,
 });
 
-const editError = error => ({
+const editSNError = error => ({
   type: actionTypes.EDIT_POCKET_SERIAL_ERROR,
   error,
 });
 
-const openModal = (pocket, serialNumber) => ({
-  type: actionTypes.OPEN_EDIT_POCKET_SERIAL_MODAL,
-  pocket,
-  serialNumber,
-});
-
 export const openEditIdPocketModal = (pocket, serialNumber) => (dispatch) => {
-  dispatch(editRequest());
+  dispatch(editSNRequest());
   dispatch(openModal(pocket, serialNumber));
 };
 
-const closeModal = () => ({
-  type: actionTypes.CLOSE_EDIT_POCKET_SERIAL_MODAL,
-});
-
-export const closeEditIdPocketModal = () => (dispatch) => {
-  dispatch(closeModal());
-};
-
 export const editPocketSerialNumber = (token, pocket, serialNumber) => async (dispatch) => {
-  dispatch(editRequest());
+  dispatch(editSNRequest());
   try {
     const { pocketData } = await PocketController.editPocketSerialNumber(
       token,
       pocket,
       serialNumber,
     );
-    dispatch(editSuccess(pocketData));
+    dispatch(editSNSuccess(pocketData));
   } catch (error) {
-    dispatch(editError(error.message));
+    dispatch(editSNError(error.message));
   }
 };

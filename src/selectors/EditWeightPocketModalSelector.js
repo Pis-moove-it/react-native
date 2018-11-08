@@ -7,3 +7,5 @@ export const getPocketState = state => state.editWeightPocketModal.hasWeight;
 export const getIsModalVisible = state => state.editWeightPocketModal.editWeightPocketModalIsOpen;
 
 export const isLoading = state => state.editWeightPocketModal.isLoading;
+
+export const getPocketSerialNumber = state => state.editPocketModal.serialNumber;

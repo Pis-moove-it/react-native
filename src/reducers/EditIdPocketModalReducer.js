@@ -1,3 +1,5 @@
+// DEPRECADO
+
 import { actionTypes } from '../actions/EditIdPocketModalActions';
 
 export const initialState = {
