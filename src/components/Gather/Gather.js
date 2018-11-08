@@ -13,6 +13,7 @@ import {
   getContainers,
   endCollection,
   setContainerId,
+  createExtraEvent,
 } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import plusSign from '../../assets/ic_common/ic_add.png';
@@ -359,6 +360,8 @@ const mapDispatchToProps = dispatch => ({
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),
   setContainerId: containerId => dispatch(setContainerId(containerId)),
+  createExtraEvent: (token, routeId, description, pocket, coordinates) =>
+    dispatch(createExtraEvent(token, routeId, description, pocket, coordinates)),
 });
 
 export default connect(

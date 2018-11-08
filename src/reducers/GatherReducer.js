@@ -11,6 +11,7 @@ export const initialState = {
   containerIdSelected: null,
   isTravelling: false,
   pocketCounter: 0,
+  eventId: false,
 };
 
 const gatherReducer = (state = initialState, action) => {
@@ -74,6 +75,17 @@ const gatherReducer = (state = initialState, action) => {
       return {
         ...state,
         containerIdSelected: action.containerIdSelected,
+      };
+    case actionTypes.CREATE_EVENT_REQUEST:
+      return {
+        ...state,
+        isLoadingEvent: true,
+      };
+    case actionTypes.CREATE_EVENT_SUCCES:
+      return {
+        ...state,
+        isLoadingEvent: false,
+        eventId: action.eventId,
       };
     default:
       return state;

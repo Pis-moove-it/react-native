@@ -16,6 +16,9 @@ export const actionTypes = {
   GET_CONTAINERS_SUCCESS: 'GET_CONTAINERS_SUCCESS',
   GET_CONTAINERS_ERROR: 'GET_CONTAINERS_ERROR',
   SET_CONTAINER_ID: 'SET_CONTAINER_ID',
+  CREATE_EVENT_REQUEST: 'CREATE_EVENT_REQUEST',
+  CREATE_EVENT_SUCCES: 'CREATE_EVENT_SUCCES',
+  CREATE_EVENT_ERROR: 'CREATE_EVENT_ERROR',
 };
 
 const travelFinished = (travelImage, kmsTraveled, pocketsCollected) => ({
@@ -83,6 +86,20 @@ const getContainersError = error => ({
   error,
 });
 
+const createEventRequest = () => ({
+  type: actionTypes.CREATE_EVENT_REQUEST,
+});
+
+const createEventSuccess = eventId => ({
+  type: actionTypes.CREATE_EVENT_SUCCES,
+  eventId,
+});
+
+const createEventError = error => ({
+  type: actionTypes.CREATE_EVENT_ERROR,
+  error,
+});
+
 export const setContainerId = containerIdSelected => ({
   type: actionTypes.SET_CONTAINER_ID,
   containerIdSelected,
@@ -132,5 +149,29 @@ export const getContainers = token => async (dispatch) => {
     dispatch(getContainersSuccess(containers));
   } catch (error) {
     dispatch(getContainersError(error.message));
+  }
+};
+
+export const createExtraEvent = (
+  token,
+  routeId,
+  description,
+  pocket,
+  coordinates,
+) => async (dispatch) => {
+  dispatch(createEventRequest());
+  try {
+    const { eventId } = await GatherController.createExtraEvent(
+      token,
+      routeId,
+      description,
+      pocket,
+      coordinates,
+    );
+    console.log('ID DEL EVENTO', eventId);
+    dispatch(createEventSuccess(eventId));
+  } catch (error) {
+    console.log(error);
+    dispatch(createEventError(error.message));
   }
 };
