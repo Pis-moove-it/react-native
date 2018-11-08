@@ -5,6 +5,7 @@ import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import strings from '../../localization';
 import Colors from '../../helpers/Colors';
+import { pockets } from '../../selectors/PocketSelector';
 import {
   getPocket,
   getWeight,
@@ -47,6 +48,7 @@ class EditPocketModal extends Component {
         this.state.serialNumber,
         this.state.weight,
         this.props.hasWeight,
+        this.props.pockets,
       );
     } else {
       this.setState({ inputError: true, error: [strings.invalidInputNumber] });
@@ -124,21 +126,15 @@ class EditPocketModal extends Component {
 EditPocketModal.propTypes = {
   closeEditPocketModal: PropTypes.func.isRequired,
   editPocket: PropTypes.func.isRequired,
-  errors: PropTypes.array,
+  errors: PropTypes.array.isRequired,
   hasWeight: PropTypes.string.isRequired,
-  isModalVisible: PropTypes.bool,
-  pocket: PropTypes.string,
-  token: PropTypes.string,
+  isModalVisible: PropTypes.bool.isRequired,
+  pocket: PropTypes.string.isRequired,
+  pockets: PropTypes.array.isRequired,
+  token: PropTypes.string.isRequired,
   weight: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
   serialNumber: PropTypes.number.isRequired,
-};
-
-EditPocketModal.defaultProps = {
-  pocket: false,
-  errors: [],
-  isModalVisible: false,
-  token: false,
 };
 
 const mapStateToProps = state => ({
@@ -146,6 +142,7 @@ const mapStateToProps = state => ({
   hasWeight: getHasWeight(state),
   isModalVisible: isOpen(state),
   pocket: getPocket(state),
+  pockets: pockets(state),
   token: state.login.token,
   weight: getWeight(state),
   isLoading: isLoading(state),
@@ -154,8 +151,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   closeEditPocketModal: () => dispatch(closeEditPocketModal()),
-  editPocket: (token, pocket, serialNumber, weight, isWeight) =>
-    dispatch(editPocket(token, pocket, serialNumber, weight, isWeight)),
+  editPocket: (token, pocket, serialNumber, weight, isWeight, pocketsArray) =>
+    dispatch(editPocket(token, pocket, serialNumber, weight, isWeight, pocketsArray)),
 });
 
 export default connect(

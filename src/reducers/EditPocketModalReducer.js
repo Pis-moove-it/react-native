@@ -32,6 +32,7 @@ const editPocketModal = (state = initialState, action) => {
       return {
         ...state,
         pocketData: action.pocketData,
+        isOpen: false,
       };
     case actionTypes.EDIT_POCKET_ERROR:
       return {
