@@ -7,19 +7,17 @@ import strings from '../../localization';
 import Colors from '../../helpers/Colors';
 import {
   getPocket,
-  getPocketWeight,
-  getPocketState,
-  getIsModalVisible,
+  getWeight,
+  hasWeight as getHasWeight,
+  isOpen,
   isLoading,
-  getPocketSerialNumber,
-} from '../../selectors/EditWeightPocketModalSelector';
+  getSerialNumber,
+} from '../../selectors/EditPocketModalSelector';
 import {
-  addPocketWeight,
-  editPocketWeight,
+  editPocket,
   actionTypes,
-  closeEditWeightPocketModal,
-  editPocketSerialNumber,
-} from '../../actions/EditWeightPocketModalActions';
+  closeEditPocketModal,
+} from '../../actions/EditPocketModalActions';
 import ErrorView from '../common/ErrorView';
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import Button from './Button';
@@ -27,14 +25,14 @@ import TextField from './TextField';
 import recyclabeleMaterials from './Constants';
 import styles from './styles';
 
-class EditWeightPocketModal extends Component {
+class EditPocketModal extends Component {
   constructor(props) {
     super(props);
     this.materials = recyclabeleMaterials;
 
     this.state = {
-      weightS: false,
-      serialNumberS: false,
+      weight: false,
+      serialNumber: false,
       inputError: true,
       error: [],
     };
@@ -42,30 +40,27 @@ class EditWeightPocketModal extends Component {
 
   acceptEdit = () => {
     this.setState({ error: [] });
-    if (this.state.weight > 0) {
-      if (this.props.hasWeight) {
-        this.props.editPocketWeight(
-          this.props.token,
-          this.props.pocket,
-          this.state.weightS,
-          this.state.serialNumberS,
-        );
-      } else {
-        this.props.addPocketWeight(
-          this.props.token,
-          this.props.pocket,
-          this.state.weightS,
-          this.state.serialNumberS,
-        );
-      }
+    if (this.state.weight > 0 && this.state.serialNumber > 0) {
+      this.props.editPocket(
+        this.props.token,
+        this.props.pocket,
+        this.state.serialNumber,
+        this.state.weight,
+        this.props.hasWeight,
+      );
     } else {
       this.setState({ inputError: true, error: [strings.invalidInputNumber] });
     }
   };
 
   closeModal = () => {
-    this.setState({ inputError: false, weightS: false, serialNumberS: false, error: [] });
-    this.props.closeEditWeightModal();
+    this.setState({
+      inputError: false,
+      weight: false,
+      serialNumber: false,
+      error: [],
+    });
+    this.props.closeEditPocketModal();
   };
 
   render() {
@@ -80,9 +75,7 @@ class EditWeightPocketModal extends Component {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalTitleContainer}>
-            <Text style={styles.modalTitle}>
-              {strings.editPocket}
-            </Text>
+            <Text style={styles.modalTitle}>{strings.editPocket}</Text>
           </View>
           <View style={styles.textFieldView}>
             <TextField
@@ -90,11 +83,9 @@ class EditWeightPocketModal extends Component {
               keyboardType="numeric"
               defaultValue={weight ? `${weight}` : null}
               maxLength={8}
-              onChangeText={value => this.setState({ weightS: value })}
+              onChangeText={value => this.setState({ weight: value })}
               onLayout={() =>
-                (hasWeight
-                  ? this.setState({ weightS: weight })
-                  : this.setState({ weightS: false }))
+                (hasWeight ? this.setState({ weight }) : this.setState({ weight: false }))
               }
             />
           </View>
@@ -104,10 +95,8 @@ class EditWeightPocketModal extends Component {
               keyboardType="numeric"
               defaultValue={serialNumber ? `${serialNumber}` : null}
               maxLength={8}
-              onChangeText={value => this.setState({ serialNumberS: value })}
-              onLayout={() =>
-                (!this.state.serialNumber ? this.setState({ serialNumberS: serialNumber }) : null)
-              }
+              onChangeText={value => this.setState({ serialNumber: value })}
+              onLayout={() => (!this.state.serialNumber ? this.setState({ serialNumber }) : null)}
             />
           </View>
           <View>
@@ -132,40 +121,44 @@ class EditWeightPocketModal extends Component {
   }
 }
 
-EditWeightPocketModal.propTypes = {
-  addPocketWeight: PropTypes.func.isRequired,
-  closeEditWeightModal: PropTypes.func.isRequired,
-  editPocketWeight: PropTypes.func.isRequired,
-  errors: PropTypes.array.isRequired,
+EditPocketModal.propTypes = {
+  closeEditPocketModal: PropTypes.func.isRequired,
+  editPocket: PropTypes.func.isRequired,
+  errors: PropTypes.array,
   hasWeight: PropTypes.string.isRequired,
-  isModalVisible: PropTypes.bool.isRequired,
-  pocket: PropTypes.string.isRequired,
-  token: PropTypes.string.isRequired,
+  isModalVisible: PropTypes.bool,
+  pocket: PropTypes.string,
+  token: PropTypes.string,
   weight: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
   serialNumber: PropTypes.number.isRequired,
 };
 
+EditPocketModal.defaultProps = {
+  pocket: false,
+  errors: [],
+  isModalVisible: false,
+  token: false,
+};
+
 const mapStateToProps = state => ({
-  errors: errorsSelector([actionTypes.EDIT_POCKET_WEIGHT])(state),
-  hasWeight: getPocketState(state),
-  isModalVisible: getIsModalVisible(state),
+  errors: errorsSelector([actionTypes.EDIT_POCKET])(state),
+  hasWeight: getHasWeight(state),
+  isModalVisible: isOpen(state),
   pocket: getPocket(state),
   token: state.login.token,
-  weight: getPocketWeight(state),
+  weight: getWeight(state),
   isLoading: isLoading(state),
-  serialNumber: getPocketSerialNumber(state),
+  serialNumber: getSerialNumber(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  addPocketWeight: (token, pocket, weight, serialNumber) => dispatch(addPocketWeight(token, pocket, weight, serialNumber)),
-  closeEditWeightModal: () => dispatch(closeEditWeightPocketModal()),
-  editPocketWeight: (token, pocket, weight, serialNumber) => dispatch(editPocketWeight(token, pocket, weight, serialNumber)),
-  editPocketSerialNumber: (token, pocket, serialNumber) =>
-    dispatch(editPocketSerialNumber(token, pocket, serialNumber)),
+  closeEditPocketModal: () => dispatch(closeEditPocketModal()),
+  editPocket: (token, pocket, serialNumber, weight, isWeight) =>
+    dispatch(editPocket(token, pocket, serialNumber, weight, isWeight)),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(EditWeightPocketModal);
+)(EditPocketModal);
