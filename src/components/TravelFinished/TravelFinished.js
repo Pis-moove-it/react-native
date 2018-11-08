@@ -108,10 +108,8 @@ class TravelFinished extends Component {
 
   changeRole = () => {
     this.props.changeRole();
-    this.props.navigator.push({
-      screen: Screens.Roles,
-      animationType: 'fade',
-    });
+    this.props.navigator.pop();
+    this.props.navigator.pop();
   };
 
   render() {
