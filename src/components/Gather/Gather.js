@@ -109,24 +109,11 @@ class Gather extends Component {
     this.backHandler.remove();
   }
 
-  onNavigatorEvent(event) {
-    switch (event.id) {
-      case 'sideMenuIcon':
-        this.props.navigator.toggleDrawer({
-          side: 'right',
-          animated: true,
-          to: 'open',
-        });
-        break;
-      case 'logo':
-        this.toggleConfirmExitModal(() => {
-          this.changeRole();
-          this.finishTravel();
-        });
-        break;
-      default:
-        break;
-    }
+  onNavigatorEvent() {
+    this.toggleConfirmExitModal(() => {
+      this.changeRole();
+      this.finishTravel();
+    });
   }
 
   setButtonsTablet = (name) => {
