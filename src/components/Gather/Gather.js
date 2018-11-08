@@ -25,7 +25,6 @@ import user128 from '../../assets/ic_user/ic_user128.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
-// import requestLocationPermission from '../../helpers/Permissions';
 import CustomButton from '../common/CustomButton';
 import TickIcon from '../../assets/images/Tick.png';
 import {
@@ -75,7 +74,6 @@ class Gather extends Component {
   }
 
   componentDidMount() {
-    // requestLocationPermission();
     if (isTablet || this.state.landscape) {
       this.setButtonsTablet(this.props.user);
     }
