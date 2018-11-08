@@ -66,10 +66,6 @@ class TravelFinished extends Component {
     });
   }
 
-  state = {
-    isModalVisible: false,
-  };
-
   componentWillMount() {
     this.state.travel = {
       type: 'Feature',
@@ -109,8 +105,6 @@ class TravelFinished extends Component {
         break;
     }
   }
-
-  toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
 
   changeRole = () => {
     this.props.changeRole();
