@@ -109,7 +109,6 @@ export const addPocketToCollection = (
     await GatherController.addPocketToCollection(token, routeId, collectionId, pocketsArray);
     dispatch(addPocketSuccess());
   } catch (error) {
-    console.log(error);
     dispatch(addPocketError(error.message));
   }
 };
@@ -120,7 +119,6 @@ export const endCollection = (token, routeId, routeLength, routeImage) => async 
     await GatherController.endCollection(token, routeId, routeLength, routeImage);
     dispatch(endCollectionSuccess());
   } catch (error) {
-    console.log('error en el end', error);
     dispatch(endCollectionError(error.message));
   }
 };
