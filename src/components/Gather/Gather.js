@@ -155,6 +155,19 @@ class Gather extends Component {
     }
   }
 
+  onPress2 = (e) => {
+    console.log(e);
+    console.log('COORDENADAS', e.geometry.coordinates);
+    console.log('HACE ALGOOO');
+    return (
+      <Mapbox.PointAnnotation id="container.id.toString()" coordinate={e.geometry.coordinates}>
+        <TouchableOpacity /* onPress={() => this.toggleModal(container.id)} */>
+          <Image source={icon} style={stylesGather.trashIcon} />
+        </TouchableOpacity>
+      </Mapbox.PointAnnotation>
+    );
+  };
+
   setButtonsTablet = (name) => {
     this.props.navigator.setButtons({
       rightButtons: [
@@ -262,10 +275,9 @@ class Gather extends Component {
   render() {
     return (
       <View style={stylesGather.mapContainer}>
-        {!this.state.finish &&
-          !this.props.isTravelling && (
-            <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
-          )}
+        {!this.state.finish && !this.props.isTravelling && (
+          <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
+        )}
         <CustomButton
           style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
           icon={TickIcon}
@@ -288,6 +300,8 @@ class Gather extends Component {
           onPressActionSnd={this.toggleCreatePocketModal}
         />
         <Mapbox.MapView
+          // onLongPress={() => this.onPress2()}
+          onLongPress={this.onPress2}
           styleURL={Mapbox.StyleURL.Street}
           zoomLevel={15}
           userTrackingMode={Mapbox.UserTrackingModes.FollowWithHeading}
