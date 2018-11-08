@@ -4,7 +4,13 @@ import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import strings from '../../localization';
-import { getIsModalVisible, getBale } from '../../selectors/EditBaleModalSelector';
+import getBales from '../../selectors/BalesSelector';
+import {
+  getIsModalVisible,
+  getBale,
+  getWeight,
+  getMaterial,
+} from '../../selectors/EditBaleModalSelector';
 import { closeEditBaleModal, editBale, actionTypes } from '../../actions/EditBaleModalActions';
 import ErrorView from '../common/ErrorView';
 import { errorsSelector } from '../../selectors/ErrorSelector';
@@ -17,14 +23,14 @@ class EditBaleModal extends Component {
   constructor(props) {
     super(props);
     this.materials = recyclabeleMaterials;
-  }
 
-  state = {
-    selectedMaterial: false,
-    newWeight: 0,
-    inputError: true,
-    error: [],
-  };
+    this.state = {
+      selectedMaterial: false,
+      newWeight: false,
+      inputError: true,
+      error: [],
+    };
+  }
 
   getMaterials() {
     const pickerMaterial = [];
@@ -43,6 +49,7 @@ class EditBaleModal extends Component {
           this.props.bale,
           this.state.newWeight,
           this.state.selectedMaterial,
+          this.props.bales,
         );
       } else {
         this.setState({ error: [strings.invalidInputType], inputError: true });
@@ -54,13 +61,16 @@ class EditBaleModal extends Component {
 
   closeModal = () => {
     this.setState({
-      inputError: false, newWeight: 0, selectedMaterial: false, error: [],
+      inputError: false,
+      newWeight: false,
+      selectedMaterial: false,
+      error: [],
     });
     this.props.closeEditModal();
   };
 
   render() {
-    const { errors } = this.props;
+    const { errors, material, weight } = this.props;
     return (
       <Modal
         isVisible={this.props.isModalVisible}
@@ -75,13 +85,16 @@ class EditBaleModal extends Component {
             <TextField
               placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
+              defaultValue={weight ? `${weight}` : null}
               maxLength={8}
               onChangeText={value => this.setState({ newWeight: value })}
+              onLayout={() => this.setState({ newWeight: weight })}
             />
             <Picker
               selectedValue={this.state.selectedMaterial}
               mode="dropdown"
               onValueChange={value => this.setState({ selectedMaterial: value })}
+              // onLayout={() => this.setState({ selectedMaterial: this.props.material })}
             >
               {this.getMaterials()}
             </Picker>
@@ -102,11 +115,14 @@ class EditBaleModal extends Component {
 
 EditBaleModal.propTypes = {
   bale: PropTypes.string,
+  bales: PropTypes.array.isRequired,
   closeEditModal: PropTypes.func.isRequired,
   editBale: PropTypes.func.isRequired,
   errors: PropTypes.array,
   isModalVisible: PropTypes.bool,
+  material: PropTypes.string.isRequired,
   token: PropTypes.string,
+  weight: PropTypes.string.isRequired,
 };
 
 EditBaleModal.defaultProps = {
@@ -118,14 +134,18 @@ EditBaleModal.defaultProps = {
 
 const mapStateToProps = state => ({
   bale: getBale(state),
+  bales: getBales(state),
   errors: errorsSelector([actionTypes.EDIT_BALE])(state),
   isModalVisible: getIsModalVisible(state),
+  material: getMaterial(state),
   token: state.login.token,
+  weight: getWeight(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   closeEditModal: () => dispatch(closeEditBaleModal()),
-  editBale: (token, bale, weight, material) => dispatch(editBale(token, bale, weight, material)),
+  editBale: (token, bale, weight, material, balesArray) =>
+    dispatch(editBale(token, bale, weight, material, balesArray)),
 });
 
 export default connect(

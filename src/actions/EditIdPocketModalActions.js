@@ -1,4 +1,5 @@
 import PocketController from '../controllers/PocketController';
+import { setPockets } from './PocketActions';
 
 export const actionTypes = {
   EDIT_POCKET_SERIAL: 'EDIT_POCKET_SERIAL',
@@ -42,7 +43,7 @@ export const closeEditIdPocketModal = () => (dispatch) => {
   dispatch(closeModal());
 };
 
-export const editPocketSerialNumber = (token, pocket, serialNumber) => async (dispatch) => {
+export const editPocketSerialNumber = (token, pocket, serialNumber, pockets) => async (dispatch) => {
   dispatch(editRequest());
   try {
     const { pocketData } = await PocketController.editPocketSerialNumber(
@@ -50,6 +51,14 @@ export const editPocketSerialNumber = (token, pocket, serialNumber) => async (di
       pocket,
       serialNumber,
     );
+
+    const pocketsArray = [];
+    pockets.map((element) => {
+      if (element.id !== pocketData.id) pocketsArray.push(element);
+      else pocketsArray.push(pocketData);
+    });
+
+    dispatch(setPockets(pocketsArray));
     dispatch(editSuccess(pocketData));
   } catch (error) {
     dispatch(editError(error.message));

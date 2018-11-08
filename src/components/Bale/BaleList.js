@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, RefreshControl, ActivityIndicator } from 'react-native';
+import { FlatList, View, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
@@ -20,6 +20,16 @@ class BaleList extends Component {
     navBarHidden: true,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.bales) {
+      return {
+        prevState,
+        currentBales: nextProps.bales,
+      };
+    }
+    return prevState;
+  }
+
   constructor(props) {
     super(props);
     this.materials = recyclableMaterials;
@@ -31,14 +41,14 @@ class BaleList extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({ refreshing: true });
+    this.setState({ refreshing: true, currentBales: [] });
     this.props.fetchData(this.props.token, 1).then(() => {
       this.setState({ refreshing: false, currentBales: this.props.bales, nextPage: 2 });
     });
   };
 
   onRefresh = () => {
-    this.setState({ refreshing: true });
+    this.setState({ refreshing: true, currentBales: [] });
     this.props.fetchData(this.props.token, 1).then(() => {
       this.setState({ refreshing: false, currentBales: this.props.bales, nextPage: 2 });
     });
@@ -78,36 +88,36 @@ class BaleList extends Component {
       >
         <CreateBaleModal />
         <EditBaleModal />
-        {!this.state.refreshing && this.props.bales.length !== this.props.balesQuantity ? (
-          <ActivityIndicator size="large" color={Colors.primary} />
-        ) : (
-          <FlatList
-            data={this.state.currentBales}
-            renderItem={({ item }) => {
-              if (isPhone) {
-                return (
-                  <PhoneBale
-                    id={item.id}
-                    type={this.materialString(item.material)}
-                    weight={item.weight}
-                    onPressAction={() => this.props.openEditBaleModal(item.id)}
-                  />
-                );
-              }
+        <FlatList
+          data={this.state.currentBales}
+          renderItem={({ item }) => {
+            if (isPhone) {
               return (
-                <TabletBale
+                <PhoneBale
                   id={item.id}
                   type={this.materialString(item.material)}
                   weight={item.weight}
-                  onPressAction={() => this.props.openEditBaleModal(item.id)}
+                  onPressAction={() =>
+                    this.props.openEditBaleModal(item.id, item.weight, item.material)
+                  }
                 />
               );
-            }}
-            refreshControl={
-              <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
             }
-          />
-        )}
+            return (
+              <TabletBale
+                id={item.id}
+                type={this.materialString(item.material)}
+                weight={item.weight}
+                onPressAction={() =>
+                  this.props.openEditBaleModal(item.id, item.weight, item.material)
+                }
+              />
+            );
+          }}
+          refreshControl={
+            <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
+          }
+        />
         <CustomButton
           onPress={this.onEnd}
           textStyle={{ color: Colors.primary }}
@@ -123,17 +133,16 @@ BaleList.propTypes = {
   fetchData: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
   openEditBaleModal: PropTypes.func.isRequired,
-  balesQuantity: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
   bales: getBales(state),
-  balesQuantity: state.bales.balesQuantity,
   token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
-  openEditBaleModal: identifier => dispatch(openEditBaleModal(identifier)),
+  openEditBaleModal: (identifier, weight, material) =>
+    dispatch(openEditBaleModal(identifier, weight, material)),
   fetchData: (token, nextPage) => dispatch(fetchBales(token, nextPage)),
 });
 

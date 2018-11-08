@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import strings from '../../localization';
+import { pockets } from '../../selectors/PocketSelector';
 import {
   getPocket,
   getIsModalVisible,
@@ -42,6 +43,7 @@ class EditPocketModal extends Component {
         this.props.token,
         this.props.pocket,
         this.state.newIdentifier,
+        this.props.pockets,
       );
     } else {
       this.setState({ inputError: true, error: [strings.invalidInputNumber] });
@@ -105,6 +107,7 @@ EditPocketModal.propTypes = {
   errors: PropTypes.array.isRequired,
   isModalVisible: PropTypes.bool.isRequired,
   pocket: PropTypes.string.isRequired,
+  pockets: PropTypes.array.isRequired,
   token: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   serialNumber: PropTypes.number.isRequired,
@@ -114,6 +117,7 @@ const mapStateToProps = state => ({
   errors: errorsSelector([actionTypes.EDIT_POCKET_SERIAL])(state),
   isModalVisible: getIsModalVisible(state),
   pocket: getPocket(state),
+  pockets: pockets(state),
   token: state.login.token,
   isLoading: isLoading(state),
   serialNumber: getPocketSerialNumber(state),
@@ -121,8 +125,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   closeEditModal: () => dispatch(closeEditIdPocketModal()),
-  editPocketSerialNumber: (token, pocket, serialNumber) =>
-    dispatch(editPocketSerialNumber(token, pocket, serialNumber)),
+  editPocketSerialNumber: (token, pocket, serialNumber, pocketsArray) =>
+    dispatch(editPocketSerialNumber(token, pocket, serialNumber, pocketsArray)),
 });
 
 export default connect(
