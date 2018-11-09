@@ -13,7 +13,6 @@ import recyclableMaterials from '../common/Constants';
 import getBales from '../../selectors/BalesSelector';
 import strings from '../../localization';
 import Colors from '../../helpers/Colors';
-import CustomButton from '../common/CustomButton';
 
 class BaleList extends Component {
   static navigatorStyle = {
