@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import strings from '../../localization';
+import getBales from '../../selectors/BalesSelector';
 import {
   getIsModalVisible,
   getBale,
@@ -63,6 +64,7 @@ class EditBaleModal extends Component {
           this.props.bale,
           this.state.newWeight,
           this.state.selectedMaterial,
+          this.props.bales,
         );
       } else {
         this.setState({ error: [strings.invalidInputType], inputError: true });
@@ -127,6 +129,7 @@ class EditBaleModal extends Component {
 
 EditBaleModal.propTypes = {
   bale: PropTypes.string,
+  bales: PropTypes.array.isRequired,
   closeEditModal: PropTypes.func.isRequired,
   editBale: PropTypes.func.isRequired,
   errors: PropTypes.array,
@@ -144,6 +147,7 @@ EditBaleModal.defaultProps = {
 
 const mapStateToProps = state => ({
   bale: getBale(state),
+  bales: getBales(state),
   errors: errorsSelector([actionTypes.EDIT_BALE])(state),
   isModalVisible: getIsModalVisible(state),
   material: getMaterial(state),
@@ -153,7 +157,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   closeEditModal: () => dispatch(closeEditBaleModal()),
-  editBale: (token, bale, weight, material) => dispatch(editBale(token, bale, weight, material)),
+  editBale: (token, bale, weight, material, balesArray) =>
+    dispatch(editBale(token, bale, weight, material, balesArray)),
 });
 
 export default connect(

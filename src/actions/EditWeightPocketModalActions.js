@@ -1,4 +1,5 @@
 import PocketController from '../controllers/PocketController';
+import { setPockets } from './PocketActions';
 
 export const actionTypes = {
   EDIT_POCKET_WEIGHT: 'EDIT_POCKET_WEIGHT',
@@ -43,10 +44,18 @@ export const closeEditWeightPocketModal = () => (dispatch) => {
   dispatch(closeModal());
 };
 
-export const editPocketWeight = (token, pocket, weight) => async (dispatch) => {
+export const editPocketWeight = (token, pocket, weight, pockets) => async (dispatch) => {
   dispatch(editRequest());
   try {
     const { pocketData } = await PocketController.editPocketWeight(token, pocket, weight);
+
+    const pocketsArray = [];
+    pockets.map((element) => {
+      if (element.id !== pocketData.id) pocketsArray.push(element);
+      else pocketsArray.push(pocketData);
+    });
+
+    dispatch(setPockets(pocketsArray));
     dispatch(editSuccess(pocketData));
   } catch (error) {
     dispatch(editError(error.message));

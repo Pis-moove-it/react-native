@@ -20,6 +20,16 @@ class BaleList extends Component {
     navBarHidden: true,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.bales) {
+      return {
+        prevState,
+        currentBales: nextProps.bales,
+      };
+    }
+    return prevState;
+  }
+
   constructor(props) {
     super(props);
     this.materials = recyclableMaterials;
@@ -99,7 +109,7 @@ class BaleList extends Component {
                 type={this.materialString(item.material)}
                 weight={item.weight}
                 onPressAction={() =>
-                  this.props.openEditBaleModal(item.id, item.material, item.weight)
+                  this.props.openEditBaleModal(item.id, item.weight, item.material)
                 }
               />
             );

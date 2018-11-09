@@ -1,4 +1,5 @@
 import BaleController from '../controllers/BaleController';
+import { setBales } from './BalesActions';
 
 export const actionTypes = {
   EDIT_BALE: 'EDIT_BALE',
@@ -43,10 +44,18 @@ export const closeEditBaleModal = () => (dispatch) => {
   dispatch(closeEditBaleModalType());
 };
 
-export const editBale = (token, bale, weight, material) => async (dispatch) => {
+export const editBale = (token, bale, weight, material, bales) => async (dispatch) => {
   dispatch(editRequest());
   try {
     const { baleData } = await BaleController.editBale(token, bale, weight, material);
+
+    const balesArray = [];
+    bales.map((element) => {
+      if (element.id !== baleData.id) balesArray.push(element);
+      else balesArray.push(baleData);
+    });
+
+    dispatch(setBales(balesArray));
     dispatch(editSuccess(baleData));
   } catch (error) {
     dispatch(editError(error.message));

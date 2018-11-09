@@ -20,6 +20,16 @@ class PocketList extends Component {
     navBarHidden: true,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.pockets) {
+      return {
+        prevState,
+        currentPockets: nextProps.pockets,
+      };
+    }
+    return prevState;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
