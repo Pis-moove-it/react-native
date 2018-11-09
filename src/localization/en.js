@@ -120,6 +120,7 @@ export default {
 
   // Travel Finished
   summary: 'Summary ',
+  date: 'Date ',
   hour: 'Hour ',
   kmsTraveled: 'Kilometers traveled ',
   pocketsCollected: 'Pockets collected ',

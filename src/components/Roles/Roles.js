@@ -20,7 +20,6 @@ class Roles extends Component {
   constructor() {
     super();
 
-    // TODO: Add 'portrait' and 'deviceType' to a redux prop to make it accesible from any component
     this.state = {
       portrait: Platform.isPortrait(),
     };

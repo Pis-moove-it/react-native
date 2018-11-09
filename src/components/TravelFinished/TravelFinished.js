@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, BackHandler } from 'react-native';
+import { View, Text, BackHandler, Dimensions } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,14 +15,10 @@ import {
 import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
-import user128 from '../../assets/ic_user/ic_user128.png';
-import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
-import HistoryIconWhite from '../../assets/images/HistoryIconWhite.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import { transformTime, transformDay, transformMonth } from '../../helpers/DateFormatter';
 import styles from '../TravelFinished/styles';
-import stylesGather from '../Gather/styles';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 const layerStyles = Mapbox.StyleSheet.create({
@@ -57,15 +53,18 @@ class TravelFinished extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      landscape: Platform.isLandscape(),
+      portrait: Platform.isPortrait(),
       travel: {},
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
 
-  state = {
-    isModalVisible: false,
-  };
+    // Event Listener for orientation changes
+    Dimensions.addEventListener('change', () => {
+      this.setState({
+        portrait: Platform.isPortrait(),
+      });
+    });
+  }
 
   componentWillMount() {
     this.state.travel = {
@@ -111,45 +110,77 @@ class TravelFinished extends Component {
     }
   }
 
-  toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
-
   changeRole = () => {
     this.props.changeRole();
-    this.props.navigator.push({
-      screen: Screens.Roles,
-      animationType: 'fade',
-    });
+    this.props.navigator.pop();
+    this.props.navigator.pop();
   };
 
   render() {
-    return (
-      <View style={stylesGather.mapContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}> {strings.summary} </Text>
-        </View>
-        <View style={styles.resumeAndHourContainer}>
-          <View style={styles.resumeContainer}>
-            <Text style={styles.resumeAndHourTitle}> Fecha </Text>
-            <Text style={styles.resumeSubtitle}>
-              {this.state.currentDayName}
-              {this.state.currentDay}, {this.state.currentMonth}
-              {this.state.currentYear}
-            </Text>
+    if (this.state.portrait || isTablet) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}> {strings.summary} </Text>
           </View>
-          <View style={styles.hourContainer}>
-            <Text style={styles.resumeAndHourTitle}> {strings.hour} </Text>
-            <Text style={styles.hourSubtitle}>
-              {this.state.currentHour}:{this.state.currentMinute}
-            </Text>
+          <View style={styles.dateAndHourContainer}>
+            <View style={styles.dateContainer}>
+              <Text style={styles.dateAndHourTitle}> {strings.date} </Text>
+              <Text style={styles.dateSubtitle}>
+                {this.state.currentDayName}
+                {this.state.currentDay}, {this.state.currentMonth}
+                {this.state.currentYear}
+              </Text>
+            </View>
+            <View style={styles.hourContainer}>
+              <Text style={styles.dateAndHourTitle}> {strings.hour} </Text>
+              <Text style={styles.hourSubtitle}>
+                {this.state.currentHour}:{this.state.currentMinute}
+              </Text>
+            </View>
           </View>
-        </View>
 
+          <Mapbox.MapView
+            styleURL={Mapbox.StyleURL.Street}
+            zoomLevel={11}
+            userTrackingMode={Mapbox.UserTrackingModes.FollowWithHeading}
+            showUserLocation
+            style={styles.mapContainer}
+          >
+            <Mapbox.ShapeSource id="routeSource" shape={this.state.travel}>
+              <Mapbox.LineLayer
+                id="routeFill"
+                style={layerStyles.route}
+                belowLayerID="originInnerCircle"
+              />
+            </Mapbox.ShapeSource>
+          </Mapbox.MapView>
+
+          <View style={styles.kmsAndPocketsContainer}>
+            <View style={styles.kmsContainer}>
+              <Text style={styles.kmsAndPocketsTitle}> {strings.kmsTraveled.toUpperCase()} </Text>
+              <Text style={styles.kmsAndPocketsSubtitle}>
+                {this.props.kmsTraveled.toFixed(2)} km
+              </Text>
+            </View>
+            <View style={styles.pocketsContainer}>
+              <Text style={styles.kmsAndPocketsTitle}>
+                {strings.pocketsCollected.toUpperCase()}
+              </Text>
+              <Text style={styles.kmsAndPocketsSubtitle}> {this.props.pocketsCollected} </Text>
+            </View>
+          </View>
+        </View>
+      );
+    }
+    return (
+      <View style={styles.containerLandscape}>
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}
           zoomLevel={11}
           userTrackingMode={Mapbox.UserTrackingModes.FollowWithHeading}
           showUserLocation
-          style={stylesGather.mapContainer}
+          style={styles.mapContainerLandscape}
         >
           <Mapbox.ShapeSource id="routeSource" shape={this.state.travel}>
             <Mapbox.LineLayer
@@ -159,15 +190,31 @@ class TravelFinished extends Component {
             />
           </Mapbox.ShapeSource>
         </Mapbox.MapView>
-
-        <View style={styles.kmsAndPocketsContainer}>
-          <View style={styles.kmsContainer}>
-            <Text style={styles.kmsAndPocketsTitle}> {strings.kmsTraveled.toUpperCase()} </Text>
-            <Text style={styles.kmsAndPocketsSubtitle}>{this.props.kmsTraveled.toFixed(2)} km</Text>
+        <View style={styles.infoContainerLandscape}>
+          <View style={styles.titleContainerLandscape}>
+            <Text style={styles.title}> {strings.summary} </Text>
           </View>
-          <View style={styles.pocketsContainer}>
-            <Text style={styles.kmsAndPocketsTitle}>{strings.pocketsCollected.toUpperCase()}</Text>
-            <Text style={styles.kmsAndPocketsSubtitle}> {this.props.pocketsCollected} </Text>
+          <View style={styles.dateContainerLandscape}>
+            <Text style={styles.dateAndHourTitle}> {strings.date} </Text>
+            <Text style={styles.dateSubtitle}>
+              {this.state.currentDayName}
+              {this.state.currentDay}, {this.state.currentMonth}
+              {this.state.currentYear}
+            </Text>
+          </View>
+          <View style={styles.hourContainerLandscape}>
+            <Text style={styles.dateAndHourTitle}> {strings.hour} </Text>
+            <Text style={styles.hourSubtitleLandscape}>
+              {this.state.currentHour}:{this.state.currentMinute}
+            </Text>
+          </View>
+          <View style={styles.kmsContainerLandscape}>
+            <Text style={styles.kmsAndPocketsTitleLandscape}> {strings.kmsTraveled} </Text>
+            <Text style={styles.kmsSubtitleLandscape}>{this.props.kmsTraveled.toFixed(2)} km</Text>
+          </View>
+          <View style={styles.pocketsContainerLandscape}>
+            <Text style={styles.kmsAndPocketsTitleLandscape}>{strings.pocketsCollected}</Text>
+            <Text style={styles.pocketsSubtitleLandscape}>{this.props.pocketsCollected}</Text>
           </View>
         </View>
       </View>
@@ -176,7 +223,6 @@ class TravelFinished extends Component {
 }
 
 TravelFinished.propTypes = {
-  user: PropTypes.string.isRequired,
   changeRole: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   coordinates: PropTypes.object.isRequired,
