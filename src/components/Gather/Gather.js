@@ -160,6 +160,14 @@ class Gather extends Component {
     console.log(e);
     console.log('COORDENADAS', e.geometry.coordinates);
     console.log('HACE ALGOOO');
+
+    this.props.createExtraEvent(
+      this.props.token,
+      this.props.collectionId,
+      'Description',
+      145,
+      e.geometry.coordinates,
+    );
     return (
       <Mapbox.PointAnnotation id="container.id.toString()" coordinate={e.geometry.coordinates}>
         <TouchableOpacity /* onPress={() => this.toggleModal(container.id)} */>
@@ -332,6 +340,7 @@ Gather.propTypes = {
   containerIdSelected: PropTypes.number.isRequired,
   isTravelling: PropTypes.bool.isRequired,
   pocketCounter: PropTypes.number.isRequired,
+  createExtraEvent: PropTypes.func.isRequired,
 };
 
 Gather.defaultProps = {

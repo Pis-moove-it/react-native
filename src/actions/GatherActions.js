@@ -161,6 +161,7 @@ export const createExtraEvent = (
 ) => async (dispatch) => {
   dispatch(createEventRequest());
   try {
+    console.log(token, routeId, description, pocket, coordinates);
     const { eventId } = await GatherController.createExtraEvent(
       token,
       routeId,

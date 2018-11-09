@@ -107,13 +107,17 @@ class GatherController {
 
   createExtraEvent = async (token, routeId, description, pocket, coordinates) =>
     new Promise((resolve, reject) => {
+      console.log('LATITUDE', coordinates[0]);
+      console.log('LONGITUD', coordinates[1]);
+
+      console.log('RUTAA', basePath, this.routesPath, routeId, this.extraEvent);
       axios
         .put(
-          `${basePath}${this.routesPath}/${routeId}/${this.extraEvent}`,
+          `${basePath}${this.routesPath}/${routeId}${this.extraEvent}`,
           {
             event: {
-              latitude: coordinates[0],
-              longitude: coordinates[0],
+              latitude: `${coordinates[0]}`,
+              longitude: `${coordinates[1]}`,
               description: `${description}`,
             },
             collection: {
