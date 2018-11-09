@@ -80,6 +80,18 @@ class EditPocketModal extends Component {
             <Text style={styles.modalTitle}>{strings.editPocket}</Text>
           </View>
           <View style={styles.textFieldView}>
+            <Text>{strings.identifierPlaceholderModal}</Text>
+            <TextField
+              placeholder={strings.identifierPlaceholderModal}
+              keyboardType="numeric"
+              defaultValue={serialNumber ? `${serialNumber}` : null}
+              maxLength={8}
+              onChangeText={value => this.setState({ serialNumber: value })}
+              onLayout={() => (!this.state.serialNumber ? this.setState({ serialNumber }) : null)}
+            />
+          </View>
+          <View style={styles.textFieldView}>
+            {weight ? <Text>{strings.weighPlaceholderModal}</Text> : null}
             <TextField
               placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
@@ -89,16 +101,6 @@ class EditPocketModal extends Component {
               onLayout={() =>
                 (hasWeight ? this.setState({ weight }) : this.setState({ weight: false }))
               }
-            />
-          </View>
-          <View style={styles.textFieldView}>
-            <TextField
-              placeholder={strings.identifierPlaceholderModal}
-              keyboardType="numeric"
-              defaultValue={serialNumber ? `${serialNumber}` : null}
-              maxLength={8}
-              onChangeText={value => this.setState({ serialNumber: value })}
-              onLayout={() => (!this.state.serialNumber ? this.setState({ serialNumber }) : null)}
             />
           </View>
           <View>
