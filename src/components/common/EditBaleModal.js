@@ -131,7 +131,6 @@ EditBaleModal.propTypes = {
   editBale: PropTypes.func.isRequired,
   errors: PropTypes.array,
   isModalVisible: PropTypes.bool,
-  material: PropTypes.string.isRequired,
   token: PropTypes.string,
   weight: PropTypes.string.isRequired,
 };
