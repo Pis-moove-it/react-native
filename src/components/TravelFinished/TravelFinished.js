@@ -112,11 +112,8 @@ class TravelFinished extends Component {
 
   changeRole = () => {
     this.props.changeRole();
-    this.props.navigator.popTo({
-      screen: Screens.Roles,
-      animated: true,
-      animationType: 'fade',
-    });
+    this.props.navigator.pop();
+    this.props.navigator.pop();
   };
 
   render() {
