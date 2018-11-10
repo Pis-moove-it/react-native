@@ -18,16 +18,6 @@ class PocketList extends Component {
     navBarHidden: true,
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.pockets) {
-      return {
-        prevState,
-        currentPockets: nextProps.pockets,
-      };
-    }
-    return prevState;
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -53,10 +43,10 @@ class PocketList extends Component {
 
   onEnd = () => {
     this.setState({ refreshing: true });
-    this.props.getPockets(this.props.token, this.props.pockets, this.state.nextPage).then(() => {
+    this.props.getPockets(this.props.token, this.state.nextPage).then(() => {
       this.setState({
         refreshing: false,
-        currentPockets: this.props.pockets,
+        currentPockets: this.state.currentPockets.concat(this.props.pockets),
         nextPage: this.state.nextPage + 1,
       });
     });
@@ -138,8 +128,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   openEditPocketModal: (pocket, serialNumber, weight, hasWeight) =>
     dispatch(openEditPocketModal(pocket, serialNumber, weight, hasWeight)),
-  getPockets: (token, pocketsArray, nextPage) =>
-    dispatch(getPockets(token, pocketsArray, nextPage)),
+  getPockets: (token, nextPage) => dispatch(getPockets(token, nextPage)),
 });
 
 export default connect(

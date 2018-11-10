@@ -27,11 +27,11 @@ export const setPockets = pockets => async (dispatch) => {
   dispatch(pocketsSuccess(pockets, pockets.length));
 };
 
-export const getPockets = (token, pocketsArray, nextPage) => async (dispatch) => {
+export const getPockets = (token, nextPage) => async (dispatch) => {
   dispatch(pocketsRequest());
   try {
     const { pockets } = await PocketController.getPockets(token, nextPage);
-    dispatch(pocketsSuccess(pocketsArray.concat(pockets), pockets.length));
+    dispatch(pocketsSuccess(pockets, pockets.length));
   } catch (error) {
     dispatch(pocketsError(error.message));
   }
