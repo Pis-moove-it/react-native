@@ -37,7 +37,6 @@ class AddEventModal extends Component {
     this.setState({ inputError: false });
     this.setState({ identifier: 0 });
     this.setState({ description: false });
-    this.setState({ descriptionSubmitted: false });
     this.setState({ pocketsFromEvent: [] });
     this.setState({ errors: [] });
     this.props.toggleModal();
@@ -86,7 +85,7 @@ class AddEventModal extends Component {
           style={stylesGather.buttonModal}
           textStyle={stylesGather.textButtonWhite}
           title={strings.acceptModal}
-          onPress={this.setState({ descriptionSubmitted: true })}
+          onPress={() => { this.setState({ descriptionSubmitted: true }); }}
         />
       </View>
     );
