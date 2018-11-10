@@ -15,7 +15,7 @@ import Colors from '../../helpers/Colors';
 import TabletPocket from './TabletPocket';
 import PhonePocket from './PhonePocket';
 
-class PocketList extends Component {
+export class PocketList extends Component {
   static navigatorStyle = {
     navBarHidden: true,
   };
