@@ -109,7 +109,7 @@ class BaleList extends Component {
                 type={this.materialString(item.material)}
                 weight={item.weight}
                 onPressAction={() =>
-                  this.props.openEditBaleModal(item.id, item.weight, item.material)
+                  this.props.openEditBaleModal(item.id, item.material, item.weight)
                 }
               />
             );
