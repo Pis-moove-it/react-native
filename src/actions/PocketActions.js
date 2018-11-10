@@ -22,6 +22,11 @@ const pocketsError = error => ({
   error,
 });
 
+export const setPockets = pockets => async (dispatch) => {
+  dispatch(pocketsRequest());
+  dispatch(pocketsSuccess(pockets, pockets.length));
+};
+
 export const getPockets = (token, nextPage) => async (dispatch) => {
   dispatch(pocketsRequest());
   try {

@@ -12,6 +12,7 @@ import strings from '../../localization';
 import { login, actionTypes } from '../../actions/LoginActions';
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import { Screens } from '../Navigation';
+import Application from '../../Application';
 import styles from './styles';
 
 class Login extends Component {
@@ -29,10 +30,7 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.isLoading && nextProps.organization) {
-      this.props.navigator.push({
-        screen: Screens.User,
-        animationType: 'fade',
-      });
+      Application.startLoggedInApp();
     }
   }
 

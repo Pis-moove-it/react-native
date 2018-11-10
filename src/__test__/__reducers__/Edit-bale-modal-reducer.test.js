@@ -31,6 +31,8 @@ describe('edit bale modal reducer', () => {
       baleData: false,
       editBaleModalIsOpen: false,
       isLoading: false,
+      material: false,
+      weight: false,
     });
   });
 
@@ -38,11 +40,15 @@ describe('edit bale modal reducer', () => {
     expect(editBaleModalReducer(initialState, {
       type: actionTypes.OPEN_EDIT_BALE_MODAL,
       bale: '99',
+      material: 'Glass',
+      weight: '99',
     })).toEqual({
       bale: '99',
       baleData: false,
       editBaleModalIsOpen: true,
       isLoading: false,
+      material: 'Glass',
+      weight: '99',
     });
   });
 });
