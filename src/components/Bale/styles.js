@@ -158,6 +158,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: Colors.white,
   },
+
+  containerL: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  activity: {
+    padding: 10,
+    color: Colors.primary,
+  },
 });
 
 export default styles;

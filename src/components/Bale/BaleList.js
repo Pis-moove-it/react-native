@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, RefreshControl, ActivityIndicator } from 'react-native';
+import { FlatList, View, RefreshControl, ActivityIndicator, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
@@ -13,6 +13,7 @@ import recyclableMaterials from '../common/Constants';
 import getBales from '../../selectors/BalesSelector';
 import strings from '../../localization';
 import Colors from '../../helpers/Colors';
+import styles from './styles';
 
 class BaleList extends Component {
   static navigatorStyle = {
@@ -26,6 +27,7 @@ class BaleList extends Component {
       refreshing: false,
       nextPage: 2,
       currentBales: [],
+      pagination: false,
     };
   }
 
@@ -44,10 +46,10 @@ class BaleList extends Component {
   };
 
   onEnd = () => {
-    this.setState({ refreshing: true });
+    this.setState({ pagination: true });
     this.props.fetchData(this.props.token, this.state.nextPage).then(() => {
       this.setState({
-        refreshing: false,
+        pagination: false,
         currentBales: this.state.currentBales.concat(this.props.bales),
         nextPage: this.state.nextPage + 1,
       });
@@ -69,46 +71,42 @@ class BaleList extends Component {
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-        }}
-      >
+      <View style={[styles.containerL]}>
         <CreateBaleModal />
         <EditBaleModal />
-        {!this.state.refreshing && this.props.bales.length !== this.props.balesQuantity ? (
-          <ActivityIndicator size="large" color={Colors.primary} />
-        ) : (
-          <FlatList
-            data={this.state.currentBales}
-            renderItem={({ item }) => {
-              if (isPhone) {
-                return (
-                  <PhoneBale
-                    id={item.id}
-                    type={this.materialString(item.material)}
-                    weight={item.weight}
-                    onPressAction={() => this.props.openEditBaleModal(item.id)}
-                  />
-                );
-              }
+        <FlatList
+          data={this.state.currentBales}
+          renderItem={({ item }) => {
+            if (isPhone) {
               return (
-                <TabletBale
+                <PhoneBale
                   id={item.id}
                   type={this.materialString(item.material)}
                   weight={item.weight}
                   onPressAction={() => this.props.openEditBaleModal(item.id)}
                 />
               );
-            }}
-            refreshControl={
-              <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
             }
-            onEndReachedThreshold={0.05}
-            onEndReached={this.onEnd}
-          />
-        )}
+            return (
+              <TabletBale
+                id={item.id}
+                type={this.materialString(item.material)}
+                weight={item.weight}
+                onPressAction={() => this.props.openEditBaleModal(item.id)}
+              />
+            );
+          }}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh}
+              colors={[Colors.primary]}
+            />
+          }
+          onEndReachedThreshold={0.05}
+          onEndReached={this.onEnd}
+        />
+        {this.state.pagination ? <ActivityIndicator style={styles.activity} size="large" /> : null}
       </View>
     );
   }

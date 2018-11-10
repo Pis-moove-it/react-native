@@ -12,6 +12,7 @@ import pockets from '../../selectors/PocketSelector';
 import Colors from '../../helpers/Colors';
 import TabletPocket from './TabletPocket';
 import PhonePocket from './PhonePocket';
+import styles from './styles';
 
 class PocketList extends Component {
   static navigatorStyle = {
@@ -24,6 +25,7 @@ class PocketList extends Component {
       refreshing: false,
       nextPage: 2,
       currentPockets: [],
+      pagination: false,
     };
   }
 
@@ -42,10 +44,10 @@ class PocketList extends Component {
   };
 
   onEnd = () => {
-    this.setState({ refreshing: true });
+    this.setState({ pagination: true });
     this.props.getPockets(this.props.token, this.state.nextPage).then(() => {
       this.setState({
-        refreshing: false,
+        pagination: false,
         currentPockets: this.state.currentPockets.concat(this.props.pockets),
         nextPage: this.state.nextPage + 1,
       });
@@ -54,12 +56,7 @@ class PocketList extends Component {
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-        }}
-      >
+      <View style={styles.containerL}>
         <EditIdPocketModal />
         <EditWeightPocketModal />
         {this.state.refreshing && this.props.pockets.length ? (
@@ -102,6 +99,7 @@ class PocketList extends Component {
             onEndReached={this.onEnd}
           />
         )}
+        {this.state.pagination ? <ActivityIndicator style={styles.activity} size="large" /> : null}
       </View>
     );
   }
