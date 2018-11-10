@@ -107,8 +107,8 @@ class GatherController {
 
   createExtraEvent = async (token, routeId, description, pocket, coordinates) =>
     new Promise((resolve, reject) => {
-      console.log('LATITUDE', coordinates[0]);
-      console.log('LONGITUD', coordinates[1]);
+      console.log('LONGITUDE', coordinates[0]);
+      console.log('LATITUDE', coordinates[1]);
       console.log('tokeneen', token);
       console.log('route ID', routeId);
       console.log('DESCRIPTIION', description);
