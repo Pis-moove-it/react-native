@@ -101,7 +101,10 @@ class Gather extends Component {
       error => this.setState({ error: error.message }),
       { timeout: 20000, distanceFilter: 1 },
     );
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.backButtonPressOverride);
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.backButtonPressOverride,
+    );
   }
 
   componentWillUnmount() {
@@ -109,11 +112,13 @@ class Gather extends Component {
     this.backHandler.remove();
   }
 
-  onNavigatorEvent() {
-    this.toggleConfirmExitModal(() => {
-      this.changeRole();
-      this.finishTravel();
-    });
+  onNavigatorEvent(event) {
+    if (event.id === 'logo') {
+      this.toggleConfirmExitModal(() => {
+        this.finishTravel();
+        this.changeRole();
+      });
+    }
   }
 
   setButtonsTablet = (name) => {
@@ -158,7 +163,7 @@ class Gather extends Component {
       this.changeRole();
     });
     return true;
-  }
+  };
 
   toggleOptionModal = (containerId) => {
     if (!this.state.isOptionModalVisible) {
@@ -215,7 +220,7 @@ class Gather extends Component {
       screen: Screens.TravelFinished,
       animationType: 'fade',
     });
-  }
+  };
 
   renderContainers = containers =>
     containers.map(container => (
@@ -232,10 +237,9 @@ class Gather extends Component {
   render() {
     return (
       <View style={stylesGather.mapContainer}>
-        {!this.state.finish &&
-          !this.props.isTravelling && (
-            <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
-          )}
+        {!this.state.finish && !this.props.isTravelling && (
+          <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
+        )}
         <CustomButton
           style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
           icon={TickIcon}
@@ -258,7 +262,9 @@ class Gather extends Component {
         />
         <GatherConfirmExitTripStartedModal
           isVisible={this.state.isConfirmExitModalVisible}
-          onPressActionFst={() => { this.toggleConfirmExitModal(() => {}); }}
+          onPressActionFst={() => {
+            this.toggleConfirmExitModal(() => {});
+          }}
           onPressActionSnd={this.state.confrimExitFunction}
         />
         <AddEventModal

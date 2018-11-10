@@ -124,6 +124,7 @@ export default {
 
   // Travel Finished
   summary: 'Resumen ',
+  date: 'Fecha ',
   hour: 'Hora ',
   kmsTraveled: 'Kilómetros realizados ',
   pocketsCollected: 'Bolsones recogidos ',
