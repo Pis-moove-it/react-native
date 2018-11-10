@@ -45,49 +45,49 @@ class AddEventModal extends Component {
 
   renderModal = (description) => {
     if (description) {
-      return(
+      return (
         <View>
           <TextField
-            placeholder={strings.descriptionPlaceholderModal}
-            maxLength={23}
-            onChangeText={value => this.setState({ description: value })}
+            placeholder={strings.identifierPlaceholderModal}
+            keyboardType="numeric"
+            maxLength={8}
+            value={this.state.identifier ? this.state.identifier : ''}
+            onChangeText={value => this.setState({ identifier: value })}
           />
-          <Button
-            style={stylesGather.buttonModal}
-            textStyle={stylesGather.textButtonWhite}
-            title={strings.acceptModal}
-            onPress={this.setState({ descriptionSubmitted: true })}
-          />
+          <View style={stylesGather.modalButtonContainer}>
+            <View style={{ paddingRight: 10 }}>
+              <CustomButton
+                style={stylesGather.buttonModalConfirmExit}
+                textStyle={stylesGather.textButton}
+                title={strings.acceptModal}
+                onPress={this.closeModal}
+              />
+            </View>
+            <View style={{ paddingLeft: 10 }}>
+              <CustomButton
+                style={stylesGather.buttonModalConfirmExit}
+                textStyle={stylesGather.textButton}
+                title={strings.keepOnAdding}
+                onPress={this.acceptEdit}
+              />
+            </View>
+          </View>
         </View>
       );
     }
-    return(
+    return (
       <View>
         <TextField
-          placeholder={strings.identifierPlaceholderModal}
-          keyboardType="numeric"
-          maxLength={8}
-          value={this.state.identifier ? this.state.identifier : ''}
-          onChangeText={value => this.setState({ identifier: value })}
+          placeholder={strings.descriptionPlaceholderModal}
+          maxLength={23}
+          onChangeText={value => this.setState({ description: value })}
         />
-        <View style={stylesGather.modalButtonContainer}>
-          <View style={{ paddingRight: 10 }}>
-            <CustomButton
-              style={stylesGather.buttonModalConfirmExit}
-              textStyle={stylesGather.textButton}
-              title={strings.acceptModal}
-              onPress={this.closeModal}
-            />
-          </View>
-          <View style={{ paddingLeft: 10 }}>
-            <CustomButton
-              style={stylesGather.buttonModalConfirmExit}
-              textStyle={stylesGather.textButton}
-              title={strings.keepOnAdding}
-              onPress={this.acceptEdit}
-            />
-          </View>
-        </View>
+        <Button
+          style={stylesGather.buttonModal}
+          textStyle={stylesGather.textButtonWhite}
+          title={strings.acceptModal}
+          onPress={this.setState({ descriptionSubmitted: true })}
+        />
       </View>
     );
   }
