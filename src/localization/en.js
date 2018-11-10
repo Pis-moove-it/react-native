@@ -74,6 +74,10 @@ export default {
   identifierPlaceholderModal: 'Identifier ',
   descriptionPlaceholderModal: 'Description ',
 
+  // Create Pocket Event Modal
+  keepOnAdding: 'Add ',
+  finishAdding: 'Finish ',
+
   // Edit Pocket Modal
   editPocket: 'Edit pocket ',
   editWeightPocket: 'Edit weight ',
