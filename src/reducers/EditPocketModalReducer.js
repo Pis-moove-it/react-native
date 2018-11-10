@@ -31,8 +31,13 @@ const editPocketModal = (state = initialState, action) => {
     case actionTypes.EDIT_POCKET_SUCCESS:
       return {
         ...state,
+        pocket: false,
         pocketData: action.pocketData,
+        serialNumber: false,
+        weight: false,
+        hasWeight: false,
         isOpen: false,
+        isLoading: false,
       };
     case actionTypes.EDIT_POCKET_ERROR:
       return {

@@ -11,10 +11,10 @@ const pocketListReducer = (state = initialState, action) => {
     case actionTypes.POCKETS_REQUEST:
       return {
         ...state,
-        pockets: [],
-        pocketsQuantity: false,
         isLoading: true,
       };
+    case actionTypes.POCKETS_RESET:
+      return initialState;
     case actionTypes.POCKETS_SUCCESS:
       return {
         ...state,

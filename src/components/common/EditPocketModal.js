@@ -87,7 +87,7 @@ class EditPocketModal extends Component {
               defaultValue={serialNumber ? `${serialNumber}` : null}
               maxLength={8}
               onChangeText={value => this.setState({ serialNumber: value })}
-              onLayout={() => (!this.state.serialNumber ? this.setState({ serialNumber }) : null)}
+              onLayout={() => this.setState({ serialNumber })}
             />
           </View>
           <View style={styles.textFieldView}>
