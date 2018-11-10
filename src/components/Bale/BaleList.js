@@ -98,7 +98,7 @@ class BaleList extends Component {
                   type={this.materialString(item.material)}
                   weight={item.weight}
                   onPressAction={() =>
-                    this.props.openEditBaleModal(item.id, item.weight, item.material)
+                    this.props.openEditBaleModal(item.id, item.material, item.weight)
                   }
                 />
               );
@@ -141,8 +141,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  openEditBaleModal: (identifier, weight, material) =>
-    dispatch(openEditBaleModal(identifier, weight, material)),
+  openEditBaleModal: (identifier, material, weight) =>
+    dispatch(openEditBaleModal(identifier, material, weight)),
   fetchData: (token, nextPage) => dispatch(fetchBales(token, nextPage)),
 });
 
