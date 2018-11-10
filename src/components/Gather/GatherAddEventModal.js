@@ -6,6 +6,7 @@ import TextField from '../common/TextField';
 import strings from '../../localization';
 import CustomButton from '../common/CustomButton';
 import ErrorView from '../common/ErrorView';
+import Button from '../common/Button';
 import stylesGather from './styles';
 
 class AddEventModal extends Component {
@@ -14,14 +15,14 @@ class AddEventModal extends Component {
     errors: [],
     identifier: false,
     description: false,
+    descriptionSubmitted: false,
   };
 
   acceptEdit = () => {
     if (this.state.identifier > 0) {
       this.setState({
-        pocketsFromEvent: [...(this.state.identifier, this.state.description)],
+        pocketsFromEvent: [...this.state.identifier],
         identifier: 0,
-        description: false,
       });
     } else {
       this.setState({ inputError: true });
@@ -30,13 +31,66 @@ class AddEventModal extends Component {
   };
 
   closeModal = () => {
+    this.setState({ pocketsFromEvent: [...this.state.identifier] }); // adds the last one
+    //connect to backend
+    //resets state so further calls wont interfere with next ones
     this.setState({ inputError: false });
     this.setState({ identifier: 0 });
     this.setState({ description: false });
+    this.setState({ descriptionSubmitted: false });
     this.setState({ pocketsFromEvent: [] });
     this.setState({ errors: [] });
     this.props.toggleModal();
   };
+
+  renderModal = (description) => {
+    if (description) {
+      return(
+        <View>
+          <TextField
+            placeholder={strings.descriptionPlaceholderModal}
+            maxLength={23}
+            onChangeText={value => this.setState({ description: value })}
+          />
+          <Button
+            style={stylesGather.buttonModal}
+            textStyle={stylesGather.textButtonWhite}
+            title={strings.acceptModal}
+            onPress={this.setState({ descriptionSubmitted: true })}
+          />
+        </View>
+      );
+    }
+    return(
+      <View>
+        <TextField
+          placeholder={strings.identifierPlaceholderModal}
+          keyboardType="numeric"
+          maxLength={8}
+          value={this.state.identifier ? this.state.identifier : ''}
+          onChangeText={value => this.setState({ identifier: value })}
+        />
+        <View style={stylesGather.modalButtonContainer}>
+          <View style={{ paddingRight: 10 }}>
+            <CustomButton
+              style={stylesGather.buttonModalConfirmExit}
+              textStyle={stylesGather.textButton}
+              title={strings.acceptModal}
+              onPress={this.closeModal}
+            />
+          </View>
+          <View style={{ paddingLeft: 10 }}>
+            <CustomButton
+              style={stylesGather.buttonModalConfirmExit}
+              textStyle={stylesGather.textButton}
+              title={strings.keepOnAdding}
+              onPress={this.acceptEdit}
+            />
+          </View>
+        </View>
+      </View>
+    );
+  }
 
   render() {
     return (
@@ -50,38 +104,9 @@ class AddEventModal extends Component {
             <Text style={stylesGather.modalTitle}>{strings.createPocket}</Text>
           </View>
           <View>
-            <TextField
-              placeholder={strings.identifierPlaceholderModal}
-              keyboardType="numeric"
-              maxLength={8}
-              value={this.state.identifier ? this.state.identifier : ''}
-              onChangeText={value => this.setState({ identifier: value })}
-            />
-            <TextField
-              placeholder={strings.descriptionPlaceholderModal}
-              maxLength={23}
-              value={this.state.description ? this.state.description : ''}
-              onChangeText={value => this.setState({ description: value })}
-            />
-            {this.state.inputError && <ErrorView errors={this.state.errors} />}
-            <View style={stylesGather.modalButtonContainer}>
-              <View style={{ paddingRight: 10 }}>
-                <CustomButton
-                  style={stylesGather.buttonModalConfirmExit}
-                  textStyle={stylesGather.textButton}
-                  title={strings.acceptModal}
-                  onPress={this.closeModal}
-                />
-              </View>
-              <View style={{ paddingLeft: 10 }}>
-                <CustomButton
-                  style={stylesGather.buttonModalConfirmExit}
-                  textStyle={stylesGather.textButton}
-                  title={strings.keepOnAdding}
-                  onPress={this.acceptEdit}
-                />
-              </View>
-            </View>
+            {this.renderModal(this.state.descriptionSubmitted)}
+            {this.state.inputError && this.state.descriptionSubmitted
+              && <ErrorView errors={this.state.errors} />}
           </View>
         </View>
       </Modal>

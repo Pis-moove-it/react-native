@@ -28,6 +28,12 @@ const stylesGather = StyleSheet.create({
     fontSize: 22,
     fontWeight: '700',
   },
+  textButtonWhite: {
+    paddingLeft: 5,
+    fontSize: 22,
+    fontWeight: '700',
+    color: Colors.white,
+  },
   activityIndicator: {
     margin: '2%',
   },
