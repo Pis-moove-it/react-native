@@ -34,6 +34,8 @@ import {
   selectIsTravelling,
   selectPocketCounter,
 } from '../../selectors/GatherSelector';
+import ChangeIsleStateModal from '../common/ChangeIsleStateModal';
+import { openChangeIsleStateModal } from '../../actions/ChangeIsleStateModalActions';
 import GatherOverlay from './GatherOverlay';
 import GatherPointOptionModal from './GatherPointOptionModal';
 import GatherConfirmExitTripStartedModal from './GatherConfrimExitTripStartedModal';
@@ -99,7 +101,10 @@ class Gather extends Component {
       error => this.setState({ error: error.message }),
       { timeout: 20000, distanceFilter: 1 },
     );
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.backButtonPressOverride);
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.backButtonPressOverride,
+    );
   }
 
   componentWillUnmount() {
@@ -107,11 +112,13 @@ class Gather extends Component {
     this.backHandler.remove();
   }
 
-  onNavigatorEvent() {
-    this.toggleConfirmExitModal(() => {
-      this.changeRole();
-      this.finishTravel();
-    });
+  onNavigatorEvent(event) {
+    if (event.id === 'logo') {
+      this.toggleConfirmExitModal(() => {
+        this.finishTravel();
+        this.changeRole();
+      });
+    }
   }
 
   setButtonsTablet = (name) => {
@@ -156,7 +163,7 @@ class Gather extends Component {
       this.changeRole();
     });
     return true;
-  }
+  };
 
   toggleOptionModal = (containerId) => {
     if (!this.state.isOptionModalVisible) {
@@ -169,6 +176,11 @@ class Gather extends Component {
     this.toggleOptionModal();
     this.props.openCreatePocketModal();
   };
+
+  toggleChangeIsleStateModal = () => {
+    this.toggleOptionModal();
+    this.props.openChangeIsleStateModal();
+  }
 
   toggleConfirmExitModal = (navigationFunction) => {
     this.setState({
@@ -209,7 +221,7 @@ class Gather extends Component {
       screen: Screens.TravelFinished,
       animationType: 'fade',
     });
-  }
+  };
 
   renderContainers = containers =>
     containers.map(container => (
@@ -226,10 +238,9 @@ class Gather extends Component {
   render() {
     return (
       <View style={stylesGather.mapContainer}>
-        {!this.state.finish &&
-          !this.props.isTravelling && (
-            <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
-          )}
+        {!this.state.finish && !this.props.isTravelling && (
+          <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
+        )}
         <CustomButton
           style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
           icon={TickIcon}
@@ -245,14 +256,18 @@ class Gather extends Component {
           collectionId={this.props.collectionId}
           containerIdSelected={this.props.containerIdSelected}
         />
+        <ChangeIsleStateModal />
         <GatherPointOptionModal
           isVisible={this.state.isOptionModalVisible}
           onPressActionFst={this.toggleOptionModal}
           onPressActionSnd={this.toggleCreatePocketModal}
+          onPressActionThrd={this.toggleChangeIsleStateModal}
         />
         <GatherConfirmExitTripStartedModal
           isVisible={this.state.isConfirmExitModalVisible}
-          onPressActionFst={() => { this.toggleConfirmExitModal(() => {}); }}
+          onPressActionFst={() => {
+            this.toggleConfirmExitModal(() => {});
+          }}
           onPressActionSnd={this.state.confrimExitFunction}
         />
         <Mapbox.MapView
@@ -285,6 +300,7 @@ Gather.propTypes = {
   containerIdSelected: PropTypes.number.isRequired,
   isTravelling: PropTypes.bool.isRequired,
   pocketCounter: PropTypes.number.isRequired,
+  openChangeIsleStateModal: PropTypes.func.isRequired,
 };
 
 Gather.defaultProps = {
@@ -313,6 +329,7 @@ const mapDispatchToProps = dispatch => ({
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),
   setContainerId: containerId => dispatch(setContainerId(containerId)),
+  openChangeIsleStateModal: () => dispatch(openChangeIsleStateModal()),
 });
 
 export default connect(
