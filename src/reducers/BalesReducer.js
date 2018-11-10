@@ -15,17 +15,16 @@ const balesListReducer = (state = initialState, action) => {
         balesQuantity: false,
         isFetching: true,
       };
-    case actionTypes.BALES_ERROR:
-      return {
-        ...state,
-        balesQuantity: false,
-        isFetching: false,
-      };
     case actionTypes.BALES_SUCCESS:
       return {
         ...state,
         bales: action.bales,
         balesQuantity: action.balesQuantity,
+        isFetching: false,
+      };
+    case actionTypes.BALES_ERROR:
+      return {
+        ...state,
         isFetching: false,
       };
     default:

@@ -90,6 +90,9 @@ const stylesGather = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  route: {
+    color: 'black',
+  },
   modalContainer: {
     borderRadius: 4,
     borderWidth: 2,
@@ -111,13 +114,35 @@ const stylesGather = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
   },
+  buttonModalConfirmExit: {
+    width: 125,
+    backgroundColor: Colors.primary,
+    alignSelf: 'stretch',
+    borderColor: Colors.primary,
+    borderWidth: 1,
+    marginTop: 10,
+    padding: 10,
+    borderRadius: 5,
+  },
   modalTitleContainer: {
     paddingTop: 15,
     paddingBottom: 20,
+    paddingLeft: 75,
+    paddingRight: 75,
+  },
+  modalButtonContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   modalTitle: {
     fontSize: 30,
     color: Colors.primary,
+    textAlign: 'center',
+  },
+  modalSubitle: {
+    fontSize: 20,
+    color: Colors.black,
+    textAlign: 'center',
   },
   buttonText: {
     fontSize: 15,

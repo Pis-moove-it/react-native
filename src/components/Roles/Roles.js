@@ -3,7 +3,9 @@ import { View, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import getRole from '../../selectors/RoleSelector';
+import { getContainers } from '../../actions/GatherActions';
 import Button from '../common/Button';
+import requestLocationPermission from '../../helpers/Permissions';
 import { selectRole } from '../../actions/RoleActions';
 import strings from '../../localization';
 import Platform from '../../helpers/Platform';
@@ -31,10 +33,15 @@ class Roles extends Component {
     });
   }
 
+  componentDidMount() {
+    requestLocationPermission();
+  }
+
   selectRole = selectedRole => this.props.selectRole(selectedRole);
 
   selectGather = () => {
     this.props.selectRole(strings.gatherAction);
+    this.props.getContainers(this.props.token);
     this.props.navigator.push({
       screen: Screens.Gather,
       animationType: 'fade',
@@ -92,14 +99,18 @@ Roles.propTypes = {
   selectRole: PropTypes.func.isRequired,
   role: PropTypes.string.isRequired,
   navigator: PropTypes.object.isRequired,
+  getContainers: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   role: getRole(state),
+  token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
   selectRole: selectedRole => dispatch(selectRole(selectedRole)),
+  getContainers: token => dispatch(getContainers(token)),
 });
 
 export default connect(

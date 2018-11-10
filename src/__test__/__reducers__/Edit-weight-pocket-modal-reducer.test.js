@@ -25,22 +25,30 @@ describe('edit weight pocket modal reducer', () => {
 
   it('should a state with isVisible in true', () => {
     expect(editWeightPocketModalReducer(initialState, {
-      type: actionTypes.OPEN_EDIT_WEIGHT_POCKET_MODAL,
-      isVisible: true,
-      pocketHasWeight: true,
+      type: actionTypes.OPEN_EDIT_POCKET_WEIGHT_MODAL,
+      pocket: '001',
+      weight: '500',
+      hasWeight: true,
     })).toEqual({
-      hasWieight: true,
+      pocket: '001',
+      pocketData: false,
+      weight: '500',
+      hasWeight: true,
       editWeightPocketModalIsOpen: true,
+      isLoading: false,
     });
   });
 
   it('should a state with isVisible in false', () => {
     expect(editWeightPocketModalReducer(initialState, {
-      type: actionTypes.CLOSE_EDIT_WEIGHT_POCKET_MODAL,
-      isVisible: false,
+      type: actionTypes.CLOSE_EDIT_POCKET_WEIGHT_MODAL,
     })).toEqual({
-      hasWieight: false,
+      pocket: false,
+      pocketData: false,
+      weight: false,
+      hasWeight: false,
       editWeightPocketModalIsOpen: false,
+      isLoading: false,
     });
   });
 });

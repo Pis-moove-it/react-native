@@ -20,6 +20,16 @@ class BaleList extends Component {
     navBarHidden: true,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.bales) {
+      return {
+        prevState,
+        currentBales: nextProps.bales,
+      };
+    }
+    return prevState;
+  }
+
   constructor(props) {
     super(props);
     this.materials = recyclableMaterials;
@@ -32,14 +42,14 @@ class BaleList extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({ refreshing: true });
+    this.setState({ refreshing: true, currentBales: [] });
     this.props.fetchData(this.props.token, 1).then(() => {
       this.setState({ refreshing: false, currentBales: this.props.bales, nextPage: 2 });
     });
   };
 
   onRefresh = () => {
-    this.setState({ refreshing: true });
+    this.setState({ refreshing: true, currentBales: [] });
     this.props.fetchData(this.props.token, 1).then(() => {
       this.setState({ refreshing: false, currentBales: this.props.bales, nextPage: 2 });
     });
@@ -83,7 +93,9 @@ class BaleList extends Component {
                   id={item.id}
                   type={this.materialString(item.material)}
                   weight={item.weight}
-                  onPressAction={() => this.props.openEditBaleModal(item.id)}
+                  onPressAction={() =>
+                    this.props.openEditBaleModal(item.id, item.weight, item.material)
+                  }
                 />
               );
             }
@@ -92,7 +104,9 @@ class BaleList extends Component {
                 id={item.id}
                 type={this.materialString(item.material)}
                 weight={item.weight}
-                onPressAction={() => this.props.openEditBaleModal(item.id)}
+                onPressAction={() =>
+                  this.props.openEditBaleModal(item.id, item.weight, item.material)
+                }
               />
             );
           }}
@@ -115,23 +129,18 @@ class BaleList extends Component {
 BaleList.propTypes = {
   bales: PropTypes.array.isRequired,
   fetchData: PropTypes.func.isRequired,
-  token: PropTypes.string,
+  token: PropTypes.string.isRequired,
   openEditBaleModal: PropTypes.func.isRequired,
-  balesQuantity: PropTypes.number.isRequired,
-};
-
-BaleList.defaultProps = {
-  token: false,
 };
 
 const mapStateToProps = state => ({
   bales: getBales(state),
-  balesQuantity: state.bales.balesQuantity,
   token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
-  openEditBaleModal: identifier => dispatch(openEditBaleModal(identifier)),
+  openEditBaleModal: (identifier, weight, material) =>
+    dispatch(openEditBaleModal(identifier, weight, material)),
   fetchData: (token, nextPage) => dispatch(fetchBales(token, nextPage)),
 });
 

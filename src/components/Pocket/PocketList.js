@@ -8,7 +8,9 @@ import { openEditWeightPocketModal } from '../../actions/EditWeightPocketModalAc
 import { getPockets } from '../../actions/PocketActions';
 import EditIdPocketModal from '../common/EditIdPocketModal';
 import EditWeightPocketModal from '../common/EditWeightPocketModal';
-import pockets from '../../selectors/PocketSelector';
+import CustomButton from '../common/CustomButton';
+import strings from '../../localization';
+import { pockets } from '../../selectors/PocketSelector';
 import Colors from '../../helpers/Colors';
 import TabletPocket from './TabletPocket';
 import PhonePocket from './PhonePocket';
@@ -18,6 +20,16 @@ class PocketList extends Component {
   static navigatorStyle = {
     navBarHidden: true,
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.pockets) {
+      return {
+        prevState,
+        currentPockets: nextProps.pockets,
+      };
+    }
+    return prevState;
+  }
 
   constructor(props) {
     super(props);
@@ -30,14 +42,14 @@ class PocketList extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({ refreshing: true });
+    this.setState({ refreshing: true, currentPockets: [] });
     this.props.getPockets(this.props.token, 1).then(() => {
       this.setState({ refreshing: false, currentPockets: this.props.pockets, nextPage: 2 });
     });
   };
 
   onRefresh = () => {
-    this.setState({ refreshing: true });
+    this.setState({ refreshing: true, currentPockets: [] });
     this.props.getPockets(this.props.token, 1).then(() => {
       this.setState({ refreshing: false, currentPockets: this.props.pockets, nextPage: 2 });
     });
@@ -85,9 +97,15 @@ class PocketList extends Component {
                   time={item.check_in}
                   weight={item.weight}
                   pocketState={item.state}
-                  openEditIdPocketModal={this.props.openEditIdPocketModal}
+                  openEditIdPocketModal={() =>
+                    this.props.openEditIdPocketModal(item.id, item.serial_number)
+                  }
                   openEditWeightPocketModal={() =>
-                    this.props.openEditWeightPocketModal(item.state !== 'Unweighed')
+                    this.props.openEditWeightPocketModal(
+                      item.id,
+                      item.weight,
+                      item.state !== 'Unweighed',
+                    )
                   }
                 />
               );
@@ -106,16 +124,11 @@ class PocketList extends Component {
 }
 
 PocketList.propTypes = {
+  getPockets: PropTypes.func.isRequired,
   openEditIdPocketModal: PropTypes.func.isRequired,
   openEditWeightPocketModal: PropTypes.func.isRequired,
-  getPockets: PropTypes.func.isRequired,
-  pockets: PropTypes.array,
-  token: PropTypes.string,
-};
-
-PocketList.defaultProps = {
-  pockets: [],
-  token: false,
+  pockets: PropTypes.array.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -124,8 +137,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  openEditIdPocketModal: () => dispatch(openEditIdPocketModal()),
-  openEditWeightPocketModal: hasWeight => dispatch(openEditWeightPocketModal(hasWeight)),
+  openEditIdPocketModal: (pocket, serialNumber) =>
+    dispatch(openEditIdPocketModal(pocket, serialNumber)),
+  openEditWeightPocketModal: (pocket, weight, hasWeight) =>
+    dispatch(openEditWeightPocketModal(pocket, weight, hasWeight)),
   getPockets: (token, nextPage) => dispatch(getPockets(token, nextPage)),
 });
 
