@@ -14,6 +14,7 @@ import collectionId from './GatherReducer';
 import editPocketModal from './EditIdPocketModalReducer';
 import editWeightPocketModal from './EditWeightPocketModalReducer';
 import pockets from './PocketReducer';
+import changeIsleState from './ChangeIsleStateModalReducer';
 
 const rootReducer = combineReducers({
   loading,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   editPocketModal,
   editWeightPocketModal,
   collectionId,
+  changeIsleState,
 });
 
 export default rootReducer;

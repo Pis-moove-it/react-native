@@ -5,9 +5,12 @@ import Modal from 'react-native-modal';
 import strings from '../../localization';
 import CustomButton from '../common/CustomButton';
 import plusSign from '../../assets/ic_common/ic_add.png';
+import pencilIcon from '../../assets/ic_common/ic_editPencil.png';
 import stylesGather from './styles';
 
-const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd }) => (
+const GatherPointOptionModal = ({
+  isVisible, onPressActionFst, onPressActionSnd, onPressActionThrd,
+}) => (
   <Modal
     isVisible={isVisible}
     onBackdropPress={onPressActionFst}
@@ -19,6 +22,13 @@ const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd 
         <Text style={stylesGather.modalTitle}>{strings.optionsModalGather}</Text>
       </View>
       <View>
+        <CustomButton
+          style={stylesGather.buttonModal}
+          textStyle={stylesGather.textButton}
+          title={strings.changeStateIsle}
+          onPress={onPressActionThrd}
+          icon={pencilIcon}
+        />
         <CustomButton
           style={stylesGather.buttonModal}
           textStyle={stylesGather.textButton}
@@ -35,6 +45,7 @@ GatherPointOptionModal.propTypes = {
   isVisible: PropTypes.bool.isRequired,
   onPressActionFst: PropTypes.func.isRequired,
   onPressActionSnd: PropTypes.func.isRequired,
+  onPressActionThrd: PropTypes.func.isRequired,
 };
 
 export default GatherPointOptionModal;
