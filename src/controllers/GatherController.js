@@ -109,10 +109,13 @@ class GatherController {
     new Promise((resolve, reject) => {
       console.log('LATITUDE', coordinates[0]);
       console.log('LONGITUD', coordinates[1]);
-
-      console.log('RUTAA', basePath, this.routesPath, routeId, this.extraEvent);
+      console.log('tokeneen', token);
+      console.log('route ID', routeId);
+      console.log('DESCRIPTIION', description);
+      console.log('POCKET', pocket);
+      console.log('RUTAA', basePath, this.routesPath, '/', routeId, this.extraEvent);
       axios
-        .put(
+        .post(
           `${basePath}${this.routesPath}/${routeId}${this.extraEvent}`,
           {
             event: {
@@ -131,8 +134,10 @@ class GatherController {
             },
           },
         )
-        .then(() => {
-          resolve({});
+        .then((response) => {
+          resolve({
+            eventId: response.data.id,
+          });
         })
         .catch((error) => {
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
