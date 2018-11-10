@@ -69,7 +69,7 @@ class Gather extends Component {
       finish: false,
       isOptionModalVisible: false,
       isConfirmExitModalVisible: false,
-      isAddEventModalVisible: false,
+      isAddEventModalVisible: true,
       confrimExitFunction: () => ({}),
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
