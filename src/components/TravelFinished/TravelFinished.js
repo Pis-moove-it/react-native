@@ -16,8 +16,8 @@ import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
 import strings from '../../localization';
-import { Screens } from '../Navigation';
 import { transformTime, transformDay, transformMonth } from '../../helpers/DateFormatter';
+import { Screens } from '../Navigation';
 import styles from '../TravelFinished/styles';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
@@ -112,8 +112,11 @@ class TravelFinished extends Component {
 
   changeRole = () => {
     this.props.changeRole();
-    this.props.navigator.pop();
-    this.props.navigator.pop();
+    this.props.navigator.popTo({
+      screen: Screens.Roles,
+      animated: true,
+      animationType: 'fade',
+    });
   };
 
   render() {
