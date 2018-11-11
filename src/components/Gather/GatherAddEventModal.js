@@ -34,14 +34,6 @@ class AddEventModal extends Component {
   };
 
   closeModal = () => {
-    // this.setState({ pocketsFromEvent: [...this.state.identifier] }); // adds the last one
-    console.log(
-      this.props.token,
-      this.props.collectionId,
-      this.state.description,
-      this.state.pocketsFromEvent,
-      this.props.eventCoordinates,
-    );
     this.props.createExtraEvent(
       this.props.token,
       this.props.collectionId,
@@ -56,6 +48,7 @@ class AddEventModal extends Component {
     this.setState({ description: false });
     this.setState({ pocketsFromEvent: [] });
     this.setState({ errors: [] });
+    this.setState({ descriptionSubmitted: false });
     this.props.toggleModal();
   };
 

@@ -20,6 +20,7 @@ export const actionTypes = {
   CREATE_EVENT_SUCCES: 'CREATE_EVENT_SUCCES',
   CREATE_EVENT_ERROR: 'CREATE_EVENT_ERROR',
   SET_EVENT_COORDINATES: 'SET_EVENT_COORDINATES',
+  INCREMENT_POCKETS_EVENT: 'INCREMENT_POCKETS_EVENT',
 };
 
 const travelFinished = (travelImage, kmsTraveled, pocketsCollected) => ({
@@ -111,6 +112,11 @@ export const setEventCoordinates = eventCoordinates => ({
   eventCoordinates,
 });
 
+export const incrementPocketCounter = pocketsEvent => ({
+  type: actionTypes.INCREMENT_POCKETS_EVENT,
+  pocketsEvent,
+});
+
 export const startCollection = token => async (dispatch) => {
   dispatch(startCollectionRequest());
   try {
@@ -160,23 +166,21 @@ export const createExtraEvent = (
   token,
   routeId,
   description,
-  pocket,
+  pockets,
   coordinates,
 ) => async (dispatch) => {
   dispatch(createEventRequest());
   try {
-    console.log(token, routeId, description, pocket, coordinates);
     const { eventId } = await GatherController.createExtraEvent(
       token,
       routeId,
       description,
-      pocket,
+      pockets,
       coordinates,
     );
-    console.log('ID DEL EVENTO', eventId);
+    dispatch(incrementPocketCounter(pockets.length));
     dispatch(createEventSuccess(eventId));
   } catch (error) {
-    console.log(error);
     dispatch(createEventError(error.message));
   }
 };

@@ -24,6 +24,7 @@ import Colors from '../../helpers/Colors';
 import icon from '../../assets/images/MapPointIcon.png';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
+import eventContainerImage from '../../assets/images/MapPointIconBlue.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
@@ -130,23 +131,6 @@ class Gather extends Component {
     }
   }
 
-  onPress2 = (e) => {
-    console.log(e);
-    console.log('COORDENADAS', e.geometry.coordinates);
-    console.log('HACE ALGOOO');
-    this.toggleAddEventModal();
-    this.props.setEventCoordinates(e.geometry.coordinates);
-    this.setState({ eventCoordinates: e.geometry.coordinates });
-    /*  this.props.createExtraEvent(
-      this.props.token,
-      this.props.collectionId,
-      'Description',
-      145,
-      e.geometry.coordinates,
-    ); */
-    this.setState({ showEvents: true });
-  };
-
   setButtonsTablet = (name) => {
     this.props.navigator.setButtons({
       rightButtons: [
@@ -169,6 +153,13 @@ class Gather extends Component {
       ],
       animated: false,
     });
+  };
+
+  createExtraEvent = (e) => {
+    this.toggleAddEventModal();
+    this.props.setEventCoordinates(e.geometry.coordinates);
+    this.setState({ eventCoordinates: e.geometry.coordinates });
+    this.setState({ showEvents: true });
   };
 
   calcDistance(newLatLng) {
@@ -254,13 +245,12 @@ class Gather extends Component {
   };
 
   generateEvent = () => {
-    console.log('EVENT ID PUTO', this.props.eventId.toString());
     this.state.eventList.push(<Mapbox.PointAnnotation
       id={this.props.eventId.toString()}
       coordinate={this.state.eventCoordinates}
     >
       <TouchableOpacity>
-        <Image source={icon} style={stylesGather.trashIcon} />
+        <Image source={eventContainerImage} style={stylesGather.trashIcon} />
       </TouchableOpacity>
     </Mapbox.PointAnnotation>);
     return this.state.eventList;
@@ -268,7 +258,6 @@ class Gather extends Component {
 
   renderContainers = containers =>
     containers.map((container) => {
-      console.log(container.longitude);
       return (
         <Mapbox.PointAnnotation
           id={container.id.toString()}
@@ -322,8 +311,7 @@ class Gather extends Component {
           collectionId={this.props.collectionId}
         />
         <Mapbox.MapView
-          // onLongPress={() => this.onPress2()}
-          onLongPress={this.onPress2}
+          onLongPress={this.createExtraEvent}
           styleURL={Mapbox.StyleURL.Street}
           zoomLevel={15}
           userTrackingMode={Mapbox.UserTrackingModes.FollowWithHeading}

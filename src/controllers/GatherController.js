@@ -105,15 +105,8 @@ class GatherController {
         });
     });
 
-  createExtraEvent = async (token, routeId, description, pocket, coordinates) =>
+  createExtraEvent = async (token, routeId, description, pockets, coordinates) =>
     new Promise((resolve, reject) => {
-      console.log('LONGITUDE', coordinates[0]);
-      console.log('LATITUDE', coordinates[1]);
-      console.log('tokeneen', token);
-      console.log('route ID', routeId);
-      console.log('DESCRIPTIION', description);
-      console.log('POCKET', pocket);
-      console.log('RUTAA', basePath, this.routesPath, '/', routeId, this.extraEvent);
       axios
         .post(
           `${basePath}${this.routesPath}/${routeId}${this.extraEvent}`,
@@ -124,7 +117,7 @@ class GatherController {
               description: `${description}`,
             },
             collection: {
-              pockets_attributes: pocket /* [{ serial_number: `${pocket}` }] */,
+              pockets_attributes: pockets,
             },
           },
           {

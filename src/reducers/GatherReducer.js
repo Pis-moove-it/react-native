@@ -93,6 +93,12 @@ const gatherReducer = (state = initialState, action) => {
         ...state,
         eventCoordinates: action.eventCoordinates,
       };
+    case actionTypes.INCREMENT_POCKETS_EVENT:
+      return {
+        ...state,
+        isLoading: false,
+        pocketCounter: state.pocketCounter + action.pocketsEvent,
+      };
     default:
       return state;
   }
