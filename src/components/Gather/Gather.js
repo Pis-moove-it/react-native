@@ -34,6 +34,8 @@ import {
   selectIsTravelling,
   selectPocketCounter,
 } from '../../selectors/GatherSelector';
+import ChangeIsleStateModal from '../common/ChangeIsleStateModal';
+import { openChangeIsleStateModal } from '../../actions/ChangeIsleStateModalActions';
 import GatherOverlay from './GatherOverlay';
 import GatherPointOptionModal from './GatherPointOptionModal';
 import GatherConfirmExitTripStartedModal from './GatherConfrimExitTripStartedModal';
@@ -175,6 +177,11 @@ class Gather extends Component {
     this.props.openCreatePocketModal();
   };
 
+  toggleChangeIsleStateModal = () => {
+    this.toggleOptionModal();
+    this.props.openChangeIsleStateModal();
+  }
+
   toggleConfirmExitModal = (navigationFunction) => {
     this.setState({
       isConfirmExitModalVisible: !this.state.isConfirmExitModalVisible,
@@ -249,10 +256,12 @@ class Gather extends Component {
           collectionId={this.props.collectionId}
           containerIdSelected={this.props.containerIdSelected}
         />
+        <ChangeIsleStateModal />
         <GatherPointOptionModal
           isVisible={this.state.isOptionModalVisible}
           onPressActionFst={this.toggleOptionModal}
           onPressActionSnd={this.toggleCreatePocketModal}
+          onPressActionThrd={this.toggleChangeIsleStateModal}
         />
         <GatherConfirmExitTripStartedModal
           isVisible={this.state.isConfirmExitModalVisible}
@@ -291,6 +300,7 @@ Gather.propTypes = {
   containerIdSelected: PropTypes.number.isRequired,
   isTravelling: PropTypes.bool.isRequired,
   pocketCounter: PropTypes.number.isRequired,
+  openChangeIsleStateModal: PropTypes.func.isRequired,
 };
 
 Gather.defaultProps = {
@@ -319,6 +329,7 @@ const mapDispatchToProps = dispatch => ({
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),
   setContainerId: containerId => dispatch(setContainerId(containerId)),
+  openChangeIsleStateModal: () => dispatch(openChangeIsleStateModal()),
 });
 
 export default connect(

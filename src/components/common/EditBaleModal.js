@@ -20,6 +20,21 @@ import recyclabeleMaterials from './Constants';
 import styles from './styles';
 
 class EditBaleModal extends Component {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!prevState.selectedMaterial && nextProps.material) {
+      return {
+        prevState,
+        selectedMaterial: nextProps.material,
+      };
+    } else if (!nextProps.isModalVisible) {
+      return {
+        prevState,
+        selectedMaterial: false,
+      };
+    }
+    return prevState;
+  }
+
   constructor(props) {
     super(props);
     this.materials = recyclabeleMaterials;
@@ -70,7 +85,7 @@ class EditBaleModal extends Component {
   };
 
   render() {
-    const { errors, material, weight } = this.props;
+    const { errors, weight } = this.props;
     return (
       <Modal
         isVisible={this.props.isModalVisible}
@@ -94,7 +109,6 @@ class EditBaleModal extends Component {
               selectedValue={this.state.selectedMaterial}
               mode="dropdown"
               onValueChange={value => this.setState({ selectedMaterial: value })}
-              // onLayout={() => this.setState({ selectedMaterial: this.props.material })}
             >
               {this.getMaterials()}
             </Picker>
@@ -120,7 +134,6 @@ EditBaleModal.propTypes = {
   editBale: PropTypes.func.isRequired,
   errors: PropTypes.array,
   isModalVisible: PropTypes.bool,
-  material: PropTypes.string.isRequired,
   token: PropTypes.string,
   weight: PropTypes.string.isRequired,
 };

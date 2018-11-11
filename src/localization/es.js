@@ -63,6 +63,14 @@ export default {
   invalidInputId: 'Por favor ingrese un identificador válido ',
   invalidInputType: 'Por favor ingrese un tipo de material válido ',
 
+  // Change Isle State Modal
+  changeStateIsleTitle: 'Cambiar estado de la Isla ',
+  selectState: 'Seleccione un nuevo estado ',
+  invalidInputState: 'Por favor ingrese un estado válido ',
+  ok: 'OK ',
+  damaged: 'Dañado ',
+  removed: 'Removido ',
+
   // Bale Edit Modal
   editBale: 'Editar Fardo ',
 
@@ -120,6 +128,7 @@ export default {
 
   // Travel Finished
   summary: 'Resumen ',
+  date: 'Fecha ',
   hour: 'Hora ',
   kmsTraveled: 'Kilómetros realizados ',
   pocketsCollected: 'Bolsones recogidos ',

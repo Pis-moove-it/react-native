@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: '5%',
   },
   pocketImageStylePhone: {
     height: 60,

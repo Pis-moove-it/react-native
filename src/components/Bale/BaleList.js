@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, RefreshControl, ActivityIndicator, StyleSheet } from 'react-native';
+import { FlatList, View, RefreshControl, ActivityIndicator} from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
@@ -94,7 +94,7 @@ class BaleList extends Component {
                   type={this.materialString(item.material)}
                   weight={item.weight}
                   onPressAction={() =>
-                    this.props.openEditBaleModal(item.id, item.weight, item.material)
+                    this.props.openEditBaleModal(item.id, item.material, item.weight)
                   }
                 />
               );
@@ -105,7 +105,7 @@ class BaleList extends Component {
                 type={this.materialString(item.material)}
                 weight={item.weight}
                 onPressAction={() =>
-                  this.props.openEditBaleModal(item.id, item.weight, item.material)
+                  this.props.openEditBaleModal(item.id, item.material, item.weight)
                 }
               />
             );
@@ -139,8 +139,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  openEditBaleModal: (identifier, weight, material) =>
-    dispatch(openEditBaleModal(identifier, weight, material)),
+  openEditBaleModal: (identifier, material, weight) =>
+    dispatch(openEditBaleModal(identifier, material, weight)),
   fetchData: (token, nextPage) => dispatch(fetchBales(token, nextPage)),
 });
 
