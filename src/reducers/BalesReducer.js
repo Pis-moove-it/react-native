@@ -11,10 +11,10 @@ const balesListReducer = (state = initialState, action) => {
     case actionTypes.BALES_REQUEST:
       return {
         ...state,
-        bales: [],
-        balesQuantity: false,
         isFetching: true,
       };
+    case actionTypes.BALES_RESET:
+      return initialState;
     case actionTypes.BALES_SUCCESS:
       return {
         ...state,

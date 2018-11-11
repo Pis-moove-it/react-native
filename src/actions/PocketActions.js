@@ -3,9 +3,9 @@ import PocketController from '../controllers/PocketController';
 export const actionTypes = {
   POCKETS: 'POCKETS',
   POCKETS_REQUEST: 'POCKETS_REQUEST',
+  POCKETS_RESET: 'POCKETS_RESET',
   POCKETS_SUCCESS: 'POCKETS_SUCCESS',
   POCKETS_ERROR: 'POCKETS_ERROR',
-  POCKETS_RESET: 'POCKETS_RESET',
 };
 
 const pocketsRequest = () => ({
@@ -39,7 +39,7 @@ export const getPockets = (token, oldPockets, nextPage) => async (dispatch) => {
     const { pockets } = await PocketController.getPockets(token, nextPage);
 
     if (nextPage === 1) dispatch(pocketsSuccess(pockets, pockets.length));
-    else dispatch(pocketsSuccess(oldPockets.concat(pockets), pockets.length));
+    else dispatch(pocketsSuccess(oldPockets.concat(pockets), oldPockets.length));
   } catch (error) {
     dispatch(pocketsError(error.message));
   }

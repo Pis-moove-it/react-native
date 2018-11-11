@@ -3,11 +3,13 @@ import { FlatList, View, RefreshControl, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
+import ErrorView from '../common/ErrorView';
 import { openEditPocketModal } from '../../actions/EditPocketModalActions';
-import { getPockets } from '../../actions/PocketActions';
+import { getPockets, actionTypes } from '../../actions/PocketActions';
 import EditPocketModal from '../common/EditPocketModal';
 import { pockets } from '../../selectors/PocketSelector';
 import Colors from '../../helpers/Colors';
+import { errorsSelector } from '../../selectors/ErrorSelector';
 import TabletPocket from './TabletPocket';
 import PhonePocket from './PhonePocket';
 import styles from './styles';
@@ -51,9 +53,11 @@ class PocketList extends Component {
   };
 
   render() {
+    const { errors } = this.props;
     return (
       <View style={styles.containerL}>
         <EditPocketModal />
+        <ErrorView errors={errors} />
         {this.state.refreshing && this.props.pockets.length ? (
           <ActivityIndicator size="large" color={Colors.primary} />
         ) : (
@@ -109,6 +113,7 @@ class PocketList extends Component {
 }
 
 PocketList.propTypes = {
+  errors: PropTypes.array.isRequired,
   getPockets: PropTypes.func.isRequired,
   openEditPocketModal: PropTypes.func.isRequired,
   pockets: PropTypes.array.isRequired,
@@ -116,6 +121,7 @@ PocketList.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  errors: errorsSelector([actionTypes.POCKETS])(state),
   pockets: pockets(state),
   token: state.login.token,
 });

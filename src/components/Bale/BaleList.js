@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { FlatList, View, RefreshControl, ActivityIndicator} from 'react-native';
+import { ActivityIndicator, FlatList, View, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { isPhone } from 'react-native-device-detection';
 import PropTypes from 'prop-types';
 import PhoneBale from '../Bale/PhoneBale';
 import TabletBale from '../Bale/TabletBale';
-import { fetchBales } from '../../actions/BalesActions';
+import { fetchBales, actionTypes } from '../../actions/BalesActions';
+import { errorsSelector } from '../../selectors/ErrorSelector';
+import ErrorView from '../common/ErrorView';
 import { openEditBaleModal } from '../../actions/EditBaleModalActions';
 import CreateBaleModal from '../common/CreateBaleModal';
 import EditBaleModal from '../common/EditBaleModal';
@@ -20,47 +22,35 @@ class BaleList extends Component {
     navBarHidden: true,
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.bales) {
-      return {
-        prevState,
-        currentBales: nextProps.bales,
-      };
-    }
-    return prevState;
-  }
-
   constructor(props) {
     super(props);
     this.materials = recyclableMaterials;
     this.state = {
       refreshing: false,
       nextPage: 2,
-      currentBales: [],
       pagination: false,
     };
   }
 
   componentDidMount = () => {
-    this.setState({ refreshing: true, currentBales: [] });
-    this.props.fetchData(this.props.token, 1).then(() => {
-      this.setState({ refreshing: false, currentBales: this.props.bales, nextPage: 2 });
+    this.setState({ refreshing: true });
+    this.props.fetchData(this.props.token, [], 1).then(() => {
+      this.setState({ refreshing: false, nextPage: 2 });
     });
   };
 
   onRefresh = () => {
-    this.setState({ refreshing: true, currentBales: [] });
-    this.props.fetchData(this.props.token, 1).then(() => {
-      this.setState({ refreshing: false, currentBales: this.props.bales, nextPage: 2 });
+    this.setState({ refreshing: true });
+    this.props.fetchData(this.props.token, [], 1).then(() => {
+      this.setState({ refreshing: false, nextPage: 2 });
     });
   };
 
   onEnd = () => {
     this.setState({ pagination: true });
-    this.props.fetchData(this.props.token, this.state.nextPage).then(() => {
+    this.props.fetchData(this.props.token, this.props.bales, this.state.nextPage).then(() => {
       this.setState({
         pagination: false,
-        currentBales: this.state.currentBales.concat(this.props.bales),
         nextPage: this.state.nextPage + 1,
       });
     });
@@ -80,16 +70,32 @@ class BaleList extends Component {
   };
 
   render() {
+    const { errors } = this.props;
     return (
       <View style={[styles.containerL]}>
         <CreateBaleModal />
         <EditBaleModal />
-        <FlatList
-          data={this.state.currentBales}
-          renderItem={({ item }) => {
-            if (isPhone) {
+        <ErrorView errors={errors} />
+        {this.state.refreshing && this.props.bales.length ? (
+          <ActivityIndicator size="large" color={Colors.primary} />
+        ) : (
+          <FlatList
+            data={this.props.bales}
+            renderItem={({ item }) => {
+              if (isPhone) {
+                return (
+                  <PhoneBale
+                    id={item.id}
+                    type={this.materialString(item.material)}
+                    weight={item.weight}
+                    onPressAction={() =>
+                      this.props.openEditBaleModal(item.id, item.material, item.weight)
+                    }
+                  />
+                );
+              }
               return (
-                <PhoneBale
+                <TabletBale
                   id={item.id}
                   type={this.materialString(item.material)}
                   weight={item.weight}
@@ -98,28 +104,18 @@ class BaleList extends Component {
                   }
                 />
               );
-            }
-            return (
-              <TabletBale
-                id={item.id}
-                type={this.materialString(item.material)}
-                weight={item.weight}
-                onPressAction={() =>
-                  this.props.openEditBaleModal(item.id, item.material, item.weight)
-                }
+            }}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefresh}
+                colors={[Colors.primary]}
               />
-            );
-          }}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this.onRefresh}
-              colors={[Colors.primary]}
-            />
-          }
-          onEndReachedThreshold={0.05}
-          onEndReached={this.onEnd}
-        />
+            }
+            onEndReachedThreshold={0.05}
+            onEndReached={this.onEnd}
+          />
+        )}
         {this.state.pagination ? <ActivityIndicator style={styles.activity} size="large" /> : null}
       </View>
     );
@@ -128,6 +124,7 @@ class BaleList extends Component {
 
 BaleList.propTypes = {
   bales: PropTypes.array.isRequired,
+  errors: PropTypes.array.isRequired,
   fetchData: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
   openEditBaleModal: PropTypes.func.isRequired,
@@ -135,13 +132,14 @@ BaleList.propTypes = {
 
 const mapStateToProps = state => ({
   bales: getBales(state),
+  errors: errorsSelector([actionTypes.BALES])(state),
   token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
   openEditBaleModal: (identifier, material, weight) =>
     dispatch(openEditBaleModal(identifier, material, weight)),
-  fetchData: (token, nextPage) => dispatch(fetchBales(token, nextPage)),
+  fetchData: (token, balesArray, nextPage) => dispatch(fetchBales(token, balesArray, nextPage)),
 });
 
 export default connect(
