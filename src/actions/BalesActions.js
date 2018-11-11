@@ -43,9 +43,7 @@ export const fetchBales = (token, oldBales, nextPage) => async (dispatch) => {
   dispatch(balesRequest());
   try {
     const { bales } = await BaleController.getBales(token, nextPage);
-
-    if (bales.length < 10) dispatch(setBalesEnd(true));
-    else dispatch(setBalesEnd(false));
+    dispatch(setBalesEnd(bales.length < 10));
 
     if (nextPage === 1) dispatch(balesSuccess(bales, bales.length));
     else dispatch(balesSuccess(oldBales.concat(bales), oldBales.length));
