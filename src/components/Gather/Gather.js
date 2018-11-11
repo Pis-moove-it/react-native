@@ -179,8 +179,8 @@ class Gather extends Component {
 
   toggleChangeIsleStateModal = () => {
     this.toggleOptionModal();
-    this.props.openChangeIsleStateModal();
-  }
+    this.props.openChangeIsleStateModal(this.props.containerIdSelected);
+  };
 
   toggleConfirmExitModal = (navigationFunction) => {
     this.setState({
@@ -329,7 +329,7 @@ const mapDispatchToProps = dispatch => ({
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),
   setContainerId: containerId => dispatch(setContainerId(containerId)),
-  openChangeIsleStateModal: () => dispatch(openChangeIsleStateModal()),
+  openChangeIsleStateModal: container => dispatch(openChangeIsleStateModal(container)),
 });
 
 export default connect(

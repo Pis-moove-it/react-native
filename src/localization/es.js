@@ -113,7 +113,8 @@ export default {
 
   // Gather confrim exit modal
   confirmExitTripStartedTitle: '¿Está seguro de que quiere salir? ',
-  confirmExitTripStartedSubtitle: 'Tiene un viaje comenzado, si sale perderá todo el progreso realizado ',
+  confirmExitTripStartedSubtitle:
+    'Tiene un viaje comenzado, si sale perderá todo el progreso realizado ',
 
   // Errors
   error: 'Error ',
@@ -122,6 +123,7 @@ export default {
   errorNetwork: 'No se pudo establecer una conexión, intente nuevamente ',
   errorEditBale: 'No se pudo editar el fardo, intente nuevamente ',
   errorNewBale: 'No se pudo crear el fardo, intente nuevamente ',
+  errorChangeContainerStatus: 'No se pudo cambiar el estado del contenedor, intente nuevamente ',
 
   // Map
   endTravel: 'Terminar recorrido ',

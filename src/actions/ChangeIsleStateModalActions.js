@@ -3,12 +3,13 @@ export const actionTypes = {
   CLOSE_CHANGE_ISLE_STATE_MODAL: 'CLOSE_CHANGE_ISLE_STATE_MODAL',
 };
 
-const openChangeIsleStateModalType = () => ({
+const openChangeIsleStateModalType = container => ({
   type: actionTypes.OPEN_CHANGE_ISLE_STATE_MODAL,
+  container,
 });
 
-export const openChangeIsleStateModal = () => (dispatch) => {
-  dispatch(openChangeIsleStateModalType());
+export const openChangeIsleStateModal = container => (dispatch) => {
+  dispatch(openChangeIsleStateModalType(container));
 };
 
 const closeChangeIsleStateModalType = () => ({

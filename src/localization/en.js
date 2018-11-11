@@ -113,7 +113,8 @@ export default {
 
   // Gather confirm exit modal
   confirmExitTripStartedTitle: 'Are you sure you want to exit? ',
-  confirmExitTripStartedSubtitle: 'You\'ve started a trip, if you exit now all progress will be lost ',
+  confirmExitTripStartedSubtitle:
+    "You've started a trip, if you exit now all progress will be lost ",
 
   // Errors
   error: 'Error ',
@@ -122,6 +123,7 @@ export default {
   errorNetwork: 'Unable to connect, try again later ',
   errorEditBale: 'Unable to edit bale, try again later ',
   errorNewBale: 'Unable to create bale, try again later ',
+  errorChangeContainerStatus: 'Unabble to change the container status, try again later ',
 
   // Map
   endTravel: 'Complete trip ',
