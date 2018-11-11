@@ -1,51 +1,54 @@
-import { actionTypes } from '../actions/EditWeightPocketModalActions';
+import { actionTypes } from '../actions/EditPocketModalActions';
 
 export const initialState = {
   pocket: false,
   pocketData: false,
+  serialNumber: false,
   weight: false,
   hasWeight: false,
-  editWeightPocketModalIsOpen: false,
+  isOpen: false,
   isLoading: false,
 };
 
-const editWeightPocketModalReducer = (state = initialState, action) => {
+const editPocketModal = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.OPEN_EDIT_POCKET_WEIGHT_MODAL:
+    case actionTypes.OPEN_EDIT_POCKET_MODAL:
       return {
         ...state,
         pocket: action.pocket,
         pocketData: false,
+        serialNumber: action.serialNumber,
         weight: action.weight,
         hasWeight: action.hasWeight,
-        editWeightPocketModalIsOpen: true,
+        isOpen: true,
         isLoading: false,
       };
-    case actionTypes.EDIT_POCKET_WEIGHT_REQUEST:
+    case actionTypes.EDIT_POCKET_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case actionTypes.EDIT_POCKET_WEIGHT_SUCCESS:
+    case actionTypes.EDIT_POCKET_SUCCESS:
       return {
         ...state,
         pocket: false,
         pocketData: action.pocketData,
+        serialNumber: false,
         weight: false,
         hasWeight: false,
-        editWeightPocketModalIsOpen: false,
+        isOpen: false,
         isLoading: false,
       };
-    case actionTypes.EDIT_POCKET_WEIGHT_ERROR:
+    case actionTypes.EDIT_POCKET_ERROR:
       return {
         ...state,
         isLoading: false,
       };
-    case actionTypes.CLOSE_EDIT_POCKET_WEIGHT_MODAL:
+    case actionTypes.CLOSE_EDIT_POCKET_MODAL:
       return initialState;
     default:
       return state;
   }
 };
 
-export default editWeightPocketModalReducer;
+export default editPocketModal;
