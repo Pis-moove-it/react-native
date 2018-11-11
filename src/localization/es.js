@@ -117,7 +117,8 @@ export default {
 
   // Gather confrim exit modal
   confirmExitTripStartedTitle: '¿Está seguro de que quiere salir? ',
-  confirmExitTripStartedSubtitle: 'Tiene un viaje comenzado, si sale perderá todo el progreso realizado ',
+  confirmExitTripStartedSubtitle:
+    'Tiene un viaje comenzado, si sale perderá todo el progreso realizado ',
 
   // Errors
   error: 'Error ',
