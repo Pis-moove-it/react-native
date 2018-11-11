@@ -85,6 +85,7 @@ export default {
   // Create Pocket Event Modal
   keepOnAdding: 'Add ',
   finishAdding: 'Finish ',
+  descriptionEvent: 'Description of the event ',
 
   // Edit Pocket Modal
   editPocket: 'Edit pocket ',

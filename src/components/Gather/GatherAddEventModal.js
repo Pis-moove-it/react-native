@@ -112,7 +112,11 @@ class AddEventModal extends Component {
       >
         <View style={stylesGather.modalContainer}>
           <View style={stylesGather.modalTitleContainer}>
-            <Text style={stylesGather.modalTitle}>{strings.createPocket}</Text>
+            {this.state.descriptionSubmitted ?
+              <Text style={stylesGather.modalTitle}>{strings.createPocket}</Text>
+            :
+              <Text style={stylesGather.modalTitle}>{strings.descriptionEvent}</Text>
+            }
           </View>
           <View>
             {this.renderModal(this.state.descriptionSubmitted)}
