@@ -3,6 +3,7 @@ import { actionTypes } from '../actions/BalesActions';
 export const initialState = {
   bales: [],
   balesQuantity: false,
+  isEnd: false,
   isFetching: false,
 };
 
@@ -26,6 +27,11 @@ const balesListReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
+      };
+    case actionTypes.BALES_END:
+      return {
+        ...state,
+        isEnd: action.isEnd,
       };
     default:
       return state;

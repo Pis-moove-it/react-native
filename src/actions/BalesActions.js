@@ -6,6 +6,7 @@ export const actionTypes = {
   BALES_RESET: 'BALES_RESET',
   BALES_SUCCESS: 'BALES_SUCCESS',
   BALES_ERROR: 'BALES_ERROR',
+  BALES_END: 'BALES_END',
 };
 
 const balesRequest = () => ({
@@ -27,6 +28,11 @@ const balesError = error => ({
   error,
 });
 
+const setBalesEnd = isEnd => ({
+  type: actionTypes.BALES_END,
+  isEnd,
+});
+
 export const setBales = bales => async (dispatch) => {
   dispatch(balesReset());
   dispatch(balesRequest());
@@ -37,6 +43,9 @@ export const fetchBales = (token, oldBales, nextPage) => async (dispatch) => {
   dispatch(balesRequest());
   try {
     const { bales } = await BaleController.getBales(token, nextPage);
+
+    if (bales.length < 10) dispatch(setBalesEnd(true));
+    else dispatch(setBalesEnd(false));
 
     if (nextPage === 1) dispatch(balesSuccess(bales, bales.length));
     else dispatch(balesSuccess(oldBales.concat(bales), oldBales.length));

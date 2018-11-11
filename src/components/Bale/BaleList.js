@@ -12,7 +12,7 @@ import { openEditBaleModal } from '../../actions/EditBaleModalActions';
 import CreateBaleModal from '../common/CreateBaleModal';
 import EditBaleModal from '../common/EditBaleModal';
 import recyclableMaterials from '../common/Constants';
-import getBales from '../../selectors/BalesSelector';
+import getBales, { isEnd } from '../../selectors/BalesSelector';
 import strings from '../../localization';
 import Colors from '../../helpers/Colors';
 import styles from './styles';
@@ -113,7 +113,7 @@ class BaleList extends Component {
               />
             }
             onEndReachedThreshold={0.05}
-            onEndReached={this.onEnd}
+            onEndReached={!this.props.isEnd ? this.onEnd : null}
           />
         )}
         {this.state.pagination ? <ActivityIndicator style={styles.activity} size="large" /> : null}
@@ -126,6 +126,7 @@ BaleList.propTypes = {
   bales: PropTypes.array.isRequired,
   errors: PropTypes.array.isRequired,
   fetchData: PropTypes.func.isRequired,
+  isEnd: PropTypes.bool.isRequired,
   token: PropTypes.string.isRequired,
   openEditBaleModal: PropTypes.func.isRequired,
 };
@@ -133,6 +134,7 @@ BaleList.propTypes = {
 const mapStateToProps = state => ({
   bales: getBales(state),
   errors: errorsSelector([actionTypes.BALES])(state),
+  isEnd: isEnd(state),
   token: state.login.token,
 });
 

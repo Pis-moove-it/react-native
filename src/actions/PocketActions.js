@@ -6,6 +6,7 @@ export const actionTypes = {
   POCKETS_RESET: 'POCKETS_RESET',
   POCKETS_SUCCESS: 'POCKETS_SUCCESS',
   POCKETS_ERROR: 'POCKETS_ERROR',
+  POCKETS_END: 'POCKETS_END',
 };
 
 const pocketsRequest = () => ({
@@ -27,6 +28,11 @@ const pocketsError = error => ({
   error,
 });
 
+const setPocketsEnd = isEnd => ({
+  type: actionTypes.POCKETS_END,
+  isEnd,
+});
+
 export const setPockets = pockets => async (dispatch) => {
   dispatch(pocketsReset());
   dispatch(pocketsRequest());
@@ -37,6 +43,9 @@ export const getPockets = (token, oldPockets, nextPage) => async (dispatch) => {
   dispatch(pocketsRequest());
   try {
     const { pockets } = await PocketController.getPockets(token, nextPage);
+
+    if (pockets.length < 10) dispatch(setPocketsEnd(true));
+    else dispatch(setPocketsEnd(false));
 
     if (nextPage === 1) dispatch(pocketsSuccess(pockets, pockets.length));
     else dispatch(pocketsSuccess(oldPockets.concat(pockets), oldPockets.length));

@@ -7,7 +7,7 @@ import ErrorView from '../common/ErrorView';
 import { openEditPocketModal } from '../../actions/EditPocketModalActions';
 import { getPockets, actionTypes } from '../../actions/PocketActions';
 import EditPocketModal from '../common/EditPocketModal';
-import { pockets } from '../../selectors/PocketSelector';
+import { pockets, isEnd } from '../../selectors/PocketSelector';
 import Colors from '../../helpers/Colors';
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import TabletPocket from './TabletPocket';
@@ -103,7 +103,7 @@ class PocketList extends Component {
               <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
             }
             onEndReachedThreshold={0.05}
-            onEndReached={this.onEnd}
+            onEndReached={!this.props.isEnd ? this.onEnd : null}
           />
         )}
         {this.state.pagination ? <ActivityIndicator style={styles.activity} size="large" /> : null}
@@ -115,6 +115,7 @@ class PocketList extends Component {
 PocketList.propTypes = {
   errors: PropTypes.array.isRequired,
   getPockets: PropTypes.func.isRequired,
+  isEnd: PropTypes.bool.isRequired,
   openEditPocketModal: PropTypes.func.isRequired,
   pockets: PropTypes.array.isRequired,
   token: PropTypes.string.isRequired,
@@ -122,6 +123,7 @@ PocketList.propTypes = {
 
 const mapStateToProps = state => ({
   errors: errorsSelector([actionTypes.POCKETS])(state),
+  isEnd: isEnd(state),
   pockets: pockets(state),
   token: state.login.token,
 });
