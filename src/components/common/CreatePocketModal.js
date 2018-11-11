@@ -3,20 +3,16 @@ import { ActivityIndicator, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
-import getIsModalVisible from '../../selectors/CreatePocketModalSelector';
+import getIsModalVisible, { isLoading } from '../../selectors/CreatePocketModalSelector';
 import {
   addPocketToCollection,
   closeCreatePocketModal,
   actionTypes,
 } from '../../actions/CreatePocketModalActions';
-import { isLoading } from '../../selectors/GatherSelector';
 import strings from '../../localization';
 import ErrorView from '../common/ErrorView';
-<<<<<<< HEAD
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import Colors from '../../helpers/Colors';
-=======
->>>>>>> master
 import Button from './Button';
 import TextField from './TextField';
 import recyclabeleMaterials from './Constants';
@@ -28,7 +24,7 @@ class CreatePocketModal extends Component {
     this.materials = recyclabeleMaterials;
 
     this.state = {
-      identifier: 0,
+      identifier: false,
       inputError: true,
       error: [],
     };
@@ -49,7 +45,7 @@ class CreatePocketModal extends Component {
   };
 
   closeModal = () => {
-    this.setState({ error: [], inputError: false, identifier: 0 });
+    this.setState({ error: [], inputError: false, identifier: false });
     this.props.closeCreatePocketModal();
   };
 
@@ -72,6 +68,7 @@ class CreatePocketModal extends Component {
               keyboardType="numeric"
               maxLength={8}
               onChangeText={value => this.setState({ identifier: value })}
+              onLayout={() => this.setState({ identifier: false })}
             />
           </View>
           <View>
