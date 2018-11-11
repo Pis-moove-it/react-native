@@ -100,7 +100,11 @@ class PocketList extends Component {
               );
             }}
             refreshControl={
-              <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefresh}
+                colors={[Colors.primary]}
+              />
             }
             onEndReachedThreshold={0.05}
             onEndReached={!this.props.isEnd ? this.onEnd : null}
