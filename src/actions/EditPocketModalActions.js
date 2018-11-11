@@ -45,6 +45,15 @@ export const closeEditPocketModal = () => (dispatch) => {
   dispatch(closeModal());
 };
 
+const newPocketsArray = (oldPockets, newPocket) => {
+  const newPockets = [];
+  oldPockets.map((element) => {
+    if (element.id !== newPocket.id) newPockets.push(element);
+    else newPockets.push(newPocket);
+  });
+  return newPockets;
+};
+
 export const editPocket = (
   token,
   pocket,
@@ -55,27 +64,16 @@ export const editPocket = (
 ) => async (dispatch) => {
   dispatch(editRequest());
   try {
-    if (hasWeight) {
-      const { pocketData } = await PocketController.editPocketWeight(token, pocket, weight);
-    } else {
-      const { pocketData } = await PocketController.addPocketWeight(token, pocket, weight);
-    }
+    let pocketData;
+    if (hasWeight) pocketData = await PocketController.editPocketWeight(token, pocket, weight);
+    else pocketData = await PocketController.addPocketWeight(token, pocket, weight);
+
     try {
-      const { pocketData } = await PocketController.editPocketSerialNumber(
-        token,
-        pocket,
-        serialNumber,
-      );
-
-      const pocketsArray = [];
-      pockets.map((element) => {
-        if (element.id !== pocketData.id) pocketsArray.push(element);
-        else pocketsArray.push(pocketData);
-      });
-
-      dispatch(setPockets(pocketsArray));
+      pocketData = await PocketController.editPocketSerialNumber(token, pocket, serialNumber);
+      dispatch(setPockets(newPocketsArray(pockets, pocketData.pocketData)));
       dispatch(editSuccess(pocketData));
     } catch (error) {
+      dispatch(setPockets(newPocketsArray(pockets, pocketData.pocketData)));
       dispatch(editError(error.message));
     }
   } catch (error) {
