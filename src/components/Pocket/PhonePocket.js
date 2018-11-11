@@ -22,7 +22,7 @@ const Pocket = ({
         <Button
           style={pocketState === 'Unweighed' ? styles.phoneButton : styles.phoneBlueButton}
           title={pocketState === 'Unweighed' ? strings.pocketButtonWeightText : strings.editPocket}
-          textStyle={styles.tabletButtonText}
+          textStyle={styles.buttonText}
           onPress={openEditPocketModal}
         />
       </View>
