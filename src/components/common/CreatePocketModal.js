@@ -8,7 +8,6 @@ import { closeCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import { addPocketToCollection } from '../../actions/GatherActions';
 import strings from '../../localization';
 import ErrorView from '../common/ErrorView';
-import Colors from '../../helpers/Colors';
 import Button from './Button';
 import TextField from './TextField';
 import recyclabeleMaterials from './Constants';

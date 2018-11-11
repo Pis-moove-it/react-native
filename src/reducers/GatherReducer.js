@@ -12,6 +12,7 @@ export const initialState = {
   isTravelling: false,
   pocketCounter: 0,
   eventId: false,
+  eventCoordinates: false,
 };
 
 const gatherReducer = (state = initialState, action) => {
@@ -86,6 +87,11 @@ const gatherReducer = (state = initialState, action) => {
         ...state,
         isLoadingEvent: false,
         eventId: action.eventId,
+      };
+    case actionTypes.SET_EVENT_COORDINATES:
+      return {
+        ...state,
+        eventCoordinates: action.eventCoordinates,
       };
     default:
       return state;

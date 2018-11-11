@@ -19,6 +19,7 @@ export const actionTypes = {
   CREATE_EVENT_REQUEST: 'CREATE_EVENT_REQUEST',
   CREATE_EVENT_SUCCES: 'CREATE_EVENT_SUCCES',
   CREATE_EVENT_ERROR: 'CREATE_EVENT_ERROR',
+  SET_EVENT_COORDINATES: 'SET_EVENT_COORDINATES',
 };
 
 const travelFinished = (travelImage, kmsTraveled, pocketsCollected) => ({
@@ -103,6 +104,11 @@ const createEventError = error => ({
 export const setContainerId = containerIdSelected => ({
   type: actionTypes.SET_CONTAINER_ID,
   containerIdSelected,
+});
+
+export const setEventCoordinates = eventCoordinates => ({
+  type: actionTypes.SET_EVENT_COORDINATES,
+  eventCoordinates,
 });
 
 export const startCollection = token => async (dispatch) => {

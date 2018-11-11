@@ -13,6 +13,7 @@ import {
   endCollection,
   setContainerId,
   createExtraEvent,
+  setEventCoordinates,
 } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import getUser from '../../selectors/UserSelector';
@@ -37,8 +38,11 @@ import {
   selectIsLoadingEvent,
   selecteventId,
 } from '../../selectors/GatherSelector';
+import ChangeIsleStateModal from '../common/ChangeIsleStateModal';
+import { openChangeIsleStateModal } from '../../actions/ChangeIsleStateModalActions';
 import GatherOverlay from './GatherOverlay';
 import GatherPointOptionModal from './GatherPointOptionModal';
+import AddEventModal from './GatherAddEventModal';
 import GatherConfirmExitTripStartedModal from './GatherConfrimExitTripStartedModal';
 import stylesGather from './styles';
 
@@ -71,6 +75,7 @@ class Gather extends Component {
       finish: false,
       isOptionModalVisible: false,
       isConfirmExitModalVisible: false,
+      isAddEventModalVisible: false,
       confrimExitFunction: () => ({}),
       eventCoordinates: [],
       showEvents: false,
@@ -129,14 +134,16 @@ class Gather extends Component {
     console.log(e);
     console.log('COORDENADAS', e.geometry.coordinates);
     console.log('HACE ALGOOO');
+    this.toggleAddEventModal();
+    this.props.setEventCoordinates(e.geometry.coordinates);
     this.setState({ eventCoordinates: e.geometry.coordinates });
-    this.props.createExtraEvent(
+    /*  this.props.createExtraEvent(
       this.props.token,
       this.props.collectionId,
       'Description',
       145,
       e.geometry.coordinates,
-    );
+    ); */
     this.setState({ showEvents: true });
   };
 
@@ -196,6 +203,11 @@ class Gather extends Component {
     this.props.openCreatePocketModal();
   };
 
+  toggleChangeIsleStateModal = () => {
+    this.toggleOptionModal();
+    this.props.openChangeIsleStateModal();
+  };
+
   toggleConfirmExitModal = (navigationFunction) => {
     this.setState({
       isConfirmExitModalVisible: !this.state.isConfirmExitModalVisible,
@@ -204,6 +216,10 @@ class Gather extends Component {
         navigationFunction();
       },
     });
+  };
+
+  toggleAddEventModal = () => {
+    this.setState({ isAddEventModalVisible: !this.state.isAddEventModalVisible });
   };
 
   changeRole = () => {
@@ -286,10 +302,12 @@ class Gather extends Component {
           collectionId={this.props.collectionId}
           containerIdSelected={this.props.containerIdSelected}
         />
+        <ChangeIsleStateModal />
         <GatherPointOptionModal
           isVisible={this.state.isOptionModalVisible}
           onPressActionFst={this.toggleOptionModal}
           onPressActionSnd={this.toggleCreatePocketModal}
+          onPressActionThrd={this.toggleChangeIsleStateModal}
         />
         <GatherConfirmExitTripStartedModal
           isVisible={this.state.isConfirmExitModalVisible}
@@ -297,6 +315,11 @@ class Gather extends Component {
             this.toggleConfirmExitModal(() => {});
           }}
           onPressActionSnd={this.state.confrimExitFunction}
+        />
+        <AddEventModal
+          isVisible={this.state.isAddEventModalVisible}
+          toggleModal={this.toggleAddEventModal}
+          collectionId={this.props.collectionId}
         />
         <Mapbox.MapView
           // onLongPress={() => this.onPress2()}
@@ -335,6 +358,8 @@ Gather.propTypes = {
   createExtraEvent: PropTypes.func.isRequired,
   isCreatingEvent: PropTypes.bool.isRequired,
   eventId: PropTypes.number.isRequired,
+  openChangeIsleStateModal: PropTypes.func.isRequired,
+  setEventCoordinates: PropTypes.func.isRequired,
 };
 
 Gather.defaultProps = {
@@ -367,6 +392,8 @@ const mapDispatchToProps = dispatch => ({
   setContainerId: containerId => dispatch(setContainerId(containerId)),
   createExtraEvent: (token, routeId, description, pocket, coordinates) =>
     dispatch(createExtraEvent(token, routeId, description, pocket, coordinates)),
+  openChangeIsleStateModal: () => dispatch(openChangeIsleStateModal()),
+  setEventCoordinates: eventCoordinates => dispatch(setEventCoordinates(eventCoordinates)),
 });
 
 export default connect(

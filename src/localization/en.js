@@ -63,6 +63,14 @@ export default {
   invalidInputId: 'Please enter a valid ID ',
   invalidInputType: 'Please enter a valid material type ',
 
+  // Change Isle State Modal
+  changeStateIsleTitle: 'Change isle state ',
+  selectState: 'Select a new state ',
+  invalidInputState: 'Please enter a valid state ',
+  ok: 'OK ',
+  damaged: 'Damaged ',
+  removed: 'Removed ',
+
   // Bale Edit Modal
   editBale: 'Edit bale ',
 
@@ -73,6 +81,10 @@ export default {
   createPocket: 'New pocket ',
   identifierPlaceholderModal: 'Identifier ',
   descriptionPlaceholderModal: 'Description ',
+
+  // Create Pocket Event Modal
+  keepOnAdding: 'Add ',
+  finishAdding: 'Finish ',
 
   // Edit Pocket Modal
   editPocket: 'Edit pocket ',
