@@ -36,7 +36,7 @@ const TabletPocket = ({
               ? strings.pocketButtonWeightText
               : strings.pocketButtonEditWeightText
           }
-          textStyle={styles.tabletButtonText}
+          textStyle={styles.buttonText}
           onPress={openEditPocketModal}
         />
       </View>

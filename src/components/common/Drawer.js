@@ -49,28 +49,15 @@ class Drawer extends Component {
 
   render() {
     const { role } = this.props;
-    let iconRole;
-    let iconText;
-    let action;
-    if (role === strings.weighAction) {
-      iconRole = PocketIcon;
-      iconText = strings.filterByRole;
-      action = () => ({});
-    } else if (role === strings.baleAction) {
-      iconRole = BaleIcon;
-      iconText = strings.createBaleDrawer;
-      action = this.toggleCreateBaleModal;
-    }
-
     let button;
-    if (role !== strings.gatherAction) {
+    if (role === strings.baleAction) {
       button = (
         <CustomButton
-          icon={iconRole}
-          title={iconText}
+          icon={BaleIcon}
+          title={strings.createBaleDrawer}
           textStyle={TextStyles.drawerButtons}
           style={styles.userOptionsButtonForRole}
-          onPress={action}
+          onPress={this.toggleCreateBaleModal}
         />
       );
     }

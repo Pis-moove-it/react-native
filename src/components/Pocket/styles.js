@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 10,
   },
-  tabletButtonText: {
+  buttonText: {
     color: Colors.white,
     fontSize: 17,
   },
