@@ -56,11 +56,20 @@ export default {
 
   // Common Modal
   acceptModal: 'Accept ',
+  cancelModal: 'Cancel ',
   weighPlaceholderModal: 'Weight (kg) ',
   selectMaterial: 'Select a new material ',
   invalidInputNumber: 'Please enter a valid number ',
   invalidInputId: 'Please enter a valid ID ',
   invalidInputType: 'Please enter a valid material type ',
+
+  // Change Isle State Modal
+  changeStateIsleTitle: 'Change isle state ',
+  selectState: 'Select a new state ',
+  invalidInputState: 'Please enter a valid state ',
+  ok: 'OK ',
+  damaged: 'Damaged ',
+  removed: 'Removed ',
 
   // Bale Edit Modal
   editBale: 'Edit bale ',
@@ -72,6 +81,10 @@ export default {
   createPocket: 'New pocket ',
   identifierPlaceholderModal: 'Identifier ',
   descriptionPlaceholderModal: 'Description ',
+
+  // Create Pocket Event Modal
+  keepOnAdding: 'Add ',
+  finishAdding: 'Finish ',
 
   // Edit Pocket Modal
   editPocket: 'Edit pocket ',
@@ -97,10 +110,14 @@ export default {
   information: 'Information ',
   collectionPoint: 'Collection point ',
 
-  // Gather secondary modal
+  // Gather option modal
   changeStateIsle: 'Change state ',
   newPocket: 'New pocket ',
   optionsModalGather: 'Options ',
+
+  // Gather confirm exit modal
+  confirmExitTripStartedTitle: 'Are you sure you want to exit? ',
+  confirmExitTripStartedSubtitle: 'You\'ve started a trip, if you exit now all progress will be lost ',
 
   // Errors
   error: 'Error ',
@@ -115,6 +132,7 @@ export default {
 
   // Travel Finished
   summary: 'Summary ',
+  date: 'Date ',
   hour: 'Hour ',
   kmsTraveled: 'Kilometers traveled ',
   pocketsCollected: 'Pockets collected ',

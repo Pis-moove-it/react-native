@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
-import Modal from 'react-native-modal';
+import { View, Image, TouchableOpacity, BackHandler } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,7 +14,6 @@ import {
   setContainerId,
 } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
-import plusSign from '../../assets/ic_common/ic_add.png';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import getCollection from '../../selectors/RouteSelector';
@@ -24,11 +22,9 @@ import Colors from '../../helpers/Colors';
 import icon from '../../assets/images/MapPointIcon.png';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
-import sideMenuIcon from '../../assets/ic_common/ic_hamburger.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
-import requestLocationPermission from '../../helpers/Permissions';
 import CustomButton from '../common/CustomButton';
 import TickIcon from '../../assets/images/Tick.png';
 import {
@@ -38,40 +34,15 @@ import {
   selectIsTravelling,
   selectPocketCounter,
 } from '../../selectors/GatherSelector';
+import ChangeIsleStateModal from '../common/ChangeIsleStateModal';
+import { openChangeIsleStateModal } from '../../actions/ChangeIsleStateModalActions';
 import GatherOverlay from './GatherOverlay';
+import GatherPointOptionModal from './GatherPointOptionModal';
+import AddEventModal from './GatherAddEventModal';
+import GatherConfirmExitTripStartedModal from './GatherConfrimExitTripStartedModal';
 import stylesGather from './styles';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
-
-const GatherPointOptionModal = ({ isVisible, onPressActionFst, onPressActionSnd }) => (
-  <Modal
-    isVisible={isVisible}
-    onBackdropPress={onPressActionFst}
-    onBackButtonPress={onPressActionFst}
-    animationOut="slideOutLeft"
-  >
-    <View style={stylesGather.modalContainer}>
-      <View style={stylesGather.modalTitleContainer}>
-        <Text style={stylesGather.modalTitle}>{strings.optionsModalGather}</Text>
-      </View>
-      <View>
-        <CustomButton
-          style={stylesGather.buttonModal}
-          textStyle={stylesGather.textButton}
-          title={strings.newPocket}
-          onPress={onPressActionSnd}
-          icon={plusSign}
-        />
-      </View>
-    </View>
-  </Modal>
-);
-
-GatherPointOptionModal.propTypes = {
-  isVisible: PropTypes.bool.isRequired,
-  onPressActionFst: PropTypes.func.isRequired,
-  onPressActionSnd: PropTypes.func.isRequired,
-};
 
 class Gather extends Component {
   static navigatorStyle = {
@@ -98,17 +69,17 @@ class Gather extends Component {
       distanceTravelled: 0,
       prevLatLng: null,
       finish: false,
-      isModalVisible: false,
+      isOptionModalVisible: false,
+      isConfirmExitModalVisible: false,
+      isAddEventModalVisible: true,
+      confrimExitFunction: () => ({}),
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    // requestLocationPermission();
     if (isTablet || this.state.landscape) {
       this.setButtonsTablet(this.props.user);
-    } else {
-      this.setButtonsPhone();
     }
 
     this.watchId = navigator.geolocation.watchPosition(
@@ -132,26 +103,23 @@ class Gather extends Component {
       error => this.setState({ error: error.message }),
       { timeout: 20000, distanceFilter: 1 },
     );
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.backButtonPressOverride,
+    );
   }
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchId);
+    this.backHandler.remove();
   }
 
   onNavigatorEvent(event) {
-    switch (event.id) {
-      case 'sideMenuIcon':
-        this.props.navigator.toggleDrawer({
-          side: 'right',
-          animated: true,
-          to: 'open',
-        });
-        break;
-      case 'logo':
+    if (event.id === 'logo') {
+      this.toggleConfirmExitModal(() => {
+        this.finishTravel();
         this.changeRole();
-        break;
-      default:
-        break;
+      });
     }
   }
 
@@ -179,19 +147,6 @@ class Gather extends Component {
     });
   };
 
-  setButtonsPhone = () => {
-    this.props.navigator.setButtons({
-      rightButtons: [
-        {
-          icon: sideMenuIcon,
-          id: 'sideMenuIcon',
-          buttonColor: Colors.white,
-        },
-      ],
-      animated: false,
-    });
-  };
-
   calcDistance(newLatLng) {
     const { prevLatLng } = this.state;
     if (prevLatLng !== null) {
@@ -204,30 +159,54 @@ class Gather extends Component {
     return 0;
   }
 
-  toggleModal = (containerId) => {
-    if (!this.state.isModalVisible) {
+  backButtonPressOverride = () => {
+    this.toggleConfirmExitModal(() => {
+      this.finishTravel();
+      this.changeRole();
+    });
+    return true;
+  };
+
+  toggleOptionModal = (containerId) => {
+    if (!this.state.isOptionModalVisible) {
       this.props.setContainerId(containerId);
     }
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+    this.setState({ isOptionModalVisible: !this.state.isOptionModalVisible });
   };
 
   toggleCreatePocketModal = () => {
-    this.toggleModal();
+    this.toggleOptionModal();
     this.props.openCreatePocketModal();
   };
 
+  toggleChangeIsleStateModal = () => {
+    this.toggleOptionModal();
+    this.props.openChangeIsleStateModal();
+  }
+
+  toggleConfirmExitModal = (navigationFunction) => {
+    this.setState({
+      isConfirmExitModalVisible: !this.state.isConfirmExitModalVisible,
+      confrimExitFunction: () => {
+        this.setState({ isConfirmExitModalVisible: !this.state.isConfirmExitModalVisible });
+        navigationFunction();
+      },
+    });
+  };
+
+  toggleAddEventModal = () => {
+    this.setState({ isAddEventModalVisible: !this.state.isAddEventModalVisible });
+  }
+
   changeRole = () => {
     this.props.changeRole();
-    this.props.navigator.push({
-      screen: Screens.Roles,
-      animationType: 'fade',
-    });
+    this.props.navigator.pop();
   };
 
   finishTravel = () => {
     this.setState({ finish: true });
     if (this.state.distanceTravelled === 0) {
-      this.state.distanceTravelled = 0.01;
+      this.setState({ distanceTravelled: 0.01 });
     }
     this.props.endCollection(
       this.props.token,
@@ -240,7 +219,10 @@ class Gather extends Component {
       this.state.distanceTravelled,
       this.props.pocketCounter,
     );
+  };
 
+  completeTravel = () => {
+    this.finishTravel();
     this.props.navigator.push({
       screen: Screens.TravelFinished,
       animationType: 'fade',
@@ -253,7 +235,7 @@ class Gather extends Component {
         id={container.id.toString()}
         coordinate={[Number(container.longitude), Number(container.latitude)]}
       >
-        <TouchableOpacity onPress={() => this.toggleModal(container.id)}>
+        <TouchableOpacity onPress={() => this.toggleOptionModal(container.id)}>
           <Image source={icon} style={stylesGather.trashIcon} />
         </TouchableOpacity>
       </Mapbox.PointAnnotation>
@@ -262,10 +244,9 @@ class Gather extends Component {
   render() {
     return (
       <View style={stylesGather.mapContainer}>
-        {!this.state.finish &&
-          !this.props.isTravelling && (
-            <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
-          )}
+        {!this.state.finish && !this.props.isTravelling && (
+          <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
+        )}
         <CustomButton
           style={isTablet ? stylesGather.buttonOverMapTablet : stylesGather.buttonOverMapPhone}
           icon={TickIcon}
@@ -274,18 +255,30 @@ class Gather extends Component {
           textStyle={
             isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
           }
-          onPress={this.finishTravel}
+          onPress={this.completeTravel}
         />
 
         <CreatePocketModal
           collectionId={this.props.collectionId}
           containerIdSelected={this.props.containerIdSelected}
         />
-
+        <ChangeIsleStateModal />
         <GatherPointOptionModal
-          isVisible={this.state.isModalVisible}
-          onPressActionFst={this.toggleModal}
+          isVisible={this.state.isOptionModalVisible}
+          onPressActionFst={this.toggleOptionModal}
           onPressActionSnd={this.toggleCreatePocketModal}
+          onPressActionThrd={this.toggleChangeIsleStateModal}
+        />
+        <GatherConfirmExitTripStartedModal
+          isVisible={this.state.isConfirmExitModalVisible}
+          onPressActionFst={() => {
+            this.toggleConfirmExitModal(() => {});
+          }}
+          onPressActionSnd={this.state.confrimExitFunction}
+        />
+        <AddEventModal
+          isVisible={this.state.isAddEventModalVisible}
+          toggleModal={this.toggleAddEventModal}
         />
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}
@@ -317,6 +310,7 @@ Gather.propTypes = {
   containerIdSelected: PropTypes.number.isRequired,
   isTravelling: PropTypes.bool.isRequired,
   pocketCounter: PropTypes.number.isRequired,
+  openChangeIsleStateModal: PropTypes.func.isRequired,
 };
 
 Gather.defaultProps = {
@@ -345,6 +339,7 @@ const mapDispatchToProps = dispatch => ({
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),
   setContainerId: containerId => dispatch(setContainerId(containerId)),
+  openChangeIsleStateModal: () => dispatch(openChangeIsleStateModal()),
 });
 
 export default connect(

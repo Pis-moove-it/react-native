@@ -103,10 +103,7 @@ class Weigh extends Component {
 
   changeRole = () => {
     this.props.changeRole();
-    this.props.navigator.push({
-      screen: Screens.Roles,
-      animationType: 'fade',
-    });
+    this.props.navigator.pop();
   };
 
   render() {

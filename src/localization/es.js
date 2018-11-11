@@ -56,11 +56,20 @@ export default {
 
   // Common Modal
   acceptModal: 'Aceptar ',
+  cancelModal: 'Cancelar ',
   weighPlaceholderModal: 'Peso (kg) ',
   selectMaterial: 'Seleccione un nuevo material ',
   invalidInputNumber: 'Por favor ingrese un número válido ',
   invalidInputId: 'Por favor ingrese un identificador válido ',
   invalidInputType: 'Por favor ingrese un tipo de material válido ',
+
+  // Change Isle State Modal
+  changeStateIsleTitle: 'Cambiar estado de la Isla ',
+  selectState: 'Seleccione un nuevo estado ',
+  invalidInputState: 'Por favor ingrese un estado válido ',
+  ok: 'OK ',
+  damaged: 'Dañado ',
+  removed: 'Removido ',
 
   // Bale Edit Modal
   editBale: 'Editar Fardo ',
@@ -72,6 +81,10 @@ export default {
   createPocket: 'Nuevo bolsón ',
   identifierPlaceholderModal: 'Identificador ',
   descriptionPlaceholderModal: 'Descripción ',
+
+  // Create Pocket Event Modal
+  keepOnAdding: 'Agregar ',
+  finishAdding: 'Terminar ',
 
   // Edit Pocket Modal
   editPocket: 'Editar bolsón ',
@@ -97,10 +110,14 @@ export default {
   information: 'Información ',
   collectionPoint: 'Punto de recolección ',
 
-  // Gather secondary modal
+  // Gather option modal
   changeStateIsle: 'Cambiar estado ',
   newPocket: 'Agregar bolsón ',
   optionsModalGather: 'Opciones ',
+
+  // Gather confrim exit modal
+  confirmExitTripStartedTitle: '¿Está seguro de que quiere salir? ',
+  confirmExitTripStartedSubtitle: 'Tiene un viaje comenzado, si sale perderá todo el progreso realizado ',
 
   // Errors
   error: 'Error ',
@@ -115,6 +132,7 @@ export default {
 
   // Travel Finished
   summary: 'Resumen ',
+  date: 'Fecha ',
   hour: 'Hora ',
   kmsTraveled: 'Kilómetros realizados ',
   pocketsCollected: 'Bolsones recogidos ',

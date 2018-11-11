@@ -54,13 +54,15 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.primary,
     backgroundColor: Colors.white,
-    height: 300,
+    height: 400,
     width: 400,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonModal: {
+    alignSelf: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
@@ -68,7 +70,6 @@ const styles = StyleSheet.create({
     width: 200,
   },
   modalTitleContainer: {
-    paddingTop: 15,
     paddingBottom: 20,
   },
   modalTitle: {

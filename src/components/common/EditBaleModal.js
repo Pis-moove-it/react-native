@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import strings from '../../localization';
+import getBales from '../../selectors/BalesSelector';
 import {
   getIsModalVisible,
   getBale,
@@ -19,6 +20,21 @@ import recyclabeleMaterials from './Constants';
 import styles from './styles';
 
 class EditBaleModal extends Component {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!prevState.selectedMaterial && nextProps.material) {
+      return {
+        prevState,
+        selectedMaterial: nextProps.material,
+      };
+    } else if (!nextProps.isModalVisible) {
+      return {
+        prevState,
+        selectedMaterial: false,
+      };
+    }
+    return prevState;
+  }
+
   constructor(props) {
     super(props);
     this.materials = recyclabeleMaterials;
@@ -48,6 +64,7 @@ class EditBaleModal extends Component {
           this.props.bale,
           this.state.newWeight,
           this.state.selectedMaterial,
+          this.props.bales,
         );
       } else {
         this.setState({ error: [strings.invalidInputType], inputError: true });
@@ -68,7 +85,7 @@ class EditBaleModal extends Component {
   };
 
   render() {
-    const { errors, material, weight } = this.props;
+    const { errors, weight } = this.props;
     return (
       <Modal
         isVisible={this.props.isModalVisible}
@@ -92,7 +109,6 @@ class EditBaleModal extends Component {
               selectedValue={this.state.selectedMaterial}
               mode="dropdown"
               onValueChange={value => this.setState({ selectedMaterial: value })}
-              // onLayout={() => this.setState({ selectedMaterial: this.props.material })}
             >
               {this.getMaterials()}
             </Picker>
@@ -113,11 +129,11 @@ class EditBaleModal extends Component {
 
 EditBaleModal.propTypes = {
   bale: PropTypes.string,
+  bales: PropTypes.array.isRequired,
   closeEditModal: PropTypes.func.isRequired,
   editBale: PropTypes.func.isRequired,
   errors: PropTypes.array,
   isModalVisible: PropTypes.bool,
-  material: PropTypes.string.isRequired,
   token: PropTypes.string,
   weight: PropTypes.string.isRequired,
 };
@@ -131,6 +147,7 @@ EditBaleModal.defaultProps = {
 
 const mapStateToProps = state => ({
   bale: getBale(state),
+  bales: getBales(state),
   errors: errorsSelector([actionTypes.EDIT_BALE])(state),
   isModalVisible: getIsModalVisible(state),
   material: getMaterial(state),
@@ -140,7 +157,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   closeEditModal: () => dispatch(closeEditBaleModal()),
-  editBale: (token, bale, weight, material) => dispatch(editBale(token, bale, weight, material)),
+  editBale: (token, bale, weight, material, balesArray) =>
+    dispatch(editBale(token, bale, weight, material, balesArray)),
 });
 
 export default connect(

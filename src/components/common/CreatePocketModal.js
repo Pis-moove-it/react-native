@@ -12,8 +12,11 @@ import {
 import { isLoading } from '../../selectors/GatherSelector';
 import strings from '../../localization';
 import ErrorView from '../common/ErrorView';
+<<<<<<< HEAD
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import Colors from '../../helpers/Colors';
+=======
+>>>>>>> master
 import Button from './Button';
 import TextField from './TextField';
 import recyclabeleMaterials from './Constants';
