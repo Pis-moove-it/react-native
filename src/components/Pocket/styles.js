@@ -145,6 +145,15 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 17,
   },
+
+  containerL: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  activity: {
+    padding: 10,
+    color: Colors.primary,
+  },
 });
 
 export default styles;
