@@ -34,8 +34,11 @@ import {
   selectIsTravelling,
   selectPocketCounter,
 } from '../../selectors/GatherSelector';
+import ChangeIsleStateModal from '../common/ChangeIsleStateModal';
+import { openChangeIsleStateModal } from '../../actions/ChangeIsleStateModalActions';
 import GatherOverlay from './GatherOverlay';
 import GatherPointOptionModal from './GatherPointOptionModal';
+import AddEventModal from './GatherAddEventModal';
 import GatherConfirmExitTripStartedModal from './GatherConfrimExitTripStartedModal';
 import stylesGather from './styles';
 
@@ -68,6 +71,7 @@ class Gather extends Component {
       finish: false,
       isOptionModalVisible: false,
       isConfirmExitModalVisible: false,
+      isAddEventModalVisible: true,
       confrimExitFunction: () => ({}),
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -188,6 +192,11 @@ class Gather extends Component {
     this.props.openCreatePocketModal();
   };
 
+  toggleChangeIsleStateModal = () => {
+    this.toggleOptionModal();
+    this.props.openChangeIsleStateModal();
+  }
+
   toggleConfirmExitModal = (navigationFunction) => {
     this.setState({
       isConfirmExitModalVisible: !this.state.isConfirmExitModalVisible,
@@ -197,6 +206,10 @@ class Gather extends Component {
       },
     });
   };
+
+  toggleAddEventModal = () => {
+    this.setState({ isAddEventModalVisible: !this.state.isAddEventModalVisible });
+  }
 
   changeRole = () => {
     this.props.changeRole();
@@ -262,10 +275,12 @@ class Gather extends Component {
           collectionId={this.props.collectionId}
           containerIdSelected={this.props.containerIdSelected}
         />
+        <ChangeIsleStateModal />
         <GatherPointOptionModal
           isVisible={this.state.isOptionModalVisible}
           onPressActionFst={this.toggleOptionModal}
           onPressActionSnd={this.toggleCreatePocketModal}
+          onPressActionThrd={this.toggleChangeIsleStateModal}
         />
         <GatherConfirmExitTripStartedModal
           isVisible={this.state.isConfirmExitModalVisible}
@@ -273,6 +288,10 @@ class Gather extends Component {
             this.toggleConfirmExitModal(() => {});
           }}
           onPressActionSnd={this.state.confrimExitFunction}
+        />
+        <AddEventModal
+          isVisible={this.state.isAddEventModalVisible}
+          toggleModal={this.toggleAddEventModal}
         />
         <Mapbox.MapView
           // onLongPress={() => this.onPress2()}
@@ -306,6 +325,7 @@ Gather.propTypes = {
   containerIdSelected: PropTypes.number.isRequired,
   isTravelling: PropTypes.bool.isRequired,
   pocketCounter: PropTypes.number.isRequired,
+  openChangeIsleStateModal: PropTypes.func.isRequired,
 };
 
 Gather.defaultProps = {
@@ -334,6 +354,7 @@ const mapDispatchToProps = dispatch => ({
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),
   setContainerId: containerId => dispatch(setContainerId(containerId)),
+  openChangeIsleStateModal: () => dispatch(openChangeIsleStateModal()),
 });
 
 export default connect(

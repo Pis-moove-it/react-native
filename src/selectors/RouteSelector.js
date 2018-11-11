@@ -1,1 +1,1 @@
-export default state => state.collectionId.collectionId;
+export default state => state.gather.collectionId;

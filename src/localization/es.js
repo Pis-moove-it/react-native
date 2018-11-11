@@ -63,6 +63,14 @@ export default {
   invalidInputId: 'Por favor ingrese un identificador válido ',
   invalidInputType: 'Por favor ingrese un tipo de material válido ',
 
+  // Change Isle State Modal
+  changeStateIsleTitle: 'Cambiar estado de la Isla ',
+  selectState: 'Seleccione un nuevo estado ',
+  invalidInputState: 'Por favor ingrese un estado válido ',
+  ok: 'OK ',
+  damaged: 'Dañado ',
+  removed: 'Removido ',
+
   // Bale Edit Modal
   editBale: 'Editar Fardo ',
 
@@ -73,6 +81,10 @@ export default {
   createPocket: 'Nuevo bolsón ',
   identifierPlaceholderModal: 'Identificador ',
   descriptionPlaceholderModal: 'Descripción ',
+
+  // Create Pocket Event Modal
+  keepOnAdding: 'Agregar ',
+  finishAdding: 'Terminar ',
 
   // Edit Pocket Modal
   editPocket: 'Editar bolsón ',
