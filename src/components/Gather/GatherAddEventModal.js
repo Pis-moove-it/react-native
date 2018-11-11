@@ -20,10 +20,10 @@ class AddEventModal extends Component {
 
   acceptEdit = () => {
     if (this.state.identifier > 0) {
-      this.setState({
-        pocketsFromEvent: [...this.state.identifier],
+      this.setState(prevState => ({
+        pocketsFromEvent: [...prevState.pocketsFromEvent, this.state.identifier],
         identifier: 0,
-      });
+      }));
     } else {
       this.setState({ inputError: true });
       this.setState({ errors: [strings.invalidInputId] });
@@ -32,8 +32,8 @@ class AddEventModal extends Component {
 
   closeModal = () => {
     this.setState({ pocketsFromEvent: [...this.state.identifier] }); // adds the last one
-    //connect to backend
-    //resets state so further calls wont interfere with next ones
+    // connect to backend
+    // resets state so further calls wont interfere with next ones
     this.setState({ inputError: false });
     this.setState({ identifier: 0 });
     this.setState({ description: false });
@@ -85,11 +85,13 @@ class AddEventModal extends Component {
           style={stylesGather.buttonModal}
           textStyle={stylesGather.textButtonWhite}
           title={strings.acceptModal}
-          onPress={() => { this.setState({ descriptionSubmitted: true }); }}
+          onPress={() => {
+            this.setState({ descriptionSubmitted: true });
+          }}
         />
       </View>
     );
-  }
+  };
 
   render() {
     return (
@@ -104,8 +106,9 @@ class AddEventModal extends Component {
           </View>
           <View>
             {this.renderModal(this.state.descriptionSubmitted)}
-            {this.state.inputError && this.state.descriptionSubmitted
-              && <ErrorView errors={this.state.errors} />}
+            {this.state.inputError && this.state.descriptionSubmitted && (
+              <ErrorView errors={this.state.errors} />
+            )}
           </View>
         </View>
       </Modal>
