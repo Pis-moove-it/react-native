@@ -17,7 +17,7 @@ const TabletPocket = ({
       <Text style={styles.textBlackTablet}>{strings.pocket}</Text>
       <Text style={styles.textGrayTablet}>{`#${id}`}</Text>
     </View>
-    <View style={styles.containerItemTablet}>
+    <View style={styles.containerDateItemTablet}>
       <Text style={styles.textBlackTablet}>{strings.arrivedAt}</Text>
       <Text style={styles.textGrayTablet}>{`${time}`}</Text>
     </View>

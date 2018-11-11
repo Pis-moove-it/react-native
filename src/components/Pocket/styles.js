@@ -131,6 +131,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 10,
   },
+  containerDateItemTablet: {
+    flex: 1.5,
+    paddingLeft: 10,
+  },
   containerButtonTablet: {
     flex: 2,
     paddingLeft: 10,
