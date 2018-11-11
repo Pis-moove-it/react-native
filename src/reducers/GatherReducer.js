@@ -82,7 +82,7 @@ const gatherReducer = (state = initialState, action) => {
         ...state,
         isLoadingEvent: true,
       };
-    case actionTypes.CREATE_EVENT_SUCCES:
+    case actionTypes.CREATE_EVENT_SUCCESS:
       return {
         ...state,
         isLoadingEvent: false,
