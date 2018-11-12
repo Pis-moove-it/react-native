@@ -6,9 +6,6 @@ export const actionTypes = {
   START_COLLECTION_REQUEST: 'START_COLLECTION_REQUEST',
   START_COLLECTION_SUCCESS: 'START_COLLECTION_SUCCESS',
   START_COLLECTION_ERROR: 'START_COLLECTION_ERROR',
-  ADD_POCKET_REQUEST: 'ADD_POCKET_REQUEST',
-  ADD_POCKET_SUCCESS: 'ADD_POCKET_SUCCESS',
-  ADD_POCKET_ERROR: 'ADD_POCKET_ERROR',
   END_COLLECTION_REQUEST: 'END_COLLECTION_REQUEST',
   END_COLLECTION_SUCCESS: 'END_COLLECTION_SUCCESS',
   END_COLLECTION_ERROR: 'END_COLLECTION_ERROR',
@@ -16,6 +13,11 @@ export const actionTypes = {
   GET_CONTAINERS_SUCCESS: 'GET_CONTAINERS_SUCCESS',
   GET_CONTAINERS_ERROR: 'GET_CONTAINERS_ERROR',
   SET_CONTAINER_ID: 'SET_CONTAINER_ID',
+  CREATE_EVENT_REQUEST: 'CREATE_EVENT_REQUEST',
+  CREATE_EVENT_SUCCESS: 'CREATE_EVENT_SUCCESS',
+  CREATE_EVENT_ERROR: 'CREATE_EVENT_ERROR',
+  SET_EVENT_COORDINATES: 'SET_EVENT_COORDINATES',
+  INCREMENT_POCKETS_EVENT: 'INCREMENT_POCKETS_EVENT',
 };
 
 const travelFinished = (travelImage, kmsTraveled, pocketsCollected) => ({
@@ -40,19 +42,6 @@ const startCollectionSuccess = identifier => ({
 
 const startCollectionError = error => ({
   type: actionTypes.START_COLLECTION_ERROR,
-  error,
-});
-
-const addPocketRequest = () => ({
-  type: actionTypes.ADD_POCKET_REQUEST,
-});
-
-const addPocketSuccess = () => ({
-  type: actionTypes.ADD_POCKET_SUCCESS,
-});
-
-const addPocketError = error => ({
-  type: actionTypes.ADD_POCKET_ERROR,
   error,
 });
 
@@ -83,9 +72,33 @@ const getContainersError = error => ({
   error,
 });
 
+const createEventRequest = () => ({
+  type: actionTypes.CREATE_EVENT_REQUEST,
+});
+
+const createEventSuccess = eventId => ({
+  type: actionTypes.CREATE_EVENT_SUCCESS,
+  eventId,
+});
+
+const createEventError = error => ({
+  type: actionTypes.CREATE_EVENT_ERROR,
+  error,
+});
+
 export const setContainerId = containerIdSelected => ({
   type: actionTypes.SET_CONTAINER_ID,
   containerIdSelected,
+});
+
+export const setEventCoordinates = eventCoordinates => ({
+  type: actionTypes.SET_EVENT_COORDINATES,
+  eventCoordinates,
+});
+
+export const incrementPocketCounter = pocketsEvent => ({
+  type: actionTypes.INCREMENT_POCKETS_EVENT,
+  pocketsEvent,
 });
 
 export const startCollection = token => async (dispatch) => {
@@ -95,21 +108,6 @@ export const startCollection = token => async (dispatch) => {
     dispatch(startCollectionSuccess(identifier));
   } catch (error) {
     dispatch(startCollectionError(error.message));
-  }
-};
-
-export const addPocketToCollection = (
-  token,
-  routeId,
-  collectionId,
-  pocketsArray,
-) => async (dispatch) => {
-  dispatch(addPocketRequest());
-  try {
-    await GatherController.addPocketToCollection(token, routeId, collectionId, pocketsArray);
-    dispatch(addPocketSuccess());
-  } catch (error) {
-    dispatch(addPocketError(error.message));
   }
 };
 
@@ -130,5 +128,28 @@ export const getContainers = token => async (dispatch) => {
     dispatch(getContainersSuccess(containers));
   } catch (error) {
     dispatch(getContainersError(error.message));
+  }
+};
+
+export const createExtraEvent = (
+  token,
+  routeId,
+  description,
+  pockets,
+  coordinates,
+) => async (dispatch) => {
+  dispatch(createEventRequest());
+  try {
+    const { eventId } = await GatherController.createExtraEvent(
+      token,
+      routeId,
+      description,
+      pockets,
+      coordinates,
+    );
+    dispatch(incrementPocketCounter(pockets.length));
+    dispatch(createEventSuccess(eventId));
+  } catch (error) {
+    dispatch(createEventError(error.message));
   }
 };

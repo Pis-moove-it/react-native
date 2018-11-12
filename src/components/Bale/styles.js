@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   textButton: {
     flex: 1,
     color: Colors.white,
-    fontSize: 14,
+    fontSize: 17,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -157,6 +157,15 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 15,
     color: Colors.white,
+  },
+
+  containerL: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  activity: {
+    padding: 10,
+    color: Colors.primary,
   },
 });
 

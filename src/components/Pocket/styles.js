@@ -141,9 +141,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 10,
   },
-  tabletButtonText: {
+  buttonText: {
     color: Colors.white,
     fontSize: 17,
+  },
+
+  containerL: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  activity: {
+    padding: 10,
+    color: Colors.primary,
   },
 });
 

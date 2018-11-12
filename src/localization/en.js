@@ -82,6 +82,11 @@ export default {
   identifierPlaceholderModal: 'Identifier ',
   descriptionPlaceholderModal: 'Description ',
 
+  // Create Pocket Event Modal
+  keepOnAdding: 'Add ',
+  finishAdding: 'Finish ',
+  descriptionEvent: 'Event description ',
+
   // Edit Pocket Modal
   editPocket: 'Edit pocket ',
   editWeightPocket: 'Edit weight ',
@@ -101,7 +106,7 @@ export default {
   arrivedAt: 'Arrived at ',
   pocket: 'Pocket ',
   unweighted: 'Unweighted ',
-  pocketButtonWeightText: 'Weight ',
+  pocketButtonWeightText: 'Weigh ',
   pocketButtonEditWeightText: 'Edit weight ',
   information: 'Information ',
   collectionPoint: 'Collection point ',

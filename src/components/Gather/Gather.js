@@ -12,6 +12,8 @@ import {
   getContainers,
   endCollection,
   setContainerId,
+  createExtraEvent,
+  setEventCoordinates,
 } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import getUser from '../../selectors/UserSelector';
@@ -22,6 +24,7 @@ import Colors from '../../helpers/Colors';
 import icon from '../../assets/images/MapPointIcon.png';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
+import eventContainerImage from '../../assets/images/MapPointIconBlue.png';
 import strings from '../../localization';
 import { Screens } from '../Navigation';
 import CreatePocketModal from '../common/CreatePocketModal';
@@ -33,11 +36,14 @@ import {
   selectContainerIdSelected,
   selectIsTravelling,
   selectPocketCounter,
+  selectIsLoadingEvent,
+  selecteventId,
 } from '../../selectors/GatherSelector';
 import ChangeContainerStatusModal from '../common/ChangeContainerStatusModal';
 import { openChangeContainerStatusModal } from '../../actions/ContainerStatusActions';
 import GatherOverlay from './GatherOverlay';
 import GatherPointOptionModal from './GatherPointOptionModal';
+import AddEventModal from './GatherAddEventModal';
 import GatherConfirmExitTripStartedModal from './GatherConfrimExitTripStartedModal';
 import stylesGather from './styles';
 
@@ -70,7 +76,11 @@ class Gather extends Component {
       finish: false,
       isOptionModalVisible: false,
       isConfirmExitModalVisible: false,
+      isAddEventModalVisible: false,
       confrimExitFunction: () => ({}),
+      eventCoordinates: [],
+      showEvents: false,
+      eventList: [],
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -145,6 +155,13 @@ class Gather extends Component {
     });
   };
 
+  createExtraEvent = (e) => {
+    this.toggleAddEventModal();
+    this.props.setEventCoordinates(e.geometry.coordinates);
+    this.setState({ eventCoordinates: e.geometry.coordinates });
+    this.setState({ showEvents: true });
+  };
+
   calcDistance(newLatLng) {
     const { prevLatLng } = this.state;
     if (prevLatLng !== null) {
@@ -192,6 +209,10 @@ class Gather extends Component {
     });
   };
 
+  toggleAddEventModal = () => {
+    this.setState({ isAddEventModalVisible: !this.state.isAddEventModalVisible });
+  };
+
   changeRole = () => {
     this.props.changeRole();
     this.props.navigator.pop();
@@ -223,17 +244,31 @@ class Gather extends Component {
     });
   };
 
+  generateEvent = () => {
+    this.state.eventList.push(<Mapbox.PointAnnotation
+      id={this.props.eventId.toString()}
+      coordinate={this.state.eventCoordinates}
+    >
+      <TouchableOpacity>
+        <Image source={eventContainerImage} style={stylesGather.trashIcon} />
+      </TouchableOpacity>
+    </Mapbox.PointAnnotation>);
+    return this.state.eventList;
+  };
+
   renderContainers = containers =>
-    containers.map(container => (
-      <Mapbox.PointAnnotation
-        id={container.id.toString()}
-        coordinate={[Number(container.longitude), Number(container.latitude)]}
-      >
-        <TouchableOpacity onPress={() => this.toggleOptionModal(container.id)}>
-          <Image source={icon} style={stylesGather.trashIcon} />
-        </TouchableOpacity>
-      </Mapbox.PointAnnotation>
-    ));
+    containers.map((container) => {
+      return (
+        <Mapbox.PointAnnotation
+          id={container.id.toString()}
+          coordinate={[Number(container.longitude), Number(container.latitude)]}
+        >
+          <TouchableOpacity onPress={() => this.toggleOptionModal(container.id)}>
+            <Image source={icon} style={stylesGather.trashIcon} />
+          </TouchableOpacity>
+        </Mapbox.PointAnnotation>
+      );
+    });
 
   render() {
     return (
@@ -270,7 +305,13 @@ class Gather extends Component {
           }}
           onPressActionSnd={this.state.confrimExitFunction}
         />
+        <AddEventModal
+          isVisible={this.state.isAddEventModalVisible}
+          toggleModal={this.toggleAddEventModal}
+          collectionId={this.props.collectionId}
+        />
         <Mapbox.MapView
+          onLongPress={this.createExtraEvent}
           styleURL={Mapbox.StyleURL.Street}
           zoomLevel={15}
           userTrackingMode={Mapbox.UserTrackingModes.FollowWithHeading}
@@ -278,6 +319,8 @@ class Gather extends Component {
           style={stylesGather.mapContainer}
         >
           {!this.props.loading && this.renderContainers(this.props.containers)}
+
+          {!this.props.isCreatingEvent && this.state.showEvents && this.generateEvent()}
         </Mapbox.MapView>
       </View>
     );
@@ -301,6 +344,10 @@ Gather.propTypes = {
   isTravelling: PropTypes.bool.isRequired,
   pocketCounter: PropTypes.number.isRequired,
   openChangeContainerStatusModal: PropTypes.func.isRequired,
+  createExtraEvent: PropTypes.func.isRequired,
+  isCreatingEvent: PropTypes.bool.isRequired,
+  eventId: PropTypes.number.isRequired,
+  setEventCoordinates: PropTypes.func.isRequired,
 };
 
 Gather.defaultProps = {
@@ -317,6 +364,8 @@ const mapStateToProps = state => ({
   containerIdSelected: selectContainerIdSelected(state),
   isTravelling: selectIsTravelling(state),
   pocketCounter: selectPocketCounter(state),
+  isCreatingEvent: selectIsLoadingEvent(state),
+  eventId: selecteventId(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -330,6 +379,9 @@ const mapDispatchToProps = dispatch => ({
   getContainers: token => dispatch(getContainers(token)),
   setContainerId: containerId => dispatch(setContainerId(containerId)),
   openChangeContainerStatusModal: container => dispatch(openChangeContainerStatusModal(container)),
+  createExtraEvent: (token, routeId, description, pocket, coordinates) =>
+    dispatch(createExtraEvent(token, routeId, description, pocket, coordinates)),
+  setEventCoordinates: eventCoordinates => dispatch(setEventCoordinates(eventCoordinates)),
 });
 
 export default connect(
