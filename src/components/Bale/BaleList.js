@@ -12,7 +12,7 @@ import { openEditBaleModal } from '../../actions/EditBaleModalActions';
 import CreateBaleModal from '../common/CreateBaleModal';
 import EditBaleModal from '../common/EditBaleModal';
 import recyclableMaterials from '../common/Constants';
-import getBales, { isEnd } from '../../selectors/BalesSelector';
+import getBales, { isEnd, getNewBales } from '../../selectors/BalesSelector';
 import strings from '../../localization';
 import Colors from '../../helpers/Colors';
 import styles from './styles';
@@ -34,26 +34,28 @@ class BaleList extends Component {
 
   componentDidMount = () => {
     this.setState({ refreshing: true });
-    this.props.fetchData(this.props.token, [], 1).then(() => {
+    this.props.fetchData(this.props.token, [], 1, this.props.newBales).then(() => {
       this.setState({ refreshing: false, nextPage: 2 });
     });
   };
 
   onRefresh = () => {
     this.setState({ refreshing: true });
-    this.props.fetchData(this.props.token, [], 1).then(() => {
+    this.props.fetchData(this.props.token, [], 1, this.props.newBales).then(() => {
       this.setState({ refreshing: false, nextPage: 2 });
     });
   };
 
   onEnd = () => {
     this.setState({ pagination: true });
-    this.props.fetchData(this.props.token, this.props.bales, this.state.nextPage).then(() => {
-      this.setState({
-        pagination: false,
-        nextPage: this.state.nextPage + 1,
+    this.props
+      .fetchData(this.props.token, this.props.bales, this.state.nextPage, this.props.newBales)
+      .then(() => {
+        this.setState({
+          pagination: false,
+          nextPage: this.state.nextPage + 1,
+        });
       });
-    });
   };
 
   materialString = (type) => {
@@ -129,19 +131,22 @@ BaleList.propTypes = {
   isEnd: PropTypes.bool.isRequired,
   token: PropTypes.string.isRequired,
   openEditBaleModal: PropTypes.func.isRequired,
+  newBales: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
   bales: getBales(state),
   errors: errorsSelector([actionTypes.BALES])(state),
   isEnd: isEnd(state),
+  newBales: getNewBales(state),
   token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
   openEditBaleModal: (identifier, material, weight) =>
     dispatch(openEditBaleModal(identifier, material, weight)),
-  fetchData: (token, balesArray, nextPage) => dispatch(fetchBales(token, balesArray, nextPage)),
+  fetchData: (token, balesArray, nextPage, newBales) =>
+    dispatch(fetchBales(token, balesArray, nextPage, newBales)),
 });
 
 export default connect(

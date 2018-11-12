@@ -1,4 +1,5 @@
 import BaleController from '../controllers/BaleController';
+import { setBaleCount, setBales } from './BalesActions';
 
 export const actionTypes = {
   CREATE_BALE: 'CREATE_BALE',
@@ -40,10 +41,12 @@ export const closeCreateBaleModal = () => (dispatch) => {
   dispatch(closeCreateBaleModalType());
 };
 
-export const newBale = (token, weight, material) => async (dispatch) => {
+export const newBale = (token, bales, weight, material, newBales) => async (dispatch) => {
   dispatch(createRequest());
   try {
     const { baleData } = await BaleController.newBale(token, weight, material);
+    await dispatch(setBales([baleData].concat(bales)));
+    await dispatch(setBaleCount(newBales));
     dispatch(createSuccess(baleData));
   } catch (error) {
     dispatch(createError(error.message));
