@@ -53,17 +53,6 @@ describe('GatherActions', () => {
     expect(actions).toEqual([expectedAction]);
   });
 
-  it('should create an action for add pockets to route request', () => {
-    const expectedAction = { type: gatherActions.actionTypes.ADD_POCKET_REQUEST };
-
-    // Dispatch the action
-    store.dispatch(gatherActions.addPocketToCollection());
-
-    // Test if the store dispatched the expected actions
-    const actions = store.getActions();
-    expect(actions).toEqual([expectedAction]);
-  });
-
   it('should create an action to end route', () => {
     const expectedAction = { type: gatherActions.actionTypes.END_COLLECTION_REQUEST };
 
