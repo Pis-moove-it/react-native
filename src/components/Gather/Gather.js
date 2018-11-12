@@ -39,8 +39,8 @@ import {
   selectIsLoadingEvent,
   selecteventId,
 } from '../../selectors/GatherSelector';
-import ChangeIsleStateModal from '../common/ChangeIsleStateModal';
-import { openChangeIsleStateModal } from '../../actions/ChangeIsleStateModalActions';
+import ChangeContainerStatusModal from '../common/ChangeContainerStatusModal';
+import { openChangeContainerStatusModal } from '../../actions/ContainerStatusActions';
 import GatherOverlay from './GatherOverlay';
 import GatherPointOptionModal from './GatherPointOptionModal';
 import AddEventModal from './GatherAddEventModal';
@@ -194,9 +194,9 @@ class Gather extends Component {
     this.props.openCreatePocketModal();
   };
 
-  toggleChangeIsleStateModal = () => {
+  toggleChangeContainerStatusModal = () => {
     this.toggleOptionModal();
-    this.props.openChangeIsleStateModal();
+    this.props.openChangeContainerStatusModal(this.props.containerIdSelected);
   };
 
   toggleConfirmExitModal = (navigationFunction) => {
@@ -291,12 +291,12 @@ class Gather extends Component {
           collectionId={this.props.collectionId}
           containerIdSelected={this.props.containerIdSelected}
         />
-        <ChangeIsleStateModal />
+        <ChangeContainerStatusModal />
         <GatherPointOptionModal
           isVisible={this.state.isOptionModalVisible}
           onPressActionFst={this.toggleOptionModal}
           onPressActionSnd={this.toggleCreatePocketModal}
-          onPressActionThrd={this.toggleChangeIsleStateModal}
+          onPressActionThrd={this.toggleChangeContainerStatusModal}
         />
         <GatherConfirmExitTripStartedModal
           isVisible={this.state.isConfirmExitModalVisible}
@@ -343,10 +343,10 @@ Gather.propTypes = {
   containerIdSelected: PropTypes.number.isRequired,
   isTravelling: PropTypes.bool.isRequired,
   pocketCounter: PropTypes.number.isRequired,
+  openChangeContainerStatusModal: PropTypes.func.isRequired,
   createExtraEvent: PropTypes.func.isRequired,
   isCreatingEvent: PropTypes.bool.isRequired,
   eventId: PropTypes.number.isRequired,
-  openChangeIsleStateModal: PropTypes.func.isRequired,
   setEventCoordinates: PropTypes.func.isRequired,
 };
 
@@ -378,9 +378,9 @@ const mapDispatchToProps = dispatch => ({
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),
   setContainerId: containerId => dispatch(setContainerId(containerId)),
+  openChangeContainerStatusModal: container => dispatch(openChangeContainerStatusModal(container)),
   createExtraEvent: (token, routeId, description, pocket, coordinates) =>
     dispatch(createExtraEvent(token, routeId, description, pocket, coordinates)),
-  openChangeIsleStateModal: () => dispatch(openChangeIsleStateModal()),
   setEventCoordinates: eventCoordinates => dispatch(setEventCoordinates(eventCoordinates)),
 });
 

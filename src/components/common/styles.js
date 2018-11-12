@@ -70,10 +70,13 @@ const styles = StyleSheet.create({
     width: 200,
   },
   modalTitleContainer: {
+    marginHorizontal: '10%',
+    textAlign: 'center',
     paddingBottom: 20,
   },
   modalTitle: {
     fontSize: 30,
+    textAlign: 'center',
     color: Colors.primary,
   },
   buttonText: {
@@ -82,6 +85,10 @@ const styles = StyleSheet.create({
   },
   textFieldView: {
     width: '50%',
+  },
+  error: {
+    marginHorizontal: '15%',
+    textAlign: 'center',
   },
 });
 
