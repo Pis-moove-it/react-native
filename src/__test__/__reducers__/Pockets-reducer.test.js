@@ -37,6 +37,7 @@ describe('pockets list reducer', () => {
     expect(pocketsListReducer(initialState, { type: actionTypes.POCKETS_REQUEST })).toEqual({
       pockets: [],
       pocketsQuantity: false,
+      isEnd: false,
       isLoading: true,
     });
   });
@@ -45,6 +46,7 @@ describe('pockets list reducer', () => {
     expect(pocketsListReducer(initialState, { type: actionTypes.POCKETS_ERROR })).toEqual({
       pockets: [],
       pocketsQuantity: false,
+      isEnd: false,
       isLoading: false,
     });
   });
@@ -57,6 +59,7 @@ describe('pockets list reducer', () => {
     })).toEqual({
       pockets: ['Test'],
       pocketsQuantity: 1,
+      isEnd: false,
       isLoading: false,
     });
   });

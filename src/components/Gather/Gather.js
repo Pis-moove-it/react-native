@@ -38,6 +38,7 @@ import ChangeIsleStateModal from '../common/ChangeIsleStateModal';
 import { openChangeIsleStateModal } from '../../actions/ChangeIsleStateModalActions';
 import GatherOverlay from './GatherOverlay';
 import GatherPointOptionModal from './GatherPointOptionModal';
+import AddEventModal from './GatherAddEventModal';
 import GatherConfirmExitTripStartedModal from './GatherConfrimExitTripStartedModal';
 import stylesGather from './styles';
 
@@ -70,6 +71,7 @@ class Gather extends Component {
       finish: false,
       isOptionModalVisible: false,
       isConfirmExitModalVisible: false,
+      isAddEventModalVisible: true,
       confrimExitFunction: () => ({}),
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -192,6 +194,10 @@ class Gather extends Component {
     });
   };
 
+  toggleAddEventModal = () => {
+    this.setState({ isAddEventModalVisible: !this.state.isAddEventModalVisible });
+  }
+
   changeRole = () => {
     this.props.changeRole();
     this.props.navigator.pop();
@@ -269,6 +275,10 @@ class Gather extends Component {
             this.toggleConfirmExitModal(() => {});
           }}
           onPressActionSnd={this.state.confrimExitFunction}
+        />
+        <AddEventModal
+          isVisible={this.state.isAddEventModalVisible}
+          toggleModal={this.toggleAddEventModal}
         />
         <Mapbox.MapView
           styleURL={Mapbox.StyleURL.Street}

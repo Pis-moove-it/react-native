@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, Picker } from 'react-native';
+import { ActivityIndicator, View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import strings from '../../localization';
 import getBales from '../../selectors/BalesSelector';
+import Colors from '../../helpers/Colors';
 import {
   getIsModalVisible,
   getBale,
   getWeight,
+  isLoading,
   getMaterial,
 } from '../../selectors/EditBaleModalSelector';
 import { closeEditBaleModal, editBale, actionTypes } from '../../actions/EditBaleModalActions';
@@ -96,7 +98,7 @@ class EditBaleModal extends Component {
           <View style={styles.modalTitleContainer}>
             <Text style={styles.modalTitle}>{strings.editBale}</Text>
           </View>
-          <View>
+          <View style={styles.textFieldView}>
             <TextField
               placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
@@ -112,14 +114,22 @@ class EditBaleModal extends Component {
             >
               {this.getMaterials()}
             </Picker>
+          </View>
+          <View>
             {this.state.inputError && <ErrorView errors={this.state.error} />}
             <ErrorView errors={errors} />
-            <Button
-              style={styles.buttonModal}
-              textStyle={styles.text}
-              title={strings.acceptModal}
-              onPress={this.acceptEdit}
-            />
+            {this.props.isLoading && errors.length < 1 ? (
+              <View style={styles.activityIndicator}>
+                <ActivityIndicator size="large" color={Colors.primary} />
+              </View>
+            ) : (
+              <Button
+                style={styles.buttonModal}
+                textStyle={styles.text}
+                title={strings.acceptModal}
+                onPress={this.acceptEdit}
+              />
+            )}
           </View>
         </View>
       </Modal>
@@ -128,27 +138,22 @@ class EditBaleModal extends Component {
 }
 
 EditBaleModal.propTypes = {
-  bale: PropTypes.string,
+  bale: PropTypes.string.isRequired,
   bales: PropTypes.array.isRequired,
   closeEditModal: PropTypes.func.isRequired,
   editBale: PropTypes.func.isRequired,
-  errors: PropTypes.array,
-  isModalVisible: PropTypes.bool,
-  token: PropTypes.string,
+  errors: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isModalVisible: PropTypes.bool.isRequired,
+  token: PropTypes.string.isRequired,
   weight: PropTypes.string.isRequired,
-};
-
-EditBaleModal.defaultProps = {
-  bale: false,
-  errors: [],
-  isModalVisible: false,
-  token: false,
 };
 
 const mapStateToProps = state => ({
   bale: getBale(state),
   bales: getBales(state),
   errors: errorsSelector([actionTypes.EDIT_BALE])(state),
+  isLoading: isLoading(state),
   isModalVisible: getIsModalVisible(state),
   material: getMaterial(state),
   token: state.login.token,

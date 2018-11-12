@@ -82,6 +82,10 @@ export default {
   identifierPlaceholderModal: 'Identifier ',
   descriptionPlaceholderModal: 'Description ',
 
+  // Create Pocket Event Modal
+  keepOnAdding: 'Add ',
+  finishAdding: 'Finish ',
+
   // Edit Pocket Modal
   editPocket: 'Edit pocket ',
   editWeightPocket: 'Edit weight ',
@@ -101,7 +105,7 @@ export default {
   arrivedAt: 'Arrived at ',
   pocket: 'Pocket ',
   unweighted: 'Unweighted ',
-  pocketButtonWeightText: 'Weight ',
+  pocketButtonWeightText: 'Weigh ',
   pocketButtonEditWeightText: 'Edit weight ',
   information: 'Information ',
   collectionPoint: 'Collection point ',
@@ -113,7 +117,8 @@ export default {
 
   // Gather confirm exit modal
   confirmExitTripStartedTitle: 'Are you sure you want to exit? ',
-  confirmExitTripStartedSubtitle: 'You\'ve started a trip, if you exit now all progress will be lost ',
+  confirmExitTripStartedSubtitle:
+    "You've started a trip, if you exit now all progress will be lost ",
 
   // Errors
   error: 'Error ',

@@ -3,36 +3,51 @@ import BaleController from '../controllers/BaleController';
 export const actionTypes = {
   BALES: 'BALES',
   BALES_REQUEST: 'BALES_REQUEST',
+  BALES_RESET: 'BALES_RESET',
   BALES_SUCCESS: 'BALES_SUCCESS',
   BALES_ERROR: 'BALES_ERROR',
+  BALES_END: 'BALES_END',
 };
 
-const getBales = () => ({
+const balesRequest = () => ({
   type: actionTypes.BALES_REQUEST,
 });
 
-const getBalesSuccess = (bales, balesQuantity) => ({
+const balesReset = () => ({
+  type: actionTypes.BALES_RESET,
+});
+
+const balesSuccess = (bales, balesQuantity) => ({
   type: actionTypes.BALES_SUCCESS,
   bales,
   balesQuantity,
 });
 
-const getBalesError = error => ({
+const balesError = error => ({
   type: actionTypes.BALES_ERROR,
   error,
 });
 
+const setBalesEnd = isEnd => ({
+  type: actionTypes.BALES_END,
+  isEnd,
+});
+
 export const setBales = bales => async (dispatch) => {
-  dispatch(getBales());
-  dispatch(getBalesSuccess(bales, bales.length));
+  dispatch(balesReset());
+  dispatch(balesRequest());
+  dispatch(balesSuccess(bales, bales.length));
 };
 
-export const fetchBales = (token, nextPage) => async (dispatch) => {
-  dispatch(getBales());
+export const fetchBales = (token, oldBales, nextPage) => async (dispatch) => {
+  dispatch(balesRequest());
   try {
     const { bales } = await BaleController.getBales(token, nextPage);
-    dispatch(getBalesSuccess(bales, bales.length));
+    dispatch(setBalesEnd(bales.length < 10));
+
+    if (nextPage === 1) dispatch(balesSuccess(bales, bales.length));
+    else dispatch(balesSuccess(oldBales.concat(bales), oldBales.length));
   } catch (error) {
-    dispatch(getBalesError(error.message));
+    dispatch(balesError(error.message));
   }
 };
