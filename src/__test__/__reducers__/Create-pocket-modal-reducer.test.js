@@ -26,18 +26,18 @@ describe('create pocket modal reducer', () => {
   it('should a state with isVisible in true', () => {
     expect(createPocketModalActions(initialState, {
       type: actionTypes.OPEN_CREATE_POCKET_MODAL,
-      isVisible: true,
     })).toEqual({
       createPocketModalIsOpen: true,
+      isLoading: false,
     });
   });
 
   it('should a state with isVisible in false', () => {
     expect(createPocketModalActions(initialState, {
       type: actionTypes.CLOSE_CREATE_POCKET_MODAL,
-      isVisible: false,
     })).toEqual({
       createPocketModalIsOpen: false,
+      isLoading: false,
     });
   });
 });

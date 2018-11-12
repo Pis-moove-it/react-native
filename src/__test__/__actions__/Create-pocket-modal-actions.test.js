@@ -1,6 +1,7 @@
-import configureStore from 'redux-mock-store'; // ES6 modules
+import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as createPocketModalActions from '../../actions/CreatePocketModalActions';
+import { actionTypes as globalActionTypes } from '../../actions/GlobalActions';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -32,8 +33,10 @@ describe('createPocketModalActions', () => {
   it('should create an action for open create pocket modal', () => {
     const expectedAction = [
       {
+        type: globalActionTypes.GLOBAL_RESET,
+      },
+      {
         type: createPocketModalActions.actionTypes.OPEN_CREATE_POCKET_MODAL,
-        isVisible: true,
       },
     ];
 
@@ -49,7 +52,6 @@ describe('createPocketModalActions', () => {
     const expectedAction = [
       {
         type: createPocketModalActions.actionTypes.CLOSE_CREATE_POCKET_MODAL,
-        isVisible: false,
       },
     ];
 
