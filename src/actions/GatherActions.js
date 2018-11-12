@@ -16,6 +16,11 @@ export const actionTypes = {
   GET_CONTAINERS_SUCCESS: 'GET_CONTAINERS_SUCCESS',
   GET_CONTAINERS_ERROR: 'GET_CONTAINERS_ERROR',
   SET_CONTAINER_ID: 'SET_CONTAINER_ID',
+  CREATE_EVENT_REQUEST: 'CREATE_EVENT_REQUEST',
+  CREATE_EVENT_SUCCESS: 'CREATE_EVENT_SUCCESS',
+  CREATE_EVENT_ERROR: 'CREATE_EVENT_ERROR',
+  SET_EVENT_COORDINATES: 'SET_EVENT_COORDINATES',
+  INCREMENT_POCKETS_EVENT: 'INCREMENT_POCKETS_EVENT',
 };
 
 const travelFinished = (travelImage, kmsTraveled, pocketsCollected) => ({
@@ -83,9 +88,33 @@ const getContainersError = error => ({
   error,
 });
 
+const createEventRequest = () => ({
+  type: actionTypes.CREATE_EVENT_REQUEST,
+});
+
+const createEventSuccess = eventId => ({
+  type: actionTypes.CREATE_EVENT_SUCCESS,
+  eventId,
+});
+
+const createEventError = error => ({
+  type: actionTypes.CREATE_EVENT_ERROR,
+  error,
+});
+
 export const setContainerId = containerIdSelected => ({
   type: actionTypes.SET_CONTAINER_ID,
   containerIdSelected,
+});
+
+export const setEventCoordinates = eventCoordinates => ({
+  type: actionTypes.SET_EVENT_COORDINATES,
+  eventCoordinates,
+});
+
+export const incrementPocketCounter = pocketsEvent => ({
+  type: actionTypes.INCREMENT_POCKETS_EVENT,
+  pocketsEvent,
 });
 
 export const startCollection = token => async (dispatch) => {
@@ -130,5 +159,28 @@ export const getContainers = token => async (dispatch) => {
     dispatch(getContainersSuccess(containers));
   } catch (error) {
     dispatch(getContainersError(error.message));
+  }
+};
+
+export const createExtraEvent = (
+  token,
+  routeId,
+  description,
+  pockets,
+  coordinates,
+) => async (dispatch) => {
+  dispatch(createEventRequest());
+  try {
+    const { eventId } = await GatherController.createExtraEvent(
+      token,
+      routeId,
+      description,
+      pockets,
+      coordinates,
+    );
+    dispatch(incrementPocketCounter(pockets.length));
+    dispatch(createEventSuccess(eventId));
+  } catch (error) {
+    dispatch(createEventError(error.message));
   }
 };

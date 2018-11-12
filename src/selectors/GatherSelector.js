@@ -7,3 +7,6 @@ export const selectIsLoading = state => state.gather.isLoadingContainers;
 export const selectContainerIdSelected = state => state.gather.containerIdSelected;
 export const selectIsTravelling = state => state.gather.isTravelling;
 export const selectPocketCounter = state => state.gather.pocketCounter;
+export const selectIsLoadingEvent = state => state.gather.isLoadingEvent;
+export const selecteventId = state => state.gather.eventId;
+export const selectEventCoordinates = state => state.gather.eventCoordinates;
