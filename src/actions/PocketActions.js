@@ -46,7 +46,7 @@ export const getPockets = (token, oldPockets, nextPage) => async (dispatch) => {
     dispatch(setPocketsEnd(pockets.length < 10));
 
     if (nextPage === 1) dispatch(pocketsSuccess(pockets, pockets.length));
-    else dispatch(pocketsSuccess(oldPockets.concat(pockets), oldPockets.length));
+    else dispatch(pocketsSuccess(oldPockets.concat(pockets), oldPockets.length + pockets.length));
   } catch (error) {
     dispatch(pocketsError(error.message));
   }

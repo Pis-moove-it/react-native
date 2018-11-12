@@ -59,6 +59,7 @@ class EditBaleModal extends Component {
   }
 
   acceptEdit = () => {
+    this.setState({ error: [] });
     if (this.state.newWeight > 0) {
       if (this.state.selectedMaterial) {
         this.props.editBale(

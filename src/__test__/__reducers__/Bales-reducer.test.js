@@ -38,6 +38,7 @@ describe('bales list reducer', () => {
     expect(balesListReducer(initialState, { type: actionTypes.BALES_REQUEST })).toEqual({
       bales: [],
       balesQuantity: false,
+      newBales: 0,
       isEnd: false,
       isFetching: true,
     });
@@ -47,6 +48,7 @@ describe('bales list reducer', () => {
     expect(balesListReducer(initialState, { type: actionTypes.BALES_ERROR })).toEqual({
       bales: [],
       balesQuantity: false,
+      newBales: 0,
       isEnd: false,
       isFetching: false,
     });
@@ -60,6 +62,7 @@ describe('bales list reducer', () => {
     })).toEqual({
       bales: ['bale1', 'bale2'],
       balesQuantity: 2,
+      newBales: 0,
       isEnd: false,
       isFetching: false,
     });
