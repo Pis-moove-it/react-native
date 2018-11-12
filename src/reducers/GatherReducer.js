@@ -1,4 +1,5 @@
 import { actionTypes } from '../actions/GatherActions';
+import { actionTypes as createPocketActionTypes } from '../actions/CreatePocketModalActions';
 
 export const initialState = {
   travelImage: false,
@@ -11,6 +12,7 @@ export const initialState = {
   containerIdSelected: null,
   isTravelling: false,
   pocketCounter: 0,
+  isLoadingEvent: false,
   eventId: false,
   eventCoordinates: false,
   eventCreatedSuccess: false,
@@ -38,16 +40,21 @@ const gatherReducer = (state = initialState, action) => {
         collectionId: action.identifier,
         isLoading: false,
       };
-    case actionTypes.ADD_POCKET_REQUEST:
+    case createPocketActionTypes.ADD_POCKET_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case actionTypes.ADD_POCKET_SUCCESS:
+    case createPocketActionTypes.ADD_POCKET_SUCCESS:
       return {
         ...state,
         isLoading: false,
         pocketCounter: state.pocketCounter + 1,
+      };
+    case createPocketActionTypes.ADD_POCKET_ERROR:
+      return {
+        ...state,
+        isLoading: false,
       };
     case actionTypes.END_COLLECTION_REQUEST:
       return {

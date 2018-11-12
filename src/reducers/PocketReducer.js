@@ -3,6 +3,7 @@ import { actionTypes } from '../actions/PocketActions';
 export const initialState = {
   pockets: [],
   pocketsQuantity: false,
+  isEnd: false,
   isLoading: false,
 };
 
@@ -26,6 +27,11 @@ const pocketListReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+      };
+    case actionTypes.POCKETS_END:
+      return {
+        ...state,
+        isEnd: action.isEnd,
       };
     default:
       return state;

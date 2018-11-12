@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import { View, Text, Picker } from 'react-native';
+import { ActivityIndicator, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
-import getIsModalVisible from '../../selectors/CreatePocketModalSelector';
-import { closeCreatePocketModal } from '../../actions/CreatePocketModalActions';
-import { addPocketToCollection } from '../../actions/GatherActions';
+import getIsModalVisible, { isLoading } from '../../selectors/CreatePocketModalSelector';
+import {
+  addPocketToCollection,
+  closeCreatePocketModal,
+  actionTypes,
+} from '../../actions/CreatePocketModalActions';
 import strings from '../../localization';
 import ErrorView from '../common/ErrorView';
+import { errorsSelector } from '../../selectors/ErrorSelector';
+import Colors from '../../helpers/Colors';
 import Button from './Button';
 import TextField from './TextField';
 import recyclabeleMaterials from './Constants';
@@ -17,25 +22,16 @@ class CreatePocketModal extends Component {
   constructor(props) {
     super(props);
     this.materials = recyclabeleMaterials;
-  }
 
-  state = {
-    description: false,
-    identifier: 0,
-    inputError: true,
-    errors: [],
-  };
-
-  getMaterials() {
-    const pickerMaterial = [];
-    pickerMaterial.push(<Picker.Item key={999} label={strings.selectMaterial} value={false} />);
-    this.materials.map((material) => {
-      pickerMaterial.push(<Picker.Item key={material.id} label={material.name} value={material.name} />);
-    });
-    return pickerMaterial;
+    this.state = {
+      identifier: false,
+      inputError: true,
+      error: [],
+    };
   }
 
   acceptEdit = () => {
+    this.setState({ error: [] });
     if (this.state.identifier > 0) {
       this.props.addPocketToCollection(
         this.props.token,
@@ -43,22 +39,18 @@ class CreatePocketModal extends Component {
         this.props.containerIdSelected,
         this.state.identifier,
       );
-      this.closeModal();
     } else {
-      this.setState({ inputError: true });
-      this.setState({ errors: [strings.invalidInputId] });
+      this.setState({ error: [strings.invalidInputId], inputError: true });
     }
   };
 
   closeModal = () => {
-    this.setState({ inputError: false });
-    this.setState({ identifier: 0 }); // will get deleted later
-    this.setState({ description: false }); // will get deleted later
-    this.setState({ errors: [] });
+    this.setState({ error: [], inputError: false, identifier: false });
     this.props.closeCreatePocketModal();
   };
 
   render() {
+    const { errors } = this.props;
     return (
       <Modal
         isVisible={this.props.isModalVisible}
@@ -70,25 +62,30 @@ class CreatePocketModal extends Component {
           <View style={styles.modalTitleContainer}>
             <Text style={styles.modalTitle}>{strings.createPocket}</Text>
           </View>
-          <View>
+          <View style={styles.textFieldView}>
             <TextField
               placeholder={strings.identifierPlaceholderModal}
               keyboardType="numeric"
               maxLength={8}
               onChangeText={value => this.setState({ identifier: value })}
+              onLayout={() => this.setState({ identifier: false })}
             />
-            <TextField
-              placeholder={strings.descriptionPlaceholderModal}
-              maxLength={23}
-              onChangeText={value => this.setState({ description: value })}
-            />
-            {this.state.inputError && <ErrorView errors={this.state.errors} />}
-            <Button
-              style={styles.buttonModal}
-              textStyle={styles.text}
-              title={strings.acceptModal}
-              onPress={this.acceptEdit}
-            />
+          </View>
+          <View>
+            {this.state.inputError && <ErrorView errors={this.state.error} />}
+            <ErrorView errors={errors} />
+            {this.props.isLoading && errors.length < 1 ? (
+              <View style={styles.activityIndicator}>
+                <ActivityIndicator size="large" color={Colors.primary} />
+              </View>
+            ) : (
+              <Button
+                style={styles.buttonModal}
+                textStyle={styles.text}
+                title={strings.acceptModal}
+                onPress={this.acceptEdit}
+              />
+            )}
           </View>
         </View>
       </Modal>
@@ -98,16 +95,18 @@ class CreatePocketModal extends Component {
 
 CreatePocketModal.propTypes = {
   closeCreatePocketModal: PropTypes.func.isRequired,
+  errors: PropTypes.array.isRequired,
   isModalVisible: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   token: PropTypes.string.isRequired,
   collectionId: PropTypes.string.isRequired,
   containerIdSelected: PropTypes.number.isRequired,
   addPocketToCollection: PropTypes.func.isRequired,
 };
 
-CreatePocketModal.defaultProps = {};
-
 const mapStateToProps = state => ({
+  errors: errorsSelector([actionTypes.ADD_POCKET])(state),
+  isLoading: isLoading(state),
   isModalVisible: getIsModalVisible(state),
   token: state.login.token,
 });
