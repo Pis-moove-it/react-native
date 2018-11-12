@@ -8,6 +8,7 @@ class GatherController {
     this.routesPath = 'routes';
     this.containersPath = 'containers';
     this.collectionsPath = '/collections';
+    this.extraEvent = '/events';
   }
 
   startCollection = async token =>
@@ -101,6 +102,39 @@ class GatherController {
         .catch((error) => {
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
           else reject(new Error(strings.error));
+        });
+    });
+
+  createExtraEvent = async (token, routeId, description, pockets, coordinates) =>
+    new Promise((resolve, reject) => {
+      axios
+        .post(
+          `${basePath}${this.routesPath}/${routeId}${this.extraEvent}`,
+          {
+            event: {
+              latitude: `${coordinates[0]}`,
+              longitude: `${coordinates[1]}`,
+              description: `${description}`,
+            },
+            collection: {
+              pockets_attributes: pockets,
+            },
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              ApiKey: `${token}`,
+            },
+          },
+        )
+        .then((response) => {
+          resolve({
+            eventId: response.data.id,
+          });
+        })
+        .catch((error) => {
+          if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
+          else reject(new Error(strings.errorUser));
         });
     });
 }

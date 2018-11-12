@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import Modal from 'react-native-modal';
 import TextField from '../common/TextField';
+import { createExtraEvent } from '../../actions/GatherActions';
+import { selectEventCoordinates } from '../../selectors/GatherSelector';
 import strings from '../../localization';
 import CustomButton from '../common/CustomButton';
 import ErrorView from '../common/ErrorView';
@@ -21,7 +24,7 @@ class AddEventModal extends Component {
   acceptEdit = () => {
     if (this.state.identifier > 0) {
       this.setState(prevState => ({
-        pocketsFromEvent: [...prevState.pocketsFromEvent, this.state.identifier],
+        pocketsFromEvent: [...prevState.pocketsFromEvent, { serial_number: this.state.identifier }],
         identifier: 0,
       }));
     } else {
@@ -31,7 +34,13 @@ class AddEventModal extends Component {
   };
 
   closeModal = () => {
-    this.setState({ pocketsFromEvent: [...this.state.identifier] }); // adds the last one
+    this.props.createExtraEvent(
+      this.props.token,
+      this.props.collectionId,
+      this.state.description,
+      this.state.pocketsFromEvent,
+      this.props.eventCoordinates,
+    );
     // connect to backend
     // resets state so further calls wont interfere with next ones
     this.setState({ inputError: false });
@@ -39,6 +48,7 @@ class AddEventModal extends Component {
     this.setState({ description: false });
     this.setState({ pocketsFromEvent: [] });
     this.setState({ errors: [] });
+    this.setState({ descriptionSubmitted: false });
     this.props.toggleModal();
   };
 
@@ -102,7 +112,11 @@ class AddEventModal extends Component {
       >
         <View style={stylesGather.modalContainer}>
           <View style={stylesGather.modalTitleContainer}>
-            <Text style={stylesGather.modalTitle}>{strings.createPocket}</Text>
+            {this.state.descriptionSubmitted ?
+              <Text style={stylesGather.modalTitle}>{strings.createPocket}</Text>
+            :
+              <Text style={stylesGather.modalTitle}>{strings.descriptionEvent}</Text>
+            }
           </View>
           <View>
             {this.renderModal(this.state.descriptionSubmitted)}
@@ -119,6 +133,23 @@ class AddEventModal extends Component {
 AddEventModal.propTypes = {
   isVisible: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
+  createExtraEvent: PropTypes.func.isRequired,
+  eventCoordinates: PropTypes.array.isRequired,
+  collectionId: PropTypes.string.isRequired,
 };
 
-export default AddEventModal;
+const mapStateToProps = state => ({
+  token: state.login.token,
+  eventCoordinates: selectEventCoordinates(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  createExtraEvent: (token, routeId, description, pocket, coordinates) =>
+    dispatch(createExtraEvent(token, routeId, description, pocket, coordinates)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddEventModal);
