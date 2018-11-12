@@ -130,25 +130,25 @@ EditPocketModal.propTypes = {
   editPocket: PropTypes.func.isRequired,
   errors: PropTypes.array.isRequired,
   hasWeight: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   isModalVisible: PropTypes.bool.isRequired,
   pocket: PropTypes.string.isRequired,
   pockets: PropTypes.array.isRequired,
+  serialNumber: PropTypes.number.isRequired,
   token: PropTypes.string.isRequired,
   weight: PropTypes.number.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  serialNumber: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
   errors: errorsSelector([actionTypes.EDIT_POCKET])(state),
   hasWeight: getHasWeight(state),
+  isLoading: isLoading(state),
   isModalVisible: isOpen(state),
   pocket: getPocket(state),
   pockets: pockets(state),
+  serialNumber: getSerialNumber(state),
   token: state.login.token,
   weight: getWeight(state),
-  isLoading: isLoading(state),
-  serialNumber: getSerialNumber(state),
 });
 
 const mapDispatchToProps = dispatch => ({
