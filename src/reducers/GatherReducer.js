@@ -14,7 +14,6 @@ export const initialState = {
   eventId: false,
   eventCoordinates: false,
   eventCreatedSuccess: false,
-  eventListPoints: [],
 };
 
 const gatherReducer = (state = initialState, action) => {
@@ -103,13 +102,6 @@ const gatherReducer = (state = initialState, action) => {
         isLoading: false,
         pocketCounter: state.pocketCounter + action.pocketsEvent,
       };
-    case actionTypes.ADD_EVENT_POINT: {
-      console.log('VAMOOOOOOOOOOOOOOOOOOOOOO', action.eventPoint);
-      return {
-        ...state,
-        eventListPoints: [...state.eventListPoints, action.eventPoint],
-      };
-    }
 
     default:
       return state;

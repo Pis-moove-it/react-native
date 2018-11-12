@@ -118,11 +118,6 @@ export const incrementPocketCounter = pocketsEvent => ({
   pocketsEvent,
 });
 
-export const addEventPoint = eventPoint => ({
-  type: actionTypes.ADD_EVENT_POINT,
-  eventPoint,
-});
-
 export const startCollection = token => async (dispatch) => {
   dispatch(startCollectionRequest());
   try {

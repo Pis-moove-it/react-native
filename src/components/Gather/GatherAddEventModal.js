@@ -43,14 +43,6 @@ class AddEventModal extends Component {
       this.state.pocketsFromEvent,
       this.props.eventCoordinates,
     );
-    this.props.addEventPoint(<Mapbox.PointAnnotation
-      id={this.props.eventId.toString()}
-      coordinate={this.props.eventCoordinates}
-    >
-      <TouchableOpacity>
-        <Image source={eventContainerImage} style={stylesGather.trashIcon} />
-      </TouchableOpacity>
-                             </Mapbox.PointAnnotation>);
     // connect to backend
     // resets state so further calls wont interfere with next ones
     this.setState({ inputError: false });
