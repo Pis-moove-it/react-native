@@ -3,7 +3,7 @@ import { ActivityIndicator, View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
-import getIsModalVisible, { isLoading, getBaleData } from '../../selectors/CreateBaleModalSelector';
+import getIsModalVisible, { isLoading } from '../../selectors/CreateBaleModalSelector';
 import { closeCreateBaleModal, newBale, actionTypes } from '../../actions/CreateBaleModalActions';
 import strings from '../../localization';
 import ErrorView from '../common/ErrorView';
@@ -16,6 +16,16 @@ import recyclabeleMaterials from './Constants';
 import styles from './styles';
 
 class CreateBaleModal extends Component {
+  static getDerivedStateFromProps(props, state) {
+    if (!props.isModalVisible) {
+      return {
+        state,
+        selectedMaterial: false,
+      };
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
     this.materials = recyclabeleMaterials;
@@ -67,7 +77,7 @@ class CreateBaleModal extends Component {
   };
 
   render() {
-    const { baleData, errors } = this.props;
+    const { errors } = this.props;
     return (
       <Modal
         isVisible={this.props.isModalVisible}
@@ -89,7 +99,6 @@ class CreateBaleModal extends Component {
               selectedValue={this.state.selectedMaterial}
               mode="dropdown"
               onValueChange={value => this.setState({ selectedMaterial: value })}
-              onLayout={() => this.setState({ selectedMaterial: false })}
             >
               {this.getMaterials()}
             </Picker>
@@ -118,7 +127,6 @@ class CreateBaleModal extends Component {
 
 CreateBaleModal.propTypes = {
   bales: PropTypes.array.isRequired,
-  baleData: PropTypes.array.isRequired,
   closeCreateBaleModal: PropTypes.func.isRequired,
   errors: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
@@ -130,7 +138,6 @@ CreateBaleModal.propTypes = {
 
 const mapStateToProps = state => ({
   bales: getBales(state),
-  baleData: getBaleData(state),
   errors: errorsSelector([actionTypes.CREATE_BALE])(state),
   isLoading: isLoading(state),
   isModalVisible: getIsModalVisible(state),
