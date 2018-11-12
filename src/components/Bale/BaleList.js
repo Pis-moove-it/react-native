@@ -48,14 +48,20 @@ class BaleList extends Component {
 
   onEnd = () => {
     this.setState({ pagination: true });
-    this.props
-      .fetchData(this.props.token, this.props.bales, this.state.nextPage, this.props.newBales)
-      .then(() => {
-        this.setState({
-          pagination: false,
-          nextPage: this.state.nextPage + 1,
-        });
+
+    let { newBales } = this.props;
+    let { nextPage } = this.state;
+    if (newBales > 10) {
+      nextPage += Math.floor(newBales / 10);
+      newBales %= 10;
+    }
+
+    this.props.fetchData(this.props.token, this.props.bales, nextPage, newBales).then(() => {
+      this.setState({
+        pagination: false,
+        nextPage: nextPage + 1,
       });
+    });
   };
 
   materialString = (type) => {
