@@ -21,6 +21,7 @@ export const actionTypes = {
   CREATE_EVENT_ERROR: 'CREATE_EVENT_ERROR',
   SET_EVENT_COORDINATES: 'SET_EVENT_COORDINATES',
   INCREMENT_POCKETS_EVENT: 'INCREMENT_POCKETS_EVENT',
+  ADD_EVENT_POINT: 'ADD_EVENT_POINT',
 };
 
 const travelFinished = (travelImage, kmsTraveled, pocketsCollected) => ({
@@ -115,6 +116,11 @@ export const setEventCoordinates = eventCoordinates => ({
 export const incrementPocketCounter = pocketsEvent => ({
   type: actionTypes.INCREMENT_POCKETS_EVENT,
   pocketsEvent,
+});
+
+export const addEventPoint = eventPoint => ({
+  type: actionTypes.ADD_EVENT_POINT,
+  eventPoint,
 });
 
 export const startCollection = token => async (dispatch) => {

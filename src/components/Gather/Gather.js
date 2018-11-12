@@ -38,6 +38,8 @@ import {
   selectPocketCounter,
   selectIsLoadingEvent,
   selecteventId,
+  selectEventCreatedSuccess,
+  selectEventListPoints,
 } from '../../selectors/GatherSelector';
 import ChangeIsleStateModal from '../common/ChangeIsleStateModal';
 import { openChangeIsleStateModal } from '../../actions/ChangeIsleStateModalActions';
@@ -158,8 +160,9 @@ class Gather extends Component {
   createExtraEvent = (e) => {
     this.toggleAddEventModal();
     this.props.setEventCoordinates(e.geometry.coordinates);
-    this.setState({ eventCoordinates: e.geometry.coordinates });
-    this.setState({ showEvents: true });
+    // this.setState({ eventCoordinates: e.geometry.coordinates });
+    // this.generateEvent();
+    // this.setState({ showEvents: true });
   };
 
   calcDistance(newLatLng) {
@@ -244,31 +247,31 @@ class Gather extends Component {
     });
   };
 
-  generateEvent = () => {
-    this.state.eventList.push(<Mapbox.PointAnnotation
-      id={this.props.eventId.toString()}
-      coordinate={this.state.eventCoordinates}
-    >
-      <TouchableOpacity>
-        <Image source={eventContainerImage} style={stylesGather.trashIcon} />
-      </TouchableOpacity>
-    </Mapbox.PointAnnotation>);
+  /*   generateEvent = () => {
+    if (!this.props.isCreatingEvent && this.props.eventCreatedSuccess){
+      this.state.eventList.push(<Mapbox.PointAnnotation
+        id={this.props.eventId.toString()}
+        coordinate={this.state.eventCoordinates}
+      >
+        <TouchableOpacity>
+          <Image source={eventContainerImage} style={stylesGather.trashIcon} />
+        </TouchableOpacity>
+      </Mapbox.PointAnnotation>);
+    }
     return this.state.eventList;
-  };
+  }; */
 
   renderContainers = containers =>
-    containers.map((container) => {
-      return (
-        <Mapbox.PointAnnotation
-          id={container.id.toString()}
-          coordinate={[Number(container.longitude), Number(container.latitude)]}
-        >
-          <TouchableOpacity onPress={() => this.toggleOptionModal(container.id)}>
-            <Image source={icon} style={stylesGather.trashIcon} />
-          </TouchableOpacity>
-        </Mapbox.PointAnnotation>
-      );
-    });
+    containers.map(container => (
+      <Mapbox.PointAnnotation
+        id={container.id.toString()}
+        coordinate={[Number(container.longitude), Number(container.latitude)]}
+      >
+        <TouchableOpacity onPress={() => this.toggleOptionModal(container.id)}>
+          <Image source={icon} style={stylesGather.trashIcon} />
+        </TouchableOpacity>
+      </Mapbox.PointAnnotation>
+    ));
 
   render() {
     return (
@@ -319,8 +322,11 @@ class Gather extends Component {
           style={stylesGather.mapContainer}
         >
           {!this.props.loading && this.renderContainers(this.props.containers)}
-
-          {!this.props.isCreatingEvent && this.state.showEvents && this.generateEvent()}
+          {this.props.eventListPoints}
+          {/* this.state.eventList */}
+          {/*! this.props.isCreatingEvent &&
+          this.props.eventCreatedSuccess  this.state.showEvents  &&
+          this.generateEvent() */}
         </Mapbox.MapView>
       </View>
     );
@@ -348,6 +354,8 @@ Gather.propTypes = {
   eventId: PropTypes.number.isRequired,
   openChangeIsleStateModal: PropTypes.func.isRequired,
   setEventCoordinates: PropTypes.func.isRequired,
+  eventCreatedSuccess: PropTypes.bool.isRequired,
+  eventListPoints: PropTypes.array.isRequired,
 };
 
 Gather.defaultProps = {
@@ -366,6 +374,8 @@ const mapStateToProps = state => ({
   pocketCounter: selectPocketCounter(state),
   isCreatingEvent: selectIsLoadingEvent(state),
   eventId: selecteventId(state),
+  eventCreatedSuccess: selectEventCreatedSuccess(state),
+  eventListPoints: selectEventListPoints(state),
 });
 
 const mapDispatchToProps = dispatch => ({

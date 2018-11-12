@@ -10,3 +10,5 @@ export const selectPocketCounter = state => state.gather.pocketCounter;
 export const selectIsLoadingEvent = state => state.gather.isLoadingEvent;
 export const selecteventId = state => state.gather.eventId;
 export const selectEventCoordinates = state => state.gather.eventCoordinates;
+export const selectEventCreatedSuccess = state => state.gather.eventCreatedSuccess;
+export const selectEventListPoints = state => state.gather.eventListPoints;
