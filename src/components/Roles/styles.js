@@ -51,6 +51,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: Colors.white,
   },
+
+  // Tablet
+
+  titleTablet: {
+    fontSize: 45,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: Colors.primary,
+  },
+  textButtonTablet: {
+    fontSize: 35,
+    color: Colors.white,
+  },
 });
 
 export default styles;
