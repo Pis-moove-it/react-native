@@ -34,8 +34,8 @@ import {
   selectIsTravelling,
   selectPocketCounter,
 } from '../../selectors/GatherSelector';
-import ChangeIsleStateModal from '../common/ChangeIsleStateModal';
-import { openChangeIsleStateModal } from '../../actions/ChangeIsleStateModalActions';
+import ChangeContainerStatusModal from '../common/ChangeContainerStatusModal';
+import { openChangeContainerStatusModal } from '../../actions/ContainerStatusActions';
 import GatherOverlay from './GatherOverlay';
 import GatherPointOptionModal from './GatherPointOptionModal';
 import GatherConfirmExitTripStartedModal from './GatherConfrimExitTripStartedModal';
@@ -177,9 +177,9 @@ class Gather extends Component {
     this.props.openCreatePocketModal();
   };
 
-  toggleChangeIsleStateModal = () => {
+  toggleChangeContainerStatusModal = () => {
     this.toggleOptionModal();
-    this.props.openChangeIsleStateModal(this.props.containerIdSelected);
+    this.props.openChangeContainerStatusModal(this.props.containerIdSelected);
   };
 
   toggleConfirmExitModal = (navigationFunction) => {
@@ -256,12 +256,12 @@ class Gather extends Component {
           collectionId={this.props.collectionId}
           containerIdSelected={this.props.containerIdSelected}
         />
-        <ChangeIsleStateModal />
+        <ChangeContainerStatusModal />
         <GatherPointOptionModal
           isVisible={this.state.isOptionModalVisible}
           onPressActionFst={this.toggleOptionModal}
           onPressActionSnd={this.toggleCreatePocketModal}
-          onPressActionThrd={this.toggleChangeIsleStateModal}
+          onPressActionThrd={this.toggleChangeContainerStatusModal}
         />
         <GatherConfirmExitTripStartedModal
           isVisible={this.state.isConfirmExitModalVisible}
@@ -300,7 +300,7 @@ Gather.propTypes = {
   containerIdSelected: PropTypes.number.isRequired,
   isTravelling: PropTypes.bool.isRequired,
   pocketCounter: PropTypes.number.isRequired,
-  openChangeIsleStateModal: PropTypes.func.isRequired,
+  openChangeContainerStatusModal: PropTypes.func.isRequired,
 };
 
 Gather.defaultProps = {
@@ -329,7 +329,7 @@ const mapDispatchToProps = dispatch => ({
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),
   setContainerId: containerId => dispatch(setContainerId(containerId)),
-  openChangeIsleStateModal: container => dispatch(openChangeIsleStateModal(container)),
+  openChangeContainerStatusModal: container => dispatch(openChangeContainerStatusModal(container)),
 });
 
 export default connect(

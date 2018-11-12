@@ -1,6 +1,6 @@
 import strings from '../../localization/';
 
-const recyclabeleMaterials = [
+const recyclableMaterials = [
   {
     id: '1',
     name: strings.plastic,
@@ -18,11 +18,11 @@ const recyclabeleMaterials = [
   },
 ];
 
-export const isleStates = [
+export const possibleContainerStatus = [
   {
     id: '1',
     name: strings.ok,
-    value: 'OK',
+    value: 'Ok',
   },
   {
     id: '2',
@@ -36,4 +36,4 @@ export const isleStates = [
   },
 ];
 
-export default recyclabeleMaterials;
+export default recyclableMaterials;

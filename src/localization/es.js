@@ -63,10 +63,10 @@ export default {
   invalidInputId: 'Por favor ingrese un identificador válido ',
   invalidInputType: 'Por favor ingrese un tipo de material válido ',
 
-  // Change Isle State Modal
-  changeStateIsleTitle: 'Cambiar estado de la Isla ',
-  selectState: 'Seleccione un nuevo estado ',
-  invalidInputState: 'Por favor ingrese un estado válido ',
+  // Change Container Status Modal
+  changeContainerStatusTitle: 'Cambiar estado de la Isla ',
+  selectStatus: 'Seleccione un nuevo estado ',
+  invalidInputStatus: 'Por favor ingrese un estado válido ',
   ok: 'OK ',
   damaged: 'Dañado ',
   removed: 'Removido ',
@@ -107,7 +107,7 @@ export default {
   collectionPoint: 'Punto de recolección ',
 
   // Gather option modal
-  changeStateIsle: 'Cambiar estado ',
+  changeContainerStatus: 'Cambiar estado ',
   newPocket: 'Agregar bolsón ',
   optionsModalGather: 'Opciones ',
 

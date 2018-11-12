@@ -9,7 +9,10 @@ import pencilIcon from '../../assets/ic_common/ic_editPencil.png';
 import stylesGather from './styles';
 
 const GatherPointOptionModal = ({
-  isVisible, onPressActionFst, onPressActionSnd, onPressActionThrd,
+  isVisible,
+  onPressActionFst,
+  onPressActionSnd,
+  onPressActionThrd,
 }) => (
   <Modal
     isVisible={isVisible}
@@ -25,7 +28,7 @@ const GatherPointOptionModal = ({
         <CustomButton
           style={stylesGather.buttonModal}
           textStyle={stylesGather.textButton}
-          title={strings.changeStateIsle}
+          title={strings.changeContainerStatus}
           onPress={onPressActionThrd}
           icon={pencilIcon}
         />

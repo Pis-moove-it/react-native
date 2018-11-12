@@ -12,7 +12,7 @@ import createPocketModal from './CreatePocketModalReducer';
 import gather from './GatherReducer';
 import editPocketModal from './EditPocketModalReducer';
 import pockets from './PocketReducer';
-import changeIsleState from './ChangeIsleStateModalReducer';
+import containerStatus from './ContainerStatusReducer';
 
 const rootReducer = combineReducers({
   loading,
@@ -28,7 +28,7 @@ const rootReducer = combineReducers({
   createPocketModal,
   gather,
   editPocketModal,
-  changeIsleState,
+  containerStatus,
 });
 
 export default rootReducer;

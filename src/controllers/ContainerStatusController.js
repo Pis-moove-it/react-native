@@ -25,11 +25,13 @@ class ContainerStatusController {
           },
         )
         .then((response) => {
+          console.log('RES', response.data);
           resolve({
             containerData: response.data,
           });
         })
         .catch((error) => {
+          console.log('ERR', error);
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
           else reject(new Error(strings.errorChangeContainerStatus));
         });
