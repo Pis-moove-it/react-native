@@ -39,111 +39,73 @@ describe('gather reducer', () => {
 
   it('should return a state with isFetching in true', () => {
     expect(gatherReducer(initialState, {
-      collectionId: false,
       type: actionTypes.START_COLLECTION_REQUEST,
     })).toEqual({
-      collectionId: false,
-      containerIdSelected: null,
-      containers: [],
-      eventCoordinates: false,
-      eventCreatedSuccess: false,
-      isLoadingEvent: false,
-      eventId: false,
-      isLoading: true,
-      isLoadingContainers: false,
-      isTravelling: true,
-      kmsTraveled: 0,
-      pocketCounter: 0,
-      pocketsCollected: 0,
       travelImage: false,
-    });
-  });
-
-  it('should a state with isFetching in true', () => {
-    expect(gatherReducer(initialState, {
-      collectionId: false,
-      type: createPocketactionTypes.ADD_POCKET_REQUEST,
-    })).toEqual({
-      collectionId: false,
-      containerIdSelected: null,
-      containers: [],
-      eventCoordinates: false,
-      eventCreatedSuccess: false,
-      isLoadingEvent: false,
-      eventId: false,
-      isLoading: true,
-      isLoadingContainers: false,
-      isTravelling: false,
       kmsTraveled: 0,
-      pocketCounter: 0,
       pocketsCollected: 0,
-      travelImage: false,
-    });
-  });
-
-  it('should a state with isFetching in true', () => {
-    expect(gatherReducer(initialState, {
       collectionId: false,
-      type: createPocketactionTypes.ADD_POCKET_SUCCESS,
-    })).toEqual({
-      collectionId: false,
-      containerIdSelected: null,
-      containers: [],
-      eventCoordinates: false,
-      eventCreatedSuccess: false,
-      isLoadingEvent: false,
-      eventId: false,
       isLoading: false,
+      containers: [],
       isLoadingContainers: false,
+      containerIdSelected: null,
       isTravelling: false,
-      kmsTraveled: 0,
-      pocketCounter: 1,
-      pocketsCollected: 0,
-      travelImage: false,
+      pocketCounter: 0,
+      isLoadingEvent: false,
+      isOverlayVisible: true,
+      isOverlayLoading: true,
+      finishSuccess: false,
+      eventId: false,
+      eventCoordinates: false,
+      eventCreatedSuccess: false,
     });
   });
 
   it('should a state with isFetching in true', () => {
     expect(gatherReducer(initialState, {
-      collectionId: false,
       type: actionTypes.END_COLLECTION_REQUEST,
     })).toEqual({
+      travelImage: false,
+      kmsTraveled: 0,
+      pocketsCollected: 0,
       collectionId: false,
-      containerIdSelected: null,
+      isLoading: true,
       containers: [],
+      isLoadingContainers: false,
+      containerIdSelected: null,
+      isTravelling: false,
+      pocketCounter: 0,
+      isLoadingEvent: false,
+      isOverlayVisible: true,
+      isOverlayLoading: false,
+      finishSuccess: false,
+      eventId: false,
       eventCoordinates: false,
       eventCreatedSuccess: false,
-      isLoadingEvent: false,
-      eventId: false,
-      isLoading: true,
-      isLoadingContainers: false,
-      isTravelling: false,
-      kmsTraveled: 0,
-      pocketCounter: 0,
-      pocketsCollected: 0,
-      travelImage: false,
     });
   });
 
   it('should a state with isFetching in true', () => {
     expect(gatherReducer(initialState, {
-      collectionId: false,
       type: actionTypes.END_COLLECTION_SUCCESS,
     })).toEqual({
+      travelImage: false,
+      kmsTraveled: 0,
+      pocketsCollected: 0,
       collectionId: false,
-      containerIdSelected: null,
+      isLoading: false,
       containers: [],
+      isLoadingContainers: false,
+      containerIdSelected: null,
+      isTravelling: false,
+      pocketCounter: 0,
+      isLoadingEvent: false,
+      isOverlayVisible: true,
+      isOverlayLoading: false,
+      finishSuccess: true,
+      eventId: false,
       eventCoordinates: false,
       eventCreatedSuccess: false,
-      isLoadingEvent: false,
-      eventId: false,
-      isLoading: false,
-      isLoadingContainers: false,
-      isTravelling: false,
-      kmsTraveled: 0,
-      pocketCounter: 0,
-      pocketsCollected: 0,
-      travelImage: false,
     });
   });
 });
