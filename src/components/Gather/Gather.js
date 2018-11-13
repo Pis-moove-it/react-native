@@ -251,14 +251,19 @@ class Gather extends Component {
   };
 
   generateEvent = () => {
-    this.state.eventList.push(<Mapbox.PointAnnotation
-      id={this.props.eventId.toString()}
-      coordinate={this.state.eventCoordinates}
-    >
-      <TouchableOpacity>
-        <Image source={eventContainerImage} style={stylesGather.trashIcon} />
-      </TouchableOpacity>
-                              </Mapbox.PointAnnotation>);
+    this.setState(prevState => ({
+      eventList: [
+        ...prevState.eventList,
+        <Mapbox.PointAnnotation
+          id={this.props.eventId.toString()}
+          coordinate={this.state.eventCoordinates}
+        >
+          <TouchableOpacity>
+            <Image source={eventContainerImage} style={stylesGather.trashIcon} />
+          </TouchableOpacity>
+        </Mapbox.PointAnnotation>,
+      ],
+    }));
     return this.state.eventList;
   };
 
