@@ -23,24 +23,12 @@ class AddEventModal extends Component {
     descriptionSubmitted: false,
   };
 
-  acceptEdit = () => {
-    if (this.state.identifier > 0) {
-      this.setState(prevState => ({
-        pocketsFromEvent: [...prevState.pocketsFromEvent, { serial_number: this.state.identifier }],
-        identifier: 0,
-      }));
-    } else {
-      this.setState({ inputError: true });
-      this.setState({ errors: [strings.invalidInputId] });
-    }
-  };
-
   closeModal = () => {
     this.props.createExtraEvent(
       this.props.token,
       this.props.collectionId,
       this.state.description,
-      this.state.pocketsFromEvent,
+      this.state.identifier,
       this.props.eventCoordinates,
     );
 
@@ -56,7 +44,7 @@ class AddEventModal extends Component {
   };
 
   acceptAndClose = () => {
-    this.acceptEdit();
+    // this.acceptEdit();
     this.closeModal();
   };
 

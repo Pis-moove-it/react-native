@@ -148,7 +148,7 @@ export const createExtraEvent = (
       pockets,
       coordinates,
     );
-    dispatch(incrementPocketCounter(pockets.length));
+    dispatch(incrementPocketCounter(1));
     dispatch(createEventSuccess(eventId));
   } catch (error) {
     dispatch(createEventError(error.message));
