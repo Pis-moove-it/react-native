@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Image, Picker, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { isPhone } from 'react-native-device-detection';
 import Button from '../common/Button';
 import ErrorView from '../common/ErrorView';
 import Colors from '../../helpers/Colors';
@@ -64,11 +65,11 @@ class User extends Component {
         </View>
         <View style={[styles.bottomContainer, ShadowStyles.shadow]}>
           {this.props.dataFetch.length > 0 ? (
-            <View style={styles.pickerContainer}>
+            <View style={isPhone ? styles.pickerContainer : styles.pickerContainerTablet}>
               <Image source={avatar} style={styles.icon} />
               <Picker
                 selectedValue={this.state.identifier}
-                style={styles.picker}
+                style={isPhone ? styles.picker : styles.pickerTablet}
                 mode="dialog"
                 onValueChange={this.usernameChanged}
               >
@@ -85,8 +86,8 @@ class User extends Component {
             </View>
           ) : (
             <Button
-              style={styles.button}
-              textStyle={styles.textButton}
+              style={isPhone ? styles.button : styles.buttonTablet}
+              textStyle={isPhone ? styles.textButton : styles.textButtonTablet}
               onPress={this.state.identifier ? this.login : null}
               title={strings.enter}
             />

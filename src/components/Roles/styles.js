@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   // Tablet
 
   titleTablet: {
-    fontSize: 45,
+    fontSize: 50,
     fontWeight: 'bold',
     textAlign: 'center',
     color: Colors.primary,

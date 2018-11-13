@@ -50,7 +50,7 @@ export default {
   baleComponentBale: 'Fardo ',
   type: 'Tipo ',
   weight: 'Peso ',
-  baleButtonText: 'Modificar fardo ',
+  baleButtonText: 'Editar fardo ',
   bale: 'Fardo ',
   moreContent: 'Presione para los próximos 10',
 
@@ -107,7 +107,7 @@ export default {
   pocket: 'Bolsón ',
   unweighted: 'Sin pesar ',
   pocketButtonWeightText: 'Pesar ',
-  pocketButtonEditWeightText: 'Modificar peso ',
+  pocketButtonEditWeightText: 'Editar peso ',
   information: 'Información ',
   collectionPoint: 'Punto de recolección ',
 

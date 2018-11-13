@@ -33,6 +33,17 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: Colors.gray,
   },
+  pickerContainerTablet: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    height: 50,
+    width: '50%',
+    borderRadius: 5,
+    borderWidth: 0.5,
+    borderColor: Colors.gray,
+  },
   icon: {
     height: 30,
     width: 30,
@@ -43,6 +54,12 @@ const styles = StyleSheet.create({
     width: '70%',
     margin: '5%',
   },
+  pickerTablet: {
+    justifyContent: 'center',
+    width: '70%',
+    margin: '5%',
+    height: 25,
+  },
   activityIndicator: {
     margin: '2%',
   },
@@ -51,8 +68,17 @@ const styles = StyleSheet.create({
     width: '60%',
     backgroundColor: Colors.primary,
   },
+  buttonTablet: {
+    alignSelf: 'center',
+    width: '50%',
+    backgroundColor: Colors.primary,
+  },
   textButton: {
     color: Colors.white,
+  },
+  textButtonTablet: {
+    color: Colors.white,
+    fontSize: 30,
   },
 });
 
