@@ -19,7 +19,6 @@ import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import getCollection from '../../selectors/RouteSelector';
-import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import icon from '../../assets/images/MapPointIcon.png';
 import Logo01 from '../../assets/images/Logo01.png';
@@ -38,9 +37,10 @@ import {
   selectPocketCounter,
   selectIsLoadingEvent,
   selecteventId,
+  selectEventCreatedSuccess,
 } from '../../selectors/GatherSelector';
-import ChangeIsleStateModal from '../common/ChangeIsleStateModal';
-import { openChangeIsleStateModal } from '../../actions/ChangeIsleStateModalActions';
+import ChangeContainerStatusModal from '../common/ChangeContainerStatusModal';
+import { openChangeContainerStatusModal } from '../../actions/ContainerStatusActions';
 import GatherOverlay from './GatherOverlay';
 import GatherPointOptionModal from './GatherPointOptionModal';
 import AddEventModal from './GatherAddEventModal';
@@ -69,7 +69,6 @@ class Gather extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      landscape: Platform.isLandscape(),
       coordinates: { coords: [] },
       distanceTravelled: 0,
       prevLatLng: null,
@@ -86,7 +85,7 @@ class Gather extends Component {
   }
 
   componentDidMount() {
-    if (isTablet || this.state.landscape) {
+    if (isTablet) {
       this.setButtonsTablet(this.props.user);
     }
 
@@ -117,6 +116,12 @@ class Gather extends Component {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.eventCreatedSuccess === false && nextProps.eventCreatedSuccess === true) {
+      this.generateEvent();
+    }
+  }
+
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchId);
     this.backHandler.remove();
@@ -142,12 +147,6 @@ class Gather extends Component {
             icon: user128,
             style: { color: Colors.white, width: 170 },
             textStyle: { margin: 10 },
-            onPress: () =>
-              this.props.navigator.push({
-                screen: Screens.Profile,
-                animationType: 'fade',
-                title: strings.profile,
-              }),
           },
         },
       ],
@@ -159,7 +158,6 @@ class Gather extends Component {
     this.toggleAddEventModal();
     this.props.setEventCoordinates(e.geometry.coordinates);
     this.setState({ eventCoordinates: e.geometry.coordinates });
-    this.setState({ showEvents: true });
   };
 
   calcDistance(newLatLng) {
@@ -194,9 +192,9 @@ class Gather extends Component {
     this.props.openCreatePocketModal();
   };
 
-  toggleChangeIsleStateModal = () => {
+  toggleChangeContainerStatusModal = () => {
     this.toggleOptionModal();
-    this.props.openChangeIsleStateModal();
+    this.props.openChangeContainerStatusModal(this.props.containerIdSelected);
   };
 
   toggleConfirmExitModal = (navigationFunction) => {
@@ -252,23 +250,21 @@ class Gather extends Component {
       <TouchableOpacity>
         <Image source={eventContainerImage} style={stylesGather.trashIcon} />
       </TouchableOpacity>
-    </Mapbox.PointAnnotation>);
+                              </Mapbox.PointAnnotation>);
     return this.state.eventList;
   };
 
   renderContainers = containers =>
-    containers.map((container) => {
-      return (
-        <Mapbox.PointAnnotation
-          id={container.id.toString()}
-          coordinate={[Number(container.longitude), Number(container.latitude)]}
-        >
-          <TouchableOpacity onPress={() => this.toggleOptionModal(container.id)}>
-            <Image source={icon} style={stylesGather.trashIcon} />
-          </TouchableOpacity>
-        </Mapbox.PointAnnotation>
-      );
-    });
+    containers.map(container => (
+      <Mapbox.PointAnnotation
+        id={container.id.toString()}
+        coordinate={[Number(container.longitude), Number(container.latitude)]}
+      >
+        <TouchableOpacity onPress={() => this.toggleOptionModal(container.id)}>
+          <Image source={icon} style={stylesGather.trashIcon} />
+        </TouchableOpacity>
+      </Mapbox.PointAnnotation>
+    ));
 
   render() {
     return (
@@ -291,12 +287,12 @@ class Gather extends Component {
           collectionId={this.props.collectionId}
           containerIdSelected={this.props.containerIdSelected}
         />
-        <ChangeIsleStateModal />
+        <ChangeContainerStatusModal />
         <GatherPointOptionModal
           isVisible={this.state.isOptionModalVisible}
           onPressActionFst={this.toggleOptionModal}
           onPressActionSnd={this.toggleCreatePocketModal}
-          onPressActionThrd={this.toggleChangeIsleStateModal}
+          onPressActionThrd={this.toggleChangeContainerStatusModal}
         />
         <GatherConfirmExitTripStartedModal
           isVisible={this.state.isConfirmExitModalVisible}
@@ -319,8 +315,7 @@ class Gather extends Component {
           style={stylesGather.mapContainer}
         >
           {!this.props.loading && this.renderContainers(this.props.containers)}
-
-          {!this.props.isCreatingEvent && this.state.showEvents && this.generateEvent()}
+          {this.state.eventList}
         </Mapbox.MapView>
       </View>
     );
@@ -343,11 +338,12 @@ Gather.propTypes = {
   containerIdSelected: PropTypes.number.isRequired,
   isTravelling: PropTypes.bool.isRequired,
   pocketCounter: PropTypes.number.isRequired,
+  openChangeContainerStatusModal: PropTypes.func.isRequired,
   createExtraEvent: PropTypes.func.isRequired,
   isCreatingEvent: PropTypes.bool.isRequired,
   eventId: PropTypes.number.isRequired,
-  openChangeIsleStateModal: PropTypes.func.isRequired,
   setEventCoordinates: PropTypes.func.isRequired,
+  eventCreatedSuccess: PropTypes.bool.isRequired,
 };
 
 Gather.defaultProps = {
@@ -366,6 +362,7 @@ const mapStateToProps = state => ({
   pocketCounter: selectPocketCounter(state),
   isCreatingEvent: selectIsLoadingEvent(state),
   eventId: selecteventId(state),
+  eventCreatedSuccess: selectEventCreatedSuccess(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -378,9 +375,9 @@ const mapDispatchToProps = dispatch => ({
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),
   setContainerId: containerId => dispatch(setContainerId(containerId)),
+  openChangeContainerStatusModal: container => dispatch(openChangeContainerStatusModal(container)),
   createExtraEvent: (token, routeId, description, pocket, coordinates) =>
     dispatch(createExtraEvent(token, routeId, description, pocket, coordinates)),
-  openChangeIsleStateModal: () => dispatch(openChangeIsleStateModal()),
   setEventCoordinates: eventCoordinates => dispatch(setEventCoordinates(eventCoordinates)),
 });
 

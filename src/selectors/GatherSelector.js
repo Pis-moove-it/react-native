@@ -11,3 +11,4 @@ export const isLoading = state => state.gather.isLoading;
 export const selectIsLoadingEvent = state => state.gather.isLoadingEvent;
 export const selecteventId = state => state.gather.eventId;
 export const selectEventCoordinates = state => state.gather.eventCoordinates;
+export const selectEventCreatedSuccess = state => state.gather.eventCreatedSuccess;

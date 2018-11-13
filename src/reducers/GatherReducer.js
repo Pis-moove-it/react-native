@@ -15,6 +15,7 @@ export const initialState = {
   isLoadingEvent: false,
   eventId: false,
   eventCoordinates: false,
+  eventCreatedSuccess: false,
 };
 
 const gatherReducer = (state = initialState, action) => {
@@ -88,12 +89,14 @@ const gatherReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoadingEvent: true,
+        eventCreatedSuccess: false,
       };
     case actionTypes.CREATE_EVENT_SUCCESS:
       return {
         ...state,
         isLoadingEvent: false,
         eventId: action.eventId,
+        eventCreatedSuccess: true,
       };
     case actionTypes.SET_EVENT_COORDINATES:
       return {
@@ -106,6 +109,7 @@ const gatherReducer = (state = initialState, action) => {
         isLoading: false,
         pocketCounter: state.pocketCounter + action.pocketsEvent,
       };
+
     default:
       return state;
   }

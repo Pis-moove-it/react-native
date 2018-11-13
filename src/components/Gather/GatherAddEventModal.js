@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import Mapbox from '@mapbox/react-native-mapbox-gl';
 import Modal from 'react-native-modal';
 import TextField from '../common/TextField';
-import { createExtraEvent } from '../../actions/GatherActions';
-import { selectEventCoordinates } from '../../selectors/GatherSelector';
+import { createExtraEvent, addEventPoint } from '../../actions/GatherActions';
+import { selectEventCoordinates, selecteventId } from '../../selectors/GatherSelector';
 import strings from '../../localization';
 import CustomButton from '../common/CustomButton';
 import ErrorView from '../common/ErrorView';
 import Button from '../common/Button';
+import eventContainerImage from '../../assets/images/MapPointIconBlue.png';
 import stylesGather from './styles';
 
 class AddEventModal extends Component {
@@ -112,11 +114,11 @@ class AddEventModal extends Component {
       >
         <View style={stylesGather.modalContainer}>
           <View style={stylesGather.modalTitleContainer}>
-            {this.state.descriptionSubmitted ?
+            {this.state.descriptionSubmitted ? (
               <Text style={stylesGather.modalTitle}>{strings.createPocket}</Text>
-            :
+            ) : (
               <Text style={stylesGather.modalTitle}>{strings.descriptionEvent}</Text>
-            }
+            )}
           </View>
           <View>
             {this.renderModal(this.state.descriptionSubmitted)}
@@ -137,16 +139,20 @@ AddEventModal.propTypes = {
   createExtraEvent: PropTypes.func.isRequired,
   eventCoordinates: PropTypes.array.isRequired,
   collectionId: PropTypes.string.isRequired,
+  addEventPoint: PropTypes.func.isRequired,
+  eventId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
   token: state.login.token,
   eventCoordinates: selectEventCoordinates(state),
+  eventId: selecteventId(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   createExtraEvent: (token, routeId, description, pocket, coordinates) =>
     dispatch(createExtraEvent(token, routeId, description, pocket, coordinates)),
+  addEventPoint: eventPoint => dispatch(addEventPoint(eventPoint)),
 });
 
 export default connect(

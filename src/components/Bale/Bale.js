@@ -7,7 +7,6 @@ import { changeRole } from '../../actions/RoleActions';
 import { openCreateBaleModal } from '../../actions/CreateBaleModalActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
-import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import Logo01 from '../../assets/images/Logo01.png';
 import user128 from '../../assets/ic_user/ic_user128.png';
@@ -36,14 +35,11 @@ class Bale extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      landscape: Platform.isLandscape(),
-    };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    if (isTablet || this.state.landscape) {
+    if (isTablet) {
       this.setButtonsTablet(this.props.user);
     } else {
       this.setButtonsPhone();
