@@ -11,6 +11,7 @@ import { changeRole } from '../../actions/RoleActions';
 import {
   startCollection,
   getContainers,
+  cancelCollection,
   endCollection,
   setContainerId,
   createExtraEvent,
@@ -145,7 +146,7 @@ class Gather extends Component {
   onNavigatorEvent(event) {
     if (event.id === 'logo') {
       this.toggleConfirmExitModal(() => {
-        this.finishTravel();
+        this.cancelTravel();
         this.changeRole();
       });
     }
@@ -195,7 +196,7 @@ class Gather extends Component {
 
   backButtonPressOverride = () => {
     this.toggleConfirmExitModal(() => {
-      this.finishTravel();
+      this.cancelTravel();
       this.changeRole();
     });
     return true;
@@ -237,6 +238,10 @@ class Gather extends Component {
     this.props.navigator.pop();
   };
 
+  cancelTravel = () => {
+    this.props.cancelCollection();
+  };
+
   finishTravel = () => {
     this.setState({ finish: true });
 
@@ -254,10 +259,6 @@ class Gather extends Component {
       this.state.coordinates.coords,
       this.props.pocketCounter,
     );
-  };
-
-  completeTravel = () => {
-    this.finishTravel();
   };
 
   generateEvent = () => {
@@ -300,7 +301,7 @@ class Gather extends Component {
           textStyle={
             isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
           }
-          onPress={this.completeTravel}
+          onPress={this.finishTravel}
         />
 
         <CreatePocketModal
@@ -343,6 +344,7 @@ class Gather extends Component {
 }
 
 Gather.propTypes = {
+  cancelCollection: PropTypes.func.isRequired,
   errors: PropTypes.array.isRequired,
   changeRole: PropTypes.func.isRequired,
   endCollection: PropTypes.func.isRequired,
@@ -386,6 +388,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   changeRole: () => dispatch(changeRole()),
+  cancelCollection: () => dispatch(cancelCollection()),
   endCollection: (token, routeId, routeLength, routeImage, pocketCounter) =>
     dispatch(endCollection(token, routeId, routeLength, routeImage, pocketCounter)),
   openCreatePocketModal: () => dispatch(openCreatePocketModal()),

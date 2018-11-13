@@ -22,6 +22,9 @@ export const actionTypes = {
   SET_EVENT_COORDINATES: 'SET_EVENT_COORDINATES',
   INCREMENT_POCKETS_EVENT: 'INCREMENT_POCKETS_EVENT',
   ADD_EVENT_POINT: 'ADD_EVENT_POINT',
+  CANCEL_COLLECTION: 'CANCEL_COLLECTION',
+  CANCEL_COLLECTION_REQUEST: 'CANCEL_COLLECTION_REQUEST',
+  CANCEL_COLLECTION_SUCCESS: 'CANCEL_COLLECTION_SUCCESS',
 };
 
 const travelFinished = (travelImage, kmsTraveled, pocketsCollected) => ({
@@ -113,6 +116,15 @@ export const startCollection = token => async (dispatch) => {
   } catch (error) {
     dispatch(startCollectionError(error.message));
   }
+};
+
+const cancelCollectionRequest = () => ({
+  type: actionTypes.CANCEL_COLLECTION_REQUEST,
+});
+
+export const cancelCollection = () => async (dispatch) => {
+  dispatch(endCollectionRequest());
+  await dispatch(cancelCollectionRequest());
 };
 
 export const endCollection = (

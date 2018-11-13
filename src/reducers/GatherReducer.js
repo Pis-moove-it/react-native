@@ -32,6 +32,27 @@ const gatherReducer = (state = initialState, action) => {
         isOverlayVisible: true,
         finishSuccess: false,
       };
+    case actionTypes.CANCEL_COLLECTION_REQUEST:
+      return {
+        ...state,
+        travelImage: false,
+        kmsTraveled: 0,
+        pocketsCollected: 0,
+        collectionId: false,
+        isLoading: false,
+        containers: [],
+        isLoadingContainers: false,
+        containerIdSelected: null,
+        isTravelling: false,
+        pocketCounter: 0,
+        isLoadingEvent: false,
+        isOverlayVisible: true,
+        isOverlayLoading: false,
+        finishSuccess: false,
+        eventId: false,
+        eventCoordinates: false,
+        eventCreatedSuccess: false,
+      };
     case actionTypes.START_COLLECTION_REQUEST:
       return {
         ...state,
