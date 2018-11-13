@@ -141,6 +141,48 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     color: Colors.black,
   },
+
+  // Tablet
+  titleTablet: {
+    fontSize: 40,
+    fontWeight: '800',
+    color: Colors.primary,
+    alignSelf: 'center',
+  },
+  dateAndHourTitleTablet: {
+    fontSize: 30,
+    fontWeight: '700',
+    color: Colors.primary,
+  },
+  dateSubtitleTablet: {
+    fontSize: 25,
+    fontWeight: '300',
+    color: Colors.black,
+    marginLeft: 5,
+  },
+  hourSubtitleTablet: {
+    fontSize: 25,
+    fontWeight: '300',
+    color: Colors.black,
+    marginRight: 10, // this is because of the space at the end of the "Hour" string
+  },
+  kmsAndPocketsContainerTablet: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginVertical: 12,
+    marginHorizontal: '5%',
+    alignItems: 'center',
+  },
+  kmsAndPocketsTitleTablet: {
+    fontSize: 27,
+    fontWeight: '600',
+    color: Colors.primary,
+  },
+  kmsAndPocketsSubtitleTablet: {
+    fontSize: 30,
+    fontWeight: '700',
+    color: Colors.black,
+  },
 });
 
 export default styles;

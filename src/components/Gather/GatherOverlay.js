@@ -3,6 +3,7 @@ import { Text, View, ActivityIndicator } from 'react-native';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { isTablet } from 'react-native-device-detection';
 import Colors from '../../helpers/Colors';
 import strings from '../../localization/';
 import Button from '../common/Button';
@@ -46,10 +47,14 @@ class ModalTester extends Component {
             </View>
           ) : (
             <View style={stylesGather.container}>
-              <Text style={stylesGather.overlayTimeText}>
+              <Text
+                style={isTablet ? stylesGather.overlayTimeTextTablet : stylesGather.overlayTimeText}
+              >
                 {`${this.state.currentHour}:${this.state.currentMinute}`}
               </Text>
-              <Text style={stylesGather.overlayDayText}>
+              <Text
+                style={isTablet ? stylesGather.overlayDayTextTablet : stylesGather.overlayDayText}
+              >
                 {`${this.state.currentDayName}`}
                 {`${this.state.currentDay}, `}
                 {`${this.state.currentMonth}`}
@@ -57,8 +62,8 @@ class ModalTester extends Component {
               </Text>
               <ErrorView errors={errors} />
               <Button
-                style={stylesGather.button}
-                textStyle={stylesGather.text}
+                style={isTablet ? stylesGather.buttonTablet : stylesGather.button}
+                textStyle={isTablet ? stylesGather.textButtonTablet : stylesGather.text}
                 title={strings.startTravel}
                 onPress={this.toggleModal}
               />

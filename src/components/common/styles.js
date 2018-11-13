@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { isTablet } from 'react-native-device-detection';
 import Colors from '../../helpers/Colors';
 
 const styles = StyleSheet.create({
@@ -49,33 +50,48 @@ const styles = StyleSheet.create({
   },
 
   // EditModal
-  modalContainer: {
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    backgroundColor: Colors.white,
-    height: 400,
-    width: 400,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  modalContainer: isTablet
+    ? {
+      borderRadius: 4,
+      borderWidth: 2,
+      borderColor: Colors.primary,
+      backgroundColor: Colors.white,
+      height: 500,
+      width: 500,
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
+    : {
+      borderRadius: 4,
+      borderWidth: 2,
+      borderColor: Colors.primary,
+      backgroundColor: Colors.white,
+      height: 400,
+      width: 400,
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   buttonModal: {
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'center',
-    alignItems: 'center',
     height: 50,
     width: 200,
   },
   modalTitleContainer: {
     paddingBottom: 20,
   },
-  modalTitle: {
-    fontSize: 30,
-    color: Colors.primary,
-  },
+  modalTitle: isTablet
+    ? {
+      fontSize: 45,
+      color: Colors.primary,
+    }
+    : {
+      fontSize: 30,
+      color: Colors.primary,
+    },
   buttonText: {
     fontSize: 15,
     color: Colors.white,

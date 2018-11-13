@@ -19,6 +19,13 @@ const styles = StyleSheet.create({
     width: 150,
     zIndex: 1,
   },
+  logoTablet: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    height: 250,
+    width: 250,
+    zIndex: 1,
+  },
   bottomContainer: {
     flex: 1,
   },

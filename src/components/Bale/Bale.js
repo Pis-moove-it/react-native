@@ -77,7 +77,7 @@ class Bale extends Component {
             title: name,
             icon: user128,
             style: styles.tabletHeaderButton,
-            textStyle: { margin: 10 },
+            textStyle: styles.tabletHeaderText,
             onPress: () =>
               this.props.navigator.push({
                 screen: Screens.Profile,
@@ -93,7 +93,7 @@ class Bale extends Component {
             title: strings.createBale,
             icon: baleIcon,
             style: styles.tabletHeaderButton,
-            textStyle: { margin: 10 },
+            textStyle: styles.tabletHeaderText,
             onPress: () => this.props.openCreateBaleModal(),
           },
         },

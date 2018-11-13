@@ -120,20 +120,26 @@ class TravelFinished extends Component {
       return (
         <View style={styles.container}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}> {strings.summary} </Text>
+            <Text style={isTablet ? styles.titleTablet : styles.title}> {strings.summary} </Text>
           </View>
           <View style={styles.dateAndHourContainer}>
             <View style={styles.dateContainer}>
-              <Text style={styles.dateAndHourTitle}> {strings.date} </Text>
-              <Text style={styles.dateSubtitle}>
+              <Text style={isTablet ? styles.dateAndHourTitleTablet : styles.dateAndHourTitle}>
+                {' '}
+                {strings.date}{' '}
+              </Text>
+              <Text style={isTablet ? styles.dateSubtitleTablet : styles.dateSubtitle}>
                 {this.state.currentDayName}
                 {this.state.currentDay}, {this.state.currentMonth}
                 {this.state.currentYear}
               </Text>
             </View>
             <View style={styles.hourContainer}>
-              <Text style={styles.dateAndHourTitle}> {strings.hour} </Text>
-              <Text style={styles.hourSubtitle}>
+              <Text style={isTablet ? styles.dateAndHourTitleTablet : styles.dateAndHourTitle}>
+                {' '}
+                {strings.hour}{' '}
+              </Text>
+              <Text style={isTablet ? styles.hourSubtitleTablet : styles.hourSubtitle}>
                 {this.state.currentHour}:{this.state.currentMinute}
               </Text>
             </View>
@@ -155,18 +161,30 @@ class TravelFinished extends Component {
             </Mapbox.ShapeSource>
           </Mapbox.MapView>
 
-          <View style={styles.kmsAndPocketsContainer}>
+          <View
+            style={isTablet ? styles.kmsAndPocketsContainerTablet : styles.kmsAndPocketsContainer}
+          >
             <View style={styles.kmsContainer}>
-              <Text style={styles.kmsAndPocketsTitle}> {strings.kmsTraveled.toUpperCase()} </Text>
-              <Text style={styles.kmsAndPocketsSubtitle}>
+              <Text style={isTablet ? styles.kmsAndPocketsTitleTablet : styles.kmsAndPocketsTitle}>
+                {' '}
+                {strings.kmsTraveled.toUpperCase()}{' '}
+              </Text>
+              <Text
+                style={isTablet ? styles.kmsAndPocketsSubtitleTablet : styles.kmsAndPocketsSubtitle}
+              >
                 {this.props.kmsTraveled.toFixed(2)} km
               </Text>
             </View>
             <View style={styles.pocketsContainer}>
-              <Text style={styles.kmsAndPocketsTitle}>
+              <Text style={isTablet ? styles.kmsAndPocketsTitleTablet : styles.kmsAndPocketsTitle}>
                 {strings.pocketsCollected.toUpperCase()}
               </Text>
-              <Text style={styles.kmsAndPocketsSubtitle}> {this.props.pocketsCollected} </Text>
+              <Text
+                style={isTablet ? styles.kmsAndPocketsSubtitleTablet : styles.kmsAndPocketsSubtitle}
+              >
+                {' '}
+                {this.props.pocketsCollected}{' '}
+              </Text>
             </View>
           </View>
         </View>

@@ -128,6 +128,10 @@ const styles = StyleSheet.create({
     color: Colors.white,
     width: 170,
   },
+  tabletHeaderText: {
+    margin: 10,
+    fontSize: 16,
+  },
 
   // Modal styles
   modalContainer: {

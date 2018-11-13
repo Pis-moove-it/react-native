@@ -61,7 +61,7 @@ class User extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.topContainer}>
-          <Image source={reciclandoLogo} style={styles.logo} />
+          <Image source={reciclandoLogo} style={isPhone ? styles.logo : styles.logoTablet} />
         </View>
         <View style={[styles.bottomContainer, ShadowStyles.shadow]}>
           {this.props.dataFetch.length > 0 ? (
