@@ -52,7 +52,7 @@ export default {
   weight: 'Weight ',
   baleButtonText: 'Edit bale ',
   bale: 'Bale ',
-  moreContent: 'Tap for next 10',
+  moreContent: 'Tap for next 10 ',
 
   // Common Modal
   acceptModal: 'Accept ',
