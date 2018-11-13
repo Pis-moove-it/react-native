@@ -128,6 +128,7 @@ export default {
   errorNetwork: 'Unable to connect, try again later ',
   errorEditBale: 'Unable to edit bale, try again later ',
   errorNewBale: 'Unable to create bale, try again later ',
+  errorCollection: 'Invalid collection information ',
 
   // Map
   endTravel: 'Complete trip ',

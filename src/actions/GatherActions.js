@@ -6,13 +6,16 @@ export const actionTypes = {
   START_COLLECTION_REQUEST: 'START_COLLECTION_REQUEST',
   START_COLLECTION_SUCCESS: 'START_COLLECTION_SUCCESS',
   START_COLLECTION_ERROR: 'START_COLLECTION_ERROR',
+  END_COLLECTION: 'END_COLLECTION',
   END_COLLECTION_REQUEST: 'END_COLLECTION_REQUEST',
   END_COLLECTION_SUCCESS: 'END_COLLECTION_SUCCESS',
   END_COLLECTION_ERROR: 'END_COLLECTION_ERROR',
+  GET_CONTAINERS: 'GET_CONTAINERS',
   GET_CONTAINERS_REQUEST: 'GET_CONTAINERS_REQUEST',
   GET_CONTAINERS_SUCCESS: 'GET_CONTAINERS_SUCCESS',
   GET_CONTAINERS_ERROR: 'GET_CONTAINERS_ERROR',
   SET_CONTAINER_ID: 'SET_CONTAINER_ID',
+  CREATE_EVENT: 'CREATE_EVENT',
   CREATE_EVENT_REQUEST: 'CREATE_EVENT_REQUEST',
   CREATE_EVENT_SUCCESS: 'CREATE_EVENT_SUCCESS',
   CREATE_EVENT_ERROR: 'CREATE_EVENT_ERROR',
@@ -111,11 +114,18 @@ export const startCollection = token => async (dispatch) => {
   }
 };
 
-export const endCollection = (token, routeId, routeLength, routeImage) => async (dispatch) => {
+export const endCollection = (
+  token,
+  routeId,
+  routeLength,
+  routeImage,
+  pocketCounter,
+) => async (dispatch) => {
   dispatch(endCollectionRequest());
   try {
     await GatherController.endCollection(token, routeId, routeLength, routeImage);
-    dispatch(endCollectionSuccess());
+    await dispatch(endCollectionSuccess());
+    dispatch(finishTravel(routeImage, routeLength, pocketCounter));
   } catch (error) {
     dispatch(endCollectionError(error.message));
   }

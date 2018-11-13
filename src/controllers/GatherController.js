@@ -31,7 +31,7 @@ class GatherController {
         })
         .catch((error) => {
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
-          else reject(new Error(strings.errorUser));
+          else reject(new Error(strings.error));
         });
     });
 
@@ -56,7 +56,7 @@ class GatherController {
         })
         .catch((error) => {
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
-          else reject(new Error(strings.errorUser));
+          else reject(new Error(strings.error));
         });
     });
 
@@ -76,12 +76,15 @@ class GatherController {
             },
           },
         )
-        .then(() => {
-          resolve({});
+        .then((response) => {
+          resolve({
+            identifier: response.data,
+          });
         })
         .catch((error) => {
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
-          else reject(new Error(strings.errorUser));
+          else if (error.message.includes('400')) reject(new Error(strings.errorCollection));
+          else reject(new Error(strings.error));
         });
     });
 
@@ -134,7 +137,7 @@ class GatherController {
         })
         .catch((error) => {
           if (error.message.includes(Network)) reject(new Error(strings.errorNetwork));
-          else reject(new Error(strings.errorUser));
+          else reject(new Error(strings.error));
         });
     });
 }
