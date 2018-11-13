@@ -14,3 +14,4 @@ export const selectEventCoordinates = state => state.gather.eventCoordinates;
 export const isOverlayVisible = state => state.gather.isOverlayVisible;
 export const isOverlayLoading = state => state.gather.isOverlayLoading;
 export const getFinishSuccess = state => state.gather.finishSuccess;
+export const selectEventCreatedSuccess = state => state.gather.eventCreatedSuccess;

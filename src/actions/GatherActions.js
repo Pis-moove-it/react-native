@@ -21,6 +21,7 @@ export const actionTypes = {
   CREATE_EVENT_ERROR: 'CREATE_EVENT_ERROR',
   SET_EVENT_COORDINATES: 'SET_EVENT_COORDINATES',
   INCREMENT_POCKETS_EVENT: 'INCREMENT_POCKETS_EVENT',
+  ADD_EVENT_POINT: 'ADD_EVENT_POINT',
 };
 
 const travelFinished = (travelImage, kmsTraveled, pocketsCollected) => ({

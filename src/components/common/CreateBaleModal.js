@@ -1,63 +1,78 @@
 import React, { Component } from 'react';
-import { View, Text, Picker } from 'react-native';
+import { ActivityIndicator, View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
-import getIsModalVisible from '../../selectors/CreateBaleModalSelector';
+import getIsModalVisible, { isLoading } from '../../selectors/CreateBaleModalSelector';
 import { closeCreateBaleModal, newBale, actionTypes } from '../../actions/CreateBaleModalActions';
 import strings from '../../localization';
 import ErrorView from '../common/ErrorView';
 import { errorsSelector } from '../../selectors/ErrorSelector';
+import getBales, { getNewBales } from '../../selectors/BalesSelector';
+import Colors from '../../helpers/Colors';
 import Button from './Button';
 import TextField from './TextField';
 import recyclabeleMaterials from './Constants';
 import styles from './styles';
 
 class CreateBaleModal extends Component {
+  static getDerivedStateFromProps(props, state) {
+    if (!props.isModalVisible) {
+      return {
+        state,
+        selectedMaterial: false,
+      };
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
     this.materials = recyclabeleMaterials;
-  }
 
-  state = {
-    selectedMaterial: false,
-    newWeight: 0,
-    inputError: true,
-    error: [],
-  };
+    this.state = {
+      selectedMaterial: false,
+      newWeight: false,
+      inputError: true,
+      error: [],
+    };
+  }
 
   getMaterials() {
     const pickerMaterial = [];
     pickerMaterial.push(<Picker.Item key={999} label={strings.selectMaterial} value={false} />);
     this.materials.map((material) => {
-      pickerMaterial.push(<Picker.Item
-        key={material.id}
-        label={material.name}
-        value={material.value}
-      />);
+      pickerMaterial.push(<Picker.Item key={material.id} label={material.name} value={material.value} />);
     });
     return pickerMaterial;
   }
 
   acceptEdit = () => {
+    this.setState({ error: [] });
     if (this.state.newWeight > 0) {
       if (this.state.selectedMaterial) {
-        this.props.newBale(this.props.token, this.state.newWeight, this.state.selectedMaterial);
+        this.props.newBale(
+          this.props.token,
+          this.props.bales,
+          this.state.newWeight,
+          this.state.selectedMaterial,
+          this.props.newBales + 1,
+        );
       } else {
-        this.setState({ inputError: true });
-        this.setState({ error: [strings.invalidInputType] });
+        this.setState({ error: [strings.invalidInputType], inputError: true });
       }
     } else {
-      this.setState({ inputError: true });
-      this.setState({ error: [strings.invalidInputNumber] });
+      this.setState({ error: [strings.invalidInputNumber], inputError: true });
     }
   };
 
   closeModal = () => {
-    this.setState({ inputError: false });
-    this.setState({ newWeight: 0 });
-    this.setState({ selectedMaterial: false });
-    this.setState({ error: [] });
+    this.setState({
+      error: [],
+      inputError: false,
+      newWeight: false,
+      selectedMaterial: false,
+    });
     this.props.closeCreateBaleModal();
   };
 
@@ -73,7 +88,7 @@ class CreateBaleModal extends Component {
           <View style={styles.modalTitleContainer}>
             <Text style={styles.modalTitle}>{strings.createBale}</Text>
           </View>
-          <View>
+          <View style={styles.textFieldView}>
             <TextField
               placeholder={strings.weighPlaceholderModal}
               keyboardType="numeric"
@@ -87,14 +102,22 @@ class CreateBaleModal extends Component {
             >
               {this.getMaterials()}
             </Picker>
+          </View>
+          <View>
             {this.state.inputError && <ErrorView errors={this.state.error} />}
             <ErrorView errors={errors} />
-            <Button
-              style={styles.buttonModal}
-              textStyle={styles.text}
-              title={strings.acceptModal}
-              onPress={this.acceptEdit}
-            />
+            {this.props.isLoading && errors.length < 1 ? (
+              <View style={styles.activityIndicator}>
+                <ActivityIndicator size="large" color={Colors.primary} />
+              </View>
+            ) : (
+              <Button
+                style={styles.buttonModal}
+                textStyle={styles.text}
+                title={strings.acceptModal}
+                onPress={this.acceptEdit}
+              />
+            )}
           </View>
         </View>
       </Modal>
@@ -103,27 +126,29 @@ class CreateBaleModal extends Component {
 }
 
 CreateBaleModal.propTypes = {
+  bales: PropTypes.array.isRequired,
   closeCreateBaleModal: PropTypes.func.isRequired,
-  errors: PropTypes.array,
+  errors: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   isModalVisible: PropTypes.bool.isRequired,
   newBale: PropTypes.func.isRequired,
-  token: PropTypes.string,
-};
-
-CreateBaleModal.defaultProps = {
-  errors: [],
-  token: false,
+  newBales: PropTypes.number.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
+  bales: getBales(state),
   errors: errorsSelector([actionTypes.CREATE_BALE])(state),
+  isLoading: isLoading(state),
   isModalVisible: getIsModalVisible(state),
+  newBales: getNewBales(state),
   token: state.login.token,
 });
 
 const mapDispatchToProps = dispatch => ({
   closeCreateBaleModal: () => dispatch(closeCreateBaleModal()),
-  newBale: (token, weight, material) => dispatch(newBale(token, weight, material)),
+  newBale: (token, bales, weight, material, newBales) =>
+    dispatch(newBale(token, bales, weight, material, newBales)),
 });
 
 export default connect(

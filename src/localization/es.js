@@ -63,10 +63,10 @@ export default {
   invalidInputId: 'Por favor ingrese un identificador válido ',
   invalidInputType: 'Por favor ingrese un tipo de material válido ',
 
-  // Change Isle State Modal
-  changeStateIsleTitle: 'Cambiar estado de la Isla ',
-  selectState: 'Seleccione un nuevo estado ',
-  invalidInputState: 'Por favor ingrese un estado válido ',
+  // Change Container Status Modal
+  changeContainerStatusTitle: 'Cambiar estado de la Isla ',
+  selectStatus: 'Seleccione un nuevo estado ',
+  invalidInputStatus: 'Por favor ingrese un estado válido ',
   ok: 'OK ',
   damaged: 'Dañado ',
   removed: 'Removido ',
@@ -112,7 +112,7 @@ export default {
   collectionPoint: 'Punto de recolección ',
 
   // Gather option modal
-  changeStateIsle: 'Cambiar estado ',
+  changeContainerStatus: 'Cambiar estado ',
   newPocket: 'Agregar bolsón ',
   optionsModalGather: 'Opciones ',
 
@@ -129,6 +129,7 @@ export default {
   errorEditBale: 'No se pudo editar el fardo, intente nuevamente ',
   errorNewBale: 'No se pudo crear el fardo, intente nuevamente ',
   errorCollection: 'Error en la información del recorrido ',
+  errorChangeContainerStatus: 'No se pudo cambiar el estado del contenedor, intente nuevamente ',
 
   // Map
   endTravel: 'Terminar recorrido ',

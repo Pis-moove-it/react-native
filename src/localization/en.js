@@ -63,10 +63,10 @@ export default {
   invalidInputId: 'Please enter a valid ID ',
   invalidInputType: 'Please enter a valid material type ',
 
-  // Change Isle State Modal
-  changeStateIsleTitle: 'Change isle state ',
-  selectState: 'Select a new state ',
-  invalidInputState: 'Please enter a valid state ',
+  // Change Container Status Modal
+  changeContainerStatusTitle: 'Change container state ',
+  selectStatus: 'Select a new state ',
+  invalidInputStatus: 'Please enter a valid state ',
   ok: 'OK ',
   damaged: 'Damaged ',
   removed: 'Removed ',
@@ -112,7 +112,7 @@ export default {
   collectionPoint: 'Collection point ',
 
   // Gather option modal
-  changeStateIsle: 'Change state ',
+  changeContainerStatus: 'Change state ',
   newPocket: 'New pocket ',
   optionsModalGather: 'Options ',
 
@@ -129,6 +129,7 @@ export default {
   errorEditBale: 'Unable to edit bale, try again later ',
   errorNewBale: 'Unable to create bale, try again later ',
   errorCollection: 'Invalid collection information ',
+  errorChangeContainerStatus: 'Unabble to change the container status, try again later ',
 
   // Map
   endTravel: 'Complete trip ',
