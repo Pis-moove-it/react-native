@@ -38,6 +38,7 @@ import {
   selectPocketCounter,
   selectIsLoadingEvent,
   selecteventId,
+  selectEventCreatedSuccess,
 } from '../../selectors/GatherSelector';
 import ChangeContainerStatusModal from '../common/ChangeContainerStatusModal';
 import { openChangeContainerStatusModal } from '../../actions/ContainerStatusActions';
@@ -117,6 +118,12 @@ class Gather extends Component {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.eventCreatedSuccess === false && nextProps.eventCreatedSuccess === true) {
+      this.generateEvent();
+    }
+  }
+
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchId);
     this.backHandler.remove();
@@ -159,7 +166,6 @@ class Gather extends Component {
     this.toggleAddEventModal();
     this.props.setEventCoordinates(e.geometry.coordinates);
     this.setState({ eventCoordinates: e.geometry.coordinates });
-    this.setState({ showEvents: true });
   };
 
   calcDistance(newLatLng) {
@@ -252,23 +258,21 @@ class Gather extends Component {
       <TouchableOpacity>
         <Image source={eventContainerImage} style={stylesGather.trashIcon} />
       </TouchableOpacity>
-    </Mapbox.PointAnnotation>);
+                              </Mapbox.PointAnnotation>);
     return this.state.eventList;
   };
 
   renderContainers = containers =>
-    containers.map((container) => {
-      return (
-        <Mapbox.PointAnnotation
-          id={container.id.toString()}
-          coordinate={[Number(container.longitude), Number(container.latitude)]}
-        >
-          <TouchableOpacity onPress={() => this.toggleOptionModal(container.id)}>
-            <Image source={icon} style={stylesGather.trashIcon} />
-          </TouchableOpacity>
-        </Mapbox.PointAnnotation>
-      );
-    });
+    containers.map(container => (
+      <Mapbox.PointAnnotation
+        id={container.id.toString()}
+        coordinate={[Number(container.longitude), Number(container.latitude)]}
+      >
+        <TouchableOpacity onPress={() => this.toggleOptionModal(container.id)}>
+          <Image source={icon} style={stylesGather.trashIcon} />
+        </TouchableOpacity>
+      </Mapbox.PointAnnotation>
+    ));
 
   render() {
     return (
@@ -319,8 +323,7 @@ class Gather extends Component {
           style={stylesGather.mapContainer}
         >
           {!this.props.loading && this.renderContainers(this.props.containers)}
-
-          {!this.props.isCreatingEvent && this.state.showEvents && this.generateEvent()}
+          {this.state.eventList}
         </Mapbox.MapView>
       </View>
     );
@@ -348,6 +351,7 @@ Gather.propTypes = {
   isCreatingEvent: PropTypes.bool.isRequired,
   eventId: PropTypes.number.isRequired,
   setEventCoordinates: PropTypes.func.isRequired,
+  eventCreatedSuccess: PropTypes.bool.isRequired,
 };
 
 Gather.defaultProps = {
@@ -366,6 +370,7 @@ const mapStateToProps = state => ({
   pocketCounter: selectPocketCounter(state),
   isCreatingEvent: selectIsLoadingEvent(state),
   eventId: selecteventId(state),
+  eventCreatedSuccess: selectEventCreatedSuccess(state),
 });
 
 const mapDispatchToProps = dispatch => ({
