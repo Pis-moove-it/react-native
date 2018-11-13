@@ -19,7 +19,6 @@ import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import getUser from '../../selectors/UserSelector';
 import getRole from '../../selectors/RoleSelector';
 import getCollection from '../../selectors/RouteSelector';
-import Platform from '../../helpers/Platform';
 import Colors from '../../helpers/Colors';
 import icon from '../../assets/images/MapPointIcon.png';
 import Logo01 from '../../assets/images/Logo01.png';
@@ -70,7 +69,6 @@ class Gather extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      landscape: Platform.isLandscape(),
       coordinates: { coords: [] },
       distanceTravelled: 0,
       prevLatLng: null,
@@ -87,7 +85,7 @@ class Gather extends Component {
   }
 
   componentDidMount() {
-    if (isTablet || this.state.landscape) {
+    if (isTablet) {
       this.setButtonsTablet(this.props.user);
     }
 
@@ -149,12 +147,6 @@ class Gather extends Component {
             icon: user128,
             style: { color: Colors.white, width: 170 },
             textStyle: { margin: 10 },
-            onPress: () =>
-              this.props.navigator.push({
-                screen: Screens.Profile,
-                animationType: 'fade',
-                title: strings.profile,
-              }),
           },
         },
       ],
