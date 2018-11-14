@@ -117,7 +117,7 @@ class GatherController {
               description: `${description}`,
             },
             collection: {
-              pockets_attributes: pockets,
+              pockets_attributes: [{ serial_number: pockets }],
             },
           },
           {

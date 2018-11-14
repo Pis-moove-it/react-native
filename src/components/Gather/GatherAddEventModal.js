@@ -23,26 +23,15 @@ class AddEventModal extends Component {
     descriptionSubmitted: false,
   };
 
-  acceptEdit = () => {
-    if (this.state.identifier > 0) {
-      this.setState(prevState => ({
-        pocketsFromEvent: [...prevState.pocketsFromEvent, { serial_number: this.state.identifier }],
-        identifier: 0,
-      }));
-    } else {
-      this.setState({ inputError: true });
-      this.setState({ errors: [strings.invalidInputId] });
-    }
-  };
-
   closeModal = () => {
     this.props.createExtraEvent(
       this.props.token,
       this.props.collectionId,
       this.state.description,
-      this.state.pocketsFromEvent,
+      this.state.identifier,
       this.props.eventCoordinates,
     );
+
     // connect to backend
     // resets state so further calls wont interfere with next ones
     this.setState({ inputError: false });
@@ -52,6 +41,11 @@ class AddEventModal extends Component {
     this.setState({ errors: [] });
     this.setState({ descriptionSubmitted: false });
     this.props.toggleModal();
+  };
+
+  acceptAndClose = () => {
+    // this.acceptEdit();
+    this.closeModal();
   };
 
   renderModal = (description) => {
@@ -66,20 +60,12 @@ class AddEventModal extends Component {
             onChangeText={value => this.setState({ identifier: value })}
           />
           <View style={stylesGather.modalButtonContainer}>
-            <View style={{ paddingRight: 10 }}>
+            <View>
               <CustomButton
                 style={stylesGather.buttonModalConfirmExit}
                 textStyle={stylesGather.textButton}
                 title={strings.acceptModal}
-                onPress={this.closeModal}
-              />
-            </View>
-            <View style={{ paddingLeft: 10 }}>
-              <CustomButton
-                style={stylesGather.buttonModalConfirmExit}
-                textStyle={stylesGather.textButton}
-                title={strings.keepOnAdding}
-                onPress={this.acceptEdit}
+                onPress={this.acceptAndClose}
               />
             </View>
           </View>
