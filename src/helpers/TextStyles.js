@@ -16,6 +16,11 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Colors.primary,
   },
+  fieldTitleTablet: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: Colors.primary,
+  },
   error: {
     fontSize: 14,
     color: Colors.red,

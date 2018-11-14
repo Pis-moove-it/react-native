@@ -105,11 +105,11 @@ const styles = StyleSheet.create({
     width: 100,
   },
   textGrayTablet: {
-    fontSize: 14,
+    fontSize: 20,
     color: 'gray',
   },
   textBlackTablet: {
-    fontSize: 14,
+    fontSize: 20,
     color: 'black',
   },
   containerItemTablet: {
@@ -122,11 +122,15 @@ const styles = StyleSheet.create({
   },
   tabletButtonText: {
     color: Colors.white,
-    fontSize: 17,
+    fontSize: 22,
   },
   tabletHeaderButton: {
     color: Colors.white,
     width: 170,
+  },
+  tabletHeaderText: {
+    margin: 10,
+    fontSize: 16,
   },
 
   // Modal styles

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { isPhone } from 'react-native-device-detection';
 import Button from '../common/Button';
 import TextField from '../common/TextField';
 import ErrorView from '../common/ErrorView';
@@ -11,7 +12,6 @@ import TextStyles from '../../helpers/TextStyles';
 import strings from '../../localization';
 import { login, actionTypes } from '../../actions/LoginActions';
 import { errorsSelector } from '../../selectors/ErrorSelector';
-import { Screens } from '../Navigation';
 import Application from '../../Application';
 import styles from './styles';
 
@@ -45,17 +45,23 @@ class Login extends Component {
     return (
       <View style={styles.container}>
         <View style={[styles.formContainer, ShadowStyles.shadow]}>
-          <Text style={TextStyles.fieldTitle}>{strings.organization}</Text>
+          <Text style={isPhone ? TextStyles.fieldTitle : TextStyles.fieldTitleTablet}>
+            {strings.organization}
+          </Text>
           <TextField
             placeholder={strings.organization}
             onChangeText={this.organizationChanged}
             value={this.state.organization}
+            style={isPhone ? styles.textField : styles.textFieldTablet}
           />
-          <Text style={TextStyles.fieldTitle}>{strings.password}</Text>
+          <Text style={isPhone ? TextStyles.fieldTitle : TextStyles.fieldTitleTablet}>
+            {strings.password}
+          </Text>
           <TextField
             placeholder={strings.password}
             value={this.state.password}
             onChangeText={this.passwordChanged}
+            style={isPhone ? styles.textField : styles.textFieldTablet}
             secureTextEntry
           />
           <ErrorView errors={errors} />
@@ -64,7 +70,12 @@ class Login extends Component {
               <ActivityIndicator size="large" color={Colors.primary} />
             </View>
           ) : (
-            <Button onPress={this.state.organization ? this.login : null} title={strings.login} />
+            <Button
+              onPress={this.state.organization ? this.login : null}
+              title={strings.login}
+              style={isPhone ? styles.button : styles.buttonTablet}
+              textStyle={isPhone ? styles.buttonText : styles.buttonTextTablet}
+            />
           )}
         </View>
       </View>
@@ -75,7 +86,6 @@ class Login extends Component {
 Login.propTypes = {
   login: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
-  navigator: PropTypes.object.isRequired,
   organization: PropTypes.object,
   errors: PropTypes.array,
 };
