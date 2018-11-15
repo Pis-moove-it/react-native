@@ -54,16 +54,6 @@ import stylesGather from './styles';
 Mapbox.setAccessToken('pk.eyJ1IjoicXFtZWxvIiwiYSI6ImNqbWlhOXh2eDAwMHMzcm1tNW1veDNmODYifQ.vOmFAXiikWFJKh3DpmsPDA');
 
 class Gather extends Component {
-  static getDerivedStateFromProps(props, state) {
-    if (props.finishSuccess) {
-      props.navigator.push({
-        screen: Screens.TravelFinished,
-        animationType: 'fade',
-      });
-    }
-    return null;
-  }
-
   static navigatorStyle = {
     navBarHidden: false,
     navBarBackgroundColor: Colors.primary,
@@ -133,6 +123,11 @@ class Gather extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.eventCreatedSuccess === false && nextProps.eventCreatedSuccess === true) {
       this.generateEvent();
+    } else if (this.props.finishSuccess) {
+      this.props.navigator.push({
+        screen: Screens.TravelFinished,
+        animationType: 'fade',
+      });
     }
   }
 
