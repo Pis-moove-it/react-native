@@ -52,7 +52,7 @@ export default {
   weight: 'Peso ',
   baleButtonText: 'Editar fardo ',
   bale: 'Fardo ',
-  moreContent: 'Presione para los próximos 10',
+  moreContent: 'Presione para los próximos 10 ',
 
   // Common Modal
   acceptModal: 'Aceptar ',
@@ -128,6 +128,7 @@ export default {
   errorNetwork: 'No se pudo establecer una conexión, intente nuevamente ',
   errorEditBale: 'No se pudo editar el fardo, intente nuevamente ',
   errorNewBale: 'No se pudo crear el fardo, intente nuevamente ',
+  errorCollection: 'Error en la información del recorrido ',
   errorChangeContainerStatus: 'No se pudo cambiar el estado del contenedor, intente nuevamente ',
 
   // Map

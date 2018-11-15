@@ -52,7 +52,7 @@ export default {
   weight: 'Weight ',
   baleButtonText: 'Edit bale ',
   bale: 'Bale ',
-  moreContent: 'Tap for next 10',
+  moreContent: 'Tap for next 10 ',
 
   // Common Modal
   acceptModal: 'Accept ',
@@ -128,6 +128,7 @@ export default {
   errorNetwork: 'Unable to connect, try again later ',
   errorEditBale: 'Unable to edit bale, try again later ',
   errorNewBale: 'Unable to create bale, try again later ',
+  errorCollection: 'Invalid collection information ',
   errorChangeContainerStatus: 'Unabble to change the container status, try again later ',
 
   // Map

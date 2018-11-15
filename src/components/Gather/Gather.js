@@ -5,15 +5,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isTablet } from 'react-native-device-detection';
 import haversine from 'haversine';
+import ErrorView from '../common/ErrorView';
+import { errorsSelector } from '../../selectors/ErrorSelector';
 import { changeRole } from '../../actions/RoleActions';
 import {
-  finishTravel,
   startCollection,
   getContainers,
+  cancelCollection,
   endCollection,
   setContainerId,
   createExtraEvent,
   setEventCoordinates,
+  actionTypes,
 } from '../../actions/GatherActions';
 import { openCreatePocketModal } from '../../actions/CreatePocketModalActions';
 import getUser from '../../selectors/UserSelector';
@@ -37,6 +40,7 @@ import {
   selectPocketCounter,
   selectIsLoadingEvent,
   selecteventId,
+  getFinishSuccess,
   selectEventCreatedSuccess,
 } from '../../selectors/GatherSelector';
 import ChangeContainerStatusModal from '../common/ChangeContainerStatusModal';
@@ -119,6 +123,11 @@ class Gather extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.eventCreatedSuccess === false && nextProps.eventCreatedSuccess === true) {
       this.generateEvent();
+    } else if (this.props.finishSuccess) {
+      this.props.navigator.push({
+        screen: Screens.TravelFinished,
+        animationType: 'fade',
+      });
     }
   }
 
@@ -130,7 +139,7 @@ class Gather extends Component {
   onNavigatorEvent(event) {
     if (event.id === 'logo') {
       this.toggleConfirmExitModal(() => {
-        this.finishTravel();
+        this.cancelTravel();
         this.changeRole();
       });
     }
@@ -174,7 +183,7 @@ class Gather extends Component {
 
   backButtonPressOverride = () => {
     this.toggleConfirmExitModal(() => {
-      this.finishTravel();
+      this.cancelTravel();
       this.changeRole();
     });
     return true;
@@ -216,30 +225,27 @@ class Gather extends Component {
     this.props.navigator.pop();
   };
 
+  cancelTravel = () => {
+    this.props.cancelCollection();
+  };
+
   finishTravel = () => {
     this.setState({ finish: true });
+
+    let distanceTravelled;
     if (this.state.distanceTravelled === 0) {
-      this.setState({ distanceTravelled: 0.01 });
+      distanceTravelled = 0.01;
+    } else {
+      distanceTravelled = this.state;
     }
+
     this.props.endCollection(
       this.props.token,
       this.props.collectionId,
-      this.state.distanceTravelled,
+      distanceTravelled,
       this.state.coordinates.coords,
-    );
-    this.props.finishTravel(
-      this.state.coordinates.coords,
-      this.state.distanceTravelled,
       this.props.pocketCounter,
     );
-  };
-
-  completeTravel = () => {
-    this.finishTravel();
-    this.props.navigator.push({
-      screen: Screens.TravelFinished,
-      animationType: 'fade',
-    });
   };
 
   generateEvent = () => {
@@ -272,8 +278,10 @@ class Gather extends Component {
     ));
 
   render() {
+    const { errors } = this.props;
     return (
       <View style={stylesGather.mapContainer}>
+        <ErrorView errors={errors} />
         {!this.state.finish && !this.props.isTravelling && (
           <GatherOverlay startCollection={() => this.props.startCollection(this.props.token)} />
         )}
@@ -285,7 +293,7 @@ class Gather extends Component {
           textStyle={
             isTablet ? stylesGather.textButtonOverMapTablet : stylesGather.textButtonOverMapPhone
           }
-          onPress={this.completeTravel}
+          onPress={this.finishTravel}
         />
 
         <CreatePocketModal
@@ -328,13 +336,14 @@ class Gather extends Component {
 }
 
 Gather.propTypes = {
+  cancelCollection: PropTypes.func.isRequired,
+  errors: PropTypes.array.isRequired,
   changeRole: PropTypes.func.isRequired,
-  finishTravel: PropTypes.func.isRequired,
   endCollection: PropTypes.func.isRequired,
   openCreatePocketModal: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   startCollection: PropTypes.func.isRequired,
-  token: PropTypes.string,
+  token: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   collectionId: PropTypes.string.isRequired,
   containers: PropTypes.array.isRequired,
@@ -348,14 +357,12 @@ Gather.propTypes = {
   isCreatingEvent: PropTypes.bool.isRequired,
   eventId: PropTypes.number.isRequired,
   setEventCoordinates: PropTypes.func.isRequired,
+  finishSuccess: PropTypes.bool.isRequired,
   eventCreatedSuccess: PropTypes.bool.isRequired,
 };
 
-Gather.defaultProps = {
-  token: false,
-};
-
 const mapStateToProps = state => ({
+  errors: errorsSelector([actionTypes.END_COLLECTION])(state),
   role: getRole(state),
   user: getUser(state),
   token: state.login.token,
@@ -367,15 +374,15 @@ const mapStateToProps = state => ({
   pocketCounter: selectPocketCounter(state),
   isCreatingEvent: selectIsLoadingEvent(state),
   eventId: selecteventId(state),
+  finishSuccess: getFinishSuccess(state),
   eventCreatedSuccess: selectEventCreatedSuccess(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   changeRole: () => dispatch(changeRole()),
-  finishTravel: (coordinates, distanceTravelled, pocketCounter) =>
-    dispatch(finishTravel(coordinates, distanceTravelled, pocketCounter)),
-  endCollection: (token, routeId, routeLength, routeImage) =>
-    dispatch(endCollection(token, routeId, routeLength, routeImage)),
+  cancelCollection: () => dispatch(cancelCollection()),
+  endCollection: (token, routeId, routeLength, routeImage, pocketCounter) =>
+    dispatch(endCollection(token, routeId, routeLength, routeImage, pocketCounter)),
   openCreatePocketModal: () => dispatch(openCreatePocketModal()),
   startCollection: token => dispatch(startCollection(token)),
   getContainers: token => dispatch(getContainers(token)),

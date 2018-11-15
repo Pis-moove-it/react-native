@@ -13,6 +13,9 @@ export const initialState = {
   isTravelling: false,
   pocketCounter: 0,
   isLoadingEvent: false,
+  isOverlayVisible: true,
+  isOverlayLoading: false,
+  finishSuccess: false,
   eventId: false,
   eventCoordinates: false,
   eventCreatedSuccess: false,
@@ -26,19 +29,48 @@ const gatherReducer = (state = initialState, action) => {
         travelImage: action.travelImage,
         kmsTraveled: action.kmsTraveled,
         pocketsCollected: action.pocketsCollected,
+        isOverlayVisible: true,
+        finishSuccess: false,
+      };
+    case actionTypes.CANCEL_COLLECTION_REQUEST:
+      return {
+        ...state,
+        travelImage: false,
+        kmsTraveled: 0,
+        pocketsCollected: 0,
+        collectionId: false,
+        isLoading: false,
+        containers: [],
+        isLoadingContainers: false,
+        containerIdSelected: null,
+        isTravelling: false,
+        pocketCounter: 0,
+        isLoadingEvent: false,
+        isOverlayVisible: true,
+        isOverlayLoading: false,
+        finishSuccess: false,
+        eventId: false,
+        eventCoordinates: false,
+        eventCreatedSuccess: false,
       };
     case actionTypes.START_COLLECTION_REQUEST:
       return {
         ...state,
         collectionId: false,
-        isLoading: true,
-        isTravelling: true,
+        isOverlayLoading: true,
       };
     case actionTypes.START_COLLECTION_SUCCESS:
       return {
         ...state,
         collectionId: action.identifier,
-        isLoading: false,
+        isOverlayLoading: false,
+        isOverlayVisible: false,
+        isTravelling: true,
+      };
+    case actionTypes.START_COLLECTION_ERROR:
+      return {
+        ...state,
+        isOverlayLoading: false,
       };
     case createPocketActionTypes.ADD_POCKET_REQUEST:
       return {
@@ -68,6 +100,12 @@ const gatherReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         pocketCounter: 0,
+        finishSuccess: true,
+      };
+    case actionTypes.END_COLLECTION_ERROR:
+      return {
+        ...state,
+        isLoading: false,
       };
     case actionTypes.GET_CONTAINERS_REQUEST:
       return {

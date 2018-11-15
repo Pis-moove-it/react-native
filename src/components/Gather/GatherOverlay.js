@@ -10,13 +10,12 @@ import Button from '../common/Button';
 import ErrorView from '../common/ErrorView';
 import { errorsSelector } from '../../selectors/ErrorSelector';
 import { actionTypes } from '../../actions/GatherActions';
+import { isOverlayLoading, isOverlayVisible } from '../../selectors/GatherSelector';
 import { transformTime, transformDay, transformMonth } from '../../helpers/DateFormatter';
 import stylesGather from './styles';
 
 class ModalTester extends Component {
-  state = {
-    isModalVisible: true,
-  };
+  state = {};
 
   componentDidMount() {
     setInterval(() => {
@@ -33,13 +32,12 @@ class ModalTester extends Component {
 
   toggleModal = () => {
     this.props.startCollection();
-    this.setState({ isModalVisible: false });
   };
 
   render() {
     const { errors } = this.props;
     return (
-      <Modal isVisible={this.state.isModalVisible || !(!this.props.isLoading && errors.length < 1)}>
+      <Modal isVisible={this.props.isOverlayVisible}>
         <View style={stylesGather.container}>
           {this.state.currentDay == null ? (
             <View style={stylesGather.activityIndicator}>
@@ -61,12 +59,18 @@ class ModalTester extends Component {
                 {`${this.state.currentYear}`}
               </Text>
               <ErrorView errors={errors} />
-              <Button
-                style={isTablet ? stylesGather.buttonTablet : stylesGather.button}
-                textStyle={isTablet ? stylesGather.textButtonTablet : stylesGather.text}
-                title={strings.startTravel}
-                onPress={this.toggleModal}
-              />
+              {this.props.isOverlayLoading && errors.length < 1 ? (
+                <View style={stylesGather.activityIndicator}>
+                  <ActivityIndicator size="large" color={Colors.primary} />
+                </View>
+              ) : (
+                <Button
+                  style={isTablet ? stylesGather.buttonTablet : stylesGather.button}
+                  textStyle={isTablet ? stylesGather.textButtonTablet : stylesGather.text}
+                  title={strings.startTravel}
+                  onPress={this.toggleModal}
+                />
+              )}
             </View>
           )}
         </View>
@@ -76,18 +80,15 @@ class ModalTester extends Component {
 }
 
 ModalTester.propTypes = {
+  errors: PropTypes.array.isRequired,
+  isOverlayLoading: PropTypes.bool.isRequired,
+  isOverlayVisible: PropTypes.bool.isRequired,
   startCollection: PropTypes.func.isRequired,
-  errors: PropTypes.array,
-  isLoading: PropTypes.bool,
-};
-
-ModalTester.defaultProps = {
-  errors: [],
-  isLoading: false,
 };
 
 const mapStateToProps = state => ({
-  isLoading: state.gather.isLoading,
+  isOverlayLoading: isOverlayLoading(state),
+  isOverlayVisible: isOverlayVisible(state),
   errors: errorsSelector([actionTypes.START_COLLECTION])(state),
 });
 
