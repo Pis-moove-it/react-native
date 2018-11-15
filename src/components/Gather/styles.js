@@ -154,6 +154,24 @@ const stylesGather = StyleSheet.create({
     fontSize: 15,
     color: Colors.white,
   },
+
+  // Tablet
+  overlayTimeTextTablet: {
+    color: Colors.white,
+    fontSize: 100,
+  },
+  overlayDayTextTablet: {
+    color: Colors.white,
+    fontSize: 30,
+  },
+  buttonTablet: {
+    justifyContent: 'center',
+    height: 80,
+  },
+  textButtonTablet: {
+    fontSize: 30,
+    fontWeight: '700',
+  },
 });
 
 export default stylesGather;

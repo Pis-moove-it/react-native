@@ -27,12 +27,14 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   textButton: {
-    flex: 1,
+    // flex: 1,
+    // color: Colors.white,
+    // fontSize: 13,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // margin: '5%',
     color: Colors.white,
-    fontSize: 13,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '5%',
+    fontSize: 17,
   },
   pocketImageStylePhone: {
     height: 60,
@@ -109,43 +111,49 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingTop: 5,
   },
-  tabletButton: {
-    backgroundColor: Colors.primary,
-  },
-  tabletBlueButton: {
-    backgroundColor: Colors.secondary,
-  },
   pocketImageStyleTablet: {
     height: 100,
     width: 100,
   },
   textGrayTablet: {
-    fontSize: 14,
+    fontSize: 20,
     color: 'gray',
   },
   textBlackTablet: {
-    fontSize: 14,
+    fontSize: 20,
     color: 'black',
   },
   containerItemTablet: {
     flex: 1,
     paddingLeft: 10,
   },
-  containerButtonTablet: {
-    flex: 2,
+  containerDateItemTablet: {
+    flex: 1.5,
     paddingLeft: 10,
-    paddingEnd: 10,
   },
   wrapperButtonTablet: {
     flex: 2,
     flexDirection: 'row',
     paddingLeft: 10,
   },
-  buttonText: {
-    color: Colors.white,
-    fontSize: 17,
+  containerButtonTablet: {
+    flex: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
-
+  tabletButton: {
+    backgroundColor: Colors.primary,
+    marginBottom: '2%',
+  },
+  tabletBlueButton: {
+    backgroundColor: Colors.secondary,
+    marginBottom: '2%',
+  },
+  textButtonTablet: {
+    color: Colors.white,
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
   containerL: {
     flex: 1,
     justifyContent: 'center',

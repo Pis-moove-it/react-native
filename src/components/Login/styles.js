@@ -13,12 +13,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     backgroundColor: Colors.white,
-    marginHorizontal: 40,
+    marginHorizontal: '10%',
     padding: 20,
+  },
+  textField: {
+    fontSize: 14,
+  },
+  textFieldTablet: {
+    fontSize: 18,
   },
   activityIndicator: {
     alignSelf: 'center',
     justifyContent: 'center',
+  },
+  buttonText: {
+    color: Colors.primary,
+  },
+  buttonTextTablet: {
+    fontSize: 30,
+    color: Colors.primary,
   },
 });
 

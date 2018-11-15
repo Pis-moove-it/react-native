@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { isTablet } from 'react-native-device-detection';
 import getRole from '../../selectors/RoleSelector';
 import { getContainers } from '../../actions/GatherActions';
 import Button from '../common/Button';
@@ -67,24 +68,26 @@ class Roles extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{strings.roleSelectionTitle.toUpperCase()}</Text>
+          <Text style={isTablet ? styles.titleTablet : styles.title}>
+            {strings.roleSelectionTitle.toUpperCase()}
+          </Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button
             style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
-            textStyle={styles.textButton}
+            textStyle={isTablet ? styles.textButtonTablet : styles.textButton}
             onPress={this.selectGather}
             title={strings.gatherAction.toUpperCase()}
           />
           <Button
             style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
-            textStyle={styles.textButton}
+            textStyle={isTablet ? styles.textButtonTablet : styles.textButton}
             onPress={this.selectWeigh}
             title={strings.weighAction.toUpperCase()}
           />
           <Button
             style={this.state.portrait ? styles.portraitButton : styles.landscapeButton}
-            textStyle={styles.textButton}
+            textStyle={isTablet ? styles.textButtonTablet : styles.textButton}
             onPress={this.selectBale}
             title={strings.baleAction.toUpperCase()}
           />
